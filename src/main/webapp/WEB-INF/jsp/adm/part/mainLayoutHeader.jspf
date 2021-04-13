@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ include file="header.jspf"%>
+
+<header class="bg-white">
+	<div class="w-full flex justify-center hover:shadow-md border">
+		<div class="first-top container container-lg h-10 flex items-center justify-end text-gray-500">
+			<div class="ml-8"></div>
+			<a href="#" class="p-3 hover:text-gray-900">회원 관리</a>
+			<a>|</a>
+			<a href="#" class="p-3 hover:text-gray-900">게시판 관리</a>
+			<a>|</a>
+			<a href="#" class="p-3 hover:text-gray-900">로그아웃</a>
+			<div class="mr-8"></div>
+		</div>
+	</div>
+</header>
