@@ -1,1 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ArticleDao">
+	<select id="getArticles" resultType="Article">
+		select article.*, `member`.nickname from article 
+		left join `member` on article.uid = `member`.uid
+		where 1
+		<if test="boardCode != 0">
+			and boardCode = #{boardCode}
+		</if>
+		order by aid desc
+		limit 20
+	</select>
+</mapper>

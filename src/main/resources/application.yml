@@ -19,8 +19,8 @@ spring:
     username: root
     password:
 #    xml resultType 
-#mybatis:
-#  type-aliases-package: com.example.demo.dto
+mybatis:
+  type-aliases-package: com.example.demo.dto
 #    /xml resultTyp
 #    logback
 custom:

@@ -4,15 +4,54 @@
 <%@ include file="header.jspf"%>
 
 <header class="bg-white">
-	<div class="w-full flex justify-center hover:shadow-md border">
-		<div class="first-top container container-lg h-10 flex items-center justify-end text-gray-500">
-			<div class="ml-8"></div>
-			<a href="#" class="p-3 hover:text-gray-900">회원 관리</a>
-			<a>|</a>
-			<a href="#" class="p-3 hover:text-gray-900">게시판 관리</a>
-			<a>|</a>
-			<a href="#" class="p-3 hover:text-gray-900">로그아웃</a>
-			<div class="mr-8"></div>
-		</div>
+	<div class="flex justify-center hover:shadow-md border-b">
+		<nav
+			class="first-top h-10 flex items-center justify-end text-gray-500 text-sm w-full">
+			<ul class="flex">
+				<div class="ml-8"></div>
+				<li><a href="#" class="p-3 hover:text-gray-900"> <span>회원
+							관리</span>
+				</a></li>
+				<span>|</span>
+				<li><a href="#" class="p-3 hover:text-gray-900"> <span>게시판
+							관리</span>
+				</a></li>
+				<span>|</span>
+				<li><a href="#" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
+				</a></li>
+				<div class="mr-8"></div>
+			</ul>
+		</nav>
+	</div>
+	<div class="flex justify-center h-16 border-b hover:shadow-md mb-3">
+		<nav class="first-top flex items-center w-full">
+			<div class="flex justify-center w-68">
+				<a href="/adm/home/main"><span><i
+						class="logo-bar fas fa-seedling text-4xl">GARDEN<span
+							class="text-lg font-bold">ADMIN</span></i>
+					</span>
+				</a>
+			</div>
+			<ul class="flex items-center justify-end w-full text-xl">
+				<div class="ml-8"></div>
+				<li>
+					<a href="#" class="p-3 hover:text-gray-900"> 
+						<span>회원 관리</span>
+					</a>
+				</li>
+				<li>
+					<a href="../article/list" class="p-3 hover:text-gray-900"> 
+						<span>게시판 관리</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="p-3 hover:text-gray-900"> 
+						<span>로그아웃</span>
+					</a>
+				</li>
+				<div class="mr-8"></div>
+				<div class="flex bg-black w-0 lg:w-28 h-full"></div>
+			</ul>
+		</nav>
 	</div>
 </header>
