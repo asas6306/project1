@@ -13,9 +13,15 @@ public class ArticleService {
 	@Autowired
 	ArticleDao ad;
 	
-	public List<Article> getArticles(int boardCode) {
+	public List<Article> getArticles(int boardCode, int page, int pageCnt) {
+		page = (page - 1) * pageCnt; 
 		
-		return ad.getArticles(boardCode);
+		return ad.getArticles(boardCode, page, pageCnt);
+	}
+
+	public int getArticlesCnt(int boardCode) {
+			
+		return ad.getArticlesCnt(boardCode);
 	}
 	
 }

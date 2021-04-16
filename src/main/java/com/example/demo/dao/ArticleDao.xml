@@ -12,6 +12,14 @@
 			and boardCode = #{boardCode}
 		</if>
 		order by aid desc
-		limit 20
+		limit #{page}, 20
+	</select>
+	
+	<select id="getArticlesCnt" resultType="int">
+		select count(*) from article
+		where 1
+		<if test="boardCode != 0">
+			and boardCode = #{boardCode}
+		</if>
 	</select>
 </mapper>

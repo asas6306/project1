@@ -41,7 +41,25 @@
 				</ul>
 			</nav>
 		</div>
-		<form action="doSearchArticle" method="post" class="flex justify-center mt-4">
+		<div class="flex justify-center">
+			<div class="flex text-lg text-gray-700">
+				<a href="/adm/article/list?boardCode=${boardCode}&page=1" class="p-2 hover:text-black hover:underline">처음</a>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexDown}" class="p-2 hover:text-black hover:underline">이전</a>
+				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
+					<c:choose>
+						<c:when test="${printPageIndex == page"><!-- 여기부터 다시 해야댐. 값 비교를 어찌함.? -->
+							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}" class="p-2 text-black underline">${printPageIndex}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexUp}" class="p-2 hover:text-black hover:underline">다음</a>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000" class="p-2 hover:text-black hover:underline">끝</a>
+			</div>
+		</div>
+		<form action="list" method="post" class="flex justify-center">
 			<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
 			<input type="submit" value="검색" class="w-16 bg-blue-300"/>
 		</form>
