@@ -5,11 +5,28 @@
 
 <mapper namespace="com.example.demo.dao.ArticleDao">
 	<select id="getArticles" resultType="Article">
-		select article.*, `member`.nickname from article 
-		left join `member` on article.uid = `member`.uid
+		select article.*, `member`.nickname, `board`.boardName from article 
+		left join `member` on 
+		article.uid = `member`.uid
+		left join board on
+		article.boardCode = board.boardCode
 		where 1
 		<if test="boardCode != 0">
-			and boardCode = #{boardCode}
+			and article.boardCode = #{boardCode}
+		</if>
+		<if test="searchKeyword != null">
+			<choose>
+				<when test="searchType == 'title'">
+					and title like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'nickname'">
+					and nickname like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					and title like concat('%' , #{searchKeyword}, '%')
+					or body like concat('%' , #{searchKeyword}, '%')
+				</otherwise>
+			</choose>
 		</if>
 		order by aid desc
 		limit #{page}, 20
@@ -21,5 +38,24 @@
 		<if test="boardCode != 0">
 			and boardCode = #{boardCode}
 		</if>
+		<if test="searchKeyword != null">
+			<choose>
+				<when test="searchType == 'title'">
+					and title like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'nickname'">
+					and nickname like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<otherwise>
+					and title like concat('%' , #{searchKeyword}, '%')
+					or body like concat('%' , #{searchKeyword}, '%')
+				</otherwise>
+			</choose>
+		</if>
 	</select>
+	
+	<select id="getAllArticlesCnt" resultType="int">
+		select count(*) from article
+	</select>
+	
 </mapper>

@@ -13,15 +13,20 @@ public class ArticleService {
 	@Autowired
 	ArticleDao ad;
 	
-	public List<Article> getArticles(int boardCode, int page, int pageCnt) {
+	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt) {
 		page = (page - 1) * pageCnt; 
 		
-		return ad.getArticles(boardCode, page, pageCnt);
+		return ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt);
 	}
 
-	public int getArticlesCnt(int boardCode) {
+	public int getArticlesCnt(String searchType, String searchKeyword, int boardCode) {
 			
-		return ad.getArticlesCnt(boardCode);
+		return ad.getArticlesCnt(searchType, searchKeyword, boardCode);
+	}
+
+	public int getAllArticlesCnt() {
+		
+		return ad.getAllArticlesCnt();
 	}
 	
 }

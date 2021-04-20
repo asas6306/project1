@@ -19,16 +19,29 @@ public class AdmArticleController {
 	ArticleService as;
 	
 	@RequestMapping("/adm/article/list")
-	public String list(HttpServletRequest req, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page) {
+	public String list(HttpServletRequest req, String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page) {
 		
-		int articlesCnt = as.getArticlesCnt(boardCode);
-		req.setAttribute("articlesCnt", articlesCnt);
+		// 전체 게시물 수
+		int allArticlesCnt = as.getAllArticlesCnt(); 
+		req.setAttribute("allArticlesCnt", allArticlesCnt);
 		
+		// 검색 및 페이징 연동을 위한 어트리뷰트,,,
+		req.setAttribute("boardCode", boardCode);
+		req.setAttribute("searchType", searchType);
+		req.setAttribute("searchKeyword", searchKeyword);
+		
+		// 해당 게시물 수
+		int articlesCnt = as.getArticlesCnt(searchType, searchKeyword, boardCode);
+		
+		// 페이징
 		if(page < 1)
 			page = 1;
 		int pageCnt = 20;
 		
 		int allPageCnt = (int)(Math.ceil((double)articlesCnt / pageCnt));
+		if(allPageCnt == 0)
+			allPageCnt = 1;
+		
 		if(page > allPageCnt) {
 			page = allPageCnt;
 		} else if(page < 1) {
@@ -47,13 +60,15 @@ public class AdmArticleController {
 		for(int i = 4; i >= 0; i--) 
 			if(pageStack - i <= allPageCnt)
 				printPageIndexs.add(pageStack - i);
+		req.setAttribute("page", page);
 		req.setAttribute("printPageIndexs", printPageIndexs);
-		int printPageIndexUp = printPageIndexs.get(4) + 1;
+		int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
 		req.setAttribute("printPageIndexUp", printPageIndexUp);
 		int printPageIndexDown = printPageIndexs.get(0) - 1;
 		req.setAttribute("printPageIndexDown", printPageIndexDown);
 		
-		List<Article> articles = as.getArticles(boardCode, page, pageCnt);
+		// 최종 게시물 불러오기
+		List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt);
 		req.setAttribute("articles", articles);
 		
 		return "adm/article/list";
