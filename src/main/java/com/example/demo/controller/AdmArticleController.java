@@ -73,4 +73,10 @@ public class AdmArticleController {
 		
 		return "adm/article/list";
 	}
+	
+	@RequestMapping("/adm/article/add")
+	public String add() {
+		
+		return "adm/article/add";
+	}
 }

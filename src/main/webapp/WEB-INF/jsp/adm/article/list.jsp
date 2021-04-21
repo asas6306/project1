@@ -42,10 +42,10 @@
 								<div class="w-full flex">
 									<c:choose>
 										<c:when test="${boardCode ==  0}">
-											<a href="/adm/article/list?boardCode=${article.boardCode}" class="w-20 bg-gray-100 hover:underline">${article.boardName}</a>
+											<a href="/adm/article/list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
 										</c:when>
 										<c:otherwise>
-											<span class="w-20 bg-gray-100">${article.aid}</span>
+											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
 										</c:otherwise>
 									</c:choose>
 									<a href="/adm/article/detail?aid=${article.aid}" class="hover:underline">${article.title}</a>
@@ -73,8 +73,10 @@
 				</ul>
 			</nav>
 		</div>
-		<div class="flex justify-center">
-			<div class="flex text-lg text-gray-700">
+		<div class="flex">
+			<div class="w-24"> <!-- 공백용 -->
+			</div>
+			<div class="flex justify-center w-full text-lg text-gray-700">
 				<a href="/adm/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">처음</a>
 				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">이전</a>
 				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
@@ -90,6 +92,9 @@
 				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">다음</a>
 				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
+			<div class="flex justify-center items-center w-24">
+				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500" onclick="location.href='/adm/article/add'" />
+			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">
 			<input type="hidden" name="boardCode" value="${boardCode}">
@@ -99,7 +104,7 @@
 				<option value="nickname">작성자</option>
 			</select>
 			<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
-			<input type="submit" value="검색" class="w-16 bg-blue-300"/>
+			<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
 		</form>
 	</div>
 </div>
