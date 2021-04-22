@@ -86,7 +86,7 @@ public class AdmArticleController extends _BaseController {
 	
 	@RequestMapping("/adm/article/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-		req.setAttribute("uid", 0);
+		req.setAttribute("uid", 1);
 		int uid = (int)(req.getAttribute("uid"));
 		param.put("uid", uid);
 		

@@ -2,10 +2,43 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
+<script>
+ArticleAdd__submited = false;
+function ArticleAdd__checkAndSubmit(form) {
+	if ( ArticleAdd__submited ) {
+		alert('처리중입니다.');
+		return;
+	}
+	alert('1');
+	if ( form.boardCode.value == 0 ) {
+		alert('게시판을 선택해주세요.');
+		form.boardCode.focus();
+		return false;
+	}
+	alert('2');
+	form.title.value = form.title.value.trim();
+	if( form.title.value.length == 0 ) {
+		alert('제목을 입력해주세요');
+		form.title.focus();
+		return false;
+	}
+	alert('3');
+	form.body.value = form.body.value.trim();
+	if( form.body.value.length == 0 ) {
+		alert('내용을 입력해주세요');
+		form.body.focus();
+		return false;
+	}
+	alert('4');
+	ArticleAdd__submited = true;
+	alert('5');
+}
+</script>
+
 <section class="section-add flex justify-center">
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
-		<form action="doAdd" method="post">
+		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post">
 			<div class="flex border-b-2 border-t-2 border-gray-500">
 				<div class="flex justify-center w-24 bg-gray-100">
 					<span>게시판 선택</span>
