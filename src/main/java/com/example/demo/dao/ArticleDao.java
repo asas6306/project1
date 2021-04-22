@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,4 +17,7 @@ public interface ArticleDao {
 
 	public int getAllArticlesCnt();
 
+	public void add(Map<String, Object> param);
+
+	public Article getArticle(@Param(value="aid") int aid);
 }

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
-<div class="flex justify-center">
+<section class="flex justify-center">
 	<div class="w-3/5">
 		<c:choose>
 			<c:when test="${boardCode == '1'}">
@@ -48,6 +48,7 @@
 											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
 										</c:otherwise>
 									</c:choose>
+									&nbsp&nbsp
 									<a href="/adm/article/detail?aid=${article.aid}" class="hover:underline">${article.title}</a>
 								</div>
 								<div class="bg-gray-100 text-center w-32">${article.nickname}</div>
@@ -93,7 +94,7 @@
 				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
 			<div class="flex justify-center items-center w-24">
-				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500" onclick="location.href='/adm/article/add'" />
+				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500" onclick="location.href='/adm/article/add?boardCode=${boardCode}'" />
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">
@@ -107,6 +108,6 @@
 			<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
 		</form>
 	</div>
-</div>
+</section>
 
 <%@ include file="../part/mainLayoutFooter.jspf"%>

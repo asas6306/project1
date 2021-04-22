@@ -32,6 +32,15 @@
 		limit #{page}, 20
 	</select>
 	
+	<select id="getArticle" resultType="Article">
+		select article.*, `member`.nickname, `board`.boardName from article 
+		left join `member` on 
+		article.uid = `member`.uid
+		left join board on
+		article.boardCode = board.boardCode
+		where aid = #{aid}
+	</select>
+	
 	<select id="getArticlesCnt" resultType="int">
 		select count(*) from article
 		left join `member` on 
@@ -60,4 +69,7 @@
 		select count(*) from article
 	</select>
 	
+	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
+		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}
+	</insert>
 </mapper>

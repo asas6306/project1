@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ArticleDao;
 import com.example.demo.dto.Article;
+import com.example.demo.util.ResultData;
+import com.example.demo.util.Util;
 
 @Service
 public class ArticleService {
@@ -27,6 +30,19 @@ public class ArticleService {
 	public int getAllArticlesCnt() {
 		
 		return ad.getAllArticlesCnt();
+	}
+
+	public ResultData add(Map<String, Object> param) {
+		ad.add(param);
+		
+		int aid = Util.getAsInt(param.get("aid"), 0);
+		
+		return new ResultData("S-1", "게시물이 등록되었습니다.", "aid", aid);
+	}
+
+	public Article getArticle(int aid) {
+		
+		return ad.getArticle(aid);
 	}
 	
 }

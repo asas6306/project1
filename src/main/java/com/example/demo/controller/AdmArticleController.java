@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,12 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
 import com.example.demo.service.ArticleService;
+import com.example.demo.util.ResultData;
 
 @Controller
-public class AdmArticleController {
+public class AdmArticleController extends _BaseController {
 	@Autowired
 	ArticleService as;
 	
@@ -75,8 +78,29 @@ public class AdmArticleController {
 	}
 	
 	@RequestMapping("/adm/article/add")
-	public String add() {
+	public String add(HttpServletRequest req, int boardCode) {
+		req.setAttribute("boardCode", boardCode);
 		
 		return "adm/article/add";
+	}
+	
+	@RequestMapping("/adm/article/doAdd")
+	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		req.setAttribute("uid", 0);
+		int uid = (int)(req.getAttribute("uid"));
+		param.put("uid", uid);
+		
+		ResultData doAddRd = as.add(param);
+		
+		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
+	}
+	
+	@RequestMapping("/adm/article/detail")
+	public String detail(HttpServletRequest req, Integer aid) {
+		
+		Article article = as.getArticle(aid);
+		req.setAttribute("article", article);
+		
+		return "adm/article/detail";
 	}
 }
