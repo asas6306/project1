@@ -117,8 +117,16 @@ public class AdmArticleController extends _BaseController {
 	@RequestMapping("/adm/article/doUpdate")
 	public String doUpdate(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		
-		ResultData doAddRd = as.update(param);
+		ResultData doUpdateRd = as.update(param);
 		
-		return msgAndReplace(req, doAddRd.getMsg(), "detail?aid=" + param.get("aid"));
+		return msgAndReplace(req, doUpdateRd.getMsg(), "detail?aid=" + param.get("aid"));
+	}
+	
+	@RequestMapping("/adm/article/delete")
+	public String delete(HttpServletRequest req, int aid, int boardCode) {
+		
+		ResultData doDeleteRd = as.delete(aid);
+		
+		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
 	}
 }

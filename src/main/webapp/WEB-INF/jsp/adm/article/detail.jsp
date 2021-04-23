@@ -3,6 +3,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
+<!--
+예 아니오 물어보는 기능인데,,, 어떻게 쓰는것이냐 
+<script>
+function confirm()
+{
+    msg = "실행하시겠습니까?";
+    if (confirm(msg)!=0) {
+         // Yes click
+    } else {
+        // no click
+	}
+} // myconfirm
+</script>
+ -->
+
 <section class="flex justify-center">
 	<div class="w-2/5">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">
@@ -23,13 +38,14 @@
 					<span class="mx-2">${article.body}</span>
 				</div>
 				<div class="flex">
-					<span class="flex w-16 bg-gray-100 justify-center">첨부파일</span> <span>img</span>
+					<span class="flex w-16 bg-gray-100 justify-center">첨부파일</span>
+					<span>img</span>
 				</div>
 			</div>
 		</div>
 		<div class="flex justify-end mt-1">
 			<input type="button" value="수정" onclick="location.href='update?aid=${article.aid}'" class="m-1 h-8 w-16 rounded bg-blue-300 hover:bg-blue-500" />
-			<input type="button" value="삭제" onclick="location.href='delete?aid=${article.aid}'" class="m-1 h-8 w-16 rounded bg-red-300 hover:bg-red-500" />
+			<input type="button" value="삭제" onclick="location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}'" class="m-1 h-8 w-16 rounded bg-red-300 hover:bg-red-500" />
 			<input type="button" value="목록으로" onclick="location.href='list?boardCode=${article.boardCode}'" class="m-1 h-8 w-16 rounded bg-gray-100 hover:bg-gray-300" />
 		</div>
 	</div>

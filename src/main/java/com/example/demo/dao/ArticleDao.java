@@ -22,4 +22,6 @@ public interface ArticleDao {
 	public Article getArticle(@Param(value="aid") int aid);
 
 	public void update(Map<String, Object> param);
+
+	public void delete(@Param(value="aid") int aid);
 }

@@ -31,6 +31,14 @@ function ArticleAdd__checkAndSubmit(form) {
 	onSuccess();
 	return;
 }
+function confirm() {
+    msg = "실행하시겠습니까?";
+    if (confirm(msg)!=0) {
+         // Yes click
+    } else {
+        // no click
+	}
+} // myconfirm
 </script>
 
 <section class="section-add flex justify-center">

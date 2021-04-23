@@ -1,7 +1,7 @@
-2021-04-23 13:43:01 [ERROR] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: Current request is not of type [org.springframework.web.multipart.MultipartRequest]: ServletWebRequest: uri=/adm/article/doAdd;client=0:0:0:0:0:0:0:1;session=61489068C521EB8ECA9EBF3CAA329A9D] with root cause
-java.lang.IllegalStateException: Current request is not of type [org.springframework.web.multipart.MultipartRequest]: ServletWebRequest: uri=/adm/article/doAdd;client=0:0:0:0:0:0:0:1;session=61489068C521EB8ECA9EBF3CAA329A9D
-	at org.springframework.web.servlet.mvc.method.annotation.ServletRequestMethodArgumentResolver.resolveNativeRequest(ServletRequestMethodArgumentResolver.java:131)
-	at org.springframework.web.servlet.mvc.method.annotation.ServletRequestMethodArgumentResolver.resolveArgument(ServletRequestMethodArgumentResolver.java:120)
+2021-04-24 00:02:54 [ERROR] o.a.c.c.C.[.[.[.[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: Optional int parameter 'boardCode' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.] with root cause
+java.lang.IllegalStateException: Optional int parameter 'boardCode' is present but cannot be translated into a null value due to being declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type.
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.handleNullValue(AbstractNamedValueMethodArgumentResolver.java:250)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:116)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
 	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
@@ -12,8 +12,8 @@ java.lang.IllegalStateException: Current request is not of type [org.springframe
 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
-	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
-	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)

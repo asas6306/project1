@@ -51,5 +51,12 @@ public class ArticleService {
 		
 		return new ResultData("S-1", "게시물이 수정되었습니다.");
 	}
+
+	public ResultData delete(int aid) {
+		
+		ad.delete(aid);
+		
+		return new ResultData("S-1", "게시물이 삭제되었습니다.");
+	}
 	
 }
