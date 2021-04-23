@@ -44,5 +44,12 @@ public class ArticleService {
 		
 		return ad.getArticle(aid);
 	}
+
+	public ResultData update(Map<String, Object> param) {
+		
+		ad.update(param);
+		
+		return new ResultData("S-1", "게시물이 수정되었습니다.");
+	}
 	
 }

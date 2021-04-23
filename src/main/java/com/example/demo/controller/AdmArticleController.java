@@ -104,4 +104,21 @@ public class AdmArticleController extends _BaseController {
 		
 		return "adm/article/detail";
 	}
+	
+	@RequestMapping("/adm/article/update")
+	public String update(HttpServletRequest req, int aid) {
+		
+		Article article = as.getArticle(aid);
+		req.setAttribute("article", article);
+		
+		return "adm/article/update";
+	}
+	
+	@RequestMapping("/adm/article/doUpdate")
+	public String doUpdate(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		
+		ResultData doAddRd = as.update(param);
+		
+		return msgAndReplace(req, doAddRd.getMsg(), "detail?aid=" + param.get("aid"));
+	}
 }

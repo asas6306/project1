@@ -20,4 +20,6 @@ public interface ArticleDao {
 	public void add(Map<String, Object> param);
 
 	public Article getArticle(@Param(value="aid") int aid);
+
+	public void update(Map<String, Object> param);
 }

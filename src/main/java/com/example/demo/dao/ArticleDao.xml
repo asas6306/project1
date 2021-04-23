@@ -72,4 +72,8 @@
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
 		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}
 	</insert>
+	
+	<update id="update">
+		update article set title = #{title}, body = #{body}, boardCode = #{boardCode} where aid = #{aid}
+	</update>
 </mapper>
