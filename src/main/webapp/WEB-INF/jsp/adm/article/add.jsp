@@ -9,29 +9,27 @@ function ArticleAdd__checkAndSubmit(form) {
 		alert('처리중입니다.');
 		return;
 	}
-	alert('1');
 	if ( form.boardCode.value == 0 ) {
 		alert('게시판을 선택해주세요.');
 		form.boardCode.focus();
 		return false;
 	}
-	alert('2');
 	form.title.value = form.title.value.trim();
 	if( form.title.value.length == 0 ) {
 		alert('제목을 입력해주세요');
 		form.title.focus();
 		return false;
 	}
-	alert('3');
 	form.body.value = form.body.value.trim();
 	if( form.body.value.length == 0 ) {
 		alert('내용을 입력해주세요');
 		form.body.focus();
 		return false;
 	}
-	alert('4');
 	ArticleAdd__submited = true;
-	alert('5');
+	
+	onSuccess();
+	return;
 }
 </script>
 
