@@ -77,8 +77,8 @@ function ArticleAdd__checkAndSubmit(form) {
 				</div>
 			</div>
 			<div class="flex w-full justify-center">
-				<input type="submit" value="작성" class="bg-blue-300 h-8 w-16 mt-2 mr-1 hover:bg-blue-500" />
-				<input type="button" value="취소" onclick="history.back()" class="bg-red-300 h-8 w-16 mt-2 ml-1 hover:bg-red-500" />
+				<input type="submit" value="작성" class="bg-blue-300 h-8 w-16 mt-2 mr-1 hover:bg-blue-500 rounded" />
+				<input type="button" value="취소" onclick="history.back()" class="bg-red-300 h-8 w-16 mt-2 ml-1 hover:bg-red-500 rounded" />
 			</div>
 		</form>
 	</div>
