@@ -7,4 +7,24 @@
 	<select id="login" resultType="Member">
 		select * from `member` where ID = #{ID}
 	</select>
+	
+	<insert id="signup" useGeneratedKeys="true" keyProperty="uid">
+		insert into `member` set
+		ID = #{ID}, PW = #{PW}, nickname = #{nickname}, email = #{email}, phoneNo = #{phoneNo}
+	</insert>
+	
+	<select id="getMember" resultType="Member">
+		select * from `member` where 1
+		<choose>
+			<when test="type=='uid'">
+				and uid = #{itemValue}
+			</when>
+			<when test="type=='ID'">
+				and ID = #{itemValue}
+			</when>
+			<when test="type=='nickname'">
+				and nickname = #{itemValue}
+			</when>
+		</choose>
+	</select>
 </mapper>

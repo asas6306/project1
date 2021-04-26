@@ -4,7 +4,9 @@ import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class Util {
 	public static String getDate() {
@@ -68,4 +70,58 @@ public class Util {
 
 		return sb.toString();
 	}
+	
+	public static boolean allNumberString(String str) {
+		for(int i = 0; i<str.length(); i++)
+			if(Character.isDigit(str.charAt(i)) == false)
+				return false;
+		
+		return true;
+	}
+
+	public static boolean startsWithNumber(String str) {
+		
+		return Character.isDigit(str.charAt(0));
+	}
+
+	public static boolean isStandardLoginIdCheck(String str) {
+		
+		// 조건 : 5자 이상 15자 이하 / 숫자시작 금지 / _, 알파벳, 숫자
+		return Pattern.matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{4,14}$", str);
+	}
+
+	public static boolean isEmpty(Object data) {
+		if (data == null) {
+			return true;
+		}
+
+		if (data instanceof String) {
+			String strData = (String) data;
+
+			return strData.trim().length() == 0;
+		} else if (data instanceof Integer) {
+			Integer integerData = (Integer) data;
+
+			return integerData != 0;
+		} else if (data instanceof List) {
+			List listData = (List) data;
+
+			return listData.isEmpty();
+		} else if (data instanceof Map) {
+			Map mapData = (Map) data;
+
+			return mapData.isEmpty();
+		}
+
+		return true;
+	}
+
+	public static <T> T ifEmpty(T data, T defaultValue) {
+		if (isEmpty(data)) {
+			return defaultValue;
+		}
+
+		return data;
+	}
+
 }

@@ -3,7 +3,7 @@
 
 <%@ include file="../part/loginLayoutHeader.jspf"%>
 
-<section class="border-2 border-blue-300 rounded h-56">
+<section class="border-2 border-blue-300 rounded">
 	<div class="p-4">
 		<form action="doLogin" method="post">
 			<div class="text-gray-900 text-xl">
