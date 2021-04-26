@@ -43,7 +43,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="#" class="p-3 hover:text-gray-900"> 
+					<a href="../member/doLogout" class="p-3 hover:text-gray-900"> 
 						<span>로그아웃</span>
 					</a>
 				</li>

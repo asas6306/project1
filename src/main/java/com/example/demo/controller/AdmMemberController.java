@@ -96,4 +96,17 @@ public class AdmMemberController extends _BaseController {
 
 		return new ResultData("S-1", String.format("%s(은)는 사용 가능한 아이디입니다.", ID), "ID", ID);
 	}
+	
+	@RequestMapping("/adm/member/doLogout")
+	@ResponseBody
+	public String doLogout(HttpSession session) {
+		
+		session.removeAttribute("loginedMember");
+		
+		String redirectUrl = Util.ifEmpty(null, "login");
+
+		return Util.msgAndReplace("로그아웃 되었습니다.", redirectUrl);
+		
+	}
+	
 }
