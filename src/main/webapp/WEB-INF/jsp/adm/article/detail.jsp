@@ -46,13 +46,13 @@ function confirm()
 				<div class="flex">
 					<span class="flex w-16 bg-gray-100 justify-center">첨부파일</span>
 					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
-						<div class="input-file-wrap border-b">
+						<div class="border-b">
 							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
 							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 								<div>
 									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
-										<img class="w-40" src="${file.forPrintUrl}" />
+										<img class="w-60" src="${file.forPrintUrl}" />
 									</a>
 								</div>
 							</c:if>
@@ -78,7 +78,7 @@ function confirm()
 					<input type="hidden" name="aid" value="${article.aid}" />
 					<div class="border rounded">
 						<span class="flex mx-2">${loginedMember.nickname}</span>
-						<input type="text" name="body" placeholder="댓글을 남겨보세요."/>
+						<input type="text" name="body" placeholder="댓글을 남겨보세요." class="w-full"/>
 						<div class="flex justify-end">
 							<input type="submit" value="등록" class="px-1 rounded bg-white hover:bg-blue-300" />
 						</div>
