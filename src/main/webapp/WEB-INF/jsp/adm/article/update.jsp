@@ -109,7 +109,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 <section class="section-add flex justify-center">
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">게시물 수정</div>
-		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doUpdate" method="post">
+		<form onsubmit="ArticleUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post">
 			<input type="hidden" name="genFileIdsStr" value="" /> 
 			<input type="hidden" name="aid" value="${article.aid}" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
@@ -149,11 +149,11 @@ function ArticleUpdate__checkAndSubmit(form) {
 				</div>
 				<div class="w-full">
 					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
-						<div class="border-b">
+						<div class="input-file-wrap border-b">
 							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
 							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
-								<div class="img-box img-box-auto">
+								<div class="">
 									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
 										<img class="max-w-sm" src="${file.forPrintUrl}" />
 									</a>
@@ -161,10 +161,11 @@ function ArticleUpdate__checkAndSubmit(form) {
 								<div>
 									<a class="hover:underline" href="${file.downloadUrl}"
 										target="_blank">${file.originFileName}</a>
-									(${Util.numberFormat(file.fileSize)} Byte )
+									(${Util.numberFormat(file.fileSize)} Byte)
 								</div>
 								<div>
-									<label> <input type="checkbox"
+									<label> 
+										<input type="checkbox"
 										onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')"
 										name="deleteFile__article__${article.aid}__common__attachment__${fileNo}"
 										value="Y" /> <span>삭제</span>
@@ -178,7 +179,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 				</div>
 			</div>
 			<div class="flex w-full justify-center">
-				<input type="submit" value="작성" class="bg-blue-300 h-8 w-16 mt-2 mr-1 hover:bg-blue-500 rounded" />
+				<input type="submit" value="수정" class="bg-blue-300 h-8 w-16 mt-2 mr-1 hover:bg-blue-500 rounded" />
 				<input type="button" value="취소" onclick="history.back()" class="bg-red-300 h-8 w-16 mt-2 ml-1 hover:bg-red-500 rounded" />
 			</div>
 		</form>

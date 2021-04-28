@@ -114,6 +114,8 @@ public class AdmArticleController extends _BaseController {
 	public String update(HttpServletRequest req, int aid) {
 		
 		Article article = as.getArticle(aid);
+		System.out.println("article : ");
+		System.out.println(article.getAid());
 		
 		List<GenFile> files = fs.getGenFiles("article", article.getAid(), "common", "attachment");
 
@@ -123,7 +125,6 @@ public class AdmArticleController extends _BaseController {
 			filesMap.put(file.getFileNo() + "", file);
 
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
-		req.setAttribute("article", article);
 		
 		req.setAttribute("article", article);
 		
