@@ -79,11 +79,8 @@ function MemberSignup__checkAndSubmit(form) {
 		return false;
 	}
 	
-	
+	form.submit();
 	MemberSignup__submited = true;
-	
-	onSuccess();
-	return;
 }
 
 $(function() {

@@ -43,4 +43,12 @@ public class MemberService {
 		
 		return md.getMember(type, itemValue);
 	}
+
+	public boolean authCheck(Member loginedMember) {
+		if(loginedMember.getUid() == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

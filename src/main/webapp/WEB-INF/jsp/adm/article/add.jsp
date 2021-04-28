@@ -26,10 +26,9 @@ function ArticleAdd__checkAndSubmit(form) {
 		form.body.focus();
 		return false;
 	}
-	ArticleAdd__submited = true;
 	
-	onSuccess();
-	return;
+	form.submit();
+	ArticleAdd__submited = true;
 }
 function confirm() {
     msg = "실행하시겠습니까?";

@@ -44,8 +44,12 @@ public class AdmMemberController extends _BaseController {
 		
 		session.setAttribute("loginedMember", loginedMember);
 
+		System.out.println("확인1" + redirectUrl);
+		
 		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
+		
+		System.out.println("확인2" + redirectUrl);
 
 		return Util.msgAndReplace(msg, redirectUrl);
 	}
