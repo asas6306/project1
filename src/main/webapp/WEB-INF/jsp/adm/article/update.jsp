@@ -1,35 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.example.demo.util.Util"%>
+
+<c:set var="fileInputMaxCount" value="3" />
+<script>
+	ArticleUpdate__fileInputMaxCount = parseInt("${fileInputMaxCount}");
+	const aid = parseInt("${article.aid}");
+</script>
 
 <script>
-ArticleAdd__submited = false;
-function ArticleAdd__checkAndSubmit(form) {
-	if ( ArticleAdd__submited ) {
+ArticleUpdate__submited = false;
+function ArticleUpdate__checkAndSubmit(form) {
+	if ( ArticleUpdate__submited ) {
 		alert('처리중입니다.');
 		return;
 	}
-	if ( form.boardCode.value == 0 ) {
-		alert('게시판을 선택해주세요.');
-		form.boardCode.focus();
-		return false;
-	}
+	
 	form.title.value = form.title.value.trim();
-	if( form.title.value.length == 0 ) {
-		alert('제목을 입력해주세요');
+	if ( form.title.value.length == 0 ) {
+		alert('제목을 입력해주세요.');
 		form.title.focus();
 		return false;
 	}
 	form.body.value = form.body.value.trim();
-	if( form.body.value.length == 0 ) {
-		alert('내용을 입력해주세요');
+	if ( form.body.value.length == 0 ) {
+		alert('내용을 입력해주세요.');
 		form.body.focus();
 		return false;
 	}
-	ArticleAdd__submited = true;
+	var maxSizeMb = 50;
+	var maxSize = maxSizeMb * 1024 * 1024;
+	for ( let inputNo = 1; inputNo <= ArticleUpdate__fileInputMaxCount; inputNo++ ) {
+		const input = form["file__article__" + aid + "__common__attachment__" + inputNo];
+		
+		if (input.value) {
+			if (input.files[0].size > maxSize) {
+				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+				input.focus();
+				
+				return;
+			}
+		}
+	}
+	const startSubmitForm = function(data) {
+		if (data && data.body && data.body.genFileIdsStr) {
+			form.genFileIdsStr.value = data.body.genFileIdsStr;
+		}
+		
+		for (let inputNo = 1; inputNo <= ArticleUpdate__fileInputMaxCount; inputNo++) {
+			const input = form["file__article__" + aid + "__common__attachment__" + inputNo];
+			input.value = '';
+		}
+		
+		for(let inputNo = 1; inputNo <= ArticleUpdate__fileInputMaxCount; inputNo++){
+			const input = form["deleteFile__article__" + aid + "__common__attachment__" + inputNo];
+			
+			if ( input ) {
+				input.checked = false;
+			}
+		}
+		
+		form.submit();
+	};
 	
-	onSuccess();
-	return;
+	const startUploadFiles = function(onSuccess) {
+		var needToUpload = false;
+		for ( let inputNo = 1; inputNo <= ArticleUpdate__fileInputMaxCount; inputNo++ ) {
+			const input = form["file__article__" + aid + "__common__attachment__" + inputNo];
+			if ( input.value.length > 0 ) {
+				needToUpload = true;
+				break;
+			}
+		}
+		
+		if ( needToUpload == false ) {
+			for ( let inputNo = 1; inputNo <= ArticleUpdate__fileInputMaxCount; inputNo++ ) {
+				const input = form["deleteFile__article__" + aid + "__common__attachment__" + inputNo];
+				if ( input && input.checked ) {
+					needToUpload = true;
+					break;
+				}
+			}
+		}
+		
+		if (needToUpload == false) {
+			onSuccess();
+			return;
+		}
+		
+		var fileUploadFormData = new FormData(form);
+		$.ajax({
+			url : '/common/genFile/doUpload',
+			data : fileUploadFormData,
+			processData : false,
+			contentType : false,
+			dataType : "json",
+			type : 'POST',
+			success : onSuccess
+		});
+	}
+	ArticleUpdate__submited = true;
+	startUploadFiles(startSubmitForm);
 }
 </script>
 
@@ -37,6 +110,7 @@ function ArticleAdd__checkAndSubmit(form) {
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">게시물 수정</div>
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doUpdate" method="post">
+			<input type="hidden" name="genFileIdsStr" value="" /> 
 			<input type="hidden" name="aid" value="${article.aid}" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
 				<div class="flex justify-center w-24 bg-gray-100">
@@ -70,11 +144,37 @@ function ArticleAdd__checkAndSubmit(form) {
 				</div>
 			</div>
 			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
+				<div class="flex justify-center items-center w-24 bg-gray-100">
 					<span>첨부파일</span>
 				</div>
 				<div class="w-full">
-					<input type="file" name="genFile" />
+					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
+						<div class="border-b">
+							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
+							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
+							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+								<div class="img-box img-box-auto">
+									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
+										<img class="max-w-sm" src="${file.forPrintUrl}" />
+									</a>
+								</div>
+								<div>
+									<a class="hover:underline" href="${file.downloadUrl}"
+										target="_blank">${file.originFileName}</a>
+									(${Util.numberFormat(file.fileSize)} Byte )
+								</div>
+								<div>
+									<label> <input type="checkbox"
+										onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')"
+										name="deleteFile__article__${article.aid}__common__attachment__${fileNo}"
+										value="Y" /> <span>삭제</span>
+									</label>
+								</div>
+							</c:if>
+							<input class="form-row-input w-full" type="file"
+								name="file__article__${article.aid}__common__attachment__${inputNo}" />
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="flex w-full justify-center">

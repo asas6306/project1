@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,14 +13,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.Article;
+import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.GenFileService;
 import com.example.demo.util.ResultData;
 
 @Controller
 public class AdmArticleController extends _BaseController {
 	@Autowired
 	ArticleService as;
+	@Autowired
+	GenFileService fs;
 	
 	@RequestMapping("/adm/article/list")
 	public String list(HttpServletRequest req, String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page) {
@@ -109,6 +114,17 @@ public class AdmArticleController extends _BaseController {
 	public String update(HttpServletRequest req, int aid) {
 		
 		Article article = as.getArticle(aid);
+		
+		List<GenFile> files = fs.getGenFiles("article", article.getAid(), "common", "attachment");
+
+		Map<String, GenFile> filesMap = new HashMap<>();
+
+		for (GenFile file : files)
+			filesMap.put(file.getFileNo() + "", file);
+
+		article.getExtraNotNull().put("file__common__attachment", filesMap);
+		req.setAttribute("article", article);
+		
 		req.setAttribute("article", article);
 		
 		return "adm/article/update";
