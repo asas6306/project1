@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
+<c:set var="fileInputMaxCount" value="3" />
+<script>
+	ArticleUpdate__fileInputMaxCount = parseInt("${fileInputMaxCount}");
+	const aid = parseInt("${article.aid}");
+</script>
+
 <!--
 예 아니오 물어보는 기능인데,,, 어떻게 쓰는것이냐 
 <script>
@@ -39,7 +45,19 @@ function confirm()
 				</div>
 				<div class="flex">
 					<span class="flex w-16 bg-gray-100 justify-center">첨부파일</span>
-					<span>img</span>
+					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
+						<div class="input-file-wrap border-b">
+							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
+							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
+							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+								<div>
+									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
+										<img class="w-40" src="${file.forPrintUrl}" />
+									</a>
+								</div>
+							</c:if>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>
