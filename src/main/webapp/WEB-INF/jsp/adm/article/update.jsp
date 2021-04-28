@@ -37,7 +37,7 @@ function ArticleAdd__checkAndSubmit(form) {
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">게시물 수정</div>
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doUpdate" method="post">
-			<<input type="hidden" name="aid" value="${article.aid}" />
+			<input type="hidden" name="aid" value="${article.aid}" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
 				<div class="flex justify-center w-24 bg-gray-100">
 					<span>게시판 선택</span>

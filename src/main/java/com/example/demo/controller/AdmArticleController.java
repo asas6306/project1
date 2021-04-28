@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.example.demo.dto.Article;
+import com.example.demo.dto.Member;
 import com.example.demo.service.ArticleService;
 import com.example.demo.util.ResultData;
 
@@ -87,8 +86,9 @@ public class AdmArticleController extends _BaseController {
 	
 	@RequestMapping("/adm/article/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-		req.setAttribute("uid", 1);
-		int uid = (int)(req.getAttribute("uid"));
+		
+		Member member = (Member)(req.getAttribute("loginedMember"));
+		int uid = member.getUid();
 		param.put("uid", uid);
 		
 		ResultData doAddRd = as.add(param);
