@@ -2,12 +2,14 @@ package com.example.demo.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ArticleDao;
 import com.example.demo.dto.Article;
+import com.example.demo.dto.GenFile;
 import com.example.demo.util.ResultData;
 import com.example.demo.util.Util;
 
@@ -15,11 +17,25 @@ import com.example.demo.util.Util;
 public class ArticleService {
 	@Autowired
 	ArticleDao ad;
+	@Autowired
+	GenFileService fs;
 	
 	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt) {
 		page = (page - 1) * pageCnt; 
 		
-		return ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt);
+		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt);
+		List<Integer> aids = articles.stream().map(article -> article.getAid()).collect(Collectors.toList());
+		Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common",
+				"attachment");
+
+		for (Article article : articles) {
+			Map<String, GenFile> mapByFileNo = filesMap.get(article.getAid());
+
+			if (mapByFileNo != null)
+				article.getExtraNotNull().put("file__common__attachment", mapByFileNo);
+		}
+
+		return articles;
 	}
 
 	public int getArticlesCnt(String searchType, String searchKeyword, int boardCode) {

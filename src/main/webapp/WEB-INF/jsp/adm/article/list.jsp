@@ -38,18 +38,26 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items='${articles}' var='article'>
+							<c:set var="detailUrl" value="detail?aid=${article.aid}" />
+						<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
+						<c:set var="thumbFile" value="${article.extra.file__common__attachment[thumbFileNo]}" />
+						<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 							<div class="flex border-b">
 								<div class="w-full flex">
 									<c:choose>
 										<c:when test="${boardCode ==  0}">
-											<a href="/adm/article/list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
+											<a href="list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
 										</c:when>
 										<c:otherwise>
 											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
 										</c:otherwise>
 									</c:choose>
 									&nbsp&nbsp
-									<a href="/adm/article/detail?aid=${article.aid}" class="hover:underline">${article.title}</a>
+									<a href="${detailUrl}" class="hover:underline">${article.title}
+										<c:if test="${thumbUrl != null}">
+											<i class="far fa-image text-gray-700" ></i>
+										</c:if>
+									</a>
 								</div>
 								<div class="bg-gray-100 text-center w-32">${article.nickname}</div>
 								<div class="text-center w-60">${article.regDate}</div>

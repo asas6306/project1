@@ -1,1 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.GenFileDao">
+	<insert id="saveMeta" useGeneratedKeys="true" keyProperty="fid">
+		insert into genFile set
+		relTypeCode = #{relTypeCode},
+		relId = #{relId},
+		typeCode = #{typeCode},
+		type2Code = #{type2Code},
+		fileNo = #{fileNo},
+		originFileName = #{originFileName},
+		fileExtTypeCode =
+		#{fileExtTypeCode},
+		fileExtType2Code = #{fileExtType2Code},
+		fileSize =
+		#{fileSize},
+		fileDir = #{fileDir},
+		fileExt = #{fileExt}
+	</insert>
+
+	<select id="getGenFiles" resultType="GenFile">
+		select * from
+		genFile where
+		relTypeCode = #{relTypeCode}
+		and relId = #{relId}
+		<if test="typeCode != null">
+		and typeCode = #{typeCode}
+		</if>
+		<if test="type2Code != null">
+		and type2Code = #{type2Code}
+		</if>
+		order by typeCode, Type2Code, fileNo
+	</select>
+
+	<select id="getGenFile" resultType="GenFile">
+		select * from genFile where
+		relTypeCode = #{relTypeCode}
+		and relId = #{relId}
+		and typeCode =
+		#{typeCode}
+		and type2Code = #{type2Code}
+		and fileNo = #{fileNo}
+	</select>
+
+	<update id="changeRelId">
+		update genFile
+		<set>
+			updateDate = now()
+			, relId = #{relId}
+		</set>
+		where fid = #{fid}
+	</update>
+
+	<!-- 삭제는 db를 삭제하는것이 맞는지 아니면 delDate업데이트가 맞는지 고민 -->
+	<delete id="deleteFile">
+		delete from genFile
+		where fid = #{fid}
+	</delete>
+	
+	<select id="getGenFileById" resultType="GenFile">
+	select * from genFile where fid = #{fid}
+	</select>
+	
+	<select
+		id="getGenFilesRelTypeCodeAndRelIdsAndTypeCodeAndType2Code"
+		resultType="GenFile">
+		SELECT *
+		FROM genFile
+		WHERE 1
+		AND relId IN
+		<foreach item="relId" index="index" collection="relIds"
+			open="(" separator="," close=")">
+			#{relId}
+		</foreach>
+		AND relTypeCode = #{relTypeCode}
+		AND typeCode = #{typeCode}
+		AND type2Code = #{type2Code}
+		ORDER BY relId, fileNo
+	</select>
+</mapper>

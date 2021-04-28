@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -11,6 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -176,4 +178,76 @@ public class Util {
 		return (T) ifNull(req.getAttribute(attrName), defaultValue);
 	}
 
+	public static String getFileExtTypeCodeFromFileName(String fileName) {
+		String ext = getFileExtFromFileName(fileName).toLowerCase();
+
+		switch (ext) {
+		case "jpeg":
+		case "jpg":
+		case "gif":
+		case "png":
+			return "img";
+		case "mp4":
+		case "avi":
+		case "mov":
+			return "video";
+		case "mp3":
+			return "audio";
+		}
+
+		return "etc";
+	}
+
+	public static String getFileExtType2CodeFromFileName(String fileName) {
+		String ext = getFileExtFromFileName(fileName).toLowerCase();
+
+		switch (ext) {
+		case "jpeg":
+		case "jpg":
+			return "jpg";
+		case "gif":
+			return ext;
+		case "png":
+			return ext;
+		case "mp4":
+			return ext;
+		case "mov":
+			return ext;
+		case "avi":
+			return ext;
+		case "mp3":
+			return ext;
+		}
+
+		return "etc";
+	}
+
+	public static String getFileExtFromFileName(String fileName) {
+		int pos = fileName.lastIndexOf(".");
+		String ext = fileName.substring(pos + 1);
+
+		return ext;
+	}
+
+	public static String getNowYearMonthDateStr() {
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy_MM");
+
+		String dateStr = format1.format(System.currentTimeMillis());
+
+		return dateStr;
+	}
+
+	public static List<Integer> getListDividedBy(String str, String dividedBy) {
+
+		return Arrays.asList(str.split(dividedBy)).stream().map(s -> Integer.parseInt(s.trim()))
+				.collect(Collectors.toList());
+	}
+
+	public static boolean deleteFile(String filePath) {
+		java.io.File ioFile = new java.io.File(filePath);
+		if (ioFile.exists())
+			return ioFile.delete();
+
+		return true;
+	}
 }
