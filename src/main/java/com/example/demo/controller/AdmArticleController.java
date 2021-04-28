@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.dto.Article;
 import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
+import com.example.demo.dto.Reply;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.GenFileService;
+import com.example.demo.service.ReplyService;
 import com.example.demo.util.ResultData;
 
 @Controller
@@ -25,6 +27,8 @@ public class AdmArticleController extends _BaseController {
 	ArticleService as;
 	@Autowired
 	GenFileService fs;
+	@Autowired
+	ReplyService rs;
 	
 	@RequestMapping("/adm/article/list")
 	public String list(HttpServletRequest req, String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page) {
@@ -117,6 +121,9 @@ public class AdmArticleController extends _BaseController {
 		
 		req.setAttribute("article", article);
 		
+		List<Reply> replies = rs.getReplies("article", aid);
+		req.setAttribute("replies", replies);
+		
 		return "adm/article/detail";
 	}
 	
@@ -153,5 +160,16 @@ public class AdmArticleController extends _BaseController {
 		ResultData doDeleteRd = as.delete(aid);
 		
 		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
+	}
+	
+	@RequestMapping("/adm/article/doAddReply")
+	public String doAddReply(HttpServletRequest req, int aid, String body) {
+		
+		Member member = (Member)(req.getAttribute("loginedMember"));
+		int uid = member.getUid();
+		
+		ResultData doAddReplyRd = rs.addArticleReply("article", uid, aid, body);
+		
+		return msgAndReplace(req, doAddReplyRd.getMsg(), "detail?aid=" + aid);
 	}
 }

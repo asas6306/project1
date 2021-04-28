@@ -61,6 +61,31 @@ function confirm()
 				</div>
 			</div>
 		</div>
+		<div>
+			<div class="flex border-b">
+				<span class="flex w-full bg-gray-100 justify-center">댓글</span>
+			</div>
+			<div>
+				<c:set var="replyCnt" value="3"></c:set>
+				<c:forEach items='${replies}' var='reply'>
+					<div class="flex items-center">
+						<span class="flex w-16 bg-gray-100 justify-center">${reply.nickname}</span>
+						<span class="mx-2">${reply.body}</span>
+						<span class="text-sm text-gray-500">${reply.regDate}</span>
+					</div>
+				</c:forEach>
+				<form action="doAddReply" method="post">
+					<input type="hidden" name="aid" value="${article.aid}" />
+					<div class="border rounded">
+						<span class="flex mx-2">${loginedMember.nickname}</span>
+						<input type="text" name="body" placeholder="댓글을 남겨보세요."/>
+						<div class="flex justify-end">
+							<input type="submit" value="등록" class="px-1 rounded bg-white hover:bg-blue-300" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 		<div class="flex justify-end mt-1">
 			<input type="button" value="수정" onclick="location.href='update?aid=${article.aid}'" class="m-1 h-8 w-16 rounded bg-blue-300 hover:bg-blue-500" />
 			<input type="button" value="삭제" onclick="location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}'" class="m-1 h-8 w-16 rounded bg-red-300 hover:bg-red-500" />

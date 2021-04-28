@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ReplyDao">
+	<select id="getReplies" resultType="Reply">
+		select reply.*, `member`.nickname from reply 
+		left join `member` on reply.uid = `member`.uid 
+		where relTypeCode = #{relTypeCode} and relId = #{relId};
+	</select>
+	
+	<insert id="addArticleReply">
+		insert into reply set relTypeCode = #{relTypeCode}, uid = #{uid}, relId = #{relId}, body = #{body}
+	</insert>
+	
+</mapper>
