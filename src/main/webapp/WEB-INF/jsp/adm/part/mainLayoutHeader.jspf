@@ -30,7 +30,7 @@
 					</span>
 				</a>
 			</div>
-			<ul class="flex items-center justify-end w-full text-xl">
+			<ul class="flex items-center justify-end invisible md:visible w-full text-xl">
 				<div class="ml-8"></div>
 				<li>
 					<a href="#" class="p-3 hover:text-gray-900"> 

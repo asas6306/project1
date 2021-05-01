@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
 <section class="flex justify-center">
-	<div class="w-3/5 container-lg">
+	<div>
 		<c:choose>
 			<c:when test="${boardCode == '1'}">
 				<c:set var="boardName" value="공지사항" />
@@ -19,12 +19,12 @@
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:otherwise>
 		</c:choose>
-		<div class="flex border-b-2 border-t-2 border-gray-500 text-center">
+		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
 			<div class="flex w-full">
-				<div class="w-full bg-gray-100">제목</div>
-				<div class="w-32">작성자</div>
-				<div class="w-60 bg-gray-100">작성일</div>
-				<div class="w-16">조회</div>
+				<div class="w-96 bg-gray-100">제목</div>
+				<div class="w-20">작성자</div>
+				<div class="w-36 bg-gray-100">작성일</div>
+				<div class="w-10">조회</div>
 			</div>
 			<div class="w-32 bg-gray-100 border-l-2 border-gray-500 flex-shrink-0">게시판</div>
 		</div>
@@ -43,7 +43,7 @@
 						<c:set var="thumbFile" value="${article.extra.file__common__attachment[thumbFileNo]}" />
 						<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
 							<div class="flex border-b">
-								<div class="w-full flex">
+								<div class="w-96 flex">
 									<c:choose>
 										<c:when test="${boardCode ==  0}">
 											<a href="list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
@@ -59,9 +59,9 @@
 										</c:if>
 									</a>
 								</div>
-								<div class="bg-gray-100 text-center w-32">${article.nickname}</div>
-								<div class="text-center w-60">${article.regDate}</div>
-								<div class="bg-gray-100 text-center w-16">${article.hit}</div>
+								<div class="bg-gray-100 text-center w-20">${article.nickname}</div>
+								<div class="text-center w-36">${article.regDate}</div>
+								<div class="bg-gray-100 text-center w-10">${article.hit}</div>
 							</div>
 						</c:forEach>
 					</c:otherwise>
