@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
 <section class="flex justify-center">
-	<div class="w-3/5">
+	<div class="w-3/5 container-lg">
 		<c:choose>
 			<c:when test="${boardCode == '1'}">
 				<c:set var="boardName" value="공지사항" />
@@ -26,7 +26,7 @@
 				<div class="w-60 bg-gray-100">작성일</div>
 				<div class="w-16">조회</div>
 			</div>
-			<div class="w-40 bg-gray-100 border-l-2 border-gray-500">게시판</div>
+			<div class="w-32 bg-gray-100 border-l-2 border-gray-500 flex-shrink-0">게시판</div>
 		</div>
 		<div class="flex justify-center border-b-2 border-gray-500">
 			<div class="w-full">
@@ -67,7 +67,7 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<nav class="w-40 border-l-2 border-gray-500">
+			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
 					<a href="/adm/article/list" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>전체글보기(${allArticlesCnt})</span>

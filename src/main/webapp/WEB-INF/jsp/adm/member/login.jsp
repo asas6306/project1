@@ -55,5 +55,4 @@
 	</div>
 </section>
 
-
 <%@ include file="../part/loginLayoutFooter.jspf"%>

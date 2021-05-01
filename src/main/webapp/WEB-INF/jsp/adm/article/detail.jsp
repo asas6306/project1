@@ -44,7 +44,7 @@ function confirm()
 					<span class="mx-2">${article.body}</span>
 				</div>
 				<div class="flex">
-					<span class="flex w-16 bg-gray-100 justify-center">첨부파일</span>
+					<span class="flex w-16 bg-gray-100 justify-center flex-shrink-0">첨부파일</span>
 					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 						<div class="border-b">
 							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
@@ -69,9 +69,12 @@ function confirm()
 				<c:set var="replyCnt" value="3"></c:set>
 				<c:forEach items='${replies}' var='reply'>
 					<div class="flex items-center">
-						<span class="flex w-16 bg-gray-100 justify-center">${reply.nickname}</span>
-						<span class="mx-2">${reply.body}</span>
-						<span class="text-sm text-gray-500">${reply.regDate}</span>
+						<div>
+							<span class="font-extrabold text-lg justify-center mr-2">${reply.nickname}</span>
+						</div>
+						<span>${reply.body}
+							<span class="text-sm text-gray-500">${reply.regDate}</span>
+						</span>
 					</div>
 				</c:forEach>
 				<form action="doAddReply" method="post">
