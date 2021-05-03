@@ -10,20 +10,21 @@
 </script>
 
 <!--
-예 아니오 물어보는 기능인데,,, 어떻게 쓰는것이냐 
+예 아니오 물어보는 기능인데,,, 어떻게 쓰는것이냐-->
 <script>
-function confirm()
+function Delete__Article__Confirm()
 {
-    msg = "실행하시겠습니까?";
-    if (confirm(msg)!=0) {
-         // Yes click
-    } else {
-        // no click
+	const result = confirm('정말로 삭제하시겠습니까?');
+	
+	if(result){
+		location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}';
+	} else {
+		
 	}
-} // myconfirm
+}
 </script>
- -->
 
+  
 <section class="flex justify-center">
 	<div>
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">
@@ -100,7 +101,7 @@ function confirm()
 		</div>
 		<div class="flex justify-end mt-1">
 			<input type="button" value="수정" onclick="location.href='update?aid=${article.aid}'" class="m-1 h-8 w-16 rounded bg-blue-300 hover:bg-blue-500" />
-			<input type="button" value="삭제" onclick="location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}'" class="m-1 h-8 w-16 rounded bg-red-300 hover:bg-red-500" />
+			<input type="button" value="삭제" onclick="Delete__Article__Confirm();" class="m-1 h-8 w-16 rounded bg-red-300 hover:bg-red-500" />
 			<input type="button" value="목록으로" onclick="location.href='list?boardCode=${article.boardCode}'" class="m-1 h-8 w-16 rounded bg-gray-100 hover:bg-gray-300" />
 		</div>
 	</div>

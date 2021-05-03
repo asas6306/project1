@@ -43,6 +43,11 @@
 					</a>
 				</li>
 				<li>
+					<a href="../memo/list" class="p-3 hover:text-gray-900"> 
+						<span>메모장</span>
+					</a>
+				</li>
+				<li>
 					<a href="../member/doLogout" class="p-3 hover:text-gray-900"> 
 						<span>로그아웃</span>
 					</a>
