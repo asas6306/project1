@@ -119,6 +119,11 @@ public class AdmArticleController extends _BaseController {
 
 		article.getExtraNotNull().put("file__common__attachment", filesMap);
 		
+		// 줄바꿈
+		String body = article.getBody();
+		body = body.replace("\r\n", "<br>");
+		article.setBody(body);
+		
 		req.setAttribute("article", article);
 		
 		List<Reply> replies = rs.getReplies("article", aid);
@@ -148,22 +153,7 @@ public class AdmArticleController extends _BaseController {
 	
 	@RequestMapping("/adm/article/doUpdate")
 	public String doUpdate(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-		
-		String body = String.valueOf(param.get("body"));
-		
-		System.out.println("body : " + body);
-		
-		for(int i = 0; i < body.length(); i++) {
-			char c = body.charAt(i);
-			int cInt = (int)c;
-			System.out.println(c + ":" + cInt);
-		}
-		
-		int ASCII_Enter = 10;
-		char ch_Enter = (char)ASCII_Enter;
-		
-		System.out.println("ch_Enter : " + ch_Enter + ch_Enter);
-		
+
 		ResultData doUpdateRd = as.update(param);
 		
 		return msgAndReplace(req, doUpdateRd.getMsg(), "detail?aid=" + param.get("aid"));

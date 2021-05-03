@@ -41,9 +41,7 @@ function confirm()
 				</div>
 				<div class="flex border-b">
 					<span class="flex w-20 bg-gray-100 justify-center flex-shrink-0">내용</span>
-					<div class="mx-2 max-w-2xl">${article.body}
-						<!-- 엔터를 어떻게 구현해야할까? -->
-					</div>
+					<span class="text-left mx-2 max-w-2xl">${article.body}</span>
 				</div>
 				<div class="flex">
 					<span class="flex w-20 bg-gray-100 justify-center">첨부파일</span>
