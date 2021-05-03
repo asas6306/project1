@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
 import com.example.demo.dto.GenFile;
@@ -106,8 +107,12 @@ public class AdmArticleController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/article/detail")
-	public String detail(HttpServletRequest req, Integer aid) {
-		
+	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
+		// 조회수 폭발하는 것을 억제 할 방법을 생각해보자,,,
+		if(hit) {
+			as.hit(aid);
+		}
+	
 		Article article = as.getArticle(aid);
 		
 		List<GenFile> files = fs.getGenFiles("article", article.getAid(), "common", "attachment");
@@ -131,6 +136,7 @@ public class AdmArticleController extends _BaseController {
 		
 		return "adm/article/detail";
 	}
+	
 	
 	@RequestMapping("/adm/article/update")
 	public String update(HttpServletRequest req, int aid) {

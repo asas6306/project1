@@ -24,4 +24,6 @@ public interface ArticleDao {
 	public void update(Map<String, Object> param);
 
 	public void delete(@Param(value="aid") int aid);
+
+	public void hit(@Param(value="aid") int aid);
 }

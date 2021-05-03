@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
+<%@ page import="com.example.demo.controller.AdmArticleController"%>
 
 <section class="flex justify-center">
 	<div>
@@ -38,10 +39,12 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items='${articles}' var='article'>
-							<c:set var="detailUrl" value="detail?aid=${article.aid}" />
 						<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
 						<c:set var="thumbFile" value="${article.extra.file__common__attachment[thumbFileNo]}" />
 						<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+						<c:if test="${hitCheck == null}">
+							<c:set var="hitCheck" value="true" />
+						</c:if>
 							<div class="flex border-b">
 								<div class="w-96 flex">
 									<c:choose>
@@ -51,9 +54,8 @@
 										<c:otherwise>
 											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
 										</c:otherwise>
-									</c:choose>
-									&nbsp&nbsp
-									<a href="${detailUrl}" class="hover:underline">${article.title}
+									</c:choose><!-- 조회수 여기서 클릭시에만 오르도록 하는 방법은? -->
+									<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
 										<c:if test="${thumbUrl != null}">
 											<i class="far fa-image text-gray-700" ></i>
 										</c:if>

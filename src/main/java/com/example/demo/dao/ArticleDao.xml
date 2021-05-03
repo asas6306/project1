@@ -80,4 +80,8 @@
 	<delete id="delete">
 		delete from article where aid = #{aid}
 	</delete>
+	
+	<update id="hit">
+		update article set hit = hit + 1 where aid = #{aid}
+	</update>
 </mapper>

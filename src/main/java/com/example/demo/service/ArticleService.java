@@ -76,5 +76,12 @@ public class ArticleService {
 		
 		return new ResultData("S-1", "게시물이 삭제되었습니다.");
 	}
+
+	public int hit(int aid) {
+		
+		ad.hit(aid);
+		
+		return 1;
+	}
 	
 }
