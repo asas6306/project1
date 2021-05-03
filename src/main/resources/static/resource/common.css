@@ -28,3 +28,11 @@ html > body {
 .first-top {
 	max-width: 1280px;
 }
+
+.Article-Width {
+	width: 776px;
+}
+
+.Article-Width-1 {
+	max-width: 756px;
+}

@@ -20,13 +20,13 @@
 			</c:otherwise>
 		</c:choose>
 		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
-			<div class="flex w-full">
+			<div class="Article-Width flex">
 				<div class="w-96 bg-gray-100">제목</div>
 				<div class="w-20">작성자</div>
 				<div class="w-36 bg-gray-100">작성일</div>
 				<div class="w-10">조회</div>
+				<div class="w-32 bg-gray-100 border-l-2 border-gray-500">게시판</div>
 			</div>
-			<div class="w-32 bg-gray-100 border-l-2 border-gray-500 flex-shrink-0">게시판</div>
 		</div>
 		<div class="flex justify-center border-b-2 border-gray-500">
 			<div class="w-full">

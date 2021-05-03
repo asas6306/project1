@@ -25,26 +25,28 @@ function confirm()
  -->
 
 <section class="flex justify-center">
-	<div class="w-2/5">
+	<div>
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">
-			<a href="list?boardCode=${boardCode}" class="hover:underline">${article.boardName}</a>
+			<a href="list?boardCode=${boardCode}">${article.boardName}</a>
 		</div>
 		<div class="flex border-b-2 border-t-2 border-gray-500 text-center">
-			<div class="w-full">
+			<div class="Article-Width">
 				<div class="flex text-xl border-b">
-					<span class="flex w-16 bg-gray-100 justify-center">제목</span>
+					<span class="flex w-20 bg-gray-100 justify-center flex-shrink-0">제목</span>
 					<span class="mx-2">${article.title}</span>
 				</div>
 				<div class="flex border-b">
-					<span class="flex w-16 bg-gray-100 justify-center">작성자</span>
+					<span class="flex w-20 bg-gray-100 justify-center">작성자</span>
 					<span class="mx-2">${article.nickname}</span>
 				</div>
 				<div class="flex border-b">
-					<span class="flex w-16 bg-gray-100 justify-center">내용</span>
-					<span class="mx-2">${article.body}</span>
+					<span class="flex w-20 bg-gray-100 justify-center flex-shrink-0">내용</span>
+					<div class="mx-2 max-w-2xl">${article.body}
+						<!-- 엔터를 어떻게 구현해야할까? -->
+					</div>
 				</div>
 				<div class="flex">
-					<span class="flex w-16 bg-gray-100 justify-center flex-shrink-0">첨부파일</span>
+					<span class="flex w-20 bg-gray-100 justify-center">첨부파일</span>
 					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 						<div class="border-b">
 							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>

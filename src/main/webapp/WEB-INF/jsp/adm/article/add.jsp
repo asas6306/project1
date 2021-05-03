@@ -16,6 +16,12 @@ function ArticleAdd__checkAndSubmit(form) {
 		return;
 	}
 	
+	if ( form.boardCode.value == 0 ) {
+		alert('게시판을 선택해주세요.');
+		form.boardCode.focus();
+		return false;
+	}
+	
 	form.title.value = form.title.value.trim();
 	if ( form.title.value.length == 0 ) {
 		alert('제목을 입력해주세요.');
@@ -100,7 +106,7 @@ function ArticleAdd__checkAndSubmit(form) {
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post">
 			<input type="hidden" name="genFileIdsStr" value="" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
+				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
 					<span>게시판 선택</span>
 				</div>
 				<div class="w-full">
@@ -115,7 +121,7 @@ function ArticleAdd__checkAndSubmit(form) {
 				</div>
 			</div>
 			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
+				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
 					<span>제목</span>
 				</div>
 				<div class="w-full">
@@ -123,7 +129,7 @@ function ArticleAdd__checkAndSubmit(form) {
 				</div>
 			</div>
 			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
+				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
 					<span>내용</span>
 				</div>
 				<div class="w-full">
@@ -131,7 +137,7 @@ function ArticleAdd__checkAndSubmit(form) {
 				</div>
 			</div>
 			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center items-center w-24 bg-gray-100">
+				<div class="flex justify-center items-center w-20 bg-gray-100 flex-shrink-0">
 					<span>첨부파일</span>
 				</div>
 				<div class="w-full">
