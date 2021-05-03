@@ -36,8 +36,17 @@ function confirm()
 					<span class="mx-2">${article.title}</span>
 				</div>
 				<div class="flex border-b">
-					<span class="flex w-20 bg-gray-100 justify-center">작성자</span>
-					<span class="mx-2">${article.nickname}</span>
+					<div class="flex w-full">
+						<span class="flex w-20 bg-gray-100 justify-center">작성자</span>
+						<span class="mx-2 w-40 text-left">${article.nickname}</span>
+					</div>
+					<div class="flex">
+						<sapn class="bg-gray-100 w-20">작성날짜</sapn>
+						<sapn class="w-40">${article.regDate}</sapn>
+						<sapn class="bg-gray-100 w-16">조회수</sapn>
+						<sapn class="w-12">${article.hit}</sapn>
+					</div>
+					
 				</div>
 				<div class="flex border-b">
 					<span class="flex w-20 bg-gray-100 justify-center flex-shrink-0">내용</span>
