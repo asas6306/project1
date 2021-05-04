@@ -70,7 +70,7 @@
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
-		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}
+		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}, relType = #{relType}
 	</insert>
 	
 	<update id="update">

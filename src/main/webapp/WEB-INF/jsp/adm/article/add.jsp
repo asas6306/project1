@@ -105,6 +105,7 @@ function ArticleAdd__checkAndSubmit(form) {
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post">
 			<input type="hidden" name="genFileIdsStr" value="" />
+			<input type="hidden" name="relType" value="${relType}" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
 				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
 					<span>게시판 선택</span>

@@ -88,8 +88,9 @@ public class AdmArticleController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/article/add")
-	public String add(HttpServletRequest req, int boardCode) {
+	public String add(HttpServletRequest req, int boardCode, String relType) {
 		req.setAttribute("boardCode", boardCode);
+		req.setAttribute("relType", relType);
 		
 		return "adm/article/add";
 	}
