@@ -23,11 +23,12 @@
 					and nickname like concat('%' , #{searchKeyword}, '%')
 				</when>
 				<otherwise>
-					and title like concat('%' , #{searchKeyword}, '%')
-					or body like concat('%' , #{searchKeyword}, '%')
+					and (title like concat('%' , #{searchKeyword}, '%')
+					or body like concat('%' , #{searchKeyword}, '%'))
 				</otherwise>
 			</choose>
 		</if>
+		and articleType = #{articleType}
 		order by aid desc
 		limit #{page}, 20
 	</select>
@@ -58,19 +59,20 @@
 					and nickname like concat('%' , #{searchKeyword}, '%')
 				</when>
 				<otherwise>
-					and title like concat('%' , #{searchKeyword}, '%')
-					or body like concat('%' , #{searchKeyword}, '%')
+					and (title like concat('%' , #{searchKeyword}, '%')
+					or body like concat('%' , #{searchKeyword}, '%'))
 				</otherwise>
 			</choose>
 		</if>
+		and articleType = #{articleType}
 	</select>
 	
 	<select id="getAllArticlesCnt" resultType="int">
-		select count(*) from article
+		select count(*) from article where articleType = #{articleType}
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
-		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}, relType = #{relType}
+		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}, articleType = #{articleType}
 	</insert>
 	
 	<update id="update">

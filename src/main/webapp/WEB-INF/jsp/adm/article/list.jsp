@@ -32,9 +32,9 @@
 		<div class="flex justify-center border-b-2 border-gray-500">
 			<div class="w-full">
 				<c:choose>
-					<c:when test="${articles.size() == 0}">
+					<c:when test="${articlesCnt == 0}">
 						<div class="flex h-full justify-center items-center">
-							<span>게시물이 존재하지 않습니다.</span>
+							<span>게시물이 존재하지 않습니다. 크크루삥뽕</span>
 						</div>
 					</c:when>
 					<c:otherwise>
@@ -46,7 +46,7 @@
 							<div class="flex border-b">
 								<div class="w-96 flex">
 									<c:choose>
-										<c:when test="${boardCode ==  0}">
+										<c:when test="${boardCode == 0}">
 											<a href="list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
 										</c:when>
 										<c:otherwise>
@@ -74,7 +74,7 @@
 			</div>
 			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
-					<a href="/adm/article/list" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/adm/article/list?relType=article" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>전체글보기(${allArticlesCnt})</span>
 					</a>
 					<a href="/adm/article/list?boardCode=1" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
@@ -107,7 +107,7 @@
 				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
 			<div class="flex justify-center items-center w-24">
-				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&relType=article'" />
+				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=article'" />
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">

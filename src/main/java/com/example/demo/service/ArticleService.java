@@ -20,10 +20,10 @@ public class ArticleService {
 	@Autowired
 	GenFileService fs;
 	
-	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt) {
+	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt, String articleType) {
 		page = (page - 1) * pageCnt; 
 		
-		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt);
+		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType);
 		List<Integer> aids = articles.stream().map(article -> article.getAid()).collect(Collectors.toList());
 		Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common",
 				"attachment");
@@ -38,14 +38,14 @@ public class ArticleService {
 		return articles;
 	}
 
-	public int getArticlesCnt(String searchType, String searchKeyword, int boardCode) {
+	public int getArticlesCnt(String searchType, String searchKeyword, int boardCode, String articleType) {
 			
-		return ad.getArticlesCnt(searchType, searchKeyword, boardCode);
+		return ad.getArticlesCnt(searchType, searchKeyword, boardCode, articleType);
 	}
 
-	public int getAllArticlesCnt() {
+	public int getAllArticlesCnt(String articleType) {
 		
-		return ad.getAllArticlesCnt();
+		return ad.getAllArticlesCnt(articleType);
 	}
 
 	public ResultData add(Map<String, Object> param) {
