@@ -55,8 +55,6 @@
 									</c:choose>
 									<!-- 
 									조회수 여기서 클릭시에만 오르도록 하는 방법은? 
-									1. 클릭시에만 특수 함수 생성...?
-									2. 로그인 계정 로그에 방문기록을 남김으로서 대조하여 카운팅?
 									-->
 									<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
 										<c:if test="${thumbUrl != null}">
@@ -74,7 +72,7 @@
 			</div>
 			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
-					<a href="/adm/article/list?relType=article" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/adm/article/list" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>전체글보기(${allArticlesCnt})</span>
 					</a>
 					<a href="/adm/article/list?boardCode=1" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">

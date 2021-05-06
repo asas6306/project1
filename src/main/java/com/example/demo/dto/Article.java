@@ -20,7 +20,7 @@ public class Article {
 	private int hit;
 	private int like;
 	private int boardCode;
-	private String relType;
+	private String articleType;
 	
 	private String nickname;
 	private String boardName;

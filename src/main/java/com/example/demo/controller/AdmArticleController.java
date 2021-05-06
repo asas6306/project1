@@ -91,6 +91,9 @@ public class AdmArticleController extends _BaseController {
 			req.setAttribute("articlesCnt", articlesCnt);
 		}
 		
+		if(articleType.equals("memo"))
+			return "adm/article/memoList";
+		
 		return "adm/article/list";
 	}
 	

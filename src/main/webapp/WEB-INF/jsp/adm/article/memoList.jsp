@@ -7,16 +7,16 @@
 <section class="flex justify-center">
 	<div>
 		<c:choose>
-			<c:when test="${boardCode == '1'}">
-				<c:set var="boardName" value="공지사항" />
+			<c:when test="${boardCode == '31'}">
+				<c:set var="boardName" value="웹" />
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:when>
-			<c:when test="${boardCode == '2'}">
-				<c:set var="boardName" value="자유게시판" />
+			<c:when test="${boardCode == '32'}">
+				<c:set var="boardName" value="정보처리기사" />
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:when>
 			<c:otherwise>
-				<c:set var="boardName" value="전체글보기" />
+				<c:set var="boardName" value="메모장" />
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:otherwise>
 		</c:choose>
@@ -53,11 +53,6 @@
 											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
 										</c:otherwise>
 									</c:choose>
-									<!-- 
-									조회수 여기서 클릭시에만 오르도록 하는 방법은? 
-									1. 클릭시에만 특수 함수 생성...?
-									2. 로그인 계정 로그에 방문기록을 남김으로서 대조하여 카운팅?
-									-->
 									<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
 										<c:if test="${thumbUrl != null}">
 											<i class="far fa-image text-gray-700" ></i>
@@ -74,14 +69,14 @@
 			</div>
 			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
-					<a href="/adm/article/list?relType=article" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>전체글보기(${allArticlesCnt})</span>
+					<a href="/adm/article/list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+						<span>메모장(${allArticlesCnt})</span>
 					</a>
-					<a href="/adm/article/list?boardCode=1" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>공지사항</span>
+					<a href="/adm/article/list?boardCode=31&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+						<span>웹</span>
 					</a>
-					<a href="/adm/article/list?boardCode=2" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>자유게시판</span>
+					<a href="/adm/article/list?boardCode=32&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+						<span>정보처리기사</span>
 					</a>
 					<div class="pb-1"></div>
 				</ul>
@@ -91,23 +86,23 @@
 			<div class="w-24"> <!-- 공백용 -->
 			</div>
 			<div class="flex justify-center w-full text-lg text-gray-700">
-				<a href="/adm/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">처음</a>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">이전</a>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">처음</a>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">이전</a>
 				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
 					<c:choose>
 						<c:when test="${printPageIndex == page}">
-							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 text-black underline">${printPageIndex}</a>
+							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 text-black underline">${printPageIndex}</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
+							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">다음</a>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">다음</a>
+				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
 			<div class="flex justify-center items-center w-24">
-				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=article'" />
+				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=memo'" />
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">

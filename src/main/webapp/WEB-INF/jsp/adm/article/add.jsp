@@ -105,7 +105,7 @@ function ArticleAdd__checkAndSubmit(form) {
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post">
 			<input type="hidden" name="genFileIdsStr" value="" />
-			<input type="hidden" name="relType" value="${relType}" />
+			<input type="hidden" name="articleType" value="${articleType}" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
 				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
 					<span>게시판 선택</span>
@@ -113,8 +113,16 @@ function ArticleAdd__checkAndSubmit(form) {
 				<div class="w-full">
 					<select name="boardCode" class="select-board mx-2">
 						<option value="0">=== 게시판선택 ===</option>
-						<option value="1">공지사항</option>
-						<option value="2">자유게시판</option>
+						<c:choose>
+							<c:when test="${articleType == 'memo'}">
+								<option value="31">웹</option>
+								<option value="32">정보처리기사</option>
+							</c:when>
+							<c:otherwise>
+								<option value="1">공지사항</option>
+								<option value="2">자유게시판</option>
+							</c:otherwise>
+						</c:choose>
 					</select>
 					<script>
 						$('.section-add .select-board').val(${boardCode});
