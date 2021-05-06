@@ -113,4 +113,12 @@ public class AdmMemberController extends _BaseController {
 		
 	}
 	
+	@RequestMapping("/adm/member/mypage")
+	public String mypage(HttpServletRequest req) {
+		
+//		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		
+		return "adm/member/mypage";
+		
+	}
 }

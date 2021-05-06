@@ -9,13 +9,10 @@
 			class="first-top h-10 flex items-center justify-end text-gray-500 text-sm w-full">
 			<ul class="flex">
 				<div class="ml-8"></div>
-				<li><a href="#" class="p-3 hover:text-gray-900"> <span>회원 관리</span>
+				<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
 				</a></li>
 				<span>|</span>
-				<li><a href="#" class="p-3 hover:text-gray-900"> <span>게시판 관리</span>
-				</a></li>
-				<span>|</span>
-				<li><a href="#" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
+				<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
 				</a></li>
 				<div class="mr-8"></div>
 			</ul>
@@ -45,11 +42,6 @@
 				<li>
 					<a href="../article/list?articleType=memo" class="p-3 hover:text-gray-900"> 
 						<span>메모장</span>
-					</a>
-				</li>
-				<li>
-					<a href="../member/doLogout" class="p-3 hover:text-gray-900"> 
-						<span>로그아웃</span>
 					</a>
 				</li>
 				<div class="mr-8"></div>
