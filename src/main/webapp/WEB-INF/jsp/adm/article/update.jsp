@@ -18,6 +18,12 @@ function ArticleUpdate__checkAndSubmit(form) {
 		return;
 	}
 	
+	if ( form.boardCode.value == 0 ) {
+		alert('게시판을 선택해주세요.');
+		form.boardCode.focus();
+		return false;
+	}
+	
 	form.title.value = form.title.value.trim();
 	if ( form.title.value.length == 0 ) {
 		alert('제목을 입력해주세요.');
@@ -119,8 +125,16 @@ function ArticleUpdate__checkAndSubmit(form) {
 				<div class="w-full">
 					<select name="boardCode" class="select-board mx-2">
 						<option value="0">=== 게시판선택 ===</option>
-						<option value="1">공지사항</option>
-						<option value="2">자유게시판</option>
+						<c:choose>
+							<c:when test="${article.articleType == 'memo'}">
+								<option value="31">웹</option>
+								<option value="32">정보처리기사</option>
+							</c:when>
+							<c:otherwise>
+								<option value="1">공지사항</option>
+								<option value="2">자유게시판</option>
+							</c:otherwise>
+						</c:choose>
 					</select>
 					<script>
 						$('.section-add .select-board').val(${article.boardCode});

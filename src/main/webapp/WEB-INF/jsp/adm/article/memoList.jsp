@@ -4,6 +4,8 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.controller.AdmArticleController"%>
 
+<c:set var="fileInputMaxCount" value="3" />
+
 <section class="flex justify-center">
 	<div>
 		<c:choose>
@@ -38,30 +40,40 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items='${articles}' var='article'>
-						<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-						<c:set var="thumbFile" value="${article.extra.file__common__attachment[thumbFileNo]}" />
-						<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
-						<c:set var="hitCheck" value="true" />
-							<div class="flex border-b">
-								<div class="w-96 flex">
-									<c:choose>
-										<c:when test="${boardCode == 0}">
-											<a href="list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
-										</c:when>
-										<c:otherwise>
-											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
-										</c:otherwise>
-									</c:choose>
-									<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
-										<c:if test="${thumbUrl != null}">
-											<i class="far fa-image text-gray-700" ></i>
-										</c:if>
-									</a>
+						<c:forEach var="article" items="${articles}">
+							<div class="border-b-2">
+								<div class="mx-2 mt-1 text-sm mt-2 text-gray-500">
+									<a href="/adm/article/list?boardCode=${article.boardCode}" class="">${article.boardName} ></a>
 								</div>
-								<div class="bg-gray-100 text-center w-20">${article.nickname}</div>
-								<div class="text-center w-36">${article.regDate}</div>
-								<div class="bg-gray-100 text-center w-10">${article.hit}</div>
+								<div class="text-3xl border-gray-300">
+									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo" class="mx-2">${article.title}</a>
+								</div>
+								<div class="flex w-full items-center">
+									<div class="mx-2">
+										<!-- 사진을 갖고와서 넣어야댐 ㅎㅎ -->
+										<img src="" alt="사진" class="w-10 h-10 rounded-full bg-gray-300" />
+									</div>
+									<div>
+										<div class="">${article.nickname}</div>
+										<div class="text-sm text-gray-500">${article.regDate}</div>
+									</div>
+								</div>
+								<div class="border rounded mx-2 text-lg mb-2">
+									<div class="m-2">${article.body}</div>
+									<div>
+										<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
+											<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
+											<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
+											<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+												<div class="flex">
+													<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
+														<img class="w-60" src="${file.forPrintUrl}" />
+													</a>
+												</div>
+											</c:if>
+										</c:forEach>
+									</div>
+								</div>
 							</div>
 						</c:forEach>
 					</c:otherwise>

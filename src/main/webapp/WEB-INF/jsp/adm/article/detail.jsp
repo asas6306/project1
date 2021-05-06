@@ -4,10 +4,6 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
 <c:set var="fileInputMaxCount" value="3" />
-<script>
-	ArticleUpdate__fileInputMaxCount = parseInt("${fileInputMaxCount}");
-	const aid = parseInt("${article.aid}");
-</script>
 
 <!--
 예 아니오 물어보는 기능인데,,, 어떻게 쓰는것이냐-->
