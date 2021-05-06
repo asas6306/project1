@@ -84,8 +84,15 @@ public class AdmArticleController extends _BaseController {
 			int printPageIndexDown = printPageIndexs.get(0) - 1;
 			req.setAttribute("printPageIndexDown", printPageIndexDown);
 			
+			
 			// 최종 게시물 불러오기
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType);
+			
+			for(Article article : articles) {
+				String body = article.getBody();
+				body = body.replace("\r\n", "<br>");
+				article.setBody(body);				
+			}
 			req.setAttribute("articles", articles);
 		} else {
 			req.setAttribute("articlesCnt", articlesCnt);
