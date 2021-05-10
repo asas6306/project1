@@ -46,7 +46,7 @@ function Delete__Article__Confirm()
 					
 				</div>
 				<div class="flex border-b">
-					<span class="flex w-20 bg-gray-100 justify-center flex-shrink-0">내용</span>
+					<span class="flex w-20 bg-gray-100 items-center justify-center flex-shrink-0">내용</span>
 					<span class="text-left mx-2 max-w-2xl">${article.body}</span>
 				</div>
 				<div class="flex">

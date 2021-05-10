@@ -16,7 +16,6 @@ public class ReplyService {
 	ReplyDao rd;
 	
 	public List<Reply> getReplies(String relTypeCode, int relId) {
-		
 		return rd.getReplies(relTypeCode, relId);
 	}
 	

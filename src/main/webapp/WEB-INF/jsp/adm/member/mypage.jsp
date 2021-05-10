@@ -63,7 +63,7 @@
 								<div class="flex">
 									<div class="flex w-96">
 										<span class="flex items-center justify-center w-16 text-sm">${item.rid}</span>
-										<span>${item.body}</span>
+										<a href="../article/detail?aid=${item.relId}">${item.body}</a>
 									</div>
 									<span class="text-center w-12"></span>
 									<span class="text-center w-40">${item.regDate}</span>
@@ -75,7 +75,7 @@
 								<div class="flex">
 									<div class="flex w-96">
 										<span class="flex items-center justify-center w-16 text-sm">${item.aid}</span>
-										<span>${item.title}</span>
+										<a href="../article/detail?aid=${item.aid}">${item.title}</a>
 									</div>
 									<span class="text-center w-40">${item.regDate}</span>
 									<span class="text-center w-12">${item.hit}</span>

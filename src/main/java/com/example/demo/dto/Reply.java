@@ -12,7 +12,7 @@ public class Reply {
 	private int uid;
 	private String body;
 	private String relTypeCode;
-	private int relid;
+	private int relId;
 	private String regDate;
 	private String updateDate;
 	private String nickname;
