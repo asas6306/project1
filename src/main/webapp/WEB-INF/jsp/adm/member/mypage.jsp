@@ -40,29 +40,46 @@
 				</div>
 			</div>
 			<div>
-				<div class="flex border-b-2 mt-4">
-					<span class="text-center w-96">제목</span>
-					<span class="text-center w-40">작성일</span>
-					<span class="text-center w-16">조회수</span>
-				</div>
-				<div class="flex">
-					<div class="flex w-96">
-						<span class="flex items-center justify-center w-16 text-sm">1</span>
-						<span>title</span>
-					</div>
-					<span class="text-center w-40">regDate</span>
-					<span class="text-center w-16">hit</span>
-				</div>
+				<c:choose>
+					<c:when test="${call == 'reply'}">
+						<div class="flex border-b-2 mt-4">
+							<span class="text-center w-96">제목</span>
+							<span class="text-center w-12"></span>
+							<span class="text-center w-40">작성일</span>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="flex border-b-2 mt-4">
+							<span class="text-center w-96">제목</span>
+							<span class="text-center w-40">작성일</span>
+							<span class="text-center w-12">조회수</span>
+						</div>
+					</c:otherwise>
+				</c:choose>
 				<div>
 					<c:choose>
 						<c:when test="${call == 'reply'}">
-							<c:forEach var='reply' items='${itemsReply}'>
-								<div>${reply.body}</div>
+							<c:forEach var='item' items='${itemsReply}'>
+								<div class="flex">
+									<div class="flex w-96">
+										<span class="flex items-center justify-center w-16 text-sm">${item.rid}</span>
+										<span>${item.body}</span>
+									</div>
+									<span class="text-center w-12"></span>
+									<span class="text-center w-40">${item.regDate}</span>
+								</div>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<c:forEach var='item' items='${items}'>
-								<div>${item.title}</div>
+								<div class="flex">
+									<div class="flex w-96">
+										<span class="flex items-center justify-center w-16 text-sm">${item.aid}</span>
+										<span>${item.title}</span>
+									</div>
+									<span class="text-center w-40">${item.regDate}</span>
+									<span class="text-center w-12">${item.hit}</span>
+								</div>
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
