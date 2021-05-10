@@ -62,7 +62,10 @@
 							<c:forEach var='item' items='${itemsReply}'>
 								<div class="flex">
 									<div class="flex w-96">
-										<span class="flex items-center justify-center w-16 text-sm">${item.rid}</span>
+										<div class="flex items-center">
+											<input type="checkbox" name="delete__" class="flex justify-center items-center bg-black"/>
+										</div>
+										<span class="flex items-center justify-center w-12 text-sm">${item.rid}</span>
 										<a href="../article/detail?aid=${item.relId}">${item.body}</a>
 									</div>
 									<span class="text-center w-12"></span>
@@ -74,7 +77,10 @@
 							<c:forEach var='item' items='${items}'>
 								<div class="flex">
 									<div class="flex w-96">
-										<span class="flex items-center justify-center w-16 text-sm">${item.aid}</span>
+										<div class="flex items-center">
+											<input type="checkbox" name="delete__" class="flex justify-center items-center bg-black"/>
+										</div>
+										<span class="flex items-center justify-center w-12 text-sm">${item.aid}</span>
 										<a href="../article/detail?aid=${item.aid}">${item.title}</a>
 									</div>
 									<span class="text-center w-40">${item.regDate}</span>
