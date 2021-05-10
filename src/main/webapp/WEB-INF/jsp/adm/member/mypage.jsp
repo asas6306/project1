@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import="com.example.demo.util.Util"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <section class="flex justify-center">
 	<div>
@@ -29,13 +30,13 @@
 			</div>
 			<div class="flex justify-center text-xl">
 				<div class="text-center border-b w-44">
-					<a href="#" class="hover:underline">1,234개</a>
+					<a href="mypage?call=article" class="hover:underline">${Util.numberFormat(articleCnt)}</a>
 				</div>
 				<div class="text-center border-b mx-4 w-44">
-					<a href="#" class="hover:underline">1,234개</a>
+					<a href="mypage?call=memo" class="hover:underline">${Util.numberFormat(memoCnt)}</a>
 				</div>
 				<div class="text-center border-b w-44">
-					<a href="#" class="hover:underline">1,234개</a>
+					<a href="mypage?call=reply" class="hover:underline">${Util.numberFormat(replyCnt)}</a>
 				</div>
 			</div>
 			<div>
@@ -52,6 +53,43 @@
 					<span class="text-center w-40">regDate</span>
 					<span class="text-center w-16">hit</span>
 				</div>
+				<div>
+					<c:choose>
+						<c:when test="${call == 'reply'}">
+							<c:forEach var='reply' items='${itemsReply}'>
+								<div>${reply.body}</div>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<c:forEach var='item' items='${items}'>
+								<div>${item.title}</div>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="flex">
+			<div class="w-24"> <!-- 공백용 -->
+			</div>
+			<div class="flex justify-center w-full text-lg text-gray-700">
+				<a href="/adm/member/mypage?page=1&call=${call}" class="p-2 hover:text-black hover:underline">처음</a>
+				<a href="/adm/member/mypage?page=${printPageIndexDown}&call=${call}" class="p-2 hover:text-black hover:underline">이전</a>
+				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
+					<c:choose>
+						<c:when test="${printPageIndex == page}">
+							<a href="/adm/member/mypage?page=${printPageIndex}&call=${call}" class="p-2 text-black underline">${printPageIndex}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/adm/member/mypage?page=${printPageIndex}&call=${call}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<a href="/adm/member/mypage?page=${printPageIndexUp}&call=${call}" class="p-2 hover:text-black hover:underline">다음</a>
+				<a href="/adm/member/mypage?page=1000&call=${call}" class="p-2 hover:text-black hover:underline">끝</a>
+			</div>
+			<div class="flex justify-center items-center w-24">
+				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?articleType=article'" />
+			</div>
+		</div>
 			</div>
 		</div>
 	</div>

@@ -86,7 +86,7 @@ public class AdmArticleController extends _BaseController {
 			
 			
 			// 최종 게시물 불러오기
-			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType);
+			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			
 			for(Article article : articles) {
 				String body = article.getBody();

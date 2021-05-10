@@ -7,11 +7,22 @@
 	<select id="getReplies" resultType="Reply">
 		select reply.*, `member`.nickname from reply 
 		left join `member` on reply.uid = `member`.uid 
-		where relTypeCode = #{relTypeCode} and relId = #{relId};
+		where relTypeCode = #{relTypeCode} and relId = #{relId}
+		order by rid desc
+		limit #{page}, #{pageCnt}
 	</select>
 	
 	<insert id="addArticleReply">
 		insert into reply set relTypeCode = #{relTypeCode}, uid = #{uid}, relId = #{relId}, body = #{body}
 	</insert>
 	
+	<select id="getRepliesCntForMypage" resultType="int">
+		select count(*) from reply where uid = #{uid}
+	</select>
+	
+	<select id="getRepliesForMypage" resultType="Reply">
+		select reply.*, `member`.nickname from reply 
+		left join `member` on reply.uid = `member`.uid 
+		where reply.uid = #{uid};
+	</select>
 </mapper>

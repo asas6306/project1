@@ -11,7 +11,7 @@ import com.example.demo.dto.Article;
 @Mapper
 public interface ArticleDao {
 
-	public List<Article> getArticles(@Param(value="searchType") String searchType, @Param(value="searchKeyword") String searchKeyword, @Param(value="boardCode") int boardCode, @Param(value="page") int page, @Param(value="pageCnt") int pageCnt, @Param(value="articleType") String articleType);
+	public List<Article> getArticles(@Param(value="searchType") String searchType, @Param(value="searchKeyword") String searchKeyword, @Param(value="boardCode") int boardCode, @Param(value="page") int page, @Param(value="pageCnt") int pageCnt, @Param(value="articleType") String articleType, @Param(value="uid") int uid);
 
 	public int getArticlesCnt(@Param(value="searchType") String searchType, @Param(value="searchKeyword") String searchKeyword, @Param(value="boardCode") int boardCode, @Param(value="articleType") String articleType);
 
@@ -26,4 +26,8 @@ public interface ArticleDao {
 	public void delete(@Param(value="aid") int aid);
 
 	public void hit(@Param(value="aid") int aid);
+
+	public int getArticlesCntForMypage(@Param(value="articleType") String articleType, @Param(value="uid") int uid);
+
+	public List<Article> getArticlesForMypage(@Param(value="articleType") String articleType, @Param(value="uid") int uid);
 }

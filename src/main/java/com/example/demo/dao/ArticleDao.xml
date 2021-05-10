@@ -28,9 +28,23 @@
 				</otherwise>
 			</choose>
 		</if>
+		<if test="uid != 0">
+			and article.uid = #{uid}
+		</if>
 		and articleType = #{articleType}
 		order by aid desc
-		limit #{page}, 20
+		limit #{page}, #{pageCnt}
+	</select>
+	
+	<select id="getArticlesForMypage" resultType="Article">
+		select article.*, `member`.nickname, `board`.boardName from article 
+		left join `member` on 
+		article.uid = `member`.uid
+		left join board on
+		article.boardCode = board.boardCode
+		where 1
+		and articleType = #{articleType}
+		and article.uid = #{uid}
 	</select>
 	
 	<select id="getArticle" resultType="Article">
@@ -69,6 +83,10 @@
 	
 	<select id="getAllArticlesCnt" resultType="int">
 		select count(*) from article where articleType = #{articleType}
+	</select>
+	
+	<select id="getArticlesCntForMypage" resultType="int">
+		select count(*) from article where articleType = #{articleType} and uid = #{uid}
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">

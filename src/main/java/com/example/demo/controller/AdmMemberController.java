@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dto.Article;
 import com.example.demo.dto.Member;
+import com.example.demo.service.ArticleService;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.ReplyService;
 import com.example.demo.util.ResultData;
 import com.example.demo.util.Util;
 
@@ -21,6 +26,10 @@ import com.example.demo.util.Util;
 public class AdmMemberController extends _BaseController {
 	@Autowired
 	MemberService ms;
+	@Autowired
+	ArticleService as;
+	@Autowired
+	ReplyService rs;
 	
 	@RequestMapping("/adm/member/login")
 	public String login() {
@@ -114,11 +123,74 @@ public class AdmMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/member/mypage")
-	public String mypage(HttpServletRequest req) {
+	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call) {
+	
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		int uid = loginedMember.getUid();
 		
-//		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		req.setAttribute("call", call);
+		int articleCnt = as.getArticlesCntForMypage("article", uid);
+		req.setAttribute("articleCnt", articleCnt);
+		int memoCnt = as.getArticlesCntForMypage("memo", uid);
+		req.setAttribute("memoCnt", memoCnt);
+		int replyCnt = rs.getRepliesCntForMypage(uid);
+		req.setAttribute("replyCnt", replyCnt);
+		
+		int itemsCnt = 0;
+		
+		if(call.equals("article")) {
+			itemsCnt = articleCnt;
+		} else if(call.equals("memo")) {
+			itemsCnt = memoCnt;
+		} else if(call.equals("reply")) {
+			itemsCnt = replyCnt;
+		}
+		
+		int pageCnt = 20;
+		if(itemsCnt != 0) {
+			// 페이징
+			if(page < 1)
+				page = 1;
+			
+			int allPageCnt = (int)(Math.ceil((double)itemsCnt / pageCnt));
+			if(allPageCnt == 0)
+				allPageCnt = 1;
+			
+			if(page > allPageCnt) {
+				page = allPageCnt;
+			} else if(page < 1) {
+				page = 1;
+			}
+			
+			int pageStack;
+			int pageIndex = 5;
+			if(page % pageIndex == 0) {
+				pageStack = page;
+			} else {
+				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
+			}
+			
+			List<Integer> printPageIndexs = new ArrayList<Integer>();
+			for(int i = 4; i >= 0; i--) 
+				if(pageStack - i <= allPageCnt)
+					printPageIndexs.add(pageStack - i);
+			
+			req.setAttribute("page", page);
+			req.setAttribute("printPageIndexs", printPageIndexs);
+			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
+			req.setAttribute("printPageIndexUp", printPageIndexUp);
+			int printPageIndexDown = printPageIndexs.get(0) - 1;
+			req.setAttribute("printPageIndexDown", printPageIndexDown);
+		}
+	
+		if(call.equals("article")) {
+			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "article", uid));
+		} else if(call.equals("memo")) {
+			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "memo", uid));
+		} else if(call.equals("reply")) {
+			req.setAttribute("itemsReply", rs.getRepliesForMypage(page, pageCnt, uid));
+		}
 		
 		return "adm/member/mypage";
-		
 	}
 }
