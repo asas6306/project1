@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.Article;
 import com.example.demo.dto.Member;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.MemberService;
@@ -119,7 +118,6 @@ public class AdmMemberController extends _BaseController {
 		String redirectUrl = Util.ifEmpty(null, "login");
 
 		return Util.msgAndReplace("로그아웃 되었습니다.", redirectUrl);
-		
 	}
 	
 	@RequestMapping("/adm/member/mypage")
@@ -188,9 +186,32 @@ public class AdmMemberController extends _BaseController {
 		} else if(call.equals("memo")) {
 			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "memo", uid));
 		} else if(call.equals("reply")) {
-			req.setAttribute("itemsReply", rs.getRepliesForMypage(page, pageCnt, uid));
+			req.setAttribute("items", rs.getRepliesForMypage(page, pageCnt, uid));
 		}
 		
 		return "adm/member/mypage";
+	}
+	
+	@RequestMapping("/adm/member/mypageDoDelete")
+	@ResponseBody
+	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
+		
+		String call = String.valueOf(req.getAttribute("call"));
+		
+		List<Object> items = new ArrayList<>();
+		
+		for(int i = 0; i < 20; i++) {
+			// 여기부터
+		}
+		
+		if(call.equals("article")) {
+			
+		} else if(call.equals("memo")) {
+			
+		} else if(call.equals("reply")) {
+			
+		}
+		
+		return "";
 	}
 }
