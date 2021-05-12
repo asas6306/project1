@@ -51,13 +51,9 @@ public class AdmMemberController extends _BaseController {
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 		
 		session.setAttribute("loginedMember", loginedMember);
-
-		System.out.println("확인1" + redirectUrl);
 		
 		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
 		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
-		
-		System.out.println("확인2" + redirectUrl);
 
 		return Util.msgAndReplace(msg, redirectUrl);
 	}
@@ -121,11 +117,10 @@ public class AdmMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/member/mypage")
-	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call) {
+	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
 	
 		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		int uid = loginedMember.getUid();
-		
 		req.setAttribute("call", call);
 		int articleCnt = as.getArticlesCntForMypage("article", uid);
 		req.setAttribute("articleCnt", articleCnt);
@@ -193,25 +188,22 @@ public class AdmMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/member/mypageDoDelete")
-	@ResponseBody
 	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
-		String call = String.valueOf(req.getAttribute("call"));
+		String call = String.valueOf(param.get("call"));
 		
-		List<Object> items = new ArrayList<>();
-		
-		for(int i = 0; i < 20; i++) {
-			// 여기부터
+		for(int i = 1; i <= 20; i++) {
+			if(param.get("delete__" + i) != null) {
+				int itemId = Util.getAsInt(param.get("delete__" + i), 0);
+				
+				if(call.equals("reply")) {
+					rs.delete(itemId);
+				} else {
+					as.delete(itemId);
+				} 
+			}
 		}
 		
-		if(call.equals("article")) {
-			
-		} else if(call.equals("memo")) {
-			
-		} else if(call.equals("reply")) {
-			
-		}
-		
-		return "";
+		return msgAndReplace(req, "삭제되었습니다.", "mypage?call=" + call);
 	}
 }

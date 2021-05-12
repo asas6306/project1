@@ -25,4 +25,8 @@
 		order by rid desc
 		limit #{page}, #{pageCnt}
 	</select>
+	
+	<delete id="delete">
+		delete from reply where rid = #{rid}
+	</delete>
 </mapper>

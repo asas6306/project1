@@ -18,4 +18,6 @@ public interface ReplyDao {
 	public int getRepliesCntForMypage(@Param(value="uid") int uid);
 
 	public List<Article> getRepliesForMypage(@Param(value="page") int page, @Param(value="pageCnt") int pageCnt, @Param(value="uid") int uid);
+
+	public void delete(@Param(value="rid") int rid);
 }

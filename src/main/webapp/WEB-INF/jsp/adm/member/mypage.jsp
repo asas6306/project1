@@ -62,7 +62,16 @@
 						<div>
 							<c:forEach begin="1" end="${items.size()}" var="num">
 								<div class="flex items-center">
-									<input type="checkbox" name="delete__${num}" class="flex justify-center items-center  h-6" value="${items.get(num-1)}"/>
+									<input type="hidden" name="delete1" value="${items.get(1)}" />
+									
+									<c:choose>
+										<c:when test="${call == 'reply'}">
+											<input type="checkbox" name="delete__${num}" class="flex justify-center items-center  h-6" value="${items.get(num-1).rid}"/>
+										</c:when>
+										<c:otherwise>
+											<input type="checkbox" name="delete__${num}" class="flex justify-center items-center  h-6" value="${items.get(num-1).aid}"/>
+										</c:otherwise>
+									</c:choose>
 								</div>
 							</c:forEach>
 						</div>

@@ -34,8 +34,6 @@ public class AdmArticleController extends _BaseController {
 	@RequestMapping("/adm/article/list")
 	public String list(HttpServletRequest req, String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String articleType) {
 		
-		System.out.println("articleType : " + articleType);
-		
 		// 전체 게시물 수
 		int allArticlesCnt = as.getAllArticlesCnt(articleType); 
 		req.setAttribute("allArticlesCnt", allArticlesCnt);

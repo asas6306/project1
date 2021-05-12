@@ -37,5 +37,12 @@ public class ReplyService {
 		return rd.getRepliesForMypage(page, pageCnt, uid);
 	}
 
+	public ResultData delete(int itemId) {
+		
+		rd.delete(itemId);
+		
+		return new ResultData("S-1", "댓글이 삭제되었습니다.");
+	}
+
 
 }
