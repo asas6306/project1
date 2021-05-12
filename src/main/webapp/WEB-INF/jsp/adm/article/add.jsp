@@ -28,12 +28,14 @@ function ArticleAdd__checkAndSubmit(form) {
 		form.title.focus();
 		return false;
 	}
+	
 	form.body.value = form.body.value.trim();
 	if ( form.body.value.length == 0 ) {
 		alert('내용을 입력해주세요.');
 		form.body.focus();
 		return false;
 	}
+	
 	var maxSizeMb = 50;
 	var maxSize = maxSizeMb * 1024 * 1024;
 	for ( let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++ ) {

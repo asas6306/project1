@@ -3,15 +3,112 @@
 <%@ page import="com.example.demo.util.Util"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<script>
+	const uid = parseInt("${loginedMember.uid}");
+</script>
+
+<script>
+MemberUpdate__submited = false;
+function MemberUpdate__checkAndSubmit(form) {
+	if ( MemberUpdate__submited ) {
+		alert('처리중입니다.');
+		return;
+	}
+	
+	form.PW1.value = form.PW1.value.trim();
+	form.PW2.value = form.PW2.value.trim();
+	if ( form.PW1.value != 0 form.PW2.value) {
+		alert('비밀번호가 일치하지 않습니다.');
+		form.PW1.focus();
+		return false;
+	}
+	
+	form.nickname.value = form.nickname.value.trim();
+	if ( form.nickname.value.length == 0 ) {
+		alert('닉네임을 입력해주세요.');
+		form.nickname.focus();
+		return false;
+	}
+	
+	form.email.value = form.email.value.trim();
+	if ( form.email.value.length == 0 ) {
+		alert('이메일을 입력해주세요.');
+		form.email.focus();
+		return false;
+	}
+	
+	form.phoneNo.value = form.phoneNo.value.trim();
+	if ( form.phoneNo.value.length == 0 ) {
+		alert('연락처를 입력해주세요.');
+		form.phoneNo.focus();
+		return false;
+	}
+	
+	var maxSizeMb = 50;
+	var maxSize = maxSizeMb * 1024 * 1024;
+	
+	const input = form["file__article__" + uid + "__common__attachment__0"];
+	
+	if (input.value) {
+		if (input.files[0].size > maxSize) {
+			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
+			input.focus();
+			
+			return;
+		}
+	}
+	
+	const startSubmitForm = function(data) {
+		if (data && data.body && data.body.genFileIdsStr) {
+			form.genFileIdsStr.value = data.body.genFileIdsStr;
+		}
+		
+		const input = form["file__member__" + uid + "__common__profile__0"];
+		input.value = '';
+		
+		form.submit();
+	};
+	const startUploadFiles = function(onSuccess) {
+		var needToUpload = false;
+		
+		const input = form["file__member__" + uid + "__common__profile__0"];
+		if ( input.value.length > 0 ) {
+			needToUpload = true;
+			break;
+		}
+		
+		if (needToUpload == false) {
+			onSuccess();
+			return;
+		}
+		
+		var fileUploadFormData = new FormData(form);
+		$.ajax({
+			url : '/common/genFile/doUpload',
+			data : fileUploadFormData,
+			processData : false,
+			contentType : false,
+			dataType : "json",
+			type : 'POST',
+			success : onSuccess
+		});
+	}
+	
+	MemberUpdate__submited = true;
+	startUploadFiles(startSubmitForm);
+}
+</script>
 
 <section class="flex justify-center">
 	<div>
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
-		<form action="doUpdate" method="post" class="border-t-2 border-b-2">
+		<form onsubmit="ArticleUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post" class="border-t-2 border-b-2">
+			<input type="hidden" name="genFileIdsStr" value="" /> 
 			<div class="flex">
 				<div>
-					<img alt="" src="프로필사진" class="w-40 h-40 rounded-full bg-gray-300">
-					<input type="file" name="profile__img" value="#" class="w-40" />
+					<c:set var="file" value="${loginedMember.extra.file__common__profile}"></c:set>
+					<img alt="프로필사진" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
+					<input type="file" name="file__member__${loginedMember.uid}__common__profile__0" class="w-40" />
 				</div>
 				<div class="mx-4 my-2 w-96">
 					<div class="flex text-xl">
@@ -20,11 +117,11 @@
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호 : </span>
-						<input type="password" name="PW1" class="border" />
+						<input type="password" name="PW1" value="${loginedMember.PW}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호확인 : </span>
-						<input type="password" name="PW1" class="border" />
+						<input type="password" name="PW1" value="${loginedMember.PW}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">닉네임 : </span>

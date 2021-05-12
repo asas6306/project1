@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.example.demo.service.MemberService;
@@ -25,8 +26,16 @@ public class Member {
 	private String regDate;
 	private String email;
 	private String phoneNo;
-	
 	private String extra__thumbImg;
+	
+	private Map<String, Object> extra;
+	
+	public Map<String, Object> getExtraNotNull() {
+		if(extra == null) 
+			extra = new HashMap<String, Object>();
+		
+		return extra;
+	}
 	
 //	public String getAuthLevelName() {
 //		return MemberService.getAuthLevelName(this);
