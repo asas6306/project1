@@ -206,4 +206,16 @@ public class AdmMemberController extends _BaseController {
 		
 		return msgAndReplace(req, "삭제되었습니다.", "mypage?call=" + call);
 	}
+	
+	@RequestMapping("/adm/member/update")
+	public String update() {
+		
+		return "adm/member/update";
+	}
+	
+	@RequestMapping("/adm/member/doUpdate")
+	public String doUpdate(HttpServletRequest req, @RequestParam Map<String, Object> param) {
+		
+		return "adm/member/doUpdate";
+	}
 }

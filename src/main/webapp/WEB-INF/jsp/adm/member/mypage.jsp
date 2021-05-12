@@ -14,7 +14,7 @@
 					<div class="flex justify-between">
 						<span class="text-4xl">${loginedMember.nickname} (${loginedMember.ID})</span>
 						<div class="flex justify-center items-center">
-							<a href="adm/member/update" class="p-1 rounded-full text-sm bg-gray-300 hover:bg-blue-300">회원수정</a>
+							<a href="update" class="p-1 rounded-full text-sm bg-gray-300 hover:bg-blue-300">정보수정</a>
 						</div>
 					</div>
 					<div class="text-lg">${loginedMember.authName}</div>
