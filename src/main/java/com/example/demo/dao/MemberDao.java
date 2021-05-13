@@ -16,4 +16,6 @@ public interface MemberDao {
 	public void signup(Map<String, Object> param);
 
 	public Member getMember(@Param(value = "type") String type, @Param(value = "itemValue") String itemValue);
+
+	public void update(Map<String, Object> param);
 }

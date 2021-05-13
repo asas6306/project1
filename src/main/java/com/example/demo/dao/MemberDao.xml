@@ -31,4 +31,9 @@
 			</when>
 		</choose>
 	</select>
+	
+	<update id="update">
+		update member set PW = #{PW}, nickname = #{nickname}, email = #{email}, phoneNo = #{phoneNo}
+		where uid = #{uid}
+	</update>
 </mapper>

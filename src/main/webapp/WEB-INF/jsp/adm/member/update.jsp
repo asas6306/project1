@@ -3,26 +3,29 @@
 <%@ page import="com.example.demo.util.Util"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script>
 	const uid = parseInt("${loginedMember.uid}");
 </script>
 
 <script>
-MemberUpdate__submited = false;
+ArticleUpdate__submited = false;
 function MemberUpdate__checkAndSubmit(form) {
-	if ( MemberUpdate__submited ) {
+	if ( ArticleUpdate__submited ) {
 		alert('처리중입니다.');
 		return;
 	}
 	
-	form.PW1.value = form.PW1.value.trim();
-	form.PW2.value = form.PW2.value.trim();
-	if ( form.PW1.value != 0 form.PW2.value) {
+	form.PW.value = form.PW.value.trim();
+	form.PWCheck.value = form.PWCheck.value.trim();
+	if ( form.PW.value != form.PWCheck.value) {
 		alert('비밀번호가 일치하지 않습니다.');
-		form.PW1.focus();
+		form.PW.focus();
 		return false;
 	}
 	
+	alert(form.PW.value);
+	alert(form.PWCheck.value);
 	form.nickname.value = form.nickname.value.trim();
 	if ( form.nickname.value.length == 0 ) {
 		alert('닉네임을 입력해주세요.');
@@ -47,7 +50,8 @@ function MemberUpdate__checkAndSubmit(form) {
 	var maxSizeMb = 50;
 	var maxSize = maxSizeMb * 1024 * 1024;
 	
-	const input = form["file__article__" + uid + "__common__attachment__0"];
+	
+	const input = form["file__member__" + uid + "__common__attachment__0"];
 	
 	if (input.value) {
 		if (input.files[0].size > maxSize) {
@@ -63,18 +67,28 @@ function MemberUpdate__checkAndSubmit(form) {
 			form.genFileIdsStr.value = data.body.genFileIdsStr;
 		}
 		
-		const input = form["file__member__" + uid + "__common__profile__0"];
+		const input = form["file__member__" + uid + "__common__attachment__0"];
 		input.value = '';
 		
 		form.submit();
 	};
+	
 	const startUploadFiles = function(onSuccess) {
 		var needToUpload = false;
-		
-		const input = form["file__member__" + uid + "__common__profile__0"];
+		const input = form["file__member__" + uid + "__common__attachment__0"];
 		if ( input.value.length > 0 ) {
 			needToUpload = true;
 			break;
+		}
+		
+		if ( needToUpload == false ) {
+			
+			const input = form["deleteFile__member__" + uid + "__common__attachment__0"];
+			if ( input && input.checked ) {
+				needToUpload = true;
+				break;
+			}
+			
 		}
 		
 		if (needToUpload == false) {
@@ -93,8 +107,7 @@ function MemberUpdate__checkAndSubmit(form) {
 			success : onSuccess
 		});
 	}
-	
-	MemberUpdate__submited = true;
+	ArticleUpdate__submited = true;
 	startUploadFiles(startSubmitForm);
 }
 </script>
@@ -102,8 +115,10 @@ function MemberUpdate__checkAndSubmit(form) {
 <section class="flex justify-center">
 	<div>
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
-		<form onsubmit="ArticleUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post" class="border-t-2 border-b-2">
+		<form onsubmit="MemberUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post" enctype="multipart/form-data" class="border-t-2 border-b-2">
 			<input type="hidden" name="genFileIdsStr" value="" /> 
+			<input type="hidden" name="uid" value="${loginedMember.uid}" />
+			<input type="hidden" name="ID" value="${loginedMember.ID}" />
 			<div class="flex">
 				<div>
 					<c:set var="file" value="${loginedMember.extra.file__common__profile}"></c:set>
@@ -114,14 +129,15 @@ function MemberUpdate__checkAndSubmit(form) {
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">아이디 : </span>
 						<span>${loginedMember.ID}</span>
+						
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호 : </span>
-						<input type="password" name="PW1" value="${loginedMember.PW}" class="border" />
+						<input type="password" name="PW" value="${loginedMember.PW}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호확인 : </span>
-						<input type="password" name="PW1" value="${loginedMember.PW}" class="border" />
+						<input type="password" name="PWCheck" value="${loginedMember.PW}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">닉네임 : </span>
@@ -129,7 +145,7 @@ function MemberUpdate__checkAndSubmit(form) {
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">이메일 : </span>
-						<input type="text" name="eamil" value="${loginedMember.email}" class="border" />
+						<input type="text" name="email" value="${loginedMember.email}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">연락처 : </span>

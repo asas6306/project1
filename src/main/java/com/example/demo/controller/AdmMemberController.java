@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dto.Article;
+import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.GenFileService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.ReplyService;
 import com.example.demo.util.ResultData;
@@ -29,6 +33,8 @@ public class AdmMemberController extends _BaseController {
 	ArticleService as;
 	@Autowired
 	ReplyService rs;
+	@Autowired
+	GenFileService fs;
 	
 	@RequestMapping("/adm/member/login")
 	public String login() {
@@ -214,8 +220,17 @@ public class AdmMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/member/doUpdate")
-	public String doUpdate(HttpServletRequest req, @RequestParam Map<String, Object> param) {
+	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
-		return "adm/member/doUpdate";
+		param.remove("PWCheck");
+		
+		ResultData doUpdateRd = ms.update(param);
+		
+		Member loginedMember = ms.getMember("ID", String.valueOf(param.get("ID")));
+		
+		session.removeAttribute("loginedMember");
+		session.setAttribute("loginedMember", loginedMember);
+		
+		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}
 }

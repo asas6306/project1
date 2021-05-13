@@ -51,4 +51,11 @@ public class MemberService {
 			return false;
 		}
 	}
+
+	public ResultData update(Map<String, Object> param) {
+		
+		md.update(param);
+		
+		return new ResultData("S-1", "회원정보가 수정되었습니다.");
+	}
 }

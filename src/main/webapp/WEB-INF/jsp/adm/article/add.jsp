@@ -105,7 +105,7 @@ function ArticleAdd__checkAndSubmit(form) {
 <section class="section-add flex justify-center">
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
-		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post">
+		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="genFileIdsStr" value="" />
 			<input type="hidden" name="articleType" value="${articleType}" />
 			<div class="flex border-b-2 border-t-2 border-gray-500">
