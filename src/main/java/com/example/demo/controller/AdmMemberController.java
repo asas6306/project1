@@ -214,7 +214,19 @@ public class AdmMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/member/update")
-	public String update() {
+	public String update(HttpServletRequest req) {
+		
+		Member member = (Member)req.getAttribute("loginedMember");
+		
+		List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
+
+		Map<String, GenFile> filesMap = new HashMap<>();
+		
+		filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+		
+		member.getExtraNotNull().put("file__common__profile", filesMap);
+		
+		req.setAttribute("member", member);
 		
 		return "adm/member/update";
 	}

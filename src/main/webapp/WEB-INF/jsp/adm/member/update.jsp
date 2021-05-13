@@ -50,8 +50,7 @@ function MemberUpdate__checkAndSubmit(form) {
 	
 	
 	const input = form["file__member__" + uid + "__common__profile__0"];
-	alert( input );
-	alert( input.value );
+
 	if (input.value) {
 		if (input.files[0].size > maxSize) {
 			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
@@ -110,15 +109,14 @@ function MemberUpdate__checkAndSubmit(form) {
 			<input type="hidden" name="ID" value="${loginedMember.ID}" />
 			<div class="flex">
 				<div>
-					<c:set var="file" value="${loginedMember.extra.file__common__profile}"></c:set>
-					<img alt="프로필사진" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
+					<c:set var="file" value="${member.extra.file__common__profile['0']}"></c:set>
+					<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
 					<input type="file" name="file__member__${loginedMember.uid}__common__profile__0" class="w-40" />
 				</div>
 				<div class="mx-4 my-2 w-96">
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">아이디 : </span>
 						<span>${loginedMember.ID}</span>
-						
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호 : </span>
