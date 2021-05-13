@@ -40,7 +40,6 @@ function ArticleAdd__checkAndSubmit(form) {
 	var maxSize = maxSizeMb * 1024 * 1024;
 	for ( let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++ ) {
 		const input = form["file__article__0__common__attachment__" + inputNo];
-		
 		if (input.value) {
 			if (input.files[0].size > maxSize) {
 				alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
@@ -91,15 +90,6 @@ function ArticleAdd__checkAndSubmit(form) {
 	ArticleAdd__submited = true;
 	startUploadFiles(startSubmitForm);
 }
-
-//function confirm() {
-//    msg = "실행하시겠습니까?";
-//    if (confirm(msg)!=0) {
-//         // Yes click
-//    } else {
-       // no click
-//	}
-//} // myconfirm
 </script>
 
 <section class="section-add flex justify-center">

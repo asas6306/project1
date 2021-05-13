@@ -9,9 +9,9 @@
 </script>
 
 <script>
-ArticleUpdate__submited = false;
+MemberUpdate__submited = false;
 function MemberUpdate__checkAndSubmit(form) {
-	if ( ArticleUpdate__submited ) {
+	if ( MemberUpdate__submited ) {
 		alert('처리중입니다.');
 		return;
 	}
@@ -24,8 +24,6 @@ function MemberUpdate__checkAndSubmit(form) {
 		return false;
 	}
 	
-	alert(form.PW.value);
-	alert(form.PWCheck.value);
 	form.nickname.value = form.nickname.value.trim();
 	if ( form.nickname.value.length == 0 ) {
 		alert('닉네임을 입력해주세요.');
@@ -51,8 +49,9 @@ function MemberUpdate__checkAndSubmit(form) {
 	var maxSize = maxSizeMb * 1024 * 1024;
 	
 	
-	const input = form["file__member__" + uid + "__common__attachment__0"];
-	
+	const input = form["file__member__" + uid + "__common__profile__0"];
+	alert( input );
+	alert( input.value );
 	if (input.value) {
 		if (input.files[0].size > maxSize) {
 			alert(maxSizeMb + "MB 이하의 파일을 업로드 해주세요.");
@@ -67,7 +66,7 @@ function MemberUpdate__checkAndSubmit(form) {
 			form.genFileIdsStr.value = data.body.genFileIdsStr;
 		}
 		
-		const input = form["file__member__" + uid + "__common__attachment__0"];
+		const input = form["file__member__" + uid + "__common__profile__0"];
 		input.value = '';
 		
 		form.submit();
@@ -75,20 +74,10 @@ function MemberUpdate__checkAndSubmit(form) {
 	
 	const startUploadFiles = function(onSuccess) {
 		var needToUpload = false;
-		const input = form["file__member__" + uid + "__common__attachment__0"];
+		const input = form["file__member__" + uid + "__common__profile__0"];
+		
 		if ( input.value.length > 0 ) {
 			needToUpload = true;
-			break;
-		}
-		
-		if ( needToUpload == false ) {
-			
-			const input = form["deleteFile__member__" + uid + "__common__attachment__0"];
-			if ( input && input.checked ) {
-				needToUpload = true;
-				break;
-			}
-			
 		}
 		
 		if (needToUpload == false) {
@@ -107,7 +96,7 @@ function MemberUpdate__checkAndSubmit(form) {
 			success : onSuccess
 		});
 	}
-	ArticleUpdate__submited = true;
+	MemberUpdate__submited = true;
 	startUploadFiles(startSubmitForm);
 }
 </script>
