@@ -79,6 +79,13 @@ function MemberUpdate__checkAndSubmit(form) {
 			needToUpload = true;
 		}
 		
+		if ( needToUpload == false ) {
+			const input = form["deleteFile__member__" + uid + "__common__profile__0"];
+			if ( input && input.checked ) {
+				needToUpload = true;
+			}
+		}
+		
 		if (needToUpload == false) {
 			onSuccess();
 			return;
@@ -108,10 +115,12 @@ function MemberUpdate__checkAndSubmit(form) {
 			<input type="hidden" name="uid" value="${loginedMember.uid}" />
 			<input type="hidden" name="ID" value="${loginedMember.ID}" />
 			<div class="flex">
-				<div>
+				<div class="input-file-wrap">
 					<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
 					<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
-					<input type="file" name="file__member__${loginedMember.uid}__common__profile__0" class="w-40" />
+					<input type="file" name="file__member__${loginedMember.uid}__common__profile__0" class="w-20" />
+					<input type="checkbox" onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')" 
+					name="deleteFile__member__${loginedMember.uid}__common__profile__0" value="Y" /> <span>삭제</span>
 				</div>
 				<div class="mx-4 my-2 w-96">
 					<div class="flex text-xl">

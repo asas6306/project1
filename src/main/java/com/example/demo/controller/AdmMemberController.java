@@ -58,8 +58,10 @@ public class AdmMemberController extends _BaseController {
 		
 		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
 		Map<String, GenFile> filesMap = new HashMap<>();
-		filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-		loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
+		if(!files.isEmpty()) {
+			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+			loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
+		}
 		
 		session.setAttribute("loginedMember", loginedMember);
 		
@@ -238,8 +240,10 @@ public class AdmMemberController extends _BaseController {
 		
 		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
 		Map<String, GenFile> filesMap = new HashMap<>();
-		filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-		loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
+		if(!files.isEmpty()) {
+			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+			loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
+		}
 		session.setAttribute("loginedMember", loginedMember);
 		
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
