@@ -36,3 +36,7 @@ html > body {
 .Article-Width-1 {
 	max-width: 756px;
 }
+
+.memo-title-wide {
+	width: 648px;
+}
