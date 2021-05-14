@@ -222,8 +222,6 @@ public class AdmMemberController extends _BaseController {
 	@RequestMapping("/adm/member/update")
 	public String update(HttpServletRequest req) {
 		
-		
-		
 		return "adm/member/update";
 	}
 	
@@ -237,6 +235,11 @@ public class AdmMemberController extends _BaseController {
 		Member loginedMember = ms.getMember("ID", String.valueOf(param.get("ID")));
 		
 		session.removeAttribute("loginedMember");
+		
+		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
+		Map<String, GenFile> filesMap = new HashMap<>();
+		filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+		loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
 		session.setAttribute("loginedMember", loginedMember);
 		
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
