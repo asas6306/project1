@@ -9,7 +9,8 @@
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
 		<div class="border-t-2 border-b-2">
 			<div class="flex">
-				<img alt="" src="프로필사진" class="w-40 h-40 rounded-full bg-gray-300">
+				<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
+				<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
 				<div class="mx-4 my-2 w-96">
 					<div class="flex justify-between">
 						<span class="text-4xl">${loginedMember.nickname} (${loginedMember.ID})</span>

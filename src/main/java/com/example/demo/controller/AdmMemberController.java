@@ -56,6 +56,11 @@ public class AdmMemberController extends _BaseController {
 		if(!loginedMember.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 		
+		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
+		Map<String, GenFile> filesMap = new HashMap<>();
+		filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+		loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
+		
 		session.setAttribute("loginedMember", loginedMember);
 		
 		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
@@ -127,6 +132,7 @@ public class AdmMemberController extends _BaseController {
 	
 		Member loginedMember = (Member)req.getAttribute("loginedMember");
 		int uid = loginedMember.getUid();
+		
 		req.setAttribute("call", call);
 		int articleCnt = as.getArticlesCntForMypage("article", uid);
 		req.setAttribute("articleCnt", articleCnt);
@@ -216,17 +222,7 @@ public class AdmMemberController extends _BaseController {
 	@RequestMapping("/adm/member/update")
 	public String update(HttpServletRequest req) {
 		
-		Member member = (Member)req.getAttribute("loginedMember");
 		
-		List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
-
-		Map<String, GenFile> filesMap = new HashMap<>();
-		
-		filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-		
-		member.getExtraNotNull().put("file__common__profile", filesMap);
-		
-		req.setAttribute("member", member);
 		
 		return "adm/member/update";
 	}

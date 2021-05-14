@@ -109,7 +109,7 @@ function MemberUpdate__checkAndSubmit(form) {
 			<input type="hidden" name="ID" value="${loginedMember.ID}" />
 			<div class="flex">
 				<div>
-					<c:set var="file" value="${member.extra.file__common__profile['0']}"></c:set>
+					<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
 					<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
 					<input type="file" name="file__member__${loginedMember.uid}__common__profile__0" class="w-40" />
 				</div>
