@@ -166,7 +166,6 @@ function ArticleUpdate__checkAndSubmit(form) {
 						<div class="input-file-wrap border-b">
 							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
 							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
-							<c:set var="file1" value="${article.extra.file__common__attachment}"></c:set>
 							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 								<div>
 									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">

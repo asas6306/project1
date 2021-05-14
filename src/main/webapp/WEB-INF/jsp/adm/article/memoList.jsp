@@ -47,8 +47,16 @@
 								</div>
 								<div class="flex w-full items-center">
 									<div class="mx-2">
-										<!-- 사진을 갖고와서 넣어야댐 ㅎㅎ -->
-										<img src="" alt="사진" class="w-10 h-10 rounded-full bg-gray-300" />
+										<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
+										<c:choose>
+											<c:when test="${file == null}">
+												<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
+											</c:when>
+											<c:otherwise>
+												<img src="${file.forPrintUrl}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
+											</c:otherwise>
+										</c:choose>
+										
 									</div>
 									<div>
 										<div class="">${article.nickname}</div>

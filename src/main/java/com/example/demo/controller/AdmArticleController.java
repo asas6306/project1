@@ -91,14 +91,25 @@ public class AdmArticleController extends _BaseController {
 				body = body.replace("\r\n", "<br>");
 				article.setBody(body);				
 			}
+			// 프로필 이미지 가져오깅
+			for(Article article : articles) {
+				List<GenFile> files = fs.getGenFiles("member", article.getUid(), "common", "profile");
+				Map<String, GenFile> filesMap = new HashMap<>();
+				
+				for (GenFile file : files)
+					filesMap.put(file.getFileNo() + "", file);
+				
+				article.getExtraNotNull().put("file__common__profile", filesMap);
+			}
 			req.setAttribute("articles", articles);
 		} else {
 			req.setAttribute("articlesCnt", articlesCnt);
 		}
 		
-		if(articleType.equals("memo"))
+		if(articleType.equals("memo")) {
+			
 			return "adm/article/memoList";
-		
+		}
 		return "adm/article/list";
 	}
 	
