@@ -201,6 +201,87 @@ public class AdmMemberController extends _BaseController {
 		return "adm/member/mypage";
 	}
 	
+	@RequestMapping("/adm/member/userpage")
+	public String userpage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
+	
+		int uid = Util.getAsInt(param.get("uid"), 0);
+		Member member = ms.getMember("uid", uid + "");
+		
+		req.setAttribute("call", call);
+		int articleCnt = as.getArticlesCntForMypage("article", uid);
+		req.setAttribute("articleCnt", articleCnt);
+		int memoCnt = as.getArticlesCntForMypage("memo", uid);
+		req.setAttribute("memoCnt", memoCnt);
+		int replyCnt = rs.getRepliesCntForMypage(uid);
+		req.setAttribute("replyCnt", replyCnt);
+		
+		int itemsCnt = 0;
+		
+		if(call.equals("article")) {
+			itemsCnt = articleCnt;
+		} else if(call.equals("memo")) {
+			itemsCnt = memoCnt;
+		} else if(call.equals("reply")) {
+			itemsCnt = replyCnt;
+		}
+		
+		int pageCnt = 20;
+		if(itemsCnt != 0) {
+			// 페이징
+			if(page < 1)
+				page = 1;
+			
+			int allPageCnt = (int)(Math.ceil((double)itemsCnt / pageCnt));
+			if(allPageCnt == 0)
+				allPageCnt = 1;
+			
+			if(page > allPageCnt) {
+				page = allPageCnt;
+			} else if(page < 1) {
+				page = 1;
+			}
+			
+			int pageStack;
+			int pageIndex = 5;
+			if(page % pageIndex == 0) {
+				pageStack = page;
+			} else {
+				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
+			}
+			
+			List<Integer> printPageIndexs = new ArrayList<Integer>();
+			for(int i = 4; i >= 0; i--) 
+				if(pageStack - i <= allPageCnt)
+					printPageIndexs.add(pageStack - i);
+			
+			req.setAttribute("page", page);
+			req.setAttribute("printPageIndexs", printPageIndexs);
+			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
+			req.setAttribute("printPageIndexUp", printPageIndexUp);
+			int printPageIndexDown = printPageIndexs.get(0) - 1;
+			req.setAttribute("printPageIndexDown", printPageIndexDown);
+		}
+	
+		if(call.equals("article")) {
+			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "article", uid));
+		} else if(call.equals("memo")) {
+			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "memo", uid));
+		} else if(call.equals("reply")) {
+			req.setAttribute("items", rs.getRepliesForMypage(page, pageCnt, uid));
+		}
+		
+		List<GenFile> files = fs.getGenFiles("member", uid, "common", "profile");
+		Map<String, GenFile> filesMap = new HashMap<>();
+		if(!files.isEmpty()) {
+			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+			member.getExtraNotNull().put("file__common__profile", filesMap);
+		}
+		
+		req.setAttribute("member", member);
+		
+		return "adm/member/userpage";
+	}
+	
 	@RequestMapping("/adm/member/mypageDoDelete")
 	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
