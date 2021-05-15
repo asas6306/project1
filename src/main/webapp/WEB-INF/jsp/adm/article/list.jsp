@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.controller.AdmArticleController"%>
 
-<section class="flex justify-center">
+<section class="base-higth flex justify-center">
 	<div>
 		<c:choose>
 			<c:when test="${boardCode == '1'}">

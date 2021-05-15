@@ -5,8 +5,7 @@
 
 <header class="bg-white">
 	<div class="flex justify-center hover:shadow-md border-b">
-		<nav
-			class="first-top h-10 flex items-center justify-end text-gray-500 text-sm w-full">
+		<nav class="first-top h-10 flex items-center justify-end text-gray-500 text-sm w-full">
 			<ul class="flex">
 				<div class="ml-8"></div>
 				<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>

@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<section class="flex justify-center">
+<section class="base-higth flex justify-center">
 	<div>
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
 		<div class="border-t-2 border-b-2">

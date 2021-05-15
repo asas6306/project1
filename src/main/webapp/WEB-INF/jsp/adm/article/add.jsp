@@ -92,7 +92,7 @@ function ArticleAdd__checkAndSubmit(form) {
 }
 </script>
 
-<section class="section-add flex justify-center">
+<section class="base-higth section-add flex justify-center">
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post" method="post" enctype="multipart/form-data">

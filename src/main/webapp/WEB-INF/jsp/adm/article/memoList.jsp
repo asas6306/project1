@@ -6,7 +6,7 @@
 
 <c:set var="fileInputMaxCount" value="3" />
 
-<section class="flex justify-center">
+<section class="base-higth flex justify-center">
 	<div>
 		<c:choose>
 			<c:when test="${boardCode == '31'}">

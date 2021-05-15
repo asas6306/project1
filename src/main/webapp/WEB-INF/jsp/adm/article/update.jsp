@@ -112,7 +112,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 }
 </script>
 
-<section class="section-add flex justify-center">
+<section class="base-higth section-add flex justify-center">
 	<div class="w-1/2">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">게시물 수정</div>
 		<form onsubmit="ArticleUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post">
