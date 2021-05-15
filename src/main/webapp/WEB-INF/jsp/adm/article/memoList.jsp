@@ -63,8 +63,8 @@
 										<div class="text-sm text-gray-500">${article.regDate}</div>
 									</div>
 								</div>
-								<div class="border rounded mx-2 text-lg mb-2">
-									<div class="m-2">${article.body}</div>
+								<div class="memo-body-wide border rounded mx-2 text-lg mb-2">
+									<div class="memo-title-wide m-2">${article.body}</div>
 									<div>
 										<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 											<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
