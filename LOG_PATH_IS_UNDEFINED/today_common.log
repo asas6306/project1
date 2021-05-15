@@ -11636,3 +11636,5 @@ dc                                                                              
 
 2021-05-15 17:33:22 [DEBUG] c.e.demo.dao.GenFileDao.getGenFiles - <==      Total: 1
 2021-05-15 17:33:22 [DEBUG] org.mybatis.spring.SqlSessionUtils - Closing non transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@c4658a9]
+2021-05-15 17:33:45 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2021-05-15 17:33:45 [DEBUG] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool is at sufficient level.

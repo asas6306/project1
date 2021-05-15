@@ -44,3 +44,7 @@ html > body {
 .memo-body-wide {
 	width: 624px;
 }
+
+.memo-body-wide > .memo-body-wide {
+	width: 612px;
+}

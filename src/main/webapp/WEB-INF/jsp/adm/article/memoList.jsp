@@ -64,7 +64,9 @@
 									</div>
 								</div>
 								<div class="memo-body-wide border rounded mx-2 text-lg mb-2">
-									<div class="memo-title-wide m-2">${article.body}</div>
+									<div class="memo-body-wide flex m-2">
+										<span class="">${article.body}</span>
+									</div>
 									<div>
 										<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 											<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
