@@ -25,14 +25,16 @@ public class ArticleService {
 		
 		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, uid);
 		List<Integer> aids = articles.stream().map(article -> article.getAid()).collect(Collectors.toList());
-		Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common",
-				"attachment");
-
-		for (Article article : articles) {
-			Map<String, GenFile> mapByFileNo = filesMap.get(article.getAid());
-
-			if (mapByFileNo != null)
-				article.getExtraNotNull().put("file__common__attachment", mapByFileNo);
+		if(!aids.isEmpty()) {
+			Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common",
+					"attachment");
+	
+			for (Article article : articles) {
+				Map<String, GenFile> mapByFileNo = filesMap.get(article.getAid());
+	
+				if (mapByFileNo != null)
+					article.getExtraNotNull().put("file__common__attachment", mapByFileNo);
+			}
 		}
 
 		return articles;

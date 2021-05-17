@@ -82,7 +82,6 @@ public class AdmArticleController extends _BaseController {
 			int printPageIndexDown = printPageIndexs.get(0) - 1;
 			req.setAttribute("printPageIndexDown", printPageIndexDown);
 			
-			
 			// 최종 게시물 불러오기
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			

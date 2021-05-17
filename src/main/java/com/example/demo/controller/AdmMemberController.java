@@ -204,8 +204,8 @@ public class AdmMemberController extends _BaseController {
 	@RequestMapping("/adm/member/userpage")
 	public String userpage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
 	
-		int uid = Util.getAsInt(param.get("uid"), 0);
-		Member member = ms.getMember("uid", uid + "");
+		Member loginedMember = (Member)req.getAttribute("loginedMember");
+		int uid = loginedMember.getUid();
 		
 		req.setAttribute("call", call);
 		int articleCnt = as.getArticlesCntForMypage("article", uid);
@@ -267,17 +267,9 @@ public class AdmMemberController extends _BaseController {
 		} else if(call.equals("memo")) {
 			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "memo", uid));
 		} else if(call.equals("reply")) {
+			System.out.println("test:" + rs.getRepliesForMypage(page, pageCnt, uid).size());
 			req.setAttribute("items", rs.getRepliesForMypage(page, pageCnt, uid));
 		}
-		
-		List<GenFile> files = fs.getGenFiles("member", uid, "common", "profile");
-		Map<String, GenFile> filesMap = new HashMap<>();
-		if(!files.isEmpty()) {
-			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-			member.getExtraNotNull().put("file__common__profile", filesMap);
-		}
-		
-		req.setAttribute("member", member);
 		
 		return "adm/member/userpage";
 	}

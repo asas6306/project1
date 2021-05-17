@@ -15,6 +15,30 @@ public class MemberService {
 	@Autowired
 	MemberDao md;
 	
+	// static 시작
+	public static String getAuthLevelName(Member member) {
+		switch (member.getAuthLevel()) {
+		case 7:
+			return "관리자";
+		case 3:
+			return "일반회원";
+		default:
+			return "유형정보없음";
+		}
+	}
+
+	public static String getAuthLevelNameColor(Member member) {
+		switch (member.getAuthLevel()) {
+		case 7:
+			return "red";
+		case 3:
+			return "gray";
+		default:
+			return "";
+		}
+	}
+	// static 끝
+	
 	public ResultData login(String ID) {
 		
 		Member loginedMember = md.login(ID);
@@ -45,11 +69,7 @@ public class MemberService {
 	}
 
 	public boolean authCheck(Member loginedMember) {
-		if(loginedMember.getUid() == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		return loginedMember.getAuthLevel() == 7;
 	}
 
 	public ResultData update(Map<String, Object> param) {
