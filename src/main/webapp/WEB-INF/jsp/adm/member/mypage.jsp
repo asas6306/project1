@@ -3,6 +3,7 @@
 <%@ page import="com.example.demo.util.Util"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.example.demo.util.Util"%>
 
 <section class="base-higth flex justify-center">
 	<div>
@@ -46,13 +47,13 @@
 						<div class="flex border-b-2 mt-4">
 							<span class="text-center w-96">제목</span>
 							<span class="text-center w-12"></span>
-							<span class="text-center w-40">작성일</span>
+							<span class="text-center w-40 ml-3">작성일</span>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="flex border-b-2 mt-4">
 							<span class="text-center w-96">제목</span>
-							<span class="text-center w-40">작성일</span>
+							<span class="text-center w-40 ml-3">작성일</span>
 							<span class="text-center w-12">조회수</span>
 						</div>
 					</c:otherwise>
@@ -84,7 +85,7 @@
 												<a href="../article/detail?aid=${item.relId}">${item.body}</a>
 											</div>
 											<span class="text-center w-12"></span>
-											<span class="text-center w-40">${item.regDate}</span>
+											<span class="text-center w-40">${Util.dateFormat(item.regDate)}</span>
 										</div>
 									</c:forEach>
 								</c:when>
@@ -95,7 +96,7 @@
 												<span class="flex items-center justify-center w-12 text-sm">${item.aid}</span>
 												<a href="../article/detail?aid=${item.aid}">${item.title}</a>
 											</div>
-											<span class="text-center w-40">${item.regDate}</span>
+											<span class="text-center w-40">${Util.dateFormat(item.regDate)}</span>
 											<span class="text-center w-12">${item.hit}</span>
 										</div>
 									</c:forEach>

@@ -203,9 +203,8 @@ public class AdmMemberController extends _BaseController {
 	
 	@RequestMapping("/adm/member/userpage")
 	public String userpage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
-	
-		Member loginedMember = (Member)req.getAttribute("loginedMember");
-		int uid = loginedMember.getUid();
+		
+		int uid = Util.getAsInt(param.get("uid"), 0);
 		
 		req.setAttribute("call", call);
 		int articleCnt = as.getArticlesCntForMypage("article", uid);

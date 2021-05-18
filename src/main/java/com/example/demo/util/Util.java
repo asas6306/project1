@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Enumeration;
@@ -256,5 +257,31 @@ public class Util {
 		DecimalFormat df = new DecimalFormat("###,###,###");
 
 		return df.format(num);
+	}
+	
+	public static String dateFormat(String articleDate) {
+		LocalDateTime nowDate = LocalDateTime.now();
+		
+		String[] dateSplit1 = articleDate.split(" ");
+		String[] dateSplit2 = dateSplit1[0].split("-");
+		String[] dateSplit3 = dateSplit1[1].split(":");
+		
+		int year = Util.getAsInt(dateSplit2[0], 0);
+		int month = Util.getAsInt(dateSplit2[1], 0);
+		int day = Util.getAsInt(dateSplit2[2], 0);
+		
+		int hour = Util.getAsInt(dateSplit3[0], 0);
+		int minute = Util.getAsInt(dateSplit3[1], 0);
+		
+		String format = "";
+		if(nowDate.getYear() == year && nowDate.getMonthValue() == month && nowDate.getDayOfMonth() == day) {		
+			format = dateSplit3[0] + ":" + dateSplit3[1];
+		} else {
+			
+			
+			format = dateSplit2[0] + "." + dateSplit2[1] + "." + dateSplit2[2] + ".";
+		}
+		
+		return format;
 	}
 }

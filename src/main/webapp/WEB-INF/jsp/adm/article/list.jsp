@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
-<%@ page import="com.example.demo.controller.AdmArticleController"%>
+<%@ page import="com.example.demo.util.Util"%>
 
 <section class="base-higth flex justify-center">
 	<div>
@@ -21,10 +21,10 @@
 			</c:otherwise>
 		</c:choose>
 		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
-			<div class="Article-Width flex">
-				<div class="w-96 bg-gray-100">제목</div>
+			<div class="Article-Width flex bg-gray-100">
+				<div class="w-96">제목</div>
 				<div class="w-20">작성자</div>
-				<div class="w-36 bg-gray-100">작성일</div>
+				<div class="w-36">작성일</div>
 				<div class="w-10">조회</div>
 				<div class="w-32 bg-gray-100 border-l-2 border-gray-500">게시판</div>
 			</div>
@@ -50,7 +50,7 @@
 											<a href="list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
 										</c:when>
 										<c:otherwise>
-											<span class="text-center w-20 bg-gray-100">${article.aid}</span>
+											<span class="text-center w-20">${article.aid}</span>
 										</c:otherwise>
 									</c:choose>
 									<!-- 
@@ -62,9 +62,9 @@
 										</c:if>
 									</a>
 								</div>
-								<div class="bg-gray-100 text-center w-20">${article.nickname}</div>
-								<div class="text-center w-36">${article.regDate}</div>
-								<div class="bg-gray-100 text-center w-10">${article.hit}</div>
+								<div class="text-center w-20">${article.nickname}</div>
+								<div class="text-center w-36">${Util.dateFormat(article.regDate)}</div>
+								<div class="text-center w-10">${article.hit}</div>
 							</div>
 						</c:forEach>
 					</c:otherwise>
