@@ -56,6 +56,7 @@ public class AdmMemberController extends _BaseController {
 		if(!loginedMember.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 		
+		// 프로필 이미지 호출
 		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
 		Map<String, GenFile> filesMap = new HashMap<>();
 		if(!files.isEmpty()) {
@@ -205,6 +206,16 @@ public class AdmMemberController extends _BaseController {
 	public String userpage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
 		
 		int uid = Util.getAsInt(param.get("uid"), 0);
+		Member member = ms.getMember("uid", uid + "");
+		
+		List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
+		Map<String, GenFile> filesMap = new HashMap<>();
+		if(!files.isEmpty()) {
+			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+			member.getExtraNotNull().put("file__common__profile", filesMap);
+		}
+		
+		req.setAttribute("member", member);
 		
 		req.setAttribute("call", call);
 		int articleCnt = as.getArticlesCntForMypage("article", uid);

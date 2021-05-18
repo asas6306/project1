@@ -59,7 +59,7 @@
 										
 									</div>
 									<div>
-										<div class="">${article.nickname}</div>
+										<a href="../member/userpage?uid=${article.uid}" class="text-center w-20">${article.nickname}</a>
 										<div class="text-sm text-gray-500">${article.regDate}</div>
 									</div>
 								</div>

@@ -62,7 +62,7 @@
 										</c:if>
 									</a>
 								</div>
-								<div class="text-center w-20">${article.nickname}</div>
+								<a href="../member/userpage?uid=${article.uid}" class="text-center w-20">${article.nickname}</a>
 								<div class="text-center w-36">${Util.dateFormat(article.regDate)}</div>
 								<div class="text-center w-10">${article.hit}</div>
 							</div>

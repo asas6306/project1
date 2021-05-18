@@ -6,7 +6,7 @@
 
 <section class="base-higth flex justify-center">
 	<div>
-		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
+		<span class="flex items-center justify-center h-20 text-4xl font-bold">유저페이지</span>
 		<div class="border-t-2 border-b-2">
 			<div class="flex">
 				<c:set var="file" value="${member.extra.file__common__profile['0']}"></c:set>
@@ -28,13 +28,13 @@
 			</div>
 			<div class="flex justify-center text-xl">
 				<div class="text-center border-b w-44">
-					<a href="mypage?call=article" class="hover:underline">${Util.numberFormat(articleCnt)}</a>
+					<a href="userpage?uid=${member.uid}&call=article" class="hover:underline">${Util.numberFormat(articleCnt)}</a>
 				</div>
 				<div class="text-center border-b mx-4 w-44">
-					<a href="mypage?call=memo" class="hover:underline">${Util.numberFormat(memoCnt)}</a>
+					<a href="userpage?uid=${member.uid}&call=memo" class="hover:underline">${Util.numberFormat(memoCnt)}</a>
 				</div>
 				<div class="text-center border-b w-44">
-					<a href="mypage?call=reply" class="hover:underline">${Util.numberFormat(replyCnt)}</a>
+					<a href="userpage?uid=${member.uid}&call=reply" class="hover:underline">${Util.numberFormat(replyCnt)}</a>
 				</div>
 			</div>
 			<div>
