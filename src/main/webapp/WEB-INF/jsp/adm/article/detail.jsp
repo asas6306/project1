@@ -5,8 +5,6 @@
 
 <c:set var="fileInputMaxCount" value="3" />
 
-<!--
-예 아니오 물어보는 기능인데,,, 어떻게 쓰는것이냐-->
 <script>
 function Delete__Article__Confirm()
 {
@@ -14,9 +12,7 @@ function Delete__Article__Confirm()
 	
 	if(result){
 		location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}';
-	} else {
-		
-	}
+	} 
 }
 </script>
 

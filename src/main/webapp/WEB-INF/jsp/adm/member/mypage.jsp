@@ -5,6 +5,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.example.demo.util.Util"%>
 
+<script>
+function Delete__Article__Confirm()
+{
+	const result = confirm('정말로 삭제하시겠습니까?');
+	if(result){
+		onSuccess();
+		return;
+	}
+}
+</script>
+
 <section class="base-higth flex justify-center">
 	<div>
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
@@ -58,7 +69,7 @@
 						</div>
 					</c:otherwise>
 				</c:choose>
-				<form action="mypageDoDelete" method="post">
+				<form action="mypageDoDelete" onsubmit="Delete__Article__Confirm(); return false;" method="post">
 					<input type="hidden" name="call" value="${call}" />
 					<div class="flex">
 						<div>
