@@ -6,7 +6,7 @@
 <%@ page import="com.example.demo.util.Util"%>
 
 <script>
-function Delete__Article__Confirm()
+function Delete__Articles__Confirm()
 {
 	const result = confirm('정말로 삭제하시겠습니까?');
 	if(result){
@@ -69,7 +69,7 @@ function Delete__Article__Confirm()
 						</div>
 					</c:otherwise>
 				</c:choose>
-				<form action="mypageDoDelete" onsubmit="Delete__Article__Confirm(); return false;" method="post">
+				<form action="mypageDoDelete" onsubmit="Delete__Articles__Confirm(); return false;" method="post">
 					<input type="hidden" name="call" value="${call}" />
 					<div class="flex">
 						<div>
