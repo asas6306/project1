@@ -1,5 +1,6 @@
 package com.example.demo.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -18,4 +19,10 @@ public interface MemberDao {
 	public Member getMember(@Param(value = "type") String type, @Param(value = "itemValue") String itemValue);
 
 	public void update(Map<String, Object> param);
+
+	public int allMembersCnt();
+
+	public int getMembersCnt(@Param(value = "authLevel") int authLevel, @Param(value = "searchType") String searchType, @Param(value = "searchKeyword") String searchKeyword);
+
+	public List<Member> getMembers(@Param(value = "authLevel") int authLevel, @Param(value = "searchType") String searchType, @Param(value = "searchKeyword") String searchKeyword, @Param(value = "page") int page, @Param(value = "pageCnt") int pageCnt);
 }

@@ -347,4 +347,77 @@ public class AdmMemberController extends _BaseController {
 		
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}
+	
+	@RequestMapping("/adm/member/list")
+	public String list(HttpServletRequest req, @RequestParam(defaultValue = "0") int authLevel, String searchType, String searchKeyword, @RequestParam(defaultValue = "1") int page) {
+		
+		// 전체 게시물 수
+		int allMembersCnt = ms.allMembersCnt(); 
+		req.setAttribute("allMembersCnt", allMembersCnt);
+		
+		// 검색 및 페이징 연동을 위한 어트리뷰트,,,
+		req.setAttribute("searchType", searchType);
+		req.setAttribute("searchKeyword", searchKeyword);
+		
+		// 해당 게시물 수
+		int membersCnt = ms.getMembersCnt(authLevel, searchType, searchKeyword);
+		
+		if(membersCnt != 0) {
+			
+			// 페이징
+			if(page < 1)
+				page = 1;
+			int pageCnt = 20;
+			
+			int allPageCnt = (int)(Math.ceil((double)membersCnt / pageCnt));
+			if(allPageCnt == 0)
+				allPageCnt = 1;
+			
+			if(page > allPageCnt) {
+				page = allPageCnt;
+			} else if(page < 1) {
+				page = 1;
+			}
+			
+			int pageStack;
+			int pageIndex = 5;
+			if(page % pageIndex == 0) {
+				pageStack = page;
+			} else {
+				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
+			}
+			
+			List<Integer> printPageIndexs = new ArrayList<Integer>();
+			for(int i = 4; i >= 0; i--) 
+				if(pageStack - i <= allPageCnt)
+					printPageIndexs.add(pageStack - i);
+			req.setAttribute("page", page);
+			req.setAttribute("printPageIndexs", printPageIndexs);
+			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
+			req.setAttribute("printPageIndexUp", printPageIndexUp);
+			int printPageIndexDown = printPageIndexs.get(0) - 1;
+			req.setAttribute("printPageIndexDown", printPageIndexDown);
+			
+			// 최종 게시물 불러오기
+			List<Member> members = ms.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
+			
+			// 프로필 이미지 가져오깅
+			for(Member member : members) {
+				List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
+				Map<String, GenFile> filesMap = new HashMap<>();
+				
+				for (GenFile file : files)
+					filesMap.put(file.getFileNo() + "", file);
+				
+				member.getExtraNotNull().put("file__common__profile", filesMap);
+			}
+			req.setAttribute("members", members);
+			
+			
+		} else {
+			req.setAttribute("membersCnt", membersCnt);
+		}
+		
+		return "adm/member/list";
+	}
 }

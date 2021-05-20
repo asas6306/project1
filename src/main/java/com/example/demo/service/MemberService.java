@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,5 +78,21 @@ public class MemberService {
 		md.update(param);
 		
 		return new ResultData("S-1", "회원정보가 수정되었습니다.");
+	}
+
+	public int allMembersCnt() {
+		
+		return md.allMembersCnt();
+	}
+
+	public int getMembersCnt(int authLevel, String searchType, String searchKeyword) {
+		
+		return md.getMembersCnt(authLevel, searchType, searchKeyword);
+	}
+
+	public List<Member> getMembers(int authLevel, String searchType, String searchKeyword, int page, int pageCnt) {
+		page = (page - 1) * pageCnt;
+		
+		return md.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
 	}
 }

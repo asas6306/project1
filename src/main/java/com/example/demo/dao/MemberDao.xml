@@ -36,4 +36,46 @@
 		update member set PW = #{PW}, nickname = #{nickname}, email = #{email}, phoneNo = #{phoneNo}
 		where uid = #{uid}
 	</update>
+	
+	<select id="allMembersCnt" resultType="int">
+		select count(*) from member
+	</select>
+	
+	<select id="getMembersCnt" resultType="int">
+		select count(*) from member
+		where 1
+		<if test="authLevel != 0">
+			and authLevel = #{authLevel}
+		</if>
+		<if test="searchKeyword != null">
+			<choose>
+				<when test="searchType == 'ID'">
+					and ID like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'nickname'">
+					and nickname like concat('%' , #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</if>
+	</select>
+	
+	<select id="getMembers" resultType="Member">
+		select * from member
+		where 1
+		<if test="authLevel != 0">
+			and authLevel = #{authLevel}
+		</if>
+		<if test="searchKeyword != null">
+			<choose>
+				<when test="searchType == 'ID'">
+					and ID like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'nickname'">
+					and nickname like concat('%' , #{searchKeyword}, '%')
+				</when>
+			</choose>
+		</if>
+		order by uid desc
+		limit #{page}, #{pageCnt}
+	</select>
 </mapper>

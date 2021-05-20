@@ -24,6 +24,7 @@ public class ArticleService {
 		page = (page - 1) * pageCnt;
 		
 		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, uid);
+		// 게시물 이미지 가져오기
 		List<Integer> aids = articles.stream().map(article -> article.getAid()).collect(Collectors.toList());
 		if(!aids.isEmpty()) {
 			Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common",
