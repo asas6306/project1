@@ -2,12 +2,14 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../part/loginLayoutHeader.jspf"%>
+<!-- debounce 사용을 위한 스크립트 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 
 <script>
 const SignupForm__checkAndSubmitDone = false;
 
-let SignupForm__validID = '';
 //로그인 아이디 중복체크 함수
+let SignupForm__validID = '';
 function SignupForm__checkIDDup() {
 	const form = $('.formLogin').get(0);
 
@@ -87,8 +89,7 @@ $(function() {
 	$('.inputLoginId').change(function() {
 		SignupForm__checkIDDup();
 	});
-	$('.inputLoginId').keyup(_.debounce(SignupForm__checkIDDup, 1000));
-
+	$('.inputLoginId').keyup(_.debounce(SignupForm__checkIDDup, 500));
 });
 </script>
 
@@ -110,7 +111,8 @@ $(function() {
 					<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full h-12 hover:border-blue-300" />
 				</div>
 				<div class="my-2">
-					<input type="text" name="nickname" placeholder="닉네임" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+					<input type="text" name="nickname" placeholder="닉네임" class="inputNickname border-2 rounded w-full h-12 hover:border-blue-300" />
+					<div class="nicknameInputMsg text-sm text-center"></div>
 				</div>
 				<div class="my-2">
 					<input type="text" name="email" placeholder="이메일" class="border-2 rounded w-full h-12 hover:border-blue-300" />

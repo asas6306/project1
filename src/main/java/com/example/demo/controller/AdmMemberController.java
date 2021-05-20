@@ -111,12 +111,31 @@ public class AdmMemberController extends _BaseController {
 		if (ID.length() > 15)
 			return new ResultData("F-6", "아이디를 15자 이하로 입력하세요.");
 
-		Member member = ms.getMember("ID", ID);
+		Member member = ms.getMember("nickname", ID);
 
 		if (member != null)
 			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 아이디입니다.", ID));
 
 		return new ResultData("S-1", String.format("%s(은)는 사용 가능한 아이디입니다.", ID), "ID", ID);
+	}
+	
+	@GetMapping("/adm/member/getNicknameDup")
+	@ResponseBody
+	public ResultData getNicknameDup(String nickname) {
+		if (nickname == null)
+			return new ResultData("F-1", "닉네임을 입력해주세요.");
+
+		if (nickname.length() < 5)
+			return new ResultData("F-6", "닉네임을 5자 이상으로 입력하세요.");
+		if (nickname.length() > 15)
+			return new ResultData("F-6", "닉네임을 15자 이하로 입력하세요.");
+
+		Member member = ms.getMember("nickname", nickname);
+
+		if (member != null)
+			return new ResultData("F-2", String.format("%s(은)는 이미 사용중인 닉네임입니다.", nickname));
+
+		return new ResultData("S-1", String.format("%s(은)는 사용 가능한 닉네임입니다.", nickname), "nickname", nickname);
 	}
 	
 	@RequestMapping("/adm/member/doLogout")
