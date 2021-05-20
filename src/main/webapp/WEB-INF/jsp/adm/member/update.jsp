@@ -4,10 +4,49 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+
 <script>
 	const uid = parseInt("${loginedMember.uid}");
 </script>
+<script>
+let SignupForm__validNickname = '';
+function SignupForm__checkNicknameDup() {
+	const form = $('.formUpdate').get(0);
 
+	form.nickname.value = form.nickname.value.trim();
+
+	if (form.nickname.value.length == 0) {
+		return;
+	}
+
+	$.get('getNicknameDup', {
+		nickname : form.nickname.value
+	}, function(data) {
+		let colorClass = 'text-green-500';
+
+		if (data.fail) {
+			colorClass = 'text-red-500';
+		}
+
+		$('.nicknameInputMsg').html(
+				"<span class='" + colorClass + "'>" + data.msg);
+
+		if (data.fail) {
+			form.nickname.focus();
+		} else {
+			SignupForm__validNickname = data.body.nickname;
+		}
+	}, 'json');
+}
+
+$(function() {
+	$('.inputNickname').change(function() {
+		SignupForm__checkNicknameDup();
+	});
+	$('.inputNickname').keyup(_.debounce(SignupForm__checkNicknameDup, 500));
+});
+</script>
 <script>
 MemberUpdate__submited = false;
 function MemberUpdate__checkAndSubmit(form) {
@@ -110,7 +149,7 @@ function MemberUpdate__checkAndSubmit(form) {
 <section class="base-higth flex justify-center">
 	<div>
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
-		<form onsubmit="MemberUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post" enctype="multipart/form-data" class="border-t-2 border-b-2">
+		<form onsubmit="MemberUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post" enctype="multipart/form-data" class="formUpdate border-t-2 border-b-2">
 			<input type="hidden" name="genFileIdsStr" value="" /> 
 			<input type="hidden" name="uid" value="${loginedMember.uid}" />
 			<input type="hidden" name="ID" value="${loginedMember.ID}" />
@@ -137,8 +176,9 @@ function MemberUpdate__checkAndSubmit(form) {
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">닉네임 : </span>
-						<input type="text" name="nickname" value="${loginedMember.nickname}" class="border" />
+						<input type="text" name="nickname" value="${loginedMember.nickname}" class="inputNickname border" />		
 					</div>
+					<div class="nicknameInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">이메일 : </span>
 						<input type="text" name="email" value="${loginedMember.email}" class="border" />

@@ -163,7 +163,6 @@ public class AdmArticleController extends _BaseController {
 		return "adm/article/detail";
 	}
 	
-	
 	@RequestMapping("/adm/article/update")
 	public String update(HttpServletRequest req, int aid) {
 		

@@ -43,7 +43,7 @@
 									<a href="/adm/article/list?boardCode=${article.boardCode}" class="">${article.boardName} ></a>
 								</div>
 								<div class="text-3xl border-gray-300">
-									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo" class="mx-2">${article.title}</a>
+									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo&hit=true" class="mx-2">${article.title}</a>
 								</div>
 								<div class="flex w-full items-center">
 									<div class="mx-2">
