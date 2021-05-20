@@ -39,6 +39,50 @@ function SignupForm__checkIDDup() {
 	}, 'json');
 }
 
+$(function() {
+	$('.inputLoginId').change(function() {
+		SignupForm__checkIDDup();
+	});
+	$('.inputLoginId').keyup(_.debounce(SignupForm__checkIDDup, 500));
+});
+
+let SignupForm__validNickname = '';
+function SignupForm__checkNicknameDup() {
+	const form = $('.formLogin').get(0);
+
+	form.nickname.value = form.nickname.value.trim();
+
+	if (form.nickname.value.length == 0) {
+		return;
+	}
+
+	$.get('getNicknameDup', {
+		nickname : form.nickname.value
+	}, function(data) {
+		let colorClass = 'text-green-500';
+
+		if (data.fail) {
+			colorClass = 'text-red-500';
+		}
+
+		$('.nicknameInputMsg').html(
+				"<span class='" + colorClass + "'>" + data.msg);
+
+		if (data.fail) {
+			form.nickname.focus();
+		} else {
+			SignupForm__validNickname = data.body.nickname;
+		}
+	}, 'json');
+}
+
+$(function() {
+	$('.inputNickname').change(function() {
+		SignupForm__checkNicknameDup();
+	});
+	$('.inputNickname').keyup(_.debounce(SignupForm__checkNicknameDup, 500));
+});
+
 MemberSignup__submited = false;
 function MemberSignup__checkAndSubmit(form) {
 	if ( MemberSignup__submited ) {
@@ -84,13 +128,6 @@ function MemberSignup__checkAndSubmit(form) {
 	form.submit();
 	MemberSignup__submited = true;
 }
-
-$(function() {
-	$('.inputLoginId').change(function() {
-		SignupForm__checkIDDup();
-	});
-	$('.inputLoginId').keyup(_.debounce(SignupForm__checkIDDup, 500));
-});
 </script>
 
 <section class="border-2 border-blue-300 rounded">
