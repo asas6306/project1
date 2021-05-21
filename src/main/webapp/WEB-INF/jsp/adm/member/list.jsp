@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.util.Util"%>
 
-<section class="base-higth flex justify-center">
+<section class="section-1 base-higth flex justify-center">
 	<div>
 		<c:choose>
 			<c:when test="${boardCode == '1'}">
@@ -34,14 +34,15 @@
 		<div class="flex justify-center border-b-2 border-gray-500">
 			<div class="w-full">
 				<c:choose>
-					<c:when test="${articlesCnt == 0}">
+					<c:when test="${membersCnt == 0}">
 						<div class="flex h-full justify-center items-center">
-							<span>게시물이 존재하지 않습니다. 크크루삥뽕</span>
+							<span>회원이 존재하지 않습니다. 크크루삥뽕</span>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<c:forEach items='${members}' var='member'>
 						<c:set var="thumbFile" value="${member.extra.file__common__profile['0']}" />
+						<c:set var="memberAuthLevel" value="${String.valueOf(member.authLevel)}" />
 							<div class="flex items-center border-b h-20">
 								<span class="text-center w-16 text-xl">${member.uid}</span>
 								<img src="${thumbFile.forPrintUrl}" alt="" class="h-16 w-16 mr-4 rounded-full" />
@@ -49,7 +50,7 @@
 									<span>${member.ID}</span>
 									<div>(${member.nickname})</div>
 								</a>
-								<span class="w-20 text-center">${member.authName}</span>
+								<span class="w-20">${member.authName}</span>
 								<div class="w-48 text-center ">
 									<span>${member.email}</span>
 									<div>${member.phoneNo}</div>
@@ -92,8 +93,7 @@
 				<a href="/adm/member/list?authLevel=${authLevel}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">다음</a>
 				<a href="/adm/member/list?authLevel=${authLevel}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
-			<div class="flex justify-center items-center w-24">
-				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=article'" />
+			<div class="w-24">
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">
