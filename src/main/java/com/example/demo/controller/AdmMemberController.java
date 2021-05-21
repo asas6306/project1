@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.Article;
 import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.AuthService;
 import com.example.demo.service.GenFileService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.ReplyService;
@@ -35,6 +35,8 @@ public class AdmMemberController extends _BaseController {
 	ReplyService rs;
 	@Autowired
 	GenFileService fs;
+	@Autowired
+	AuthService auths;
 	
 	@RequestMapping("/adm/member/login")
 	public String login() {
@@ -412,8 +414,7 @@ public class AdmMemberController extends _BaseController {
 				member.getExtraNotNull().put("file__common__profile", filesMap);
 			}
 			req.setAttribute("members", members);
-			
-			
+			req.setAttribute("auths", auths.getAuths()); 
 		} else {
 			req.setAttribute("membersCnt", membersCnt);
 		}

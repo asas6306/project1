@@ -21,23 +21,18 @@
 			</c:otherwise>
 		</c:choose>
 		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
-			<div class="Article-Width flex bg-gray-100">
-				<div class="w-96">제목</div>
-				<div class="w-20">작성자</div>
-				<div class="w-36">작성일</div>
-				<div class="w-10">조회</div>
-				<div class="w-32 bg-gray-100 border-l-2 border-gray-500">게시판</div>
+			<div class="Article-Width flex items-center bg-gray-100">
+				<span class="w-16 text-base">회원번호</span>
+				<span class="w-16 mr-4"></span>
+				<span class="w-32 text-left">ID(닉네임)</span>
+				<span class="w-20">권한</span>
+				<span class="w-48">연락처</span>
+				<span class="w-24 mr-2">가입일</span>
+				<div class="w-24 bg-gray-100 border-l-2 border-gray-500">게시판</div>
 			</div>
 		</div>
 		<div class="flex justify-center border-b-2 border-gray-500">
 			<div class="w-full">
-				<div>allMembersCnt:${allMembersCnt}</div>
-						<div>page:${page}</div>
-						<div>printPageIndexs:${printPageIndexs}</div>
-						<div>printPageIndexUp:${printPageIndexUp}</div>
-						<div>printPageIndexDown:${printPageIndexDown}</div>
-						<div>members:${members}</div>
-						<div>membersCnt:${membersCnt}</div>
 				<c:choose>
 					<c:when test="${articlesCnt == 0}">
 						<div class="flex h-full justify-center items-center">
@@ -45,33 +40,21 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<c:forEach items='${articles}' var='article'>
-						<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
-						<c:set var="thumbFile" value="${article.extra.file__common__attachment[thumbFileNo]}" />
-						<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
-						<c:set var="hitCheck" value="true" />
-							<div class="flex border-b">
-								<div class="w-96 flex">
-									<c:choose>
-										<c:when test="${boardCode == 0}">
-											<a href="list?boardCode=${article.boardCode}" class="text-center w-20 bg-gray-100 hover:underline">${article.boardName}</a>
-										</c:when>
-										<c:otherwise>
-											<span class="text-center w-20">${article.aid}</span>
-										</c:otherwise>
-									</c:choose>
-									<!-- 
-									조회수 여기서 클릭시에만 오르도록 하는 방법은? 
-									-->
-									<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
-										<c:if test="${thumbUrl != null}">
-											<i class="far fa-image text-gray-700" ></i>
-										</c:if>
-									</a>
+						<c:forEach items='${members}' var='member'>
+						<c:set var="thumbFile" value="${member.extra.file__common__profile['0']}" />
+							<div class="flex items-center border-b h-20">
+								<span class="text-center w-16 text-xl">${member.uid}</span>
+								<img src="${thumbFile.forPrintUrl}" alt="" class="h-16 w-16 mr-4 rounded-full" />
+								<a href="userpage?uid=${member.uid}" class="text-lg w-32">
+									<span>${member.ID}</span>
+									<div>(${member.nickname})</div>
+								</a>
+								<span class="w-20 text-center">${member.authName}</span>
+								<div class="w-48 text-center ">
+									<span>${member.email}</span>
+									<div>${member.phoneNo}</div>
 								</div>
-								<a href="../member/userpage?uid=${article.uid}" class="text-center w-20">${article.nickname}</a>
-								<div class="text-center w-36">${Util.dateFormat(article.regDate)}</div>
-								<div class="text-center w-10">${article.hit}</div>
+								<div class="text-center w-24 mr-2">${Util.dateFormat(member.regDate)}</div>
 							</div>
 						</c:forEach>
 					</c:otherwise>
@@ -79,16 +62,14 @@
 			</div>
 			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
-					<a href="/adm/article/list" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>전체글보기(${allArticlesCnt})</span>
+					<a href="/adm/member/list" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+						<span>전체회원(${allMembersCnt})</span>
 					</a>
-					<a href="/adm/article/list?boardCode=1" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>공지사항</span>
-					</a>
-					<a href="/adm/article/list?boardCode=2" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>자유게시판</span>
-					</a>
-					<div class="pb-1"></div>
+					<c:forEach var='auth' items='${auths}'>
+						<a href="/adm/member/list?authLevel=${auth.authLevel}" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+							<span>${auth.authName}</span>
+						</a>
+					</c:forEach>
 				</ul>
 			</nav>
 		</div>
@@ -96,31 +77,31 @@
 			<div class="w-24"> <!-- 공백용 -->
 			</div>
 			<div class="flex justify-center w-full text-lg text-gray-700">
-				<a href="/adm/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">처음</a>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">이전</a>
+				<a href="/adm/member/list?authLevel=${authLevel}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">처음</a>
+				<a href="/adm/member/list?authLevel=${authLevel}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">이전</a>
 				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
 					<c:choose>
 						<c:when test="${printPageIndex == page}">
-							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 text-black underline">${printPageIndex}</a>
+							<a href="/adm/member/list?authLevel=${authLevel}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 text-black underline">${printPageIndex}</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
+							<a href="/adm/member/list?authLevel=${authLevel}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">다음</a>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
+				<a href="/adm/member/list?authLevel=${authLevel}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">다음</a>
+				<a href="/adm/member/list?authLevel=${authLevel}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
 			<div class="flex justify-center items-center w-24">
 				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=article'" />
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">
-			<input type="hidden" name="boardCode" value="${boardCode}">
+			<input type="hidden" name="authLevel" value="${authLevel}">
 			<select name="searchType" class="border text-gray-700">
-				<option value="titleAndBody">제목+내용</option>
-				<option value="title">제목</option>
-				<option value="nickname">작성자</option>
+				<option value="ID">아이디</option>
+				<option value="nickname">닉네임</option>
+				<option value="phoneAndEmail">연락처</option>
 			</select>
 			<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
 			<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>

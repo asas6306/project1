@@ -61,9 +61,10 @@
 	
 	<select id="getMembers" resultType="Member">
 		select * from member
+		left join auth on member.authLevel = auth.authLevel
 		where 1
 		<if test="authLevel != 0">
-			and authLevel = #{authLevel}
+			and member.authLevel = #{authLevel}
 		</if>
 		<if test="searchKeyword != null">
 			<choose>
@@ -72,6 +73,10 @@
 				</when>
 				<when test="searchType == 'nickname'">
 					and nickname like concat('%' , #{searchKeyword}, '%')
+				</when>
+				<when test="searchType == 'phoneAndEmail'">
+					and (phoneNo like concat('%' , #{searchKeyword}, '%')
+					or email like concat('%' , #{searchKeyword}, '%'))
 				</when>
 			</choose>
 		</if>
