@@ -6,20 +6,7 @@
 
 <section class="section-1 base-higth flex justify-center">
 	<div>
-		<c:choose>
-			<c:when test="${boardCode == '1'}">
-				<c:set var="boardName" value="공지사항" />
-				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
-			</c:when>
-			<c:when test="${boardCode == '2'}">
-				<c:set var="boardName" value="자유게시판" />
-				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
-			</c:when>
-			<c:otherwise>
-				<c:set var="boardName" value="전체글보기" />
-				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
-			</c:otherwise>
-		</c:choose>
+		<div class="flex items-center justify-center h-20 text-4xl font-bold">회원관리</div>
 		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
 			<div class="Article-Width flex items-center bg-gray-100">
 				<span class="w-16 text-base">회원번호</span>
