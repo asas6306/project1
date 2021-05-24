@@ -137,6 +137,24 @@ public class AdmMemberController extends _BaseController {
 		return new ResultData("S-1", String.format("%s(은)는 사용 가능한 닉네임입니다.", nickname), "nickname", nickname);
 	}
 	
+	@GetMapping("/adm/member/getPWDup")
+	@ResponseBody
+	public ResultData getPWDup(String PW) {
+		if (PW == null)
+			return new ResultData("F-1", "비밀번호를 입력해주세요.");
+		
+		if (PW.length() < 5)
+			return new ResultData("F-6", "비밀번호를 8자 이상으로 입력하세요.");
+		if (PW.length() > 15)
+			return new ResultData("F-6", "비밀번호를 15자 이하로 입력하세요.");
+		if (Util.allNumberString(PW))
+			return new ResultData("F-3", "비밀번호는 숫자로만 구성될 수 없습니다.");
+		if (Util.isStandardLoginIdCheck(PW) == false)
+			return new ResultData("F-5", "비밀번호는 영문과 숫자의 조합으로 구성되어야 합니다.");
+
+		return new ResultData("S-1", "", "PW", PW);
+	}
+	
 	@RequestMapping("/adm/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpSession session) {

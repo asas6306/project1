@@ -49,7 +49,43 @@ $(function() {
 </script>
 
 <script>
+let UpdateForm__validPW = '';
 function UpdateForm__checkPWDup() {
+	const form = $('.formUpdate').get(0);
+
+	form.PW.value = form.PW.value.trim();
+
+	if (form.PW.value.length == 0) {
+		return;
+	}
+
+	$.get('getPWDup', {
+		PW : form.PW.value
+	}, function(data) {
+		let colorClass = 'text-green-500';
+
+		if (data.fail) {
+			colorClass = 'text-red-500';
+		}
+
+		$('.PWInputMsg').html(
+				"<span class='" + colorClass + "'>" + data.msg);
+
+		if (data.fail) {
+			form.PW.focus();
+		} else {
+			UpdateForm__validPW = data.body.PW;
+		}
+	}, 'json');
+}
+
+$(function() {
+	$('.inputPW').keyup(_.debounce(UpdateForm__checkPWDup, 500));
+});
+</script>
+
+<script>
+function UpdateForm__checkPWCheckDup() {
 	const form = $('.formUpdate').get(0);
 
 	form.PW.value = form.PW.value.trim();
@@ -64,17 +100,17 @@ function UpdateForm__checkPWDup() {
 	
 	let colorClass = 'text-red-500';
 	if ( form.PW.value != form.PWCheck.value ) {
-		$('.PWInputMsg').html(
+		$('.PWCheckInputMsg').html(
 				"<span class='" + colorClass + "'>" + "비밀번호가 일치하지 않습니다");
 		form.PWCheck.focus();
 	} else {
-		$('.PWInputMsg').html('');
+		$('.PWCheckInputMsg').html('');
 	}
 }
 
 $(function() {
-	$('.InputPWCheck').change(function() {
-		UpdateForm__checkPWDup();
+	$('.inputPWCheck').change(function() {
+		UpdateForm__checkPWCheckDup();
 	});
 });
 </script>
@@ -199,13 +235,14 @@ function MemberUpdate__checkAndSubmit(form) {
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호 : </span>
-						<input type="password" name="PW" value="${member.PW}" class="InputPW border" />
-					</div>
-					<div class="flex text-xl">
-						<span class="w-32 text-right mr-2">비밀번호확인 : </span>
-						<input type="password" name="PWCheck" value="${member.PW}" class="InputPWCheck border" />
+						<input type="password" name="PW" value="${member.PW}" class="inputPW border" />
 					</div>
 					<div class="PWInputMsg text-sm text-center"></div>
+					<div class="flex text-xl">
+						<span class="w-32 text-right mr-2">비밀번호확인 : </span>
+						<input type="password" name="PWCheck" value="${member.PW}" class="inputPWCheck border" />
+					</div>
+					<div class="PWCheckInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">닉네임 : </span>
 						<input type="text" name="nickname" value="${member.nickname}" class="inputNickname border" />		
