@@ -82,7 +82,77 @@ $(function() {
 	});
 	$('.inputNickname').keyup(_.debounce(SignupForm__checkNicknameDup, 500));
 });
+</script>
 
+
+<script>
+let UpdateForm__validPW = '';
+function UpdateForm__checkPWDup() {
+	const form = $('.formUpdate').get(0);
+
+	form.PW.value = form.PW.value.trim();
+
+	if (form.PW.value.length == 0) {
+		return;
+	}
+
+	$.get('getPWDup', {
+		PW : form.PW.value
+	}, function(data) {
+		let colorClass = 'text-green-500';
+
+		if (data.fail) {
+			colorClass = 'text-red-500';
+		}
+
+		$('.PWInputMsg').html(
+				"<span class='" + colorClass + "'>" + data.msg);
+
+		if (data.fail) {
+			form.PW.focus();
+		} else {
+			UpdateForm__validPW = data.body.PW;
+		}
+	}, 'json');
+}
+
+$(function() {
+	$('.inputPW').keyup(_.debounce(UpdateForm__checkPWDup, 500));
+});
+</script>
+
+<script>
+function UpdateForm__checkPWCheckDup() {
+	const form = $('.formUpdate').get(0);
+
+	form.PW.value = form.PW.value.trim();
+	form.PWCheck.value = form.PWCheck.value.trim();
+
+	if (form.PW.value.length == 0) {
+		return;
+	}
+	if (form.PWCheck.value.length == 0) {
+		return;
+	}
+	
+	let colorClass = 'text-red-500';
+	if ( form.PW.value != form.PWCheck.value ) {
+		$('.PWCheckInputMsg').html(
+				"<span class='" + colorClass + "'>" + "비밀번호가 일치하지 않습니다");
+		form.PWCheck.focus();
+	} else {
+		$('.PWCheckInputMsg').html('');
+	}
+}
+
+$(function() {
+	$('.inputPWCheck').change(function() {
+		UpdateForm__checkPWCheckDup();
+	});
+});
+</script>
+
+<script>
 MemberSignup__submited = false;
 function MemberSignup__checkAndSubmit(form) {
 	if ( MemberSignup__submited ) {
@@ -144,13 +214,15 @@ function MemberSignup__checkAndSubmit(form) {
 				<div class="my-2">
 					<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full h-12 hover:border-blue-300" />
 				</div>
+				<div class="PWInputMsg text-sm text-center"></div>
 				<div class="my-2">
 					<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full h-12 hover:border-blue-300" />
 				</div>
+				<div class="PWCheckInputMsg text-sm text-center"></div>
 				<div class="my-2">
 					<input type="text" name="nickname" placeholder="닉네임" class="inputNickname border-2 rounded w-full h-12 hover:border-blue-300" />
-					<div class="nicknameInputMsg text-sm text-center"></div>
 				</div>
+				<div class="nicknameInputMsg text-sm text-center"></div>
 				<div class="my-2">
 					<input type="text" name="email" placeholder="이메일" class="border-2 rounded w-full h-12 hover:border-blue-300" />
 				</div>
