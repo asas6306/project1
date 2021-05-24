@@ -328,6 +328,14 @@ public class AdmMemberController extends _BaseController {
 		return "adm/member/update";
 	}
 	
+	@RequestMapping("/adm/member/userUpdate")
+	public String userUpdate(HttpServletRequest req, int uid) {
+		
+		req.setAttribute("member", ms.getMember("uid", String.valueOf(uid)));
+		
+		return "adm/member/userUpdate";
+	}
+	
 	@RequestMapping("/adm/member/doUpdate")
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		

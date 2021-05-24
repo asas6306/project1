@@ -10,8 +10,8 @@
 	const uid = parseInt("${loginedMember.uid}");
 </script>
 <script>
-let SignupForm__validNickname = '';
-function SignupForm__checkNicknameDup() {
+let UpdateForm__validNickname = '';
+function UpdateForm__checkNicknameDup() {
 	const form = $('.formUpdate').get(0);
 
 	form.nickname.value = form.nickname.value.trim();
@@ -35,16 +35,16 @@ function SignupForm__checkNicknameDup() {
 		if (data.fail) {
 			form.nickname.focus();
 		} else {
-			SignupForm__validNickname = data.body.nickname;
+			UpdateForm__validNickname = data.body.nickname;
 		}
 	}, 'json');
 }
 
 $(function() {
 	$('.inputNickname').change(function() {
-		SignupForm__checkNicknameDup();
+		UpdateForm__checkNicknameDup();
 	});
-	$('.inputNickname').keyup(_.debounce(SignupForm__checkNicknameDup, 500));
+	$('.inputNickname').keyup(_.debounce(UpdateForm__checkNicknameDup, 500));
 });
 </script>
 <script>
