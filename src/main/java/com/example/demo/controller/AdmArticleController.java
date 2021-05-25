@@ -48,7 +48,7 @@ public class AdmArticleController extends _BaseController {
 		if(articlesCnt != 0) {
 			
 			// 페이징
-			ss.page(req, page, page, articlesCnt);
+			page = ss.page(req, page, page, articlesCnt);
 			
 			int pageCnt = 20;
 			
