@@ -19,7 +19,7 @@ function Delete__Articles__Confirm()
 <section class="base-higth flex justify-center">
 	<div>
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
-		<div class="border-t-2 border-b-2">
+		<div class="userpage-width border-t-2 border-b-2">
 			<div class="flex">
 				<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
 				<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
@@ -36,19 +36,19 @@ function Delete__Articles__Confirm()
 					<div class="text-lg">authKey : ${loginedMember.authKey}</div>
 				</div>
 			</div>
-			<div class="flex justify-center text-xl font-bold">
+			<div class="flex justify-center text-xl">
 				<div class="text-center border-b w-44">게시물</div>
 				<div class="text-center border-b mx-4 w-44">메모</div>
 				<div class="text-center border-b w-44">댓글</div>
 			</div>
 			<div class="flex justify-center text-xl">
-				<div class="text-center border-b w-44">
+				<div class="text-center w-44">
 					<a href="mypage?call=article" class="hover:underline">${Util.numberFormat(articleCnt)}</a>
 				</div>
-				<div class="text-center border-b mx-4 w-44">
+				<div class="text-center mx-4 w-44">
 					<a href="mypage?call=memo" class="hover:underline">${Util.numberFormat(memoCnt)}</a>
 				</div>
-				<div class="text-center border-b w-44">
+				<div class="text-center w-44">
 					<a href="mypage?call=reply" class="hover:underline">${Util.numberFormat(replyCnt)}</a>
 				</div>
 			</div>

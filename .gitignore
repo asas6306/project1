@@ -3,6 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+LOG_PATH_IS_UNDEFINED
 
 ### STS ###
 .apt_generated
