@@ -32,7 +32,7 @@
 						<c:set var="memberAuthLevel" value="${String.valueOf(member.authLevel)}" />
 							<div class="flex items-center border-b h-20">
 								<span class="text-center w-16 text-xl">${member.uid}</span>
-								<img src="${thumbFile.forPrintUrl}" alt="" class="h-16 w-16 mr-4 rounded-full" />
+								<img src="${thumbFile.forPrintUrl}" alt="" class="h-16 w-16 mr-4 border rounded-full" />
 								<a href="userpage?uid=${member.uid}" class="text-lg w-32">
 									<span>${member.ID}</span>
 									<div>(${member.nickname})</div>

@@ -10,7 +10,7 @@
 		<div class="userpage-width border-t-2 border-b-2">
 			<div class="flex">
 				<c:set var="file" value="${member.extra.file__common__profile['0']}"></c:set>
-				<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 rounded-full bg-gray-300">
+				<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 border rounded-full bg-gray-300">
 				<div class="mx-4 my-2 w-96">
 					<div class="flex justify-between">
 						<span class="text-4xl">${member.nickname} (${member.ID})</span>

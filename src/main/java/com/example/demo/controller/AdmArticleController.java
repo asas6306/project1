@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,15 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
-import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
 import com.example.demo.dto.Reply;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.GenFileService;
 import com.example.demo.service.ReplyService;
+import com.example.demo.service.SimplerService;
 import com.example.demo.util.ResultData;
 
 @Controller
@@ -30,6 +27,8 @@ public class AdmArticleController extends _BaseController {
 	GenFileService fs;
 	@Autowired
 	ReplyService rs;
+	@Autowired
+	SimplerService ss;
 	
 	@RequestMapping("/adm/article/list")
 	public String list(HttpServletRequest req, String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String articleType) {
@@ -49,39 +48,9 @@ public class AdmArticleController extends _BaseController {
 		if(articlesCnt != 0) {
 			
 			// 페이징
-			if(page < 1)
-				page = 1;
+			ss.page(req, page, page, articlesCnt);
+			
 			int pageCnt = 20;
-			
-			int allPageCnt = (int)(Math.ceil((double)articlesCnt / pageCnt));
-			if(allPageCnt == 0)
-				allPageCnt = 1;
-			
-			if(page > allPageCnt) {
-				page = allPageCnt;
-			} else if(page < 1) {
-				page = 1;
-			}
-			
-			int pageStack;
-			int pageIndex = 5;
-			if(page % pageIndex == 0) {
-				pageStack = page;
-			} else {
-				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
-			}
-			
-			List<Integer> printPageIndexs = new ArrayList<Integer>();
-			for(int i = 4; i >= 0; i--) 
-				if(pageStack - i <= allPageCnt)
-					printPageIndexs.add(pageStack - i);
-			req.setAttribute("page", page);
-			page = (page - 1) * pageCnt;
-			req.setAttribute("printPageIndexs", printPageIndexs);
-			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
-			req.setAttribute("printPageIndexUp", printPageIndexUp);
-			int printPageIndexDown = printPageIndexs.get(0) - 1;
-			req.setAttribute("printPageIndexDown", printPageIndexDown);
 			
 			// 최종 게시물 불러오기
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
@@ -90,16 +59,6 @@ public class AdmArticleController extends _BaseController {
 				String body = article.getBody();
 				body = body.replace("\r\n", "<br>");
 				article.setBody(body);				
-			}
-			// 프로필 이미지 가져오깅
-			for(Article article : articles) {
-				List<GenFile> files = fs.getGenFiles("member", article.getUid(), "common", "profile");
-				Map<String, GenFile> filesMap = new HashMap<>();
-				
-				for (GenFile file : files)
-					filesMap.put(file.getFileNo() + "", file);
-				
-				article.getExtraNotNull().put("file__common__profile", filesMap);
 			}
 			req.setAttribute("articles", articles);
 		} else {
