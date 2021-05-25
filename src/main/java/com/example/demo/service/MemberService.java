@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.MemberDao;
+import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
 import com.example.demo.util.ResultData;
 import com.example.demo.util.Util;
@@ -15,6 +17,8 @@ import com.example.demo.util.Util;
 public class MemberService {
 	@Autowired
 	MemberDao md;
+	@Autowired
+	GenFileService fs;
 	
 	// static 시작
 	public static String getAuthLevelName(Member member) {
@@ -47,6 +51,8 @@ public class MemberService {
 		if(loginedMember == null)
 			return new ResultData("F-1", "존재하지 않는 회원입니다.");
 		
+		loginedMember = getMemberImg(loginedMember);
+		
 		return new ResultData("S-1", String.format("%s님 환영합니다.", loginedMember.getNickname()), "loginedMember", loginedMember);
 	}
 
@@ -66,7 +72,9 @@ public class MemberService {
 	
 	public Member getMember(String type, String itemValue) {
 		
-		return md.getMember(type, itemValue);
+		Member member = md.getMember(type, itemValue);
+		
+		return getMemberImg(member);
 	}
 
 	public boolean authCheck(Member loginedMember) {
@@ -91,8 +99,26 @@ public class MemberService {
 	}
 
 	public List<Member> getMembers(int authLevel, String searchType, String searchKeyword, int page, int pageCnt) {
-		page = (page - 1) * pageCnt;
 		
-		return md.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
+		List<Member> members = md.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
+		
+		// 프로필 이미지 가져오깅
+		for(Member member : members) {
+			member = getMemberImg(member);
+		}
+		
+		return members;
+	}
+	
+	public Member getMemberImg(Member member) {
+		// 프로필 이미지 호출
+		List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
+		Map<String, GenFile> filesMap = new HashMap<>();
+		if(!files.isEmpty()) {
+			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
+			member.getExtraNotNull().put("file__common__profile", filesMap);
+		}
+		
+		return member;
 	}
 }

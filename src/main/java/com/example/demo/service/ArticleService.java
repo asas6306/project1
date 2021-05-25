@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,15 +22,13 @@ public class ArticleService {
 	GenFileService fs;
 	
 	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt, String articleType, int uid) {
-		page = (page - 1) * pageCnt;
-		
+
 		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, uid);
 		// 게시물 이미지 가져오기
 		List<Integer> aids = articles.stream().map(article -> article.getAid()).collect(Collectors.toList());
 		if(!aids.isEmpty()) {
-			Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common",
-					"attachment");
-	
+			Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common", "attachment");
+			
 			for (Article article : articles) {
 				Map<String, GenFile> mapByFileNo = filesMap.get(article.getAid());
 	
@@ -97,4 +96,13 @@ public class ArticleService {
 		return ad.getArticlesForMypage(articleType, uid);
 	}
 	
+	public Article getArticleImg(Article article) {
+		List<GenFile> files = fs.getGenFiles("article", article.getAid(), "common", "attachment");
+		Map<String, GenFile> filesMap = new HashMap<>();
+		for (GenFile file : files)
+			filesMap.put(file.getFileNo() + "", file);
+		article.getExtraNotNull().put("file__common__attachment", filesMap);
+		
+		return article;
+	}
 }

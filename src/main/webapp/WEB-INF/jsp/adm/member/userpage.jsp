@@ -65,7 +65,7 @@
 										<a href="../article/detail?aid=${item.relId}">${item.body}</a>
 									</div>
 									<span class="text-center w-12"></span>
-									<span class="text-center w-40">${item.regDate}</span>
+									<span class="text-center w-40">${Util.dateFormat(item.regDate)}</span>
 								</div>
 							</c:forEach>
 						</c:when>

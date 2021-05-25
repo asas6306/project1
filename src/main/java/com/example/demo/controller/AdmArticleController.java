@@ -76,6 +76,7 @@ public class AdmArticleController extends _BaseController {
 				if(pageStack - i <= allPageCnt)
 					printPageIndexs.add(pageStack - i);
 			req.setAttribute("page", page);
+			page = (page - 1) * pageCnt;
 			req.setAttribute("printPageIndexs", printPageIndexs);
 			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
 			req.setAttribute("printPageIndexUp", printPageIndexUp);
@@ -135,27 +136,17 @@ public class AdmArticleController extends _BaseController {
 	@RequestMapping("/adm/article/detail")
 	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
 		// 조회수 폭발하는 것을 억제 할 방법을 생각해보자,,,
-		if(hit) {
+		if(hit)
 			as.hit(aid);
-		}
 	
 		Article article = as.getArticle(aid);
-		
-		List<GenFile> files = fs.getGenFiles("article", article.getAid(), "common", "attachment");
 
-		Map<String, GenFile> filesMap = new HashMap<>();
-
-		for (GenFile file : files)
-			filesMap.put(file.getFileNo() + "", file);
-
-		article.getExtraNotNull().put("file__common__attachment", filesMap);
-		
 		// 줄바꿈
 		String body = article.getBody();
 		body = body.replace("\r\n", "<br>");
 		article.setBody(body);
-		
-		req.setAttribute("article", article);
+
+		req.setAttribute("article", as.getArticleImg(article));
 		
 		List<Reply> replies = rs.getReplies("article", aid);
 		req.setAttribute("replies", replies);
@@ -168,16 +159,7 @@ public class AdmArticleController extends _BaseController {
 		
 		Article article = as.getArticle(aid);
 		
-		List<GenFile> files = fs.getGenFiles("article", article.getAid(), "common", "attachment");
-
-		Map<String, GenFile> filesMap = new HashMap<>();
-
-		for (GenFile file : files)
-			filesMap.put(file.getFileNo() + "", file);
-
-		article.getExtraNotNull().put("file__common__attachment", filesMap);
-		
-		req.setAttribute("article", article);
+		req.setAttribute("article", as.getArticleImg(article));
 		
 		return "adm/article/update";
 	}

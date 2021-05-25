@@ -32,7 +32,6 @@ public class ReplyService {
 	}
 
 	public List<Article> getRepliesForMypage(int page, int pageCnt, int uid) {
-		page = (page - 1) * pageCnt;
 		
 		return rd.getRepliesForMypage(page, pageCnt, uid);
 	}

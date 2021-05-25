@@ -30,7 +30,11 @@ html > body {
 }
 
 .first-top {
-	max-width: 1280px;
+	width: 1280px;
+}
+
+.home-main {
+	width: 960px;
 }
 
 .last-bottom {

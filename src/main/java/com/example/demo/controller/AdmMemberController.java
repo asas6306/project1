@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Member;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.AuthService;
-import com.example.demo.service.GenFileService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.ReplyService;
+import com.example.demo.service.SimplerService;
 import com.example.demo.util.ResultData;
 import com.example.demo.util.Util;
 
@@ -34,9 +31,9 @@ public class AdmMemberController extends _BaseController {
 	@Autowired
 	ReplyService rs;
 	@Autowired
-	GenFileService fs;
-	@Autowired
 	AuthService auths;
+	@Autowired
+	SimplerService ss;
 	
 	@RequestMapping("/adm/member/login")
 	public String login() {
@@ -57,14 +54,6 @@ public class AdmMemberController extends _BaseController {
 		
 		if(!loginedMember.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
-		
-		// 프로필 이미지 호출
-		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
-		Map<String, GenFile> filesMap = new HashMap<>();
-		if(!files.isEmpty()) {
-			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-			loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
-		}
 		
 		session.setAttribute("loginedMember", loginedMember);
 		
@@ -173,67 +162,16 @@ public class AdmMemberController extends _BaseController {
 		int uid = loginedMember.getUid();
 		
 		req.setAttribute("call", call);
-		int articleCnt = as.getArticlesCntForMypage("article", uid);
-		req.setAttribute("articleCnt", articleCnt);
-		int memoCnt = as.getArticlesCntForMypage("memo", uid);
-		req.setAttribute("memoCnt", memoCnt);
-		int replyCnt = rs.getRepliesCntForMypage(uid);
-		req.setAttribute("replyCnt", replyCnt);
-		
-		int itemsCnt = 0;
-		
-		if(call.equals("article")) {
-			itemsCnt = articleCnt;
-		} else if(call.equals("memo")) {
-			itemsCnt = memoCnt;
-		} else if(call.equals("reply")) {
-			itemsCnt = replyCnt;
-		}
+
+		int itemsCnt = ss.getItemsCnt(req, call, uid);
 		
 		int pageCnt = 20;
 		if(itemsCnt != 0) {
 			// 페이징
-			if(page < 1)
-				page = 1;
-			
-			int allPageCnt = (int)(Math.ceil((double)itemsCnt / pageCnt));
-			if(allPageCnt == 0)
-				allPageCnt = 1;
-			
-			if(page > allPageCnt) {
-				page = allPageCnt;
-			} else if(page < 1) {
-				page = 1;
-			}
-			
-			int pageStack;
-			int pageIndex = 5;
-			if(page % pageIndex == 0) {
-				pageStack = page;
-			} else {
-				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
-			}
-			
-			List<Integer> printPageIndexs = new ArrayList<Integer>();
-			for(int i = 4; i >= 0; i--) 
-				if(pageStack - i <= allPageCnt)
-					printPageIndexs.add(pageStack - i);
-			
-			req.setAttribute("page", page);
-			req.setAttribute("printPageIndexs", printPageIndexs);
-			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
-			req.setAttribute("printPageIndexUp", printPageIndexUp);
-			int printPageIndexDown = printPageIndexs.get(0) - 1;
-			req.setAttribute("printPageIndexDown", printPageIndexDown);
+			page = ss.page(req, page, pageCnt, itemsCnt);
 		}
 	
-		if(call.equals("article")) {
-			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "article", uid));
-		} else if(call.equals("memo")) {
-			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "memo", uid));
-		} else if(call.equals("reply")) {
-			req.setAttribute("items", rs.getRepliesForMypage(page, pageCnt, uid));
-		}
+		ss.setItems(req, call, page, pageCnt, uid);
 		
 		return "adm/member/mypage";
 	}
@@ -244,78 +182,18 @@ public class AdmMemberController extends _BaseController {
 		int uid = Util.getAsInt(param.get("uid"), 0);
 		Member member = ms.getMember("uid", uid + "");
 		
-		List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
-		Map<String, GenFile> filesMap = new HashMap<>();
-		if(!files.isEmpty()) {
-			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-			member.getExtraNotNull().put("file__common__profile", filesMap);
-		}
-		
 		req.setAttribute("member", member);
 		
 		req.setAttribute("call", call);
-		int articleCnt = as.getArticlesCntForMypage("article", uid);
-		req.setAttribute("articleCnt", articleCnt);
-		int memoCnt = as.getArticlesCntForMypage("memo", uid);
-		req.setAttribute("memoCnt", memoCnt);
-		int replyCnt = rs.getRepliesCntForMypage(uid);
-		req.setAttribute("replyCnt", replyCnt);
 		
-		int itemsCnt = 0;
-		
-		if(call.equals("article")) {
-			itemsCnt = articleCnt;
-		} else if(call.equals("memo")) {
-			itemsCnt = memoCnt;
-		} else if(call.equals("reply")) {
-			itemsCnt = replyCnt;
-		}
-		
+		int itemsCnt = ss.getItemsCnt(req, call, uid);
+		// 페이징
 		int pageCnt = 20;
 		if(itemsCnt != 0) {
-			// 페이징
-			if(page < 1)
-				page = 1;
-			
-			int allPageCnt = (int)(Math.ceil((double)itemsCnt / pageCnt));
-			if(allPageCnt == 0)
-				allPageCnt = 1;
-			
-			if(page > allPageCnt) {
-				page = allPageCnt;
-			} else if(page < 1) {
-				page = 1;
-			}
-			
-			int pageStack;
-			int pageIndex = 5;
-			if(page % pageIndex == 0) {
-				pageStack = page;
-			} else {
-				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
-			}
-			
-			List<Integer> printPageIndexs = new ArrayList<Integer>();
-			for(int i = 4; i >= 0; i--) 
-				if(pageStack - i <= allPageCnt)
-					printPageIndexs.add(pageStack - i);
-			
-			req.setAttribute("page", page);
-			req.setAttribute("printPageIndexs", printPageIndexs);
-			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
-			req.setAttribute("printPageIndexUp", printPageIndexUp);
-			int printPageIndexDown = printPageIndexs.get(0) - 1;
-			req.setAttribute("printPageIndexDown", printPageIndexDown);
+			page = ss.page(req, page, pageCnt, itemsCnt);
 		}
 	
-		if(call.equals("article")) {
-			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "article", uid));
-		} else if(call.equals("memo")) {
-			req.setAttribute("items", as.getArticles(null, null, 0, page, pageCnt, "memo", uid));
-		} else if(call.equals("reply")) {
-			System.out.println("test:" + rs.getRepliesForMypage(page, pageCnt, uid).size());
-			req.setAttribute("items", rs.getRepliesForMypage(page, pageCnt, uid));
-		}
+		ss.setItems(req, call, page, pageCnt, uid);
 		
 		return "adm/member/userpage";
 	}
@@ -364,13 +242,6 @@ public class AdmMemberController extends _BaseController {
 		Member loginedMember = ms.getMember("ID", String.valueOf(param.get("ID")));
 		
 		session.removeAttribute("loginedMember");
-		
-		List<GenFile> files = fs.getGenFiles("member", loginedMember.getUid(), "common", "profile");
-		Map<String, GenFile> filesMap = new HashMap<>();
-		if(!files.isEmpty()) {
-			filesMap.put(files.get(0).getFileNo() + "", files.get(0));
-			loginedMember.getExtraNotNull().put("file__common__profile", filesMap);
-		}
 		session.setAttribute("loginedMember", loginedMember);
 		
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
@@ -391,54 +262,13 @@ public class AdmMemberController extends _BaseController {
 		int membersCnt = ms.getMembersCnt(authLevel, searchType, searchKeyword);
 		
 		if(membersCnt != 0) {
-			
 			// 페이징
-			if(page < 1)
-				page = 1;
-			int pageCnt = 20;
-			
-			int allPageCnt = (int)(Math.ceil((double)membersCnt / pageCnt));
-			if(allPageCnt == 0)
-				allPageCnt = 1;
-			
-			if(page > allPageCnt) {
-				page = allPageCnt;
-			} else if(page < 1) {
-				page = 1;
-			}
-			
-			int pageStack;
-			int pageIndex = 5;
-			if(page % pageIndex == 0) {
-				pageStack = page;
-			} else {
-				pageStack = ((int)(Math.floor(page / pageIndex)) + 1) * pageIndex;
-			}
-			
-			List<Integer> printPageIndexs = new ArrayList<Integer>();
-			for(int i = 4; i >= 0; i--) 
-				if(pageStack - i <= allPageCnt)
-					printPageIndexs.add(pageStack - i);
-			req.setAttribute("page", page);
-			req.setAttribute("printPageIndexs", printPageIndexs);
-			int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
-			req.setAttribute("printPageIndexUp", printPageIndexUp);
-			int printPageIndexDown = printPageIndexs.get(0) - 1;
-			req.setAttribute("printPageIndexDown", printPageIndexDown);
+			int pageCnt = 10;
+			ss.page(req, page, page, membersCnt);
 			
 			// 최종 게시물 불러오기
 			List<Member> members = ms.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
 			
-			// 프로필 이미지 가져오깅
-			for(Member member : members) {
-				List<GenFile> files = fs.getGenFiles("member", member.getUid(), "common", "profile");
-				Map<String, GenFile> filesMap = new HashMap<>();
-				
-				for (GenFile file : files)
-					filesMap.put(file.getFileNo() + "", file);
-				
-				member.getExtraNotNull().put("file__common__profile", filesMap);
-			}
 			req.setAttribute("members", members);
 			req.setAttribute("auths", auths.getAuths()); 
 		} else {
