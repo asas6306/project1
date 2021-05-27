@@ -142,6 +142,39 @@ public class AdmMemberController extends _BaseController {
 
 		return new ResultData("S-1", "", "PW", PW);
 	}
+	
+	@GetMapping("/adm/member/getPhoneNoDup")
+	@ResponseBody
+	public ResultData getPhoneNoDup(String phoneNo) {
+		if (phoneNo == null)
+			return new ResultData("F-1", "연락처를 입력해주세요.");
+		
+		String[] splitPhoneNo = phoneNo.split("-");
+		
+		if (splitPhoneNo[0].length() != 3 && splitPhoneNo[1].length() != 4 && splitPhoneNo[2].length() != 4) {
+			return new ResultData("F-3", "올바른 전화번호 형식이 아닙니다.");
+		}
+		if (!Util.allNumberString(phoneNo))
+			return new ResultData("F-2", "전화번호는 숫자 이외의 문자가 올 수 없습니다.");
+
+		return new ResultData("S-1", "", "phoneNo", phoneNo);
+	}
+	
+	@GetMapping("/adm/member/getEmailDup")
+	@ResponseBody
+	public ResultData getEmailDup(String email) {
+		if (email == null)
+			return new ResultData("F-1", "이메일을 입력해주세요.");
+		
+		String[] splitEamil = email.split("@");
+		String[] splitWebsite = splitEamil[1].split(".");
+		
+		if (splitEamil[0].length() == 0 && splitWebsite[0].length() == 0 && splitWebsite[1].length() == 0) {
+			return new ResultData("F-2", "올바른 이메일 형식이 아닙니다.");			
+		}
+		
+		return new ResultData("S-1", "", "email", email);
+	}
 
 	@RequestMapping("/adm/member/doLogout")
 	@ResponseBody
