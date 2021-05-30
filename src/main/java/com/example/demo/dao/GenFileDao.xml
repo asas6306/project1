@@ -54,7 +54,6 @@
 		where fid = #{fid}
 	</update>
 
-	<!-- 삭제는 db를 삭제하는것이 맞는지 아니면 delDate업데이트가 맞는지 고민 -->
 	<delete id="deleteFile">
 		delete from genFile
 		where fid = #{fid}
