@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.Member;
+
 @Service
 public class SimplerService {
 	@Autowired
@@ -82,6 +84,24 @@ public class SimplerService {
 		}
 		
 		return 612;
+	}
+
+	public Member setSecureID(Member member) {
+		
+		char[] charID = member.getID().toCharArray();
+		int IDLength = charID.length;
+		String ID = "";
+		
+		for(int i = 0; i < IDLength; i++) {
+			if(i < (IDLength/2)) {
+				ID += charID[i];
+			} else {
+				ID += "*";
+			}
+		}
+		member.setID(ID); 
+		
+		return member;
 	}
 	
 	

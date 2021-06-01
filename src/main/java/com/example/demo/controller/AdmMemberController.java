@@ -215,6 +215,8 @@ public class AdmMemberController extends _BaseController {
 
 		int uid = Util.getAsInt(param.get("uid"), 0);
 		Member member = ms.getMember("uid", uid + "");
+		
+		member = ss.setSecureID(member);
 
 		req.setAttribute("member", member);
 
