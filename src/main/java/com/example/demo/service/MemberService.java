@@ -121,4 +121,13 @@ public class MemberService {
 		
 		return member;
 	}
+
+//	public ResultData loginTest(String ID, String PW) {
+//		Member loginedMember = md.loginTest(ID, PW);
+//		
+//		if(loginedMember == null)
+//			return new ResultData("F-1", "존재하지 않는 회원입니다.");
+//		
+//		return new ResultData("S-1", String.format("%s님 환영합니다.", loginedMember.getNickname()), "loginedMember", loginedMember);
+//	}
 }

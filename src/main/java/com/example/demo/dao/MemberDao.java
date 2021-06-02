@@ -25,4 +25,6 @@ public interface MemberDao {
 	public int getMembersCnt(@Param(value = "authLevel") int authLevel, @Param(value = "searchType") String searchType, @Param(value = "searchKeyword") String searchKeyword);
 
 	public List<Member> getMembers(@Param(value = "authLevel") int authLevel, @Param(value = "searchType") String searchType, @Param(value = "searchKeyword") String searchKeyword, @Param(value = "page") int page, @Param(value = "pageCnt") int pageCnt);
+
+//	public Member loginTest(@Param(value = "ID") String ID, @Param(value = "PW") String PW);
 }

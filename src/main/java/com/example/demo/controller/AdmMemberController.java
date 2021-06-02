@@ -62,6 +62,31 @@ public class AdmMemberController extends _BaseController {
 
 		return Util.msgAndReplace(msg, redirectUrl);
 	}
+	
+//	@RequestMapping("/adm/member/loginTest")
+//	public String loginTest() {
+//
+//		return "adm/member/loginTest";
+//	}
+//
+//	@RequestMapping("/adm/member/doLoginTest")
+//	@ResponseBody
+//	public String doLoginTest(HttpSession session, String redirectUrl, String ID, String PW) {
+//
+//		ResultData doLoginRd = ms.loginTest(ID, PW);
+//
+//		if (doLoginRd.isFail())
+//			return Util.msgAndBack(doLoginRd.getMsg());
+//
+//		Member loginedMember = (Member) doLoginRd.getBody().get("loginedMember");
+//
+//		session.setAttribute("loginedMember", loginedMember);
+//
+//		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
+//		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
+//
+//		return Util.msgAndReplace(msg, redirectUrl);
+//	}
 
 	@RequestMapping("/adm/member/signup")
 	public String signup() {
