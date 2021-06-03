@@ -83,11 +83,4 @@
 		order by uid desc
 		limit #{page}, #{pageCnt}
 	</select>
-	
-	<!-- 
-	<select id="loginTest" resultType="Member">
-	select * from member
-	where ID = #{ID}, PW = #{PW}
-	</select>
-	 -->
 </mapper>
