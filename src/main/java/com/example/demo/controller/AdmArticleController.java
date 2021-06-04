@@ -56,7 +56,13 @@ public class AdmArticleController extends _BaseController {
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			
 			for(Article article : articles) {
+				String title = article.getTitle();
+				title = title.replace("<", "&lt");
+				title = title.replace(">", "&gt");
+				
 				String body = article.getBody();
+				body = body.replace("<", "&lt");
+				body = body.replace(">", "&gt");
 				body = body.replace("\r\n", "<br>");
 				article.setBody(body);				
 			}
