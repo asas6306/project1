@@ -63,8 +63,8 @@ public class AdmArticleController extends _BaseController {
 				String body = article.getBody();
 				body = body.replace("<", "&lt");
 				body = body.replace(">", "&gt");
-				body = body.replace("\r\n", "<br>");
-				article.setBody(body);				
+				// 줄바꿈 적용 후 리턴
+				article.setBody(body.replace("\r\n", "<br>"));				
 			}
 			req.setAttribute("articles", articles);
 		} else {
