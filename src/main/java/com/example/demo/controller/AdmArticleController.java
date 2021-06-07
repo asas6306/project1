@@ -99,8 +99,7 @@ public class AdmArticleController extends _BaseController {
 	
 	@RequestMapping("/adm/article/detail")
 	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
-		// 조회수 폭발하는 것을 억제 할 방법을 생각해보자,,,
-		// 게시물 보기 전에 전처리 과정을 넣는게 어때 ?
+		
 		if(hit)
 			as.hit(aid);
 	
