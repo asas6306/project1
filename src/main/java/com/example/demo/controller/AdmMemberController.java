@@ -91,10 +91,6 @@ public class AdmMemberController extends _BaseController {
 			return new ResultData("F-6", "아이디를 5자 이상으로 입력하세요.");
 		if (ID.length() > 15)
 			return new ResultData("F-6", "아이디를 15자 이하로 입력하세요.");
-		if (Util.allNumberString(ID))
-			return new ResultData("F-3", "아이디는 숫자로만 구성될 수 없습니다.");
-		if (Util.startsWithNumber(ID))
-			return new ResultData("F-4", "아이디는 숫자로 시작될 수 없습니다.");
 		if (Util.isStandardLoginIdCheck(ID) == false)
 			return new ResultData("F-5", "아이디는 영문과 숫자의 조합으로 구성되어야 합니다.");
 
