@@ -97,9 +97,9 @@
 		update article set title = #{title}, body = #{body}, boardCode = #{boardCode} where aid = #{aid}
 	</update>
 	
-	<delete id="delete">
-		delete from article where aid = #{aid}
-	</delete>
+	<update id="delete">
+		update article set delStatus = 1, delDate = now() where aid = #{aid};
+	</update>
 	
 	<update id="hit">
 		update article set hit = hit + 1 where aid = #{aid}
