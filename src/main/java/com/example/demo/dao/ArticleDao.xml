@@ -11,6 +11,8 @@
 		left join board on
 		article.boardCode = board.boardCode
 		where 1
+		and blindStatus = 0
+		and delStatus = 0
 		<if test="boardCode != 0">
 			and article.boardCode = #{boardCode}
 		</if>
@@ -43,6 +45,8 @@
 		left join board on
 		article.boardCode = board.boardCode
 		where 1
+		and blindStatus = 0
+		and delStatus = 0
 		and articleType = #{articleType}
 		and article.uid = #{uid}
 	</select>
@@ -61,6 +65,8 @@
 		left join `member` on 
 		article.uid = `member`.uid
 		where 1
+		and blindStatus = 0
+		and delStatus = 0
 		<if test="boardCode != 0">
 			and boardCode = #{boardCode}
 		</if>
@@ -82,11 +88,18 @@
 	</select>
 	
 	<select id="getAllArticlesCnt" resultType="int">
-		select count(*) from article where articleType = #{articleType}
+		select count(*) from article 
+		where articleType = #{articleType}
+		and blindStatus = 0
+		and delStatus = 0
 	</select>
 	
 	<select id="getArticlesCntForMypage" resultType="int">
-		select count(*) from article where articleType = #{articleType} and uid = #{uid}
+		select count(*) from article 
+		where articleType = #{articleType} 
+		and uid = #{uid}
+		and blindStatus = 0
+		and delStatus = 0
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
