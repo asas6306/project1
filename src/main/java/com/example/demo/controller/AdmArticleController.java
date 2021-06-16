@@ -55,9 +55,11 @@ public class AdmArticleController extends _BaseController {
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			
 			for(Article article : articles) {
+				// XSS Gard
 				String title = article.getTitle();
 				title = title.replace("<", "&lt");
 				title = title.replace(">", "&gt");
+				article.setTitle(title);
 				
 				String body = article.getBody();
 				body = body.replace("<", "&lt");
@@ -105,10 +107,17 @@ public class AdmArticleController extends _BaseController {
 	
 		Article article = as.getArticle(aid);
 
-		// 줄바꿈
+		// XSS Gard
+		String title = article.getTitle();
+		title = title.replace("<", "&lt");
+		title = title.replace(">", "&gt");
+		article.setTitle(title);
+		
 		String body = article.getBody();
-		body = body.replace("\r\n", "<br>");
-		article.setBody(body);
+		body = body.replace("<", "&lt");
+		body = body.replace(">", "&gt");
+		// 줄바꿈 적용 후 리턴
+		article.setBody(body.replace("\r\n", "<br>"));	
 
 		req.setAttribute("article", as.getArticleImg(article));
 		
