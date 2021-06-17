@@ -22,8 +22,32 @@
 }
 
 html > body {
- font-family: 'LotteMartDream', sans-serif;
+  font-family: 'LotteMartDream', sans-serif;
 }
+
+/* 탑바 - 메뉴 박스 - 2차 메뉴 시작 */
+.top-bar .menu-box-1 > ul > li:hover > div {
+  display:block;
+}
+
+.top-bar .menu-box-1 > ul > li > div {
+  position:fixed;
+  width:120px;
+  display:none;
+  background-color:white;
+  /* .shadow-lg */
+  --tw-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.top-bar .menu-box-1 > ul > li > div > ul > li > a {
+  font-size:1rem;
+  font-weight: 350;
+  display:flex;
+  background-color:flex;
+  justify-content:center;
+}
+/* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
 
 .base-higth  {
 	min-height: 675px;
