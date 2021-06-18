@@ -19,7 +19,10 @@ import com.example.demo.service.ReplyService;
 import com.example.demo.service.SimplerService;
 import com.example.demo.util.ResultData;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class AdmArticleController extends _BaseController {
 	@Autowired
 	ArticleService as;
@@ -60,6 +63,9 @@ public class AdmArticleController extends _BaseController {
 				title = title.replace("<", "&lt");
 				title = title.replace(">", "&gt");
 				article.setTitle(title);
+				
+				// 로거 / .yml수정으로 출력 여부 결정
+				log.debug("title : " + title);
 				
 				String body = article.getBody();
 				body = body.replace("<", "&lt");

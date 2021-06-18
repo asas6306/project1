@@ -28,4 +28,5 @@ custom:
   logging:
     dir: LOG_PATH_IS_UNDEFINED
     level: debug
+# 로거 출력 : debug / 로거 미출력 : info
 #    /logback
