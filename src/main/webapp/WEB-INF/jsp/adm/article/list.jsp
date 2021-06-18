@@ -108,16 +108,21 @@
 				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=article'" />
 			</div>
 		</div>
-		<form action="list" method="get" class="flex justify-center">
-			<input type="hidden" name="boardCode" value="${boardCode}">
-			<select name="searchType" class="border text-gray-700">
-				<option value="titleAndBody">제목+내용</option>
-				<option value="title">제목</option>
-				<option value="nickname">작성자</option>
-			</select>
-			<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
-			<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
-		</form>
+		<div class="search-box-article">
+			<form action="list" method="get" class="flex justify-center">
+				<input type="hidden" name="boardCode" value="${boardCode}">
+				<select name="searchType" class="border text-gray-700">
+					<option value="titleAndBody">제목+내용</option>
+					<option value="title">제목</option>
+					<option value="nickname">작성자</option>
+				</select>
+				<script>
+					$('.search-box-article form [name="searchType"]').val('${searchType}')
+				</script>
+				<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
+				<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
+			</form>
+		</div>
 	</div>
 </section>
 
