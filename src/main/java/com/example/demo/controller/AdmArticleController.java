@@ -34,7 +34,7 @@ public class AdmArticleController extends _BaseController {
 	SimplerService ss;
 	
 	@RequestMapping("/adm/article/list")
-	public String list(HttpServletRequest req, String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String articleType) {
+	public String list(HttpServletRequest req, @RequestParam(defaultValue = "titleAndBody") String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String articleType) {
 		
 		// 전체 게시물 수
 		int allArticlesCnt = as.getAllArticlesCnt(articleType); 

@@ -56,7 +56,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="../article/list?boardCode=2" class="hover:text-gray-900"> 
+								<a href="../article/list?boardCode=2" class="hover:text-gray-900 hover:font-bold"> 
 									<span>자유게시판</span>
 								</a>
 							</li>

@@ -280,7 +280,7 @@ public class AdmMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/adm/member/list")
-	public String list(HttpServletRequest req, @RequestParam(defaultValue = "0") int authLevel, String searchType,
+	public String list(HttpServletRequest req, @RequestParam(defaultValue = "0") int authLevel, @RequestParam(defaultValue = "ID") String searchType,
 			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 
 		// 전체 게시물 수

@@ -47,6 +47,9 @@ html > body {
   background-color:flex;
   justify-content:center;
 }
+.top-bar .menu-box-1 > ul > li > div > ul > li > a:hover {
+  font-weight: 500;
+}
 /* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
 
 .base-higth  {

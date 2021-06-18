@@ -83,16 +83,21 @@
 			<div class="w-24">
 			</div>
 		</div>
-		<form action="list" method="get" class="flex justify-center">
-			<input type="hidden" name="authLevel" value="${authLevel}">
-			<select name="searchType" class="border text-gray-700">
-				<option value="ID">아이디</option>
-				<option value="nickname">닉네임</option>
-				<option value="phoneAndEmail">연락처</option>
-			</select>
-			<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
-			<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
-		</form>
+		<div class="search-box-member">
+			<form action="list" method="get" class="flex justify-center">
+				<input type="hidden" name="authLevel" value="${authLevel}">
+				<select name="searchType" class="border text-gray-700">
+					<option value="ID">아이디</option>
+					<option value="nickname">닉네임</option>
+					<option value="phoneAndEmail">연락처</option>
+				</select>
+				<script>
+						$('.search-box-member form [name="searchType"]').val('${searchType}')
+				</script>
+				<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
+				<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
+			</form>
+		</div>
 	</div>
 </section>
 
