@@ -8,7 +8,7 @@
 					<i class="logo-bar fas fa-seedling text-5xl text-white"></i>
 				</a>
 			</div>
-			<ul class="w-full">
+			<ul class="w-full invisible md:visible">
 				<div class="flex">
 					<li>
 						<a href="#" class=""> 
@@ -50,7 +50,7 @@
 					<span class="text-xs">COPYRIGHT ⓒ GARDENPARK COMPANY. ALL RIGHTS RESERVED.</span>
 				</div>
 			</ul>
-			<div class="w-72 bg-gray-300">희희</div>
+			<div class="w-72 bg-gray-300 invisible md:visible">희희</div>
 		</nav>
 	</div>
 </footer>

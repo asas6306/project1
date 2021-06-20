@@ -19,7 +19,7 @@
 	</div>
 	<div class="flex justify-center h-16 border-b hover:shadow-md mb-3">
 		<nav class="menu-box-1 first-top flex items-center w-full">
-			<div class="flex w-0 lg:w-28 h-full"></div>
+			<div class="flex w-0 md:w-28 h-full"></div>
 			<div class="flex justify-center w-full md:w-80 flex-shrink-0">
 				<a href="/adm/home/main">
 					<span>
@@ -30,33 +30,33 @@
 			<ul class="flex items-center justify-end invisible md:visible w-full text-xl">
 				<div class="ml-8"></div>
 				<li>
-					<a href="../home/main" class="p-3 hover:text-gray-900"> 
+					<a href="../home/main" class="p-2 lg:p-3"> 
 						<span>메인</span>
 					</a>
 				</li>
 				<li>
-					<a href="../member/list" class="p-3 hover:text-gray-900"> 
+					<a href="../member/list" class="p-2 lg:p-3"> 
 						<span>회원 관리</span>
 					</a>
 				</li>
 				<li>
-					<a href="../article/list" class="p-3 hover:text-gray-900"> 
+					<a href="../article/list" class="p-2 lg:p-3"> 
 						<span>게시판 관리</span>
 					</a>
 					<div>
 						<ul>
 							<li>
-								<a href="../article/list" class="hover:text-gray-900"> 
+								<a href="../article/list"> 
 									<span>전체게시물</span>
 								</a>
 							</li>
 							<li>
-								<a href="../article/list?boardCode=1" class="hover:text-gray-900"> 
+								<a href="../article/list?boardCode=1"> 
 									<span>공지사항</span>
 								</a>
 							</li>
 							<li>
-								<a href="../article/list?boardCode=2" class="hover:text-gray-900 hover:font-bold"> 
+								<a href="../article/list?boardCode=2"> 
 									<span>자유게시판</span>
 								</a>
 							</li>
@@ -64,13 +64,13 @@
 					</div>
 				</li>
 				<li>
-					<a href="../article/list?articleType=memo" class="p-3 hover:text-gray-900"> 
+					<a href="../article/list?articleType=memo" class="p-2 lg:p-3"> 
 						<span>메모장</span>
 					</a>
 				</li>
-				<div class="mr-8"></div>
-				<div class="flex w-0 lg:w-28 h-full"></div>
+				<div class="lg:mr-8"></div>
 			</ul>
+			<div class="md:invisible"></div>
 		</nav>
 	</div>
 </header>
