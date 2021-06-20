@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.util.Util"%>
 
-<section class="base-higth flex justify-center">
+<section class="flex justify-center">
 	<div>
 		<c:choose>
 			<c:when test="${boardCode == '1'}">
@@ -20,7 +20,7 @@
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:otherwise>
 		</c:choose>
-		<div class="md:visible invisible">
+		<div class="">
 			<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
 				<div class="Article-Width flex bg-gray-100">
 					<div class="w-96">제목</div>
@@ -86,9 +86,6 @@
 					</ul>
 				</nav>
 			</div>
-		</div>
-		<div>
-			
 		</div>
 		<div class="flex">
 			<div class="w-24"> <!-- 공백용 --></div>

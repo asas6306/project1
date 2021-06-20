@@ -52,10 +52,6 @@ html > body {
 }
 /* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
 
-.base-higth  {
-	min-height: 675px;
-}
-
 .first-top {
 	width: 1280px;
 }
