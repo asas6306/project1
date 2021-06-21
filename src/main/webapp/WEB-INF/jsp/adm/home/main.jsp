@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
-<div class="base-higth flex justify-center">
+<div class="flex justify-center">
 	<div class="home-main flex justify-center border-t border-b">
 		<div class="flex w-full">메인 화면...</div>
 	</div>
