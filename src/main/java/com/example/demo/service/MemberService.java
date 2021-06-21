@@ -121,4 +121,9 @@ public class MemberService {
 		
 		return member;
 	}
+
+	public void delete(Integer uid) {
+		
+		md.delete(uid);
+	}
 }

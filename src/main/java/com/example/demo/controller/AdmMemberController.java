@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,8 +52,10 @@ public class AdmMemberController extends _BaseController {
 			return Util.msgAndBack(doLoginRd.getMsg());
 
 		Member loginedMember = (Member) doLoginRd.getBody().get("loginedMember");
-
-		if (!loginedMember.getPW().equals(PW))
+		
+		if(loginedMember.getDelState() == 1) {
+			return Util.msgAndBack("탈퇴한 회원입니다.");
+		} else if (!loginedMember.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 
 		session.setAttribute("loginedMember", loginedMember);
@@ -309,5 +312,18 @@ public class AdmMemberController extends _BaseController {
 		}
 
 		return "adm/member/list";
+	}
+	
+	@RequestMapping("/adm/member/delete")
+	public String delete(HttpSession session, Integer uid) {
+		if(uid == null) {
+			Member loginedMember = (Member)session.getAttribute("loginedMember");
+			uid = loginedMember.getUid();
+		}
+		
+		session.removeAttribute("loginedMember");
+		ms.delete(uid);
+		
+		return "adm/member/login";
 	}
 }

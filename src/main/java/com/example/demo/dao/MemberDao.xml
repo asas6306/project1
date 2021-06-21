@@ -38,12 +38,13 @@
 	</update>
 	
 	<select id="allMembersCnt" resultType="int">
-		select count(*) from member
+		select count(*) from member where delState = 0
 	</select>
 	
 	<select id="getMembersCnt" resultType="int">
 		select count(*) from member
 		where 1
+		and delState = 0
 		<if test="authLevel != 0">
 			and authLevel = #{authLevel}
 		</if>
@@ -63,6 +64,7 @@
 		select * from member
 		left join auth on member.authLevel = auth.authLevel
 		where 1
+		and delState = 0
 		<if test="authLevel != 0">
 			and member.authLevel = #{authLevel}
 		</if>
@@ -83,4 +85,8 @@
 		order by uid desc
 		limit #{page}, #{pageCnt}
 	</select>
+	
+	<update id="delete">
+		update `member` set nickname = CONCAT(nickname ,'_d'), delState = 1, delDate = now() where uid = #{uid}
+	</update>
 </mapper>

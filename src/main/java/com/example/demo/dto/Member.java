@@ -26,8 +26,9 @@ public class Member {
 	private String regDate;
 	private String email;
 	private String phoneNo;
+	private int delState;
+	private String delDate;
 	private String extra__thumbImg;
-	
 	private Map<String, Object> extra;
 	
 	public Map<String, Object> getExtraNotNull() {

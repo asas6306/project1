@@ -26,4 +26,6 @@ public interface MemberDao {
 
 	public List<Member> getMembers(@Param(value = "authLevel") int authLevel, @Param(value = "searchType") String searchType, @Param(value = "searchKeyword") String searchKeyword, @Param(value = "page") int page, @Param(value = "pageCnt") int pageCnt);
 
+	public void delete(@Param(value = "uid") Integer uid);
+
 }
