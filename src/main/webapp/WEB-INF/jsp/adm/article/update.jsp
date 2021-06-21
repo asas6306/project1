@@ -146,7 +146,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 					<span>제목</span>
 				</div>
 				<div class="w-full">
-					<input type="text" name="title" value="${article.title}" placeholder="제목을 입력해주세요." autofocus="autofocus" class="w-full"/>
+					<input type="text" name="title" value="${article.title}" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full"/>
 				</div>
 			</div>
 			<div class="flex border-b-2 border-gray-500">
