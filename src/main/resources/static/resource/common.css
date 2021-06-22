@@ -32,7 +32,7 @@ html > body {
 
 .top-bar .menu-box-1 > ul > li > div {
   position:fixed;
-  width:120px;
+  width:90px;
   display:none;
   background-color:white;
   /* .shadow-lg */
