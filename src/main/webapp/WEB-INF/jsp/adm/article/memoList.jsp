@@ -91,10 +91,10 @@
 					<a href="/adm/article/list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>메모장(${allArticlesCnt})</span>
 					</a>
-					<a href="/adm/article/list?boardCode=31&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/adm/article/list?boardCode=1&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>웹</span>
 					</a>
-					<a href="/adm/article/list?boardCode=32&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/adm/article/list?boardCode=2&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>정보처리기사</span>
 					</a>
 					<div class="pb-1"></div>

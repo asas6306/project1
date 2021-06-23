@@ -73,6 +73,7 @@ public class UsrArticleController extends _BaseController {
 				article.setBody(body.replace("\r\n", "<br>"));				
 			}
 			req.setAttribute("articles", articles);
+			req.setAttribute("boards", ss.getAllBoardInfo("article"));
 		} else {
 			req.setAttribute("articlesCnt", articlesCnt);
 		}

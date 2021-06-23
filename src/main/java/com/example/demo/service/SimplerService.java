@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.BoardDao;
+import com.example.demo.dto.Board;
 import com.example.demo.dto.Member;
 
 @Service
@@ -16,6 +18,8 @@ public class SimplerService {
 	ArticleService as;
 	@Autowired
 	ReplyService rs;
+	@Autowired
+	BoardDao bd;
 	
 	
 	// @@@@@@@@@@@ MemberService @@@@@@@@@@@
@@ -102,6 +106,12 @@ public class SimplerService {
 		member.setID(ID); 
 		
 		return member;
+	}
+	
+	// board 관련 항목은 수가 적어서 이곳에 코딩하겠음...
+	public List<Board> getAllBoardInfo(String boardType) {
+		
+		return bd.getAllBoardInfo(boardType);
 	}
 	
 	

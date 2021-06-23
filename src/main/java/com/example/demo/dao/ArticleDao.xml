@@ -9,7 +9,7 @@
 		left join `member` on 
 		article.uid = `member`.uid
 		left join board on
-		article.boardCode = board.boardCode
+		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
 		and blindStatus = 0
 		and delStatus = 0
@@ -43,7 +43,7 @@
 		left join `member` on 
 		article.uid = `member`.uid
 		left join board on
-		article.boardCode = board.boardCode
+		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
 		and blindStatus = 0
 		and delStatus = 0
@@ -56,7 +56,7 @@
 		left join `member` on 
 		article.uid = `member`.uid
 		left join board on
-		article.boardCode = board.boardCode
+		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where aid = #{aid}
 	</select>
 	

@@ -17,8 +17,12 @@
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<!-- vue -->
+<script src="https://unpkg.com/vue@next"></script>
+	
 <link rel="stylesheet" href="/resource/common.css" />
 <link rel="stylesheet" href="/resource/adm/common.css" />
+<script src="/resource/common.js" defer></script>
 
 <%="<script>"%> const param = ${paramJson}; <%="</script>"%>
 </head>
