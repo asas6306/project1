@@ -7,7 +7,11 @@
 <section class="flex justify-center bg-blue-300">
 	<div class="relative container max-w-5xl w-full bg-blue-500 auto-cols-auto">
 		<div>
-			ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ
+			<c:forEach var="article" items="${articles}">
+				<div>
+					${article.title}
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 </section>

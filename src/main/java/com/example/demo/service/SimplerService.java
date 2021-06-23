@@ -47,6 +47,7 @@ public class SimplerService {
 				printPageIndexs.add(pageStack - i);
 		req.setAttribute("page", page);
 		page = (page - 1) * pageCnt;
+		System.out.println("pageCnt : " + pageCnt);
 		req.setAttribute("printPageIndexs", printPageIndexs);
 		int printPageIndexUp = printPageIndexs.get(printPageIndexs.size()-1) + 1;
 		req.setAttribute("printPageIndexUp", printPageIndexUp);
