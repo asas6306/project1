@@ -9,7 +9,14 @@
 		<div>
 			<div class="">
 				<span class="flex text-4xl font-bold p-3">
-					
+					<c:choose>
+						<c:when test="${boardCode == 0}">
+							전체게시물
+						</c:when>
+						<c:otherwise>
+							
+						</c:otherwise>
+					</c:choose>
 				</span>
 			</div>
 			<div class="border-b-4 border-t-4 rounded border-blue-700">
@@ -23,14 +30,37 @@
 								<span class="text-lg">${article.title}</span>
 							</div>
 						</div>
-						<div>
-							<div>
-								<span>${article.nickname}</span>
+						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
+							<div class="flex">
+								<span class="flex justify-center items-center text-sm">작성자 : </span>
+								<span>&nbsp${article.nickname}</span>
+							</div>
+							<div class="flex">
+								<span class="flex justify-center items-center text-sm">작성자 : </span>
+								<span>&nbsp${article.nickname}</span>
+							</div>
+							<div class="flex">
+								<span class="flex justify-center items-center text-sm">작성일 : </span>
+								<span>&nbsp${Util.dateFormat(article.regDate)}</span>
+							</div>
+							<div class="flex">
+								<span class="flex justify-center items-center text-sm">수정일 : </span>
+								<span>&nbsp${Util.dateFormat(article.updateDate)}</span>
 							</div>
 						</div>
 						<div>
-							<div>
-								<span>${article.body}</span>
+							<div class="px-4">
+								<span class="text-lg">${article.body}</span>
+							</div>
+						</div>
+						<div class="grid grid-cols-2 px-4 font-thin">
+							<div class="flex">
+								<span class="flex justify-center items-center text-sm">조회수 : </span>
+								<span>&nbsp${Util.numberFormat(article.hit)}</span>
+							</div>
+							<div class="flex">
+								<span class="flex justify-center items-center text-sm">추천수 : </span>
+								<span>&nbsp${Util.numberFormat(article.like)}</span>
 							</div>
 						</div>
 					</div>
