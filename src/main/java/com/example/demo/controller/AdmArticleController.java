@@ -51,9 +51,8 @@ public class AdmArticleController extends _BaseController {
 		if(articlesCnt != 0) {
 			
 			// 페이징
-			page = ss.page(req, page, page, articlesCnt);
-			
 			int pageCnt = 20;
+			page = ss.page(req, page, pageCnt, articlesCnt);
 			
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			

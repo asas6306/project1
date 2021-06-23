@@ -50,11 +50,9 @@ public class UsrArticleController extends _BaseController {
 		
 		if(articlesCnt != 0) {
 			
-			log.debug("page1 : " + page);
 			// 페이징
 			int pageCnt = 20;
 			page = ss.page(req, page, pageCnt, articlesCnt);
-			log.debug("page2 : " + page);
 			
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			
