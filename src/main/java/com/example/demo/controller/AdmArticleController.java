@@ -123,7 +123,8 @@ public class AdmArticleController extends _BaseController {
 		body = body.replace(">", "&gt");
 		// 줄바꿈 적용 후 리턴
 		article.setBody(body.replace("\r\n", "<br>"));	
-
+		
+		article = as.getArticleWriterImg(article);
 		req.setAttribute("article", as.getArticleImg(article));
 		
 		List<Reply> replies = rs.getReplies("article", aid);

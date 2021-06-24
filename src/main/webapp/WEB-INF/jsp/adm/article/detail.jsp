@@ -17,7 +17,7 @@ function Delete__Article__Confirm()
 </script>
 
   
-<section class="base-higth flex justify-center">
+<section class="flex justify-center">
 	<div>
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">
 			<a href="list?boardCode=${boardCode}">${article.boardName}</a>

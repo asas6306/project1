@@ -105,33 +105,34 @@ public class UsrArticleController extends _BaseController {
 //		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
 //	}
 //	
-//	@RequestMapping("/usr/article/detail")
-//	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
-//		
-//		if(hit)
-//			as.hit(aid);
-//	
-//		Article article = as.getArticle(aid);
-//
-//		// XSS Gard
-//		String title = article.getTitle();
-//		title = title.replace("<", "&lt");
-//		title = title.replace(">", "&gt");
-//		article.setTitle(title);
-//		
-//		String body = article.getBody();
-//		body = body.replace("<", "&lt");
-//		body = body.replace(">", "&gt");
-//		// 줄바꿈 적용 후 리턴
-//		article.setBody(body.replace("\r\n", "<br>"));	
-//
-//		req.setAttribute("article", as.getArticleImg(article));
-//		
-//		List<Reply> replies = rs.getReplies("article", aid);
-//		req.setAttribute("replies", replies);
-//		
-//		return "usr/article/detail";
-//	}
+	@RequestMapping("/usr/article/detail")
+	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
+		
+		if(hit)
+			as.hit(aid);
+	
+		Article article = as.getArticle(aid);
+
+		// XSS Gard
+		String title = article.getTitle();
+		title = title.replace("<", "&lt");
+		title = title.replace(">", "&gt");
+		article.setTitle(title);
+		
+		String body = article.getBody();
+		body = body.replace("<", "&lt");
+		body = body.replace(">", "&gt");
+		// 줄바꿈 적용 후 리턴
+		article.setBody(body.replace("\r\n", "<br>"));	
+		
+		article = as.getArticleWriterImg(article);
+		req.setAttribute("article", as.getArticleImg(article));
+		
+		List<Reply> replies = rs.getReplies("article", aid);
+		req.setAttribute("replies", replies);
+		
+		return "usr/article/detail";
+	}
 //	
 //	@RequestMapping("/usr/article/update")
 //	public String update(HttpServletRequest req, int aid) {

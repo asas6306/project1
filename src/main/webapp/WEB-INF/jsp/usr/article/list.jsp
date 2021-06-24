@@ -25,7 +25,7 @@
 					</c:choose>
 				</span>
 				<div class="flex justify-center items-center p-1">
-					<a href="add?boardCode=${boardCode}" class="text-gray-900 border-2 border-blue-300 bg-blue-300 rounded-xl p-1 px-2 text-lg hover:text-white hover:bg-blue-500 hover:border-blue-500">글쓰기</a>
+					<a href="add?boardCode=${boardCode}" class="text-gray-900 p-1 px-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white">글쓰기</a>
 				</div>
 			</div>
 			<div class="border-b-4 border-t-4 rounded border-blue-700">
