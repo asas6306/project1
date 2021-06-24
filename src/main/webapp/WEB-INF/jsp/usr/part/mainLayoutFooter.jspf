@@ -5,7 +5,7 @@
 		<nav class="flex justify-center items-center w-full">
 			<div class="flex justify-center items-center">
 				<div class="flex justify-center w-40">
-					<a href="/adm/home/main">
+					<a href="/usr/home/main">
 						<i class="logo-bar fas fa-seedling text-5xl text-white"></i>
 					</a>
 				</div>

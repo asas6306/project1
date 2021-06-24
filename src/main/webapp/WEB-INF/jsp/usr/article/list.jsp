@@ -4,6 +4,8 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.util.Util"%>
 
+<c:set var="fileInputMaxCount" value="3" />
+
 <section class="flex justify-center">
 	<div class="container max-w-5xl w-full auto-cols-auto">
 		<div>
@@ -23,7 +25,7 @@
 					</c:choose>
 				</span>
 				<div class="flex justify-center items-center p-1">
-					<a href="add?boardCode=${boardCode}" class="border-2 border-blue-300 bg-blue-300 rounded-xl p-1 px-2 text-lg hover:border-blue-500">글쓰기</a>
+					<a href="add?boardCode=${boardCode}" class="text-gray-900 border-2 border-blue-300 bg-blue-300 rounded-xl p-1 px-2 text-lg hover:text-white hover:bg-blue-500 hover:border-blue-500">글쓰기</a>
 				</div>
 			</div>
 			<div class="border-b-4 border-t-4 rounded border-blue-700">
@@ -56,6 +58,21 @@
 							</div>
 						</div>
 						<div>
+							<div class="flex">
+								<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
+									<div class="">
+										<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
+										<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
+										<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+											<div>
+												<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
+													<img class="w-60 rounded-lg" src="${file.forPrintUrl}" />
+												</a>
+											</div>
+										</c:if>
+									</div>
+								</c:forEach>
+							</div>
 							<div class="px-4 border rounded p-1">
 								<span class="text-lg">${article.body}</span>
 							</div>
