@@ -158,7 +158,7 @@ function Delete__Article__Confirm()
 								</div>
 							</c:otherwise>
 						</c:choose>
-					</form>
+					</form><!-- 깃헙 테스트 -->
 				</div>
 			</div>
 		</div>
