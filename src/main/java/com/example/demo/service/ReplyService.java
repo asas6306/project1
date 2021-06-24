@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ReplyDao;
 import com.example.demo.dto.Article;
+import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Reply;
 import com.example.demo.util.ResultData;
 
@@ -14,9 +17,23 @@ import com.example.demo.util.ResultData;
 public class ReplyService {
 	@Autowired
 	ReplyDao rd;
+	@Autowired
+	GenFileService fs;
 	
 	public List<Reply> getReplies(String relTypeCode, int relId) {
-		return rd.getReplies(relTypeCode, relId);
+		List<Reply> replies = rd.getReplies(relTypeCode, relId);
+		
+		for(Reply reply : replies) {
+			GenFile file = fs.getGenFile("member", reply.getUid(), "common", "profile", 0);
+			Map<String, GenFile> filesMapForGetMember = new HashMap<>();
+			
+			if(file != null)
+				filesMapForGetMember.put(file.getFileNo() + "", file);
+			
+			reply.getExtraNotNull().put("file__common__profile", filesMapForGetMember);
+		}
+		
+		return replies;
 	}
 	
 	public ResultData addArticleReply(String relTypeCode,int uid, int aid, String body) {

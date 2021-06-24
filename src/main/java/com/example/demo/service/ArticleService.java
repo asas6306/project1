@@ -42,9 +42,10 @@ public class ArticleService {
 				GenFile file = fs.getGenFile("member", article.getUid(), "common", "profile", 0);
 				Map<String, GenFile> filesMapForGetMember = new HashMap<>();
 				
-				filesMapForGetMember.put(file.getFileNo() + "", file);
+				if(file != null)
+					filesMapForGetMember.put(file.getFileNo() + "", file);
 				
-				article.getExtraNotNull().put("file__common__profile", filesMap);
+				article.getExtraNotNull().put("file__common__profile", filesMapForGetMember);
 			}
 			// 댓글 수 갖고오기
 			for(Article article : articles) {
@@ -116,7 +117,9 @@ public class ArticleService {
 		Map<String, GenFile> filesMap = new HashMap<>();
 		for (GenFile file : files)
 			filesMap.put(file.getFileNo() + "", file);
-		article.getExtraNotNull().put("file__common__attachment", filesMap);
+		
+		if(files != null)
+			article.getExtraNotNull().put("file__common__attachment", filesMap);
 		
 		return article;
 	}
@@ -125,7 +128,8 @@ public class ArticleService {
 		GenFile file = fs.getGenFile("member", article.getUid(), "common", "profile", 0);
 		Map<String, GenFile> filesMap = new HashMap<>();
 		filesMap.put(file.getFileNo() + "", file);
-		article.getExtraNotNull().put("file__common__profile", filesMap);
+		if(file != null)
+			article.getExtraNotNull().put("file__common__profile", filesMap);
 		
 		return article;
 	}

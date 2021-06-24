@@ -23,7 +23,7 @@ function Delete__Article__Confirm()
 			<a href="list?boardCode=${boardCode}">${article.boardName}</a>
 		</div>
 		<div class="border-b-4 border-t-4 rounded border-blue-700">
-			<div class="flex p-4">
+			<div class="flex p-4 border-b">
 				<div class="w-full">
 					<div class="">
 						<span class="p-3 text-4xl">${article.title}</span>
@@ -60,7 +60,7 @@ function Delete__Article__Confirm()
 					</div>
 					<div class="flex">
 						<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
-							<div class="border-b">
+							<div>
 								<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
 								<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 								<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
@@ -73,33 +73,91 @@ function Delete__Article__Confirm()
 							</div>
 						</c:forEach>
 					</div>
+					<div class="flex justify-between items-center font-thin">
+						<div class="flex">
+							<div class="p-2">
+								<a href="#" class="text-red-500 text-lg">
+									<c:choose>
+										<c:when test="false"><!-- 좋아요 눌렀다면 빨간하트 출력되게 -->
+											<i class="fas fa-heart"></i>
+										</c:when>
+										<c:otherwise>
+											<i class="far fa-heart"></i>
+										</c:otherwise>
+									</c:choose>
+								</a>
+								<a href=""><!-- 좋아요 리스트 출력 -->
+									<span>좋아요</span>
+									<span>${article.like}</span>
+								</a>
+							</div>
+							<div class="p-2">
+								<a href="" class="text-lg">
+									<i class="far fa-comment-dots"></i>
+								</a>
+								<span>댓글</span>
+								<span>${replies.size()}</span>
+							</div>
+						</div>
+						<div>
+							<a href="" class="p-2">
+								<i class="fas fa-share-square text-lg"></i>
+								<span>공유</span>
+							</a>
+							<span> | </span>
+							<span class="p-2">신고</span>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div>
-				<div class="flex border-b">
-					<span class="flex w-full bg-gray-100 justify-center">댓글</span>
-				</div>
-				<div>
+			<div class="p-4">
+				<div class="w-full">
+					<div>
+						<span class="text-xl">댓글</span>
+					</div>
 					<c:set var="replyCnt" value="3"></c:set>
 					<c:forEach items='${replies}' var='reply'>
-						<div class="flex items-center">
-							<div>
-								<span class="font-extrabold text-lg justify-center mr-2">${reply.nickname}</span>
+						<div class="flex border-b">
+							<div class="p-2">
+								<c:set var="file" value="${reply.extra.file__common__profile['0']}"></c:set>
+								<c:choose>
+									<c:when test="${file == null}">
+										<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-12 h-12 rounded-full bg-gray-300" />
+									</c:when>
+									<c:otherwise>
+										<img src="${file.forPrintUrl}" alt="" class="w-12 h-12 rounded-full bg-gray-300" />
+									</c:otherwise>
+								</c:choose>
 							</div>
-							<span>${reply.body}
-								<span class="text-sm text-gray-500">${reply.regDate}</span>
-							</span>
+							<div class="p-2">
+								<div>
+									<span class="text-lg">${reply.nickname}</span>
+								</div>
+								<div>
+									<span class="font-thin">${reply.body}</span>
+								</div>
+								<div>
+									<span class="font-thin text-sm text-gray-700">${reply.regDate}</span>
+								</div>
+							</div>
 						</div>
 					</c:forEach>
 					<form action="doAddReply" method="post">
 						<input type="hidden" name="aid" value="${article.aid}" />
-						<div class="border rounded">
-							<span class="flex mx-2">${loginedMember.nickname}</span>
-							<input type="text" name="body" placeholder="댓글을 남겨보세요." class="w-full" autocomplete="off" />
-							<div class="flex justify-end">
-								<input type="submit" value="등록" class="px-1 rounded bg-white hover:bg-blue-300" />
-							</div>
-						</div>
+						<c:choose>
+							<c:when test="${loginedMember == null}">
+								<span class="p-2 text-lg">댓글 작성기능은 로그인 후 이용하실 수 있습니다.</span>
+							</c:when>
+							<c:otherwise>
+								<div class="border rounded">
+									<span class="flex mx-2">${loginedMember.nickname}</span>
+									<input type="text" name="body" placeholder="댓글을 남겨보세요." class="outline-none w-full mx-2" autocomplete="off" />
+									<div class="flex justify-end">
+										<input type="submit" value="등록" class="px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />
+									</div><!-- 스크립트로 입력 받았을 시 색 변화주는것 강의에도 있었던듯 찾아보그래이 -->
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</form>
 				</div>
 			</div>
