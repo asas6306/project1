@@ -7,33 +7,40 @@
 <section class="flex justify-center">
 	<div class="container max-w-5xl w-full auto-cols-auto">
 		<div>
-			<div class="">
+			<div class="flex justify-between">
 				<span class="flex text-4xl font-bold p-3">
 					<c:choose>
 						<c:when test="${boardCode == 0}">
 							전체게시물
 						</c:when>
 						<c:otherwise>
-							
+							<c:forEach var="board" items="${boards}">
+								<c:if test="${board.boardCode.equals(boardCode)}">
+									${board.boardName}
+								</c:if>
+							</c:forEach>
 						</c:otherwise>
 					</c:choose>
 				</span>
+				<div class="flex justify-center items-center p-1">
+					<a href="add?boardCode=${boardCode}" class="border-2 border-blue-300 bg-blue-300 rounded-xl p-1 px-2 text-lg hover:border-blue-500">글쓰기</a>
+				</div>
 			</div>
 			<div class="border-b-4 border-t-4 rounded border-blue-700">
 				<c:forEach var="article" items="${articles}">
-					<div class="border-b">
-						<div class="flex">
+					<div class="border-b-2 border-blue-500 py-3">
+						<div class="flex border-b">
 							<div class="flex justify-center items-center w-12">
 								<span class="text-sm">${article.aid}</span>
 							</div>
 							<div class="flex justify-center items-center">
-								<span class="text-lg">${article.title}</span>
+								<a href="detail?aid=${article.aid}" class="text-lg font-bold hover:text-blue-700">${article.title}</a>
 							</div>
 						</div>
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
 							<div class="flex">
-								<span class="flex justify-center items-center text-sm">작성자 : </span>
-								<span>&nbsp${article.nickname}</span>
+								<span class="flex justify-center items-center text-sm">게시판 : </span>
+								<span>&nbsp${article.boardName}</span>
 							</div>
 							<div class="flex">
 								<span class="flex justify-center items-center text-sm">작성자 : </span>
@@ -49,7 +56,7 @@
 							</div>
 						</div>
 						<div>
-							<div class="px-4">
+							<div class="px-4 border rounded p-1">
 								<span class="text-lg">${article.body}</span>
 							</div>
 						</div>
@@ -66,6 +73,39 @@
 					</div>
 				</c:forEach>
 			</div>
+			<div class="flex">
+			<div class="flex justify-center text-lg flex-grow text-gray-700">
+				<a href="/usr/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">처음</a>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">이전</a>
+				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
+					<c:choose>
+						<c:when test="${printPageIndex == page}">
+							<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 text-black font-extrabold">${printPageIndex}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">${printPageIndex}</a>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">다음</a>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">끝</a>
+			</div>
+		</div>
+		<div class="search-box-article">
+			<form action="list" method="get" class="flex justify-center">
+				<input type="hidden" name="boardCode" value="${boardCode}">
+				<select name="searchType" class="border text-gray-700">
+					<option value="titleAndBody">제목+내용</option>
+					<option value="title">제목</option>
+					<option value="nickname">작성자</option>
+				</select>
+				<script>
+					$('.search-box-article form [name="searchType"]').val('${searchType}')
+				</script>
+				<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
+				<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
+			</form>
+		</div>
 		</div>
 	</div>
 </section>
