@@ -22,6 +22,7 @@ public class Article {
 	private int boardCode;
 	private String articleType;
 	
+	private String authName;
 	private String nickname;
 	private String boardName;
 	private String extra__thumbImg;

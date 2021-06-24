@@ -52,11 +52,13 @@
 	</select>
 	
 	<select id="getArticle" resultType="Article">
-		select article.*, `member`.nickname, `board`.boardName from article 
+		select article.*, `member`.nickname, `board`.boardName, auth.authName from article 
 		left join `member` on 
 		article.uid = `member`.uid
 		left join board on
 		article.boardCode = board.boardCode AND article.articleType = board.boardType
+		left join auth on 
+		`member`.authLevel = auth.authLevel
 		where aid = #{aid}
 	</select>
 	

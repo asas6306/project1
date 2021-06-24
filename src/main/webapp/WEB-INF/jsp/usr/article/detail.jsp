@@ -18,17 +18,17 @@ function Delete__Article__Confirm()
 
   
 <section class="flex justify-center">
-	<div>
+	<div class="container lg:w-2/3 2xl:w-1/2">
 		<div class="text-4xl font-bold p-3">
 			<a href="list?boardCode=${boardCode}">${article.boardName}</a>
 		</div>
 		<div class="border-b-4 border-t-4 rounded border-blue-700">
-			<div class="flex">
+			<div class="flex p-4">
 				<div class="w-full">
-					<div class="text-xl border-b">
-						<span class="px-4 text-3xl">${article.title}</span>
+					<div class="">
+						<span class="p-3 text-4xl">${article.title}</span>
 					</div>
-					<div class="flex border-b">
+					<div class="flex border-b py-2">
 						<div>
 							<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
 							<c:choose>
@@ -40,23 +40,25 @@ function Delete__Article__Confirm()
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<div class="flex">
-							<span class="px-2">${article.nickname}</span>
+						<div class="flex justify-center items-center px-2">
+							<div>
+								<div>
+									<span class="text-lg font-bold">${article.nickname}</span>
+									<span class="text-gray-700 px-1">${article.authName}</span>
+								</div>
+								<div class="font-thin">
+									<span>${article.regDate}</span>
+									<span class="px-1">조회 ${article.hit}</span>
+								</div>
+							</div>
 						</div>
-						<div class="flex">
-							<sapn class="bg-gray-100 w-20">작성날짜</sapn>
-							<sapn class="w-40">${article.regDate}</sapn>
-							<sapn class="bg-gray-100 w-16">조회수</sapn>
-							<sapn class="w-12">${article.hit}</sapn>
-						</div>
-						
 					</div>
-					<div class="flex border-b">
-						<span class="flex w-20 bg-gray-100 items-center justify-center flex-shrink-0">내용</span>
-						<span class="text-left mx-2 max-w-2xl my-4">${article.body}</span>
+					<div class="flex pt-4">
+						<div>
+							<span class="text-2xl font-thin">${article.body}</span>
+						</div>
 					</div>
 					<div class="flex">
-						<span class="flex w-20 bg-gray-100 justify-center">첨부파일</span>
 						<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 							<div class="border-b">
 								<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
