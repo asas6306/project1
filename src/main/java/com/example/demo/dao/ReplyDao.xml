@@ -29,4 +29,11 @@
 	<delete id="delete">
 		delete from reply where rid = #{rid}
 	</delete>
+	
+	<select id="getReplyCnt" resultType="int">
+		select count(*) from reply
+		where 1 
+		and relTypeCode = #{relTypeCode}
+		and relId = #{relId}
+	</select>
 </mapper>

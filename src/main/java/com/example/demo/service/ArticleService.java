@@ -20,6 +20,8 @@ public class ArticleService {
 	ArticleDao ad;
 	@Autowired
 	GenFileService fs;
+	@Autowired
+	ReplyService rs;
 	
 	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt, String articleType, int uid) {
 
@@ -29,7 +31,7 @@ public class ArticleService {
 		if(!aids.isEmpty()) {
 			Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common", "attachment");
 			
-			for (Article article : articles) {
+			for(Article article : articles) {
 				Map<String, GenFile> mapByFileNo = filesMap.get(article.getAid());
 	
 				if (mapByFileNo != null)
@@ -37,13 +39,16 @@ public class ArticleService {
 			}
 			// 프로필 이미지 가져오깅
 			for(Article article : articles) {
-				List<GenFile> files = fs.getGenFiles("member", article.getUid(), "common", "profile");
+				GenFile file = fs.getGenFile("member", article.getUid(), "common", "profile", 0);
 				Map<String, GenFile> filesMapForGetMember = new HashMap<>();
 				
-				for (GenFile file : files)
-					filesMapForGetMember.put(file.getFileNo() + "", file);
+				filesMapForGetMember.put(file.getFileNo() + "", file);
 				
 				article.getExtraNotNull().put("file__common__profile", filesMap);
+			}
+			// 댓글 수 갖고오기
+			for(Article article : articles) {
+				article.getExtraNotNull().put("replyCnt", rs.getReplyCnt("article", article.getAid()));
 			}
 		}
 

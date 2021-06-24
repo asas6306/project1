@@ -43,5 +43,10 @@ public class ReplyService {
 		return new ResultData("S-1", "댓글이 삭제되었습니다.");
 	}
 
+	public int getReplyCnt(String relTypeCode, int relId) {
+		
+		return rd.getReplyCnt(relTypeCode, relId);
+	}
+
 
 }

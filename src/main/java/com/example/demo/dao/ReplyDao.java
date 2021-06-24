@@ -20,4 +20,6 @@ public interface ReplyDao {
 	public List<Article> getRepliesForMypage(@Param(value="page") int page, @Param(value="pageCnt") int pageCnt, @Param(value="uid") int uid);
 
 	public void delete(@Param(value="rid") int rid);
+
+	public int getReplyCnt(@Param(value="relTypeCode") String relTypeCode, @Param(value="relId") int relId);
 }
