@@ -33,7 +33,15 @@
 					<div class="border-b-2 border-blue-500 py-3">
 						<div class="flex border-b">
 							<div class="flex justify-center items-center w-12">
-								<span class="text-sm">${article.aid}</span>
+								<c:choose>
+									<c:when test="${boardCode == 0}">
+										<a href="list?boardCode=${article.boardCode}" class="text-sm">${Util.setBoardName(article.boardName)}</a>
+									</c:when>
+									<c:otherwise>
+										<span class="text-sm">${article.aid}</span>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 							<div class="flex justify-center items-center">
 								<a href="detail?aid=${article.aid}" class="text-lg font-bold hover:text-blue-700">${article.title}</a>

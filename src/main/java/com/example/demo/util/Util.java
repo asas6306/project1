@@ -285,4 +285,9 @@ public class Util {
 		
 		return format;
 	}
+	
+	public static String setBoardName(String boardName) {
+		
+		return boardName.substring(0, 2);
+	}
 }
