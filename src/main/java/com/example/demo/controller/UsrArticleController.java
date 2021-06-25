@@ -84,27 +84,27 @@ public class UsrArticleController extends _BaseController {
 		}
 		return "usr/article/list";
 	}
-//	
-//	@RequestMapping("/usr/article/add")
-//	public String add(HttpServletRequest req, int boardCode, String articleType) {
-//		req.setAttribute("boardCode", boardCode);
-//		req.setAttribute("articleType", articleType);
-//		
-//		return "usr/article/add";
-//	}
-//	
-//	@RequestMapping("/usr/article/doAdd")
-//	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-//		
-//		Member member = (Member)(req.getAttribute("loginedMember"));
-//		int uid = member.getUid();
-//		param.put("uid", uid);
-//		
-//		ResultData doAddRd = as.add(param);
-//		
-//		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
-//	}
-//	
+	
+	@RequestMapping("/usr/article/add")
+	public String add(HttpServletRequest req, int boardCode, String articleType) {
+		req.setAttribute("boardCode", boardCode);
+		req.setAttribute("articleType", articleType);
+		
+		return "usr/article/add";
+	}
+	
+	@RequestMapping("/usr/article/doAdd")
+	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		
+		Member member = (Member)(req.getAttribute("loginedMember"));
+		int uid = member.getUid();
+		param.put("uid", uid);
+		
+		ResultData doAddRd = as.add(param);
+		
+		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
+	}
+	
 	@RequestMapping("/usr/article/detail")
 	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
 		
@@ -133,41 +133,41 @@ public class UsrArticleController extends _BaseController {
 		
 		return "usr/article/detail";
 	}
-//	
-//	@RequestMapping("/usr/article/update")
-//	public String update(HttpServletRequest req, int aid) {
-//		
-//		Article article = as.getArticle(aid);
-//		
-//		req.setAttribute("article", as.getArticleImg(article));
-//		
-//		return "usr/article/update";
-//	}
-//	
-//	@RequestMapping("/usr/article/doUpdate")
-//	public String doUpdate(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-//
-//		ResultData doUpdateRd = as.update(param);
-//		
-//		return msgAndReplace(req, doUpdateRd.getMsg(), "detail?aid=" + param.get("aid"));
-//	}
-//	
-//	@RequestMapping("/usr/article/delete")
-//	public String delete(HttpServletRequest req, int aid, int boardCode) {
-//		
-//		ResultData doDeleteRd = as.delete(aid);
-//		
-//		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
-//	}
-//	
-//	@RequestMapping("/usr/article/doAddReply")
-//	public String doAddReply(HttpServletRequest req, int aid, String body) {
-//		
-//		Member member = (Member)(req.getAttribute("loginedMember"));
-//		int uid = member.getUid();
-//		
-//		ResultData doAddReplyRd = rs.addArticleReply("article", uid, aid, body);
-//		
-//		return msgAndReplace(req, doAddReplyRd.getMsg(), "detail?aid=" + aid);
-//	}
+	
+	@RequestMapping("/usr/article/update")
+	public String update(HttpServletRequest req, int aid) {
+		
+		Article article = as.getArticle(aid);
+		
+		req.setAttribute("article", as.getArticleImg(article));
+		
+		return "usr/article/update";
+	}
+	
+	@RequestMapping("/usr/article/doUpdate")
+	public String doUpdate(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+
+		ResultData doUpdateRd = as.update(param);
+		
+		return msgAndReplace(req, doUpdateRd.getMsg(), "detail?aid=" + param.get("aid"));
+	}
+	
+	@RequestMapping("/usr/article/delete")
+	public String delete(HttpServletRequest req, int aid, int boardCode) {
+		
+		ResultData doDeleteRd = as.delete(aid);
+		
+		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
+	}
+	
+	@RequestMapping("/usr/article/doAddReply")
+	public String doAddReply(HttpServletRequest req, int aid, String body) {
+		
+		Member member = (Member)(req.getAttribute("loginedMember"));
+		int uid = member.getUid();
+		
+		ResultData doAddReplyRd = rs.addArticleReply("article", uid, aid, body);
+		
+		return msgAndReplace(req, doAddReplyRd.getMsg(), "detail?aid=" + aid);
+	}
 }

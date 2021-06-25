@@ -32,9 +32,9 @@
 			<div class="menu-box-1 flex justify-center items-center h-full w-full md:w-4/5">
 				<div class="flex w-0 2xl:w-28 h-full"></div><!-- 공백 -->
 				<div class="flex px-4 md:px-0 2xl:justify-center md:w-80 w-full">
-					<a href="/adm/home/main">
+					<a href="/usr/home/main">
 						<span>
-							<i class="logo-bar fas fa-seedling text-4xl">GARDEN<span class="text-lg font-bold">ADMIN</span></i>
+							<i class="logo-bar fas fa-seedling text-4xl">GARDEN</i>
 						</span>
 					</a>
 				</div>

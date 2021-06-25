@@ -7,7 +7,9 @@
 	<select id="getReplies" resultType="Reply">
 		select reply.*, `member`.nickname from reply 
 		left join `member` on reply.uid = `member`.uid 
-		where relTypeCode = #{relTypeCode} and relId = #{relId}
+		where relTypeCode = #{relTypeCode} 
+		and relId = #{relId}
+		and delState = 0
 	</select>
 	
 	<insert id="addArticleReply">
@@ -15,19 +17,23 @@
 	</insert>
 	
 	<select id="getRepliesCntForMypage" resultType="int">
-		select count(*) from reply where uid = #{uid}
+		select count(*) from reply 
+		where uid = #{uid}
+		and delState = 0
 	</select>
 	
 	<select id="getRepliesForMypage" resultType="Reply">
 		select reply.*, `member`.nickname from reply 
 		left join `member` on reply.uid = `member`.uid 
 		where reply.uid = #{uid}
+		and delState = 0
 		order by rid desc
 		limit #{page}, #{pageCnt}
 	</select>
 	
 	<delete id="delete">
-		delete from reply where rid = #{rid}
+		update reply set delState = 1, delDate = now()
+		where rid = #{rid}
 	</delete>
 	
 	<select id="getReplyCnt" resultType="int">
@@ -36,4 +42,11 @@
 		and relTypeCode = #{relTypeCode}
 		and relId = #{relId}
 	</select>
+	
+	<update id="deleteArticleTriger">
+		update reply set delState = 1, delDate = now()
+		where 1 
+		and relTypeCode = #{relTypeCode}
+		and relId = #{relId}
+	</update>
 </mapper>

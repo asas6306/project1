@@ -53,9 +53,9 @@ public class ReplyService {
 		return rd.getRepliesForMypage(page, pageCnt, uid);
 	}
 
-	public ResultData delete(int itemId) {
+	public ResultData delete(int rid) {
 		
-		rd.delete(itemId);
+		rd.delete(rid);
 		
 		return new ResultData("S-1", "댓글이 삭제되었습니다.");
 	}
@@ -63,6 +63,11 @@ public class ReplyService {
 	public int getReplyCnt(String relTypeCode, int relId) {
 		
 		return rd.getReplyCnt(relTypeCode, relId);
+	}
+
+	public void deleteArticleTriger(String relTypeCode, int relId) {
+		
+		rd.deleteArticleTriger(relTypeCode, relId);
 	}
 
 

@@ -45,6 +45,8 @@ updateDate DATETIME DEFAULT NOW(),
 KEY rel (relTypeCode , relid)
 );
 #ALTER TABLE reply ADD KEY rel (relTypeCode , relid); 
+ALTER TABLE reply ADD delState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0;
+ALTER TABLE reply ADD delDate DATETIME;
 
 CREATE TABLE board(
 bid INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,

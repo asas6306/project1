@@ -91,6 +91,7 @@ public class ArticleService {
 	public ResultData delete(int aid) {
 		
 		ad.delete(aid);
+		rs.deleteArticleTriger("article", aid);
 		
 		return new ResultData("S-1", "게시물이 삭제되었습니다.");
 	}

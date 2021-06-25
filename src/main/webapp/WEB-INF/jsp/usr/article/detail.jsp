@@ -20,6 +20,7 @@ function Delete__Article__Confirm()
 <section class="flex justify-center">
 	<div class="container lg:w-2/3 2xl:w-1/2">
 		<div class="text-4xl font-bold p-3">
+			<input type="button" value="<" onclick="history.back()" class="bg-white cursor-pointer"/>
 			<a href="list?boardCode=${boardCode}">${article.boardName}</a>
 		</div>
 		<div class="border-b-4 border-t-4 rounded border-blue-700">
@@ -92,7 +93,7 @@ function Delete__Article__Confirm()
 								</a>
 							</div>
 							<div class="p-2">
-								<a href="" class="text-lg">
+								<a class="text-lg">
 									<i class="far fa-comment-dots"></i>
 								</a>
 								<span>댓글</span>
@@ -105,7 +106,7 @@ function Delete__Article__Confirm()
 								<span>공유</span>
 							</a>
 							<span> | </span>
-							<span class="p-2">신고</span>
+							<a href="" class="p-2">신고</a>
 						</div>
 					</div>
 				</div>
@@ -136,8 +137,12 @@ function Delete__Article__Confirm()
 								<div>
 									<span class="font-thin">${reply.body}</span>
 								</div>
-								<div>
-									<span class="font-thin text-sm text-gray-700">${reply.regDate}</span>
+								<div class="font-thin text-sm text-gray-700">
+									<span>${reply.regDate}</span>
+									<c:if test="${loginedMember.uid == article.uid}">
+										<a href="" class="hover:text-blue-500 hover:underline">수정</a>
+										<a href="" class="hover:text-red-500 hover:underline">삭제</a>
+									</c:if>
 								</div>
 							</div>
 						</div>
