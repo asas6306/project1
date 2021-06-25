@@ -1,17 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="header.jspf"%>
 
 <header class="top-bar bg-white">
 	<div class="flex justify-center hover:shadow-md border-b">
 		<nav class="h-10 flex items-center justify-center text-gray-500 text-sm container">
 			<ul class="flex w-full md:w-4/5 justify-end">
-				<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
-				</a></li>
-				<span>|</span>
-				<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
-				</a></li>
+				<c:choose>
+					<c:when test="${loginedMember == null}">
+						<li><a href="../member/login?redirectUrl=${encodedAfterLoginUrl}" class="p-3 hover:text-gray-900"> <span>로그인</span>
+						</a></li>
+						<span>|</span>
+						<li><a href="../member/signup" class="p-3 hover:text-gray-900"> <span>회원가입</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
+						</a></li>
+						<span>|</span>
+						<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
+				
 			</ul>
 		</nav>
 	</div>

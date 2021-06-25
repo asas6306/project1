@@ -45,41 +45,45 @@ public class BeforeIActionInterceptor implements HandlerInterceptor {
 		request.setAttribute("paramJson", paramJson);
 		
 		// 로그인 여부에 관련된 정보를 request에 담는다.
-				Member loginedMember = null;
-				int uid = 0;
-				boolean isLogined = false;
-				boolean isAdmin = false;
+		Member loginedMember = null;
+		int uid = 0;
+		boolean isLogined = false;
+		boolean isAdmin = false;
 
-				// String.valueOf(x) → 값이 null인 경우 해당 값에 'null'로 저장...
-				String authKey = request.getParameter("authKey");
+		// String.valueOf(x) → 값이 null인 경우 해당 값에 'null'로 저장...
+		String authKey = request.getParameter("authKey");
 
-				if (authKey != null && authKey.length() > 0) {
-					loginedMember = ms.getMember("authKey", authKey);
+		if (authKey != null && authKey.length() > 0) {
+			loginedMember = ms.getMember("authKey", authKey);
 
-					if (loginedMember == null) {
-						request.setAttribute("authKeyState", "invalid");
-					} else {
-						request.setAttribute("authKey", "valid");
-					}
-				} else {
-					HttpSession session = request.getSession();
-					request.setAttribute("authKeyState", "none");
+			if (loginedMember == null) {
+				request.setAttribute("authKeyState", "invalid");
+			} else {
+				request.setAttribute("authKey", "valid");
+			}
+		} else {
+			HttpSession session = request.getSession();
+			request.setAttribute("authKeyState", "none");
+			loginedMember = (Member)session.getAttribute("loginedMember");
+			
+			if (loginedMember != null) {
+				loginedMember = ((Member) session.getAttribute("loginedMember"));
+			}
+		}
 
-					if (session.getAttribute("loginedMember") != null) {
-						loginedMember = ((Member) session.getAttribute("loginedMember"));
-					}
-				}
+		if (loginedMember != null) {
+			isLogined = true;
+			isAdmin = ms.authCheck(loginedMember);
+		}
+		
+		System.out.println("isLogined : " + isLogined);
+		System.out.println(loginedMember);
+		
+		request.setAttribute("uid", uid);
+		request.setAttribute("isLogined", isLogined);
+		request.setAttribute("isAdmin", isAdmin);
+		request.setAttribute("loginedMember", loginedMember);
 
-				if (loginedMember != null) {
-					isLogined = true;
-					isAdmin = ms.authCheck(loginedMember);
-				}
-
-				request.setAttribute("uid", uid);
-				request.setAttribute("isLogined", isLogined);
-				request.setAttribute("isAdmin", isAdmin);
-				request.setAttribute("loginedMember", loginedMember);
-
-				return HandlerInterceptor.super.preHandle(request, response, handler);
+		return HandlerInterceptor.super.preHandle(request, response, handler);
 	}
 }

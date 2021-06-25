@@ -7,7 +7,7 @@
 	<div class="sm:w-96 w-60px flex-shrink-0">
 		<div class="h-28"></div> <!-- 상위 공간 여백 -->
 		<div class="login-logo flex justify-center p-1">
-			<span>
-				<i class="logo-bar fas fa-seedling text-4xl">GARDEN<span class="text-lg font-bold">ADMIN</span></i>
-			</span>
+			<a href="/usr/home/main">
+				<i class="logo-bar fas fa-seedling text-4xl">GARDEN</i>
+			</a>
 		</div>
