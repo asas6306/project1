@@ -62,24 +62,9 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 }
 /* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
 
+/* 어드민 css */
 .first-top {
 	width: 1280px;
-}
-
-.home-main {
-	width: 960px;
-}
-
-.last-bottom {
-	max-width: 960px;
-}
-
-.Article-Width {
-	width: 776px;
-}
-
-.userpage-width{
-	width: 620px;
 }
 
 .memo-title-wide {
@@ -92,4 +77,9 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 
 .memo-body-wide > .memo-body-wide {
 	width: 612px;
+}
+/* 어드민 css */
+
+.login-box {
+	width: 480px;
 }

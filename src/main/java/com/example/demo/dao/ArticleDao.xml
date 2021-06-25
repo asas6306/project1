@@ -12,7 +12,7 @@
 		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
 		and blindStatus = 0
-		and delStatus = 0
+		and article.delStatus = 0
 		<if test="boardCode != 0">
 			and article.boardCode = #{boardCode}
 		</if>
@@ -46,7 +46,7 @@
 		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
 		and blindStatus = 0
-		and delStatus = 0
+		and article.delStatus = 0
 		and articleType = #{articleType}
 		and article.uid = #{uid}
 	</select>
@@ -68,7 +68,7 @@
 		article.uid = `member`.uid
 		where 1
 		and blindStatus = 0
-		and delStatus = 0
+		and article.delStatus = 0
 		<if test="boardCode != 0">
 			and boardCode = #{boardCode}
 		</if>
@@ -93,7 +93,7 @@
 		select count(*) from article 
 		where articleType = #{articleType}
 		and blindStatus = 0
-		and delStatus = 0
+		and article.delStatus = 0
 	</select>
 	
 	<select id="getArticlesCntForMypage" resultType="int">
@@ -101,7 +101,7 @@
 		where articleType = #{articleType} 
 		and uid = #{uid}
 		and blindStatus = 0
-		and delStatus = 0
+		and article.delStatus = 0
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">

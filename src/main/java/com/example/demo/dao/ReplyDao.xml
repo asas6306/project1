@@ -9,7 +9,7 @@
 		left join `member` on reply.uid = `member`.uid 
 		where relTypeCode = #{relTypeCode} 
 		and relId = #{relId}
-		and delState = 0
+		and reply.delState = 0
 	</select>
 	
 	<insert id="addArticleReply">
@@ -19,14 +19,14 @@
 	<select id="getRepliesCntForMypage" resultType="int">
 		select count(*) from reply 
 		where uid = #{uid}
-		and delState = 0
+		and reply.delState = 0
 	</select>
 	
 	<select id="getRepliesForMypage" resultType="Reply">
 		select reply.*, `member`.nickname from reply 
 		left join `member` on reply.uid = `member`.uid 
 		where reply.uid = #{uid}
-		and delState = 0
+		and reply.delState = 0
 		order by rid desc
 		limit #{page}, #{pageCnt}
 	</select>
