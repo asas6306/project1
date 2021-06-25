@@ -30,9 +30,9 @@
 	form.submit();
 	LoginForm__checkAndSubmitDone = true;
 </script>
-<!-- border-2 border-blue-300 rounded -->
+
 <section class="flex justify-center">
-	<div class="login-box container p-4">
+	<div class="member-box container p-4">
 		<div class="border-2 border-blue-300 rounded p-4">
 			<div class="text-center text-4xl font-bold text-bold">로그인</div>
 			<form action="doLogin" method="post" onsubmit="LoginForm__checkAndSubmit(this); return false;">

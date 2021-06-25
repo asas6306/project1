@@ -78,8 +78,8 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 .memo-body-wide > .memo-body-wide {
 	width: 612px;
 }
-/* 어드민 css */
+/* 어드민 css 끝 */
 
-.login-box {
+.member-box {
 	width: 480px;
 }

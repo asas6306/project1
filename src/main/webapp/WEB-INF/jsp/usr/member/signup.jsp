@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../part/loginLayoutHeader.jspf"%>
+<%@ include file="../part/mainLayoutHeader.jspf"%>
 
 <!-- debounce 사용을 위한 스크립트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
@@ -199,43 +199,45 @@ function MemberSignup__checkAndSubmit(form) {
 }
 </script>
 
-<section class="border-2 border-blue-300 rounded">
-	<div class="p-4">
-		<form onsubmit="MemberSignup__checkAndSubmit(this); return false;" action="doSignup" method="post" class="formLogin" >
-			<div class="text-gray-900 text-xl">
-				<div class="flex justify-center">
-					<span class="text-4xl">회원가입</span>
+<section class="flex justify-center">
+	<div class="member-box container p-4">
+		<div class="border-2 border-blue-300 rounded p-5">
+			<form onsubmit="MemberSignup__checkAndSubmit(this); return false;" action="doSignup" method="post" class="formLogin" >
+				<div class="text-gray-900 text-xl">
+					<div class="flex justify-center">
+						<span class="text-4xl">회원가입</span>
+					</div>
+					<div class="mt-2">
+						<input type="text" name="ID" placeholder="아이디" autocomplete="off" class="inputLoginId border-2 rounded w-full h-12 hover:border-blue-300" />
+					</div>
+					<div class="IDInputMsg text-sm text-center"></div>
+					<div class="my-2">
+						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+					</div>
+					<div class="PWInputMsg text-sm text-center"></div>
+					<div class="my-2">
+						<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+					</div>
+					<div class="PWCheckInputMsg text-sm text-center"></div>
+					<div class="my-2">
+						<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full h-12 hover:border-blue-300" />
+					</div>
+					<div class="nicknameInputMsg text-sm text-center"></div>
+					<div class="my-2">
+						<input type="text" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+					</div>
+					<div class="my-2">
+						<input type="text" name="phoneNo" placeholder="연락처" autocomplete="off" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+					</div>
+					<div class="flex">
+						<input type="submit" value="가입" class="h-12 w-full hover:bg-blue-300 border mr-1 rounded"/>
+						<input type="button" value="취소" onclick="history.back()" class="h-12 w-full hover:bg-red-300 ml-1 rounded"/>
+					</div>
 				</div>
-				<div class="mt-2">
-					<input type="text" name="ID" placeholder="아이디" autocomplete="off" class="inputLoginId border-2 rounded w-full h-12 hover:border-blue-300" />
-				</div>
-				<div class="IDInputMsg text-sm text-center"></div>
-				<div class="my-2">
-					<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full h-12 hover:border-blue-300" />
-				</div>
-				<div class="PWInputMsg text-sm text-center"></div>
-				<div class="my-2">
-					<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full h-12 hover:border-blue-300" />
-				</div>
-				<div class="PWCheckInputMsg text-sm text-center"></div>
-				<div class="my-2">
-					<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full h-12 hover:border-blue-300" />
-				</div>
-				<div class="nicknameInputMsg text-sm text-center"></div>
-				<div class="my-2">
-					<input type="text" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full h-12 hover:border-blue-300" />
-				</div>
-				<div class="my-2">
-					<input type="text" name="phoneNo" placeholder="연락처" autocomplete="off" class="border-2 rounded w-full h-12 hover:border-blue-300" />
-				</div>
-				<div class="flex">
-					<input type="submit" value="가입" class="h-12 w-full hover:bg-blue-300 border mr-1 rounded"/>
-					<input type="button" value="취소" onclick="history.back()" class="h-12 w-full hover:bg-red-300 ml-1 rounded"/>
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </section>
 
 
-<%@ include file="../part/loginLayoutFooter.jspf"%>
+<%@ include file="../part/mainLayoutFooter.jspf"%>

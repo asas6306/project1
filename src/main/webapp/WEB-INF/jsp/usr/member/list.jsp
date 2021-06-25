@@ -4,7 +4,7 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.util.Util"%>
 
-<section class="section-1 base-higth flex justify-center">
+<section class="section-1 flex justify-center">
 	<div>
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">회원관리</div>
 		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
