@@ -208,26 +208,26 @@ function MemberSignup__checkAndSubmit(form) {
 						<span class="text-4xl">회원가입</span>
 					</div>
 					<div class="mt-2">
-						<input type="text" name="ID" placeholder="아이디" autocomplete="off" class="inputLoginId border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="text" name="ID" placeholder="아이디" autocomplete="off" class="inputLoginId border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="IDInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="PWInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="PWCheckInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="nicknameInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="text" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="text" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
-						<input type="text" name="phoneNo" placeholder="연락처" autocomplete="off" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="tel" name="phoneNo" placeholder="연락처" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="flex">
 						<input type="submit" value="가입" class="h-12 w-full hover:bg-blue-300 border mr-1 rounded"/>

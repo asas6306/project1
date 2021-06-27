@@ -39,10 +39,10 @@
 				<input type="hidden" name="redirectUrl" value="${param.redirectUrl}" />
 				<div class="text-gray-900 text-xl">
 					<div class="mt-2">
-						<input type="text" name="ID" placeholder="아이디" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="text" name="ID" placeholder="아이디" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
-						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full h-12 hover:border-blue-300" />
+						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div>
 						<input type="submit" value="로그인" class="h-12 w-full hover:bg-blue-300"/>
