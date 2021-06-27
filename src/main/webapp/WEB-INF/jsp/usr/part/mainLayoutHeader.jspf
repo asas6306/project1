@@ -72,6 +72,25 @@
 						<a href="../article/list?articleType=memo" class="p-2 lg:p-3"> 
 							<span>메모장</span>
 						</a>
+						<div>
+							<ul>
+								<li>
+									<a href="../article/list?articleType=memo"> 
+										<span>전체메모</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=1&articleType=memo"> 
+										<span>웹</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=2&articleType=memo"> 
+										<span>정보처리기사</span>
+									</a>
+								</li>
+							</ul>
+						</div>
 					</li>
 				</ul>
 				<ul class="md:invisible md:w-0">
@@ -81,6 +100,9 @@
 						</a>
 						<div>
 							<ul>
+								<li>
+									<span>게시판</span>
+								</li>
 								<li>
 									<a href="../article/list"> 
 										<span>전체게시물</span>
@@ -94,6 +116,26 @@
 								<li>
 									<a href="../article/list?boardCode=2"> 
 										<span>자유게시판</span>
+									</a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<span>메모장</span>
+								</li>
+								<li>
+									<a href="../article/list?articleType=memo"> 
+										<span>전체메모</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=1&articleType=memo"> 
+										<span>웹</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=2&articleType=memo"> 
+										<span>정보처리기사</span>
 									</a>
 								</li>
 							</ul>

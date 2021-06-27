@@ -201,7 +201,7 @@ function MemberSignup__checkAndSubmit(form) {
 
 <section class="flex justify-center">
 	<div class="member-box container p-4">
-		<div class="border-2 border-blue-300 rounded p-5">
+		<div class="border-2 border-blue-300 rounded-xl p-5">
 			<form onsubmit="MemberSignup__checkAndSubmit(this); return false;" action="doSignup" method="post" class="formLogin" >
 				<div class="text-gray-900 text-xl">
 					<div class="flex justify-center">

@@ -73,7 +73,7 @@ public class UsrArticleController extends _BaseController {
 				article.setBody(body.replace("\r\n", "<br>"));				
 			}
 			req.setAttribute("articles", articles);
-			req.setAttribute("boards", ss.getAllBoardInfo("article"));
+			req.setAttribute("boards", ss.getAllBoardInfo(articleType));
 		} else {
 			req.setAttribute("articlesCnt", articlesCnt);
 		}
@@ -89,11 +89,7 @@ public class UsrArticleController extends _BaseController {
 	public String add(HttpServletRequest req, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "article") String articleType) {
 		req.setAttribute("boardCode", boardCode);
 		req.setAttribute("articleType", articleType);
-		if(articleType.equals("memo")) {
-			req.setAttribute("boards", ss.getAllBoardInfo("memo"));
-		} else {
-			req.setAttribute("boards", ss.getAllBoardInfo("article"));			
-		}
+		req.setAttribute("boards", ss.getAllBoardInfo(articleType));
 		
 		return "usr/article/add";
 	}

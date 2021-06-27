@@ -7,28 +7,32 @@
 <c:set var="fileInputMaxCount" value="3" />
 
 <section class="flex justify-center">
-	<div>
-		<c:choose>
-			<c:when test="${boardCode == '1'}">
-				<c:set var="boardName" value="웹" />
-				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
-			</c:when>
-			<c:when test="${boardCode == '2'}">
-				<c:set var="boardName" value="정보처리기사" />
-				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
-			</c:when>
-			<c:otherwise>
-				<c:set var="boardName" value="메모장" />
-				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
-			</c:otherwise>
-		</c:choose>
-		<div class="flex border-b-2 border-t-2 border-gray-500 text-center text-lg">
-			<div class="Article-Width flex">
-				<div class="memo-title-wide bg-gray-100">제목</div>
-				<div class="w-32 bg-gray-100 border-l-2 border-gray-500">게시판</div>
+	<div class="max-w-5xl w-full">
+		<div>
+			<div class="flex justify-between">
+				<div></div>
+				<span class="flex text-4xl font-bold p-6">
+					<c:choose>
+						<c:when test="${boardCode == 0}">
+							전체메모
+						</c:when>
+						<c:otherwise>
+							<c:forEach var="board" items="${boards}">
+								<c:if test="${board.boardCode.equals(boardCode)}">
+									${board.boardName}
+								</c:if>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</span>
+				<div class="flex justify-center items-center p-1">
+					<c:if test="${loginedMember != null}">
+						<a href="add?boardCode=${boardCode}" class="text-gray-900 p-1 px-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white">글쓰기</a>
+					</c:if>
+				</div>
 			</div>
 		</div>
-		<div class="flex justify-center border-b-2 border-gray-500">
+		<div class="flex justify-center border-t-2 border-blue-500">
 			<div class="w-full">
 				<c:choose>
 					<c:when test="${articlesCnt == 0}">
@@ -38,15 +42,15 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach var="article" items="${articles}">
-							<div class="border-b-2">
+							<div class="border-b-2 border-blue-500 py-3">
 								<div class="mx-2 mt-1 text-sm mt-2 text-gray-500">
 									<a href="/usr/article/list?boardCode=${article.boardCode}" class="">${article.boardName} ></a>
 								</div>
-								<div class="text-3xl border-gray-300">
-									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo&hit=true" class="mx-2">${article.title}</a>
+								<div class="text-3xl">
+									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo&hit=true" class="px-2">${article.title}</a>
 								</div>
 								<div class="flex w-full items-center">
-									<div class="mx-2">
+									<div class="p-2">
 										<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
 										<c:choose>
 											<c:when test="${file == null}">
@@ -63,9 +67,9 @@
 										<div class="text-sm text-gray-500">${article.regDate}</div>
 									</div>
 								</div>
-								<div class="memo-body-wide border rounded mx-2 text-lg mb-2">
-									<div class="memo-body-wide flex m-2">
-										<span>${article.body}</span>
+								<div class="w-full border rounded text-lg">
+									<div class="flex">
+										<span class="p-3">${article.body}</span>
 									</div>
 									<div>
 										<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
@@ -86,24 +90,8 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
-			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
-				<ul>
-					<a href="/usr/article/list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>메모장(${allArticlesCnt})</span>
-					</a>
-					<a href="/usr/article/list?boardCode=1&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>웹</span>
-					</a>
-					<a href="/usr/article/list?boardCode=2&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
-						<span>정보처리기사</span>
-					</a>
-					<div class="pb-1"></div>
-				</ul>
-			</nav>
 		</div>
 		<div class="flex">
-			<div class="w-24"> <!-- 공백용 -->
-			</div>
 			<div class="flex justify-center w-full text-lg text-gray-700">
 				<a href="/usr/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">처음</a>
 				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">이전</a>
@@ -119,9 +107,6 @@
 				</c:forEach>
 				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">다음</a>
 				<a href="/usr/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">끝</a>
-			</div>
-			<div class="flex justify-center items-center w-24">
-				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/usr/article/add?boardCode=${boardCode}&articleType=memo'" />
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">
