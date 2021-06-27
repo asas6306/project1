@@ -86,11 +86,14 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
 	width: 612px;
 }
 /* 어드민 css 끝 */
-
 .member-box {
 	width: 480px;
 }
 
 .section-add > div {
 	width: 960px;
+}
+
+.mypage-width {
+	width: 720px;
 }

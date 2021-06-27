@@ -17,133 +17,165 @@ function Delete__Articles__Confirm()
 </script>
 
 <section class="base-higth flex justify-center">
-	<div>
-		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
-		<div class="userpage-width border-t-2 border-b-2">
-			<div class="flex">
-				<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
-				<img alt="" src="${file.forPrintUrl}" class="w-40 h-40 border rounded-full bg-gray-300">
-				<div class="mx-4 my-2 w-96">
-					<div class="flex justify-between">
-						<span class="text-4xl">${loginedMember.nickname} (${loginedMember.ID})</span>
-						<div class="flex justify-center items-center">
-							<a href="update" class="p-1 rounded-full text-sm bg-gray-300 hover:bg-blue-300">정보수정</a>
-						</div>
-					</div>
-					<div class="text-lg">${loginedMember.authName}</div>
-					<div class="text-lg">${loginedMember.email}</div>
-					<div class="text-lg">${loginedMember.phoneNo}</div>
-					<div class="text-lg">authKey : ${loginedMember.authKey}</div>
+	<div class="mypage-width">
+		<div>
+			<div class="flex justify-between">
+				<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
+				<div class="flex justify-center items-center">
+					<a href="update" class="p-1 h-7 rounded-full text-sm bg-blue-300 hover:bg-blue-500 flex-shrink-0">정보수정</a>
 				</div>
 			</div>
-			<div class="flex justify-center text-xl">
-				<div class="text-center border-b w-44">게시물</div>
-				<div class="text-center border-b mx-4 w-44">메모</div>
-				<div class="text-center border-b w-44">댓글</div>
-			</div>
-			<div class="flex justify-center text-xl">
-				<div class="text-center w-44">
-					<a href="mypage?call=article" class="hover:underline">${Util.numberFormat(articleCnt)}</a>
+			<div class="flex border-t-4 border-blue-500 rounded p-2">
+				<div class="p-2">
+					<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
+					<img alt="" src="${file.forPrintUrl}" class="border w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gray-300">
 				</div>
-				<div class="text-center mx-4 w-44">
-					<a href="mypage?call=memo" class="hover:underline">${Util.numberFormat(memoCnt)}</a>
-				</div>
-				<div class="text-center w-44">
-					<a href="mypage?call=reply" class="hover:underline">${Util.numberFormat(replyCnt)}</a>
-				</div>
-			</div>
-			<div>
-				<c:choose>
-					<c:when test="${call == 'reply'}">
-						<div class="flex border-b-2 mt-4">
-							<span class="text-center w-96">제목</span>
-							<span class="text-center w-12"></span>
-							<span class="text-center w-40 ml-3">작성일</span>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="flex border-b-2 mt-4">
-							<span class="text-center w-96">제목</span>
-							<span class="text-center w-40 ml-3">작성일</span>
-							<span class="text-center w-12">조회수</span>
-						</div>
-					</c:otherwise>
-				</c:choose>
-				<form action="mypageDoDelete" onsubmit="Delete__Articles__Confirm(); return false;" method="post">
-					<input type="hidden" name="call" value="${call}" />
-					<div class="flex">
+				<div class="p-2 text-xl">
+					<div class="sm:flex text-4xl">
 						<div>
-							<c:forEach begin="1" end="${items.size()}" var="num">
-								<div class="flex items-center">
-									<c:choose>
-										<c:when test="${call == 'reply'}">
-											<input type="checkbox" name="delete__${num}" class="flex justify-center items-center  h-6" value="${items.get(num-1).rid}"/>
-										</c:when>
-										<c:otherwise>
-											<input type="checkbox" name="delete__${num}" class="flex justify-center items-center  h-6" value="${items.get(num-1).aid}"/>
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</c:forEach>
+							<span>${loginedMember.ID}</span>
 						</div>
 						<div>
-							<c:choose>
-								<c:when test="${call == 'reply'}">
-									<c:forEach var='item' items='${items}'>
-										<div class="flex">
-											<div class="flex h-6 w-96">
-												<span class="flex items-center justify-center w-12 text-sm">${item.rid}</span>
-												<a href="../article/detail?aid=${item.relId}">${item.body}</a>
-											</div>
-											<span class="text-center w-12"></span>
-											<span class="text-center w-40">${Util.dateFormat(item.regDate)}</span>
-										</div>
-									</c:forEach>
-								</c:when>
-								<c:otherwise>
-									<c:forEach var='item' items='${items}'>
-										<div class="flex">
-											<div class="flex w-96">
-												<span class="flex items-center justify-center w-12 text-sm">${item.aid}</span>
-												<a href="../article/detail?aid=${item.aid}">${item.title}</a>
-											</div>
-											<span class="text-center w-40">${Util.dateFormat(item.regDate)}</span>
-											<span class="text-center w-12">${item.hit}</span>
-										</div>
-									</c:forEach>
-								</c:otherwise>
-							</c:choose>
+							<span>(${loginedMember.nickname})</span>
 						</div>
 					</div>
-					<div class="flex">
-						<div class="w-24"> <!-- 공백용 -->
+					<div>
+						<span>${loginedMember.authName}</span>
+					</div>
+					<div>
+						<span>${loginedMember.email}</span>
+					</div>
+					<div>
+						<span>${loginedMember.phoneNo}</span>
+					</div>
+					<div>
+						<span>authKey : ${loginedMember.authKey}</span>
+					</div>
+				</div>
+			</div>
+			<div class="p-4"><!-- 이거 수정 -->
+				<div class="flex justify-center text-xl">
+					<div class="flex justify-between w-4/5 sm:w-2/3 md:w-3/5">
+						<div class="text-center border-b border-blue-300 w-32">게시물</div>
+						<div class="text-center border-b border-blue-300 w-32">메모</div>
+						<div class="text-center border-b border-blue-300 w-32">댓글</div>
+					</div>
+				</div>
+				<div class="flex justify-center text-xl">
+					<div class="flex justify-between w-4/5 sm:w-2/3 md:w-3/5">
+						<div class="text-center w-32">
+							<a href="mypage?call=article">${Util.numberFormat(articleCnt)}</a>
 						</div>
-						<div class="flex justify-center w-full text-lg text-gray-700">
-							<a href="/adm/member/mypage?page=1&call=${call}" class="p-2 hover:text-black hover:underline">처음</a>
-							<a href="/adm/member/mypage?page=${printPageIndexDown}&call=${call}" class="p-2 hover:text-black hover:underline">이전</a>
-							<c:forEach items='${printPageIndexs}' var='printPageIndex'>
-								<c:choose>
-									<c:when test="${printPageIndex == page}">
-										<a href="/adm/member/mypage?page=${printPageIndex}&call=${call}" class="p-2 text-black underline">${printPageIndex}</a>
-									</c:when>
-									<c:otherwise>
-										<a href="/adm/member/mypage?page=${printPageIndex}&call=${call}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-							<a href="/adm/member/mypage?page=${printPageIndexUp}&call=${call}" class="p-2 hover:text-black hover:underline">다음</a>
-							<a href="/adm/member/mypage?page=1000&call=${call}" class="p-2 hover:text-black hover:underline">끝</a>
+						<div class="text-center w-32">
+							<a href="mypage?call=memo">${Util.numberFormat(memoCnt)}</a>
 						</div>
-						<div class="flex justify-center items-center w-24">
-							<input type="submit" value="삭제하기" class="bg-red-300 p-1 border hover:bg-red-500 rounded" />
-							<input type="button" value="글쓰기" class="bg-blue-300 p-1 mx-1 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?articleType=article'" />
+						<div class="text-center w-32">
+							<a href="mypage?call=reply">${Util.numberFormat(replyCnt)}</a>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
+		<div class="flex justify-between px-2">
+			<div>
+				<c:choose>
+					<c:when test="${call == 'article'}"><span class="text-2xl">게시물</span></c:when>
+					<c:when test="${call == 'memo'}"><span class="text-2xl">메모</span></c:when>
+					<c:when test="${call == 'reply'}"><span class="text-2xl">댓글</span></c:when>
+				</c:choose>
+			</div>
+			<div class="flex justify-center items-end text-sm font-thin text-center invisible sm:visible px-1">
+				<div class="hidden sm:inline sm:visible sm:w-16 text-thin">
+					<span>작성일</span>
+				</div>
+				<c:if test="${call != 'reply'}">
+					<div class="hidden sm:inline sm:w-8 text-thin">
+						<span>조회</span>
+					</div>
+				</c:if>
+			</div>
+		</div>
+		<div class="border-t-2 border-blue-500">
+			<form action="myPageDoDelete" class="p-1">
+				<div class="border-b-4 border-blue-500 rounded">
+					<c:forEach var="item" items="${items}">
+						<div class="flex items-center border-b">
+							<div class="">
+								<c:choose>
+									<c:when test="${call == 'reply'}">
+										<input type="checkbox" name="delete__${num}" class="flex justify-center items-center" value="${item.rid}"/>
+									</c:when>
+									<c:otherwise>
+										<input type="checkbox" name="delete__${num}" class="flex justify-center items-center" value="${item.aid}"/>
+									</c:otherwise> 
+								</c:choose>
+							</div>
+							<div class="w-full text-lg font-thin px-2">
+								<c:choose>
+									<c:when test="${call == 'reply'}">
+										<div class="w-full sm:flex sm:justify-between">
+											<div>
+												<span class="text-base">${Util.numberFormat(item.rid)}</span>
+												<span class="text-xl">${item.body}</span>
+											</div>
+											<div class="grid grid-cols-2 sm:flex sm:justify-center sm:items-center text-sm sm:text-center">
+												<div class="sm:w-16">
+													<span class="sm:hidden">등록일 : </span>
+													<span>${Util.dateFormat(item.regDate)}</span>
+												</div>
+											</div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="w-full sm:flex sm:justify-between">
+											<div>
+												<span class="text-base">${Util.setBoardName(item.boardName)}</span>
+												<span class="text-xl">${item.title}</span>
+											</div>
+											<div class="grid grid-cols-2 sm:flex sm:justify-center sm:items-center text-sm sm:text-center">
+												<div class="sm:w-16">
+													<span class="sm:hidden">등록일 : </span>
+													<span>${Util.dateFormat(item.regDate)}</span>
+												</div>
+												<div class="sm:w-8">
+													<span class="sm:hidden">조회수 : </span>
+													<span>${Util.numberFormat(item.hit)}</span>
+												</div>
+											</div>
+										</div>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="flex"><!-- 이거 수정 -->
+					<div class="w-24"> <!-- 공백용 -->
+					</div>
+					<div class="flex justify-center w-full text-lg text-gray-700">
+						<a href="/usr/member/mypage?page=1&call=${call}" class="p-2 hover:text-black hover:underline">처음</a>
+						<a href="/usr/member/mypage?page=${printPageIndexDown}&call=${call}" class="p-2 hover:text-black hover:underline">이전</a>
+						<c:forEach items='${printPageIndexs}' var='printPageIndex'>
+							<c:choose>
+								<c:when test="${printPageIndex == page}">
+									<a href="/usr/member/mypage?page=${printPageIndex}&call=${call}" class="p-2 text-black underline">${printPageIndex}</a>
+								</c:when>
+								<c:otherwise>
+									<a href="/usr/member/mypage?page=${printPageIndex}&call=${call}" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+						<a href="/usr/member/mypage?page=${printPageIndexUp}&call=${call}" class="p-2 hover:text-black hover:underline">다음</a>
+						<a href="/usr/member/mypage?page=1000&call=${call}" class="p-2 hover:text-black hover:underline">끝</a>
+					</div>
+					<div class="flex justify-center items-center w-24">
+						<input type="submit" value="삭제하기" class="bg-red-300 p-1 border hover:bg-red-500 rounded" />
+						<input type="button" value="글쓰기" class="bg-blue-300 p-1 border hover:bg-blue-500 rounded" onclick="location.href='/usr/article/add?articleType=article'" />
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
-	
 </section>
 
 <%@ include file="../part/mainLayoutFooter.jspf"%>

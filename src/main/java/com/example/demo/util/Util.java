@@ -278,8 +278,6 @@ public class Util {
 		if(nowDate.getYear() == year && nowDate.getMonthValue() == month && nowDate.getDayOfMonth() == day) {		
 			format = dateSplit3[0] + ":" + dateSplit3[1];
 		} else {
-			
-			
 			format = dateSplit2[0] + "." + dateSplit2[1] + "." + dateSplit2[2] + ".";
 		}
 		
@@ -287,7 +285,8 @@ public class Util {
 	}
 	
 	public static String setBoardName(String boardName) {
-		
-		return boardName.substring(0, 2);
+		if(boardName.length() > 2)
+			boardName = boardName.substring(0, 2);
+		return boardName;
 	}
 }

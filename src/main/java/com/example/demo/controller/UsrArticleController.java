@@ -56,22 +56,6 @@ public class UsrArticleController extends _BaseController {
 			
 			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
 			
-			for(Article article : articles) {
-				// XSS Gard
-				String title = article.getTitle();
-				title = title.replace("<", "&lt");
-				title = title.replace(">", "&gt");
-				article.setTitle(title);
-				
-				// 로거 / .yml수정으로 출력 여부 결정
-				log.debug("title : " + title);
-				
-				String body = article.getBody();
-				body = body.replace("<", "&lt");
-				body = body.replace(">", "&gt");
-				// 줄바꿈 적용 후 리턴
-				article.setBody(body.replace("\r\n", "<br>"));				
-			}
 			req.setAttribute("articles", articles);
 			req.setAttribute("boards", ss.getAllBoardInfo(articleType));
 		} else {
@@ -113,18 +97,6 @@ public class UsrArticleController extends _BaseController {
 			as.hit(aid);
 	
 		Article article = as.getArticle(aid);
-
-		// XSS Gard
-		String title = article.getTitle();
-		title = title.replace("<", "&lt");
-		title = title.replace(">", "&gt");
-		article.setTitle(title);
-		
-		String body = article.getBody();
-		body = body.replace("<", "&lt");
-		body = body.replace(">", "&gt");
-		// 줄바꿈 적용 후 리턴
-		article.setBody(body.replace("\r\n", "<br>"));	
 		
 		article = as.getArticleWriterImg(article);
 		req.setAttribute("article", as.getArticleImg(article));

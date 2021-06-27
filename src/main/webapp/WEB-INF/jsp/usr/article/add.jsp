@@ -105,12 +105,12 @@ function ArticleAdd__checkAndSubmit(form) {
 						<c:choose>
 							<c:when test="${articleType == 'memo'}">
 								<c:forEach var="board" items="${boards}">
-									<option value="${borad.boardCode}" class="font-thin">${board.boardName}</option>
+									<option value="${board.boardCode}" class="font-thin">${board.boardName}</option>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="board" items="${boards}">
-									<option value="${borad.boardCode}" class="font-thin">${board.boardName}</option>
+									<option value="${board.boardCode}" class="font-thin">${board.boardName}</option>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>
