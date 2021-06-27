@@ -86,7 +86,7 @@ public class UsrArticleController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/article/add")
-	public String add(HttpServletRequest req, @RequestParam(defaultValue = "0") int boardCode, String articleType) {
+	public String add(HttpServletRequest req, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "article") String articleType) {
 		req.setAttribute("boardCode", boardCode);
 		req.setAttribute("articleType", articleType);
 		if(articleType.equals("memo")) {

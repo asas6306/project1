@@ -95,12 +95,12 @@ function ArticleAdd__checkAndSubmit(form) {
 <section class="section-add flex justify-center">
 	<div class="">
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
-		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post" method="post" enctype="multipart/form-data">
+		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="genFileIdsStr" value="" />
 			<input type="hidden" name="articleType" value="${articleType}" />
 			<div class="">
 				<div class="add-board w-full">
-					<select name="boardCode" class="select-board p-2 font-thin text-lg">
+					<select name="boardCode" class="select-board p-2 font-thin text-lg outline-none border border-blue-500">
 						<option value="0" class="font-thin">=== 게시판선택 ===</option>
 						<c:choose>
 							<c:when test="${articleType == 'memo'}">
@@ -120,93 +120,21 @@ function ArticleAdd__checkAndSubmit(form) {
 					</script>
 				</div>
 			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
-					<span>제목</span>
-				</div>
+			<div class="flex border-b border-blue-500">
 				<div class="w-full">
-					<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full"/>
+					<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full h-12 text-2xl p-2 outline-none"/>
 				</div>
 			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
-					<span>내용</span>
-				</div>
+			<div class="flex border-b border-blue-500">
 				<div class="w-full">
-					<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40"></textarea>
+					<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40 p-2 text-xl outline-none"></textarea>
 				</div>
 			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center items-center w-20 bg-gray-100 flex-shrink-0">
+			<div class="flex border-b border-blue-500">
+				<div class="flex justify-center items-center w-20 bg-blue-100 ">
 					<span>첨부파일</span>
 				</div>
-				<div class="w-full">
-				<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
-					<div>
-						<input class="form-row-input w-full" type="file"
-								name="file__article__0__common__attachment__${inputNo}" />
-					</div>
-				</c:forEach>
-				</div>
-			</div>
-			<div class="flex w-full justify-center">
-				<input type="submit" value="작성" class="bg-blue-300 h-8 w-16 mt-2 mr-1 hover:bg-blue-500 rounded" />
-				<input type="button" value="취소" onclick="history.back()" class="bg-red-300 h-8 w-16 mt-2 ml-1 hover:bg-red-500 rounded" />
-			</div>
-		</form>
-	</div>
-</section>
-
-<section class="base-higth section-add flex justify-center">
-	<div class="w-1/2">
-		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
-		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="genFileIdsStr" value="" />
-			<input type="hidden" name="articleType" value="${articleType}" />
-			<div class="flex border-b-2 border-t-2 border-gray-500">
-				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
-					<span>게시판 선택</span>
-				</div>
-				<div class="w-full">
-					<select name="boardCode" class="select-board mx-2">
-						<option value="0">=== 게시판선택 ===</option>
-						<c:choose>
-							<c:when test="${articleType == 'memo'}">
-								<option value="31">웹</option>
-								<option value="32">정보처리기사</option>
-							</c:when>
-							<c:otherwise>
-								<option value="1">공지사항</option>
-								<option value="2">자유게시판</option>
-							</c:otherwise>
-						</c:choose>
-					</select>
-					<script>
-						$('.section-add .select-board').val(${boardCode});
-					</script>
-				</div>
-			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
-					<span>제목</span>
-				</div>
-				<div class="w-full">
-					<input type="text" name="title" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full"/>
-				</div>
-			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-20 bg-gray-100 flex-shrink-0">
-					<span>내용</span>
-				</div>
-				<div class="w-full">
-					<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40"></textarea>
-				</div>
-			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center items-center w-20 bg-gray-100 flex-shrink-0">
-					<span>첨부파일</span>
-				</div>
-				<div class="w-full">
+				<div class="">
 				<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 					<div>
 						<input class="form-row-input w-full" type="file"
