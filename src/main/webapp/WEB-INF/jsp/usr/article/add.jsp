@@ -104,12 +104,14 @@ function ArticleAdd__checkAndSubmit(form) {
 						<option value="0" class="font-thin">=== 게시판선택 ===</option>
 						<c:choose>
 							<c:when test="${articleType == 'memo'}">
-								<option value="1" class="font-thin">웹</option>
-								<option value="2" class="font-thin">정보처리기사</option>
+								<c:forEach var="board" items="${boards}">
+									<option value="${borad.boardCode}" class="font-thin">${board.boardName}</option>
+								</c:forEach>
 							</c:when>
 							<c:otherwise>
-								<option value="1" class="font-thin">공지사항</option>
-								<option value="2" class="font-thin">자유게시판</option>
+								<c:forEach var="board" items="${boards}">
+									<option value="${borad.boardCode}" class="font-thin">${board.boardName}</option>
+								</c:forEach>
 							</c:otherwise>
 						</c:choose>
 					</select>

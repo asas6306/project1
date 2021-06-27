@@ -89,6 +89,11 @@ public class UsrArticleController extends _BaseController {
 	public String add(HttpServletRequest req, @RequestParam(defaultValue = "0") int boardCode, String articleType) {
 		req.setAttribute("boardCode", boardCode);
 		req.setAttribute("articleType", articleType);
+		if(articleType.equals("memo")) {
+			req.setAttribute("boards", ss.getAllBoardInfo("memo"));
+		} else {
+			req.setAttribute("boards", ss.getAllBoardInfo("article"));			
+		}
 		
 		return "usr/article/add";
 	}

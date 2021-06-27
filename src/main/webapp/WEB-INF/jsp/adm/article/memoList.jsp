@@ -9,11 +9,11 @@
 <section class="base-higth flex justify-center">
 	<div>
 		<c:choose>
-			<c:when test="${boardCode == '31'}">
+			<c:when test="${boardCode == '1'}">
 				<c:set var="boardName" value="웹" />
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:when>
-			<c:when test="${boardCode == '32'}">
+			<c:when test="${boardCode == '2'}">
 				<c:set var="boardName" value="정보처리기사" />
 				<div class="flex items-center justify-center h-20 text-4xl font-bold">${boardName}</div>
 			</c:when>
@@ -40,7 +40,7 @@
 						<c:forEach var="article" items="${articles}">
 							<div class="border-b-2">
 								<div class="mx-2 mt-1 text-sm mt-2 text-gray-500">
-									<a href="/adm/article/list?boardCode=${article.boardCode}" class="">${article.boardName} ></a>
+									<a href="/usr/article/list?boardCode=${article.boardCode}" class="">${article.boardName} ></a>
 								</div>
 								<div class="text-3xl border-gray-300">
 									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo&hit=true" class="mx-2">${article.title}</a>
@@ -88,13 +88,13 @@
 			</div>
 			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
-					<a href="/adm/article/list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/usr/article/list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>메모장(${allArticlesCnt})</span>
 					</a>
-					<a href="/adm/article/list?boardCode=1&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/usr/article/list?boardCode=1&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>웹</span>
 					</a>
-					<a href="/adm/article/list?boardCode=2&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="/usr/article/list?boardCode=2&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>정보처리기사</span>
 					</a>
 					<div class="pb-1"></div>
@@ -105,23 +105,23 @@
 			<div class="w-24"> <!-- 공백용 -->
 			</div>
 			<div class="flex justify-center w-full text-lg text-gray-700">
-				<a href="/adm/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">처음</a>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">이전</a>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">처음</a>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">이전</a>
 				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
 					<c:choose>
 						<c:when test="${printPageIndex == page}">
-							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 text-black underline">${printPageIndex}</a>
+							<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 text-black underline">${printPageIndex}</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
+							<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">${printPageIndex}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">다음</a>
-				<a href="/adm/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">끝</a>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">다음</a>
+				<a href="/usr/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}&articleType=memo" class="p-2 hover:text-black hover:underline">끝</a>
 			</div>
 			<div class="flex justify-center items-center w-24">
-				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/adm/article/add?boardCode=${boardCode}&articleType=memo'" />
+				<input type="button" value="글쓰기" class="bg-blue-300 w-20 h-10 border hover:bg-blue-500 rounded" onclick="location.href='/usr/article/add?boardCode=${boardCode}&articleType=memo'" />
 			</div>
 		</div>
 		<form action="list" method="get" class="flex justify-center">
