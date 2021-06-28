@@ -53,7 +53,7 @@ function Delete__Articles__Confirm()
 					</div>
 				</div>
 			</div>
-			<div class="p-4"><!-- 이거 수정 -->
+			<div class="p-4">
 				<div class="flex justify-center text-xl">
 					<div class="flex justify-between w-4/5 sm:w-2/3 md:w-3/5">
 						<div class="text-center border-b border-blue-300 w-16 sm:w-32">게시물</div>
