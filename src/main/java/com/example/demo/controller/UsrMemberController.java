@@ -281,38 +281,6 @@ public class UsrMemberController extends _BaseController {
 
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}
-
-	@RequestMapping("/usr/member/list")
-	public String list(HttpServletRequest req, @RequestParam(defaultValue = "0") int authLevel, @RequestParam(defaultValue = "ID") String searchType,
-			String searchKeyword, @RequestParam(defaultValue = "1") int page) {
-
-		// 전체 게시물 수
-		int allMembersCnt = ms.allMembersCnt();
-		req.setAttribute("allMembersCnt", allMembersCnt);
-
-		// 검색 및 페이징 연동을 위한 어트리뷰트,,,
-		req.setAttribute("searchType", searchType);
-		req.setAttribute("searchKeyword", searchKeyword);
-
-		// 해당 게시물 수
-		int membersCnt = ms.getMembersCnt(authLevel, searchType, searchKeyword);
-
-		if (membersCnt != 0) {
-			// 페이징
-			int pageCnt = 10;
-			page = ss.page(req, page, page, membersCnt);
-
-			// 최종 게시물 불러오기
-			List<Member> members = ms.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
-
-			req.setAttribute("members", members);
-			req.setAttribute("auths", auths.getAuths());
-		} else {
-			req.setAttribute("membersCnt", membersCnt);
-		}
-
-		return "usr/member/list";
-	}
 	
 	@RequestMapping("/usr/member/delete")
 	public String delete(HttpSession session, Integer uid) {

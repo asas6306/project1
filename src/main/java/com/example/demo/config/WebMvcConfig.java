@@ -66,13 +66,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.excludePathPatterns("/usr/article/list").excludePathPatterns("/usr/article/detail")
 				.excludePathPatterns("/usr/member/signup").excludePathPatterns("/usr/member/doSignup")
 				.excludePathPatterns("/usr/member/login").excludePathPatterns("/usr/member/doLogin")
+				.excludePathPatterns("/usr/member/getLoginIdDup").excludePathPatterns("/usr/member/getNicknameDup")
+				.excludePathPatterns("/usr/member/getPWDup").excludePathPatterns("/usr/member/getPhoneNoDup")
+				.excludePathPatterns("/usr/member/getEmailDup").excludePathPatterns("/usr/member/getNicknameDup")
+				.excludePathPatterns("/usr/member/getPWDup").excludePathPatterns("/usr/member/getPhoneNoDup")
 				.excludePathPatterns("/usr/member/authKey").excludePathPatterns("/usr/reply/list")
 				.excludePathPatterns("/usr/reply/delete").excludePathPatterns("/common/**").excludePathPatterns("/error");
 
 		// 로그인 상태에서 접속할 수 없는 URI 전부 기술(로그아웃 상태에서 접속할 수 잇는 URI)
 		registry.addInterceptor(needToLogoutInterceptor)
-				.addPathPatterns("/adm/member/login").addPathPatterns("/adm/member/doLogin")
-				.addPathPatterns("/adm/member/signup")
+				.addPathPatterns("/usr/member/login").addPathPatterns("/usr/member/doLogin")
+				.addPathPatterns("/usr/member/signup").addPathPatterns("/usr/member/doSignup")
 				.addPathPatterns("/usr/member/login").addPathPatterns("/usr/member/doLogin")
 				.addPathPatterns("/usr/member/signup").addPathPatterns("/usr/member/doSignup");
 	}
