@@ -20,7 +20,7 @@ function Delete__Articles__Confirm()
 	<div class="mypage-width">
 		<div>
 			<div class="flex justify-between">
-				<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
+				<span class="flex items-center justify-center h-20 text-4xl font-bold px-1">마이페이지</span>
 				<div class="flex justify-center items-center">
 					<a href="update" class="p-1 h-7 rounded-full text-sm bg-blue-300 hover:bg-blue-500 flex-shrink-0">정보수정</a>
 				</div>
@@ -56,20 +56,20 @@ function Delete__Articles__Confirm()
 			<div class="p-4"><!-- 이거 수정 -->
 				<div class="flex justify-center text-xl">
 					<div class="flex justify-between w-4/5 sm:w-2/3 md:w-3/5">
-						<div class="text-center border-b border-blue-300 w-32">게시물</div>
-						<div class="text-center border-b border-blue-300 w-32">메모</div>
-						<div class="text-center border-b border-blue-300 w-32">댓글</div>
+						<div class="text-center border-b border-blue-300 w-16 sm:w-32">게시물</div>
+						<div class="text-center border-b border-blue-300 w-16 sm:w-32">메모</div>
+						<div class="text-center border-b border-blue-300 w-16 sm:w-32">댓글</div>
 					</div>
 				</div>
 				<div class="flex justify-center text-xl">
 					<div class="flex justify-between w-4/5 sm:w-2/3 md:w-3/5">
-						<div class="text-center w-32">
+						<div class="text-center w-16 sm:w-32">
 							<a href="mypage?call=article">${Util.numberFormat(articleCnt)}</a>
 						</div>
-						<div class="text-center w-32">
+						<div class="text-center w-16 sm:w-32">
 							<a href="mypage?call=memo">${Util.numberFormat(memoCnt)}</a>
 						</div>
-						<div class="text-center w-32">
+						<div class="text-center w-16 sm:w-32">
 							<a href="mypage?call=reply">${Util.numberFormat(replyCnt)}</a>
 						</div>
 					</div>
@@ -149,8 +149,8 @@ function Delete__Articles__Confirm()
 						</div>
 					</c:forEach>
 				</div>
-				<div class="flex"><!-- 이거 수정 -->
-					<div class="w-24"> <!-- 공백용 -->
+				<div class="flex">
+					<div class="w-12 sm:inline sm:w-24"> <!-- 공백용 -->
 					</div>
 					<div class="flex justify-center w-full text-lg text-gray-700">
 						<a href="/usr/member/mypage?page=1&call=${call}" class="p-2 hover:text-black hover:underline">처음</a>
@@ -168,9 +168,12 @@ function Delete__Articles__Confirm()
 						<a href="/usr/member/mypage?page=${printPageIndexUp}&call=${call}" class="p-2 hover:text-black hover:underline">다음</a>
 						<a href="/usr/member/mypage?page=1000&call=${call}" class="p-2 hover:text-black hover:underline">끝</a>
 					</div>
-					<div class="flex justify-center items-center w-24">
+					<div class="sm:flex sm:justify-center sm:items-center hidden sm:w-24">
 						<input type="submit" value="삭제하기" class="bg-red-300 p-1 border hover:bg-red-500 rounded" />
 						<input type="button" value="글쓰기" class="bg-blue-300 p-1 border hover:bg-blue-500 rounded" onclick="location.href='/usr/article/add?articleType=article'" />
+					</div>
+					<div class="flex justify-center items-center sm:hidden w-12">
+						<input type="submit" value="삭제" class="bg-red-300 p-1 border hover:bg-red-500 rounded" />
 					</div>
 				</div>
 			</form>

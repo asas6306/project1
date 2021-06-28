@@ -9,7 +9,7 @@
 						<i class="logo-bar fas fa-seedling text-5xl text-white"></i>
 					</a>
 				</div>
-				<ul class="w-full md:pl-4 md:visible">
+				<ul class="w-full hidden sm:inline md:pl-4">
 					<div class="flex">
 						<li>
 							<a href="#" class=""> 

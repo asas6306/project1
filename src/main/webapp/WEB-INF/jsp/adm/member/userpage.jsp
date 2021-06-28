@@ -19,24 +19,7 @@
 						</div>
 					</div>
 					<div class="text-lg">${member.authName}</div>
-					<div class="border rounded mt-2">
-						<div class="flex justify-center text-xl mt-1">
-							<div class="text-center border-b w-28">게시물</div>
-							<div class="text-center border-b mx-4 w-28">메모</div>
-							<div class="text-center border-b w-28">댓글</div>
-						</div>
-						<div class="flex justify-center text-xl">
-							<div class="text-center w-28">
-								<a href="userpage?uid=${member.uid}&call=article" class="hover:underline">${Util.numberFormat(articleCnt)}</a>
-							</div>
-							<div class="text-center mx-4 w-28">
-								<a href="userpage?uid=${member.uid}&call=memo" class="hover:underline">${Util.numberFormat(memoCnt)}</a>
-							</div>
-							<div class="text-center w-28">
-								<a href="userpage?uid=${member.uid}&call=reply" class="hover:underline">${Util.numberFormat(replyCnt)}</a>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 			<div>

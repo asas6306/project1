@@ -76,9 +76,6 @@ public class BeforeIActionInterceptor implements HandlerInterceptor {
 			isAdmin = ms.authCheck(loginedMember);
 		}
 		
-		System.out.println("isLogined : " + isLogined);
-		System.out.println(loginedMember);
-		
 		request.setAttribute("uid", uid);
 		request.setAttribute("isLogined", isLogined);
 		request.setAttribute("isAdmin", isAdmin);
