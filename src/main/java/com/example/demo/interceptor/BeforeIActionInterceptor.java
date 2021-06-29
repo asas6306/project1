@@ -31,7 +31,7 @@ public class BeforeIActionInterceptor implements HandlerInterceptor {
 		
 		String encodedRequestUri = "";
 		
-		if(!requestUri.equals("/usr/member/login")) {
+		if(!requestUri.contains("/member/login")) {
 			if(queryString != null && queryString.length() > 0)
 				requestUri += "?" + queryString;
 			encodedRequestUri = Util.getUriEncoded(requestUri);
