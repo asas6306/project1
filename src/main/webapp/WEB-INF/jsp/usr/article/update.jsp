@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
-<%@ page import="com.example.demo.util.Util"%>
 
 <c:set var="fileInputMaxCount" value="3" />
 <script>
@@ -111,90 +110,77 @@ function ArticleUpdate__checkAndSubmit(form) {
 	startUploadFiles(startSubmitForm);
 }
 </script>
-
-<section class="base-higth section-add flex justify-center">
-	<div class="w-1/2">
-		<div class="flex items-center justify-center h-20 text-4xl font-bold">게시물 수정</div>
+  
+<section class="section-add flex justify-center">
+	<div class="container lg:w-2/3 2xl:w-1/2">
 		<form onsubmit="ArticleUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post">
 			<input type="hidden" name="genFileIdsStr" value="" /> 
 			<input type="hidden" name="aid" value="${article.aid}" />
-			<div class="flex border-b-2 border-t-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
-					<span>게시판 선택</span>
-				</div>
-				<div class="w-full">
-					<select name="boardCode" class="select-board mx-2">
-						<option value="0">=== 게시판선택 ===</option>
-						<c:choose>
-							<c:when test="${article.articleType == 'memo'}">
-								<option value="1">웹</option>
-								<option value="2">정보처리기사</option>
-							</c:when>
-							<c:otherwise>
-								<option value="1">공지사항</option>
-								<option value="2">자유게시판</option>
-							</c:otherwise>
-						</c:choose>
-					</select>
-					<script>
-						$('.section-add .select-board').val(${article.boardCode});
-					</script>
-				</div>
+			<div class="text-4xl font-bold p-3">
+				<input type="button" value="<" onclick="history.back()" class="bg-white cursor-pointer"/>
+				<a href="list?boardCode=${boardCode}">게시물 수정</a>
 			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
-					<span>제목</span>
-				</div>
-				<div class="w-full">
-					<input type="text" name="title" value="${article.title}" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full"/>
-				</div>
-			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center w-24 bg-gray-100">
-					<span>내용</span>
-				</div>
-				<div class="w-full">
-					<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40">${article.body}</textarea>
-				</div>
-			</div>
-			<div class="flex border-b-2 border-gray-500">
-				<div class="flex justify-center items-center w-24 bg-gray-100">
-					<span>첨부파일</span>
-				</div>
-				<div class="w-full">
-					<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
-						<div class="input-file-wrap border-b">
-							<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
-							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
-							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
-								<div>
-									<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
-										<img class="max-w-sm" src="${file.forPrintUri}" />
-									</a>
-								</div>
-								<div>
-									<a class="hover:underline" href="${file.downloadUri}"
-										target="_blank">${file.originFileName}</a>
-									(${Util.numberFormat(file.fileSize)} Byte)
-								</div>
-								<div>
-									<label> 
-										<input type="checkbox"
-										onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')"
-										name="deleteFile__article__${article.aid}__common__attachment__${fileNo}"
-										value="Y" /> <span>삭제</span>
-									</label>
-								</div>
-							</c:if>
-							<input class="form-row-input w-full" type="file"
-								name="file__article__${article.aid}__common__attachment__${inputNo}" />
+			<div class="border-b-4 border-t-4 rounded border-blue-700">
+				<div class="p-4">
+					<div class="grid gap-2 w-full">
+						<div class="w-min">
+							<select name="boardCode" class="select-board p-1 text-lg font-thin">
+								<option value="0">=== 게시판선택 ===</option>
+								<c:forEach var="board" items="${boards}">
+									<option value="${board.boardCode}">${board.boardName}</option>
+								</c:forEach>
+							</select>
+							<script>
+								$('.section-add .select-board').val(${article.boardCode});
+							</script>
 						</div>
-					</c:forEach>
+						<div class="border rounded">
+							<input type="text" name="title" value="${article.title}" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full p-3 text-4xl" autocomplete="off" />
+						</div>
+						<div class="flex border rounded">
+							<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40 text-2xl font-thin p-3">${article.body}</textarea>
+						</div>
+						<div class="flex border rounded">
+							<div class="flex justify-center items-center w-24">
+								<span>첨부파일</span>
+							</div>
+							<div class="w-full">
+								<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
+									<div class="input-file-wrap">
+										<c:set var="fileNo" value="${String.valueOf(inputNo)}"></c:set>
+										<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
+										<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
+											<div>
+												<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
+													<img class="max-w-sm" src="${file.forPrintUri}" />
+												</a>
+											</div>
+											<div>
+												<a class="hover:underline" href="${file.downloadUri}"
+													target="_blank">${file.originFileName}</a>
+												(${Util.numberFormat(file.fileSize)} Byte)
+											</div>
+											<div>
+												<label> 
+													<input type="checkbox"
+													onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')"
+													name="deleteFile__article__${article.aid}__common__attachment__${fileNo}"
+													value="Y" /> <span>삭제</span>
+												</label>
+											</div>
+										</c:if>
+										<input class="form-row-input w-full" type="file"
+											name="file__article__${article.aid}__common__attachment__${inputNo}" />
+									</div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="flex w-full justify-center">
-				<input type="submit" value="수정" class="bg-blue-300 h-8 w-16 mt-2 mr-1 hover:bg-blue-500 rounded" />
-				<input type="button" value="취소" onclick="history.back()" class="bg-red-300 h-8 w-16 mt-2 ml-1 hover:bg-red-500 rounded" />
+			<div class="flex justify-end mt-1">
+				<input type="submit" value="수정" class="m-1 h-8 w-16 rounded bg-blue-300 hover:bg-blue-500" />
+				<input type="button" value="취소" onclick="history.back()" class="m-1 h-8 w-16 rounded bg-red-300 hover:bg-red-500" />
 			</div>
 		</form>
 	</div>

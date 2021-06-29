@@ -26,7 +26,7 @@ function Delete__Article__Confirm()
 		<div class="border-b-4 border-t-4 rounded border-blue-700">
 			<div class="flex p-4 border-b">
 				<div class="w-full">
-					<div class="">
+					<div>
 						<span class="p-3 text-4xl">${article.title}</span>
 					</div>
 					<div class="flex border-b py-2">

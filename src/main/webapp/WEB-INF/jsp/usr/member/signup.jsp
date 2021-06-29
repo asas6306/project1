@@ -224,7 +224,7 @@ function MemberSignup__checkAndSubmit(form) {
 					</div>
 					<div class="nicknameInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="text" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="email" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
 						<input type="tel" name="phoneNo" placeholder="연락처" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />

@@ -39,7 +39,7 @@
 				<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
 				<div class="text-gray-900 text-xl">
 					<div class="mt-2">
-						<input type="text" name="ID" placeholder="아이디" value="${queryString}" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="text" name="ID" placeholder="아이디" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
 						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full p-2 hover:border-blue-300" />
@@ -48,9 +48,9 @@
 						<input type="submit" value="로그인" class="h-12 w-full hover:bg-blue-300"/>
 					</div>
 					<div class="flex justify-center text-gray-300 text-sm mt-2">
-						<a href="/adm/member/signup" class="hover:text-gray-500">회원가입</a>
+						<a href="signup" class="hover:text-gray-500">회원가입</a>
 						<span class="mx-2">|</span>
-						<a href="/adm/member/find" class="hover:text-gray-500">회원찾기</a>
+						<a href="find" class="hover:text-gray-500">회원찾기</a>
 					</div>
 				</div>
 			</form>

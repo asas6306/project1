@@ -251,7 +251,7 @@ function MemberUpdate__checkAndSubmit(form) {
 					<div class="nicknameInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">이메일 : </span>
-						<input type="text" name="email" value="${loginedMember.email}" class="border" />
+						<input type="email" name="email" value="${loginedMember.email}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">연락처 : </span>

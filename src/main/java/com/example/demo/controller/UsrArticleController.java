@@ -112,6 +112,7 @@ public class UsrArticleController extends _BaseController {
 		
 		Article article = as.getArticle(aid);
 		
+		req.setAttribute("boards", ss.getAllBoardInfo(article.getArticleType()));
 		req.setAttribute("article", as.getArticleImg(article));
 		
 		return "usr/article/update";
