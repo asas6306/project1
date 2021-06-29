@@ -10,8 +10,8 @@ if (msg) {
 if (historyBack) {
 	history.back();
 }
-var redirectUrl = '${redirectUrl}'.trim();
-if (redirectUrl) {
-	location.replace(redirectUrl);
+var redirectUri = '${redirectUri}'.trim();
+if (redirectUri) {
+	location.replace(redirectUri);
 }
 </script> 

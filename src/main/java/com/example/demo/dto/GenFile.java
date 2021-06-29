@@ -41,11 +41,11 @@ public class GenFile {
 		return fid + "." + fileExt;
 	}
 
-	public String getForPrintUrl() {
+	public String getForPrintUri() {
 		return "/gen" + getBaseFileUri() + "?updateDate=" + updateDate;
 	}
 	
-	public String getDownloadUrl() {
+	public String getDownloadUri() {
 		return "/common/genFile/doDownload?fid=" + fid;
 	}
 }

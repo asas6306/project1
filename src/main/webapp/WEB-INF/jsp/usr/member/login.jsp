@@ -36,10 +36,10 @@
 		<div class="border-2 border-blue-300 rounded-xl p-4">
 			<div class="text-center text-4xl font-bold text-bold">로그인</div>
 			<form action="doLogin" method="post" onsubmit="LoginForm__checkAndSubmit(this); return false;">
-				<input type="hidden" name="redirectUrl" value="${param.redirectUrl}" />
+				<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
 				<div class="text-gray-900 text-xl">
 					<div class="mt-2">
-						<input type="text" name="ID" placeholder="아이디" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="text" name="ID" placeholder="아이디" value="${queryString}" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
 						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full p-2 hover:border-blue-300" />

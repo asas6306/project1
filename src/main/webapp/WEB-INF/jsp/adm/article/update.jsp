@@ -168,12 +168,12 @@ function ArticleUpdate__checkAndSubmit(form) {
 							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 								<div>
-									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
-										<img class="max-w-sm" src="${file.forPrintUrl}" />
+									<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
+										<img class="max-w-sm" src="${file.forPrintUri}" />
 									</a>
 								</div>
 								<div>
-									<a class="hover:underline" href="${file.downloadUrl}"
+									<a class="hover:underline" href="${file.downloadUri}"
 										target="_blank">${file.originFileName}</a>
 									(${Util.numberFormat(file.fileSize)} Byte)
 								</div>

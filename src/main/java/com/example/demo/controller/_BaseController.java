@@ -12,8 +12,8 @@ public class _BaseController {
 		return "common/redirect";
 	}
 	
-	protected String msgAndReplace(HttpServletRequest req, String msg, String redirectUrl) {
-		req.setAttribute("redirectUrl", redirectUrl);
+	protected String msgAndReplace(HttpServletRequest req, String msg, String redirectUri) {
+		req.setAttribute("redirectUri", redirectUri);
 		req.setAttribute("msg", msg);
 		
 		return "common/redirect";

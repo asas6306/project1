@@ -44,7 +44,7 @@ public class AdmMemberController extends _BaseController {
 
 	@RequestMapping("/adm/member/doLogin")
 	@ResponseBody
-	public String doLogin(HttpSession session, String redirectUrl, String ID, String PW) {
+	public String doLogin(HttpSession session, String redirectUri, String ID, String PW) {
 
 		ResultData doLoginRd = ms.login(ID);
 
@@ -61,9 +61,9 @@ public class AdmMemberController extends _BaseController {
 		session.setAttribute("loginedMember", loginedMember);
 
 		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
-		redirectUrl = Util.ifEmpty(redirectUrl, "../home/main");
+		redirectUri = Util.ifEmpty(redirectUri, "../home/main");
 
-		return Util.msgAndReplace(msg, redirectUrl);
+		return Util.msgAndReplace(msg, redirectUri);
 	}
 
 	@RequestMapping("/adm/member/signup")
@@ -78,9 +78,9 @@ public class AdmMemberController extends _BaseController {
 
 		ResultData doSignupRd = ms.signup(param);
 
-		String redirectUrl = Util.ifEmpty((String) param.get("redirectUrl"), "login");
+		String redirectUri = Util.ifEmpty((String) param.get("redirectUri"), "login");
 
-		return Util.msgAndReplace(doSignupRd.getMsg(), redirectUrl);
+		return Util.msgAndReplace(doSignupRd.getMsg(), redirectUri);
 
 	}
 
@@ -181,9 +181,9 @@ public class AdmMemberController extends _BaseController {
 
 		session.removeAttribute("loginedMember");
 
-		String redirectUrl = Util.ifEmpty(null, "login");
+		String redirectUri = Util.ifEmpty(null, "login");
 
-		return Util.msgAndReplace("로그아웃 되었습니다.", redirectUrl);
+		return Util.msgAndReplace("로그아웃 되었습니다.", redirectUri);
 	}
 
 	@RequestMapping("/adm/member/mypage")

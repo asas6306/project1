@@ -22,13 +22,13 @@ public class MavenWrapperDownloader {
 
     private static final String WRAPPER_VERSION = "0.5.6";
     /**
-     * Default URL to download the maven-wrapper.jar from, if no 'downloadUrl' is provided.
+     * Default URL to download the maven-wrapper.jar from, if no 'downloadUri' is provided.
      */
     private static final String DEFAULT_DOWNLOAD_URL = "https://repo.maven.apache.org/maven2/io/takari/maven-wrapper/"
         + WRAPPER_VERSION + "/maven-wrapper-" + WRAPPER_VERSION + ".jar";
 
     /**
-     * Path to the maven-wrapper.properties file, which might contain a downloadUrl property to
+     * Path to the maven-wrapper.properties file, which might contain a downloadUri property to
      * use instead of the default one.
      */
     private static final String MAVEN_WRAPPER_PROPERTIES_PATH =
@@ -43,7 +43,7 @@ public class MavenWrapperDownloader {
     /**
      * Name of the property which should be used to override the default download url for the wrapper.
      */
-    private static final String PROPERTY_NAME_WRAPPER_URL = "wrapperUrl";
+    private static final String PROPERTY_NAME_WRAPPER_URL = "wrapperUri";
 
     public static void main(String args[]) {
         System.out.println("- Downloader started");
@@ -51,7 +51,7 @@ public class MavenWrapperDownloader {
         System.out.println("- Using base directory: " + baseDirectory.getAbsolutePath());
 
         // If the maven-wrapper.properties exists, read it and check if it contains a custom
-        // wrapperUrl parameter.
+        // wrapperUri parameter.
         File mavenWrapperPropertyFile = new File(baseDirectory, MAVEN_WRAPPER_PROPERTIES_PATH);
         String url = DEFAULT_DOWNLOAD_URL;
         if(mavenWrapperPropertyFile.exists()) {

@@ -53,7 +53,7 @@
 												<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
 											</c:when>
 											<c:otherwise>
-												<img src="${file.forPrintUrl}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
+												<img src="${file.forPrintUri}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
 											</c:otherwise>
 										</c:choose>
 										
@@ -73,8 +73,8 @@
 											<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 											<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 												<div class="flex">
-													<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
-														<img class="w-60" src="${file.forPrintUrl}" />
+													<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
+														<img class="w-60" src="${file.forPrintUri}" />
 													</a>
 												</div>
 											</c:if>

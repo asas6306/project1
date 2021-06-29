@@ -4,7 +4,11 @@
 
 <section class="main-setting flex justify-center">
 	<div class="flex justify-center container">
-		<div class="w-4/5">ggg</div>
+		<div class="w-4/5">
+			<div>${afterLoginUri}</div>
+			<div>${encodedAfterLoginUri}</div>
+			<div></div>
+		</div>
 	</div>
 </section>
 

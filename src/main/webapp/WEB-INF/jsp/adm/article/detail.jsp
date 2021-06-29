@@ -53,8 +53,8 @@ function Delete__Article__Confirm()
 							<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 							<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 								<div>
-									<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
-										<img class="w-60" src="${file.forPrintUrl}" />
+									<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
+										<img class="w-60" src="${file.forPrintUri}" />
 									</a>
 								</div>
 							</c:if>

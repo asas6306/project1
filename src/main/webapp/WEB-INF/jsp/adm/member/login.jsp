@@ -34,7 +34,7 @@
 <section class="border-2 border-blue-300 rounded">
 	<div class="p-4">
 		<form action="doLogin" method="post" onsubmit="LoginForm__checkAndSubmit(this); return false;">
-			<input type="hidden" name="redirectUrl" value="${param.redirectUrl}" />
+			<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
 			<div class="text-gray-900 text-xl">
 				<div class="mt-2">
 					<input type="text" name="ID" placeholder="아이디" class="border-2 rounded w-full h-12 hover:border-blue-300" />

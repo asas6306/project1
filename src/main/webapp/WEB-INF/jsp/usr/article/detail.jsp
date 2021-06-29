@@ -37,7 +37,7 @@ function Delete__Article__Confirm()
 									<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-16 h-16 rounded-full bg-gray-300" />
 								</c:when>
 								<c:otherwise>
-									<img src="${file.forPrintUrl}" alt="" class="w-16 h-16 rounded-full bg-gray-300" />
+									<img src="${file.forPrintUri}" alt="" class="w-16 h-16 rounded-full bg-gray-300" />
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -66,8 +66,8 @@ function Delete__Article__Confirm()
 								<c:set var="file" value="${article.extra.file__common__attachment[fileNo]}"></c:set>
 								<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 									<div>
-										<a href="${file.forPrintUrl}" target="_blank" title="자세히 보기">
-											<img class="w-60" src="${file.forPrintUrl}" />
+										<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
+											<img class="w-60" src="${file.forPrintUri}" />
 										</a>
 									</div>
 								</c:if>
@@ -126,7 +126,7 @@ function Delete__Article__Confirm()
 										<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-12 h-12 rounded-full bg-gray-300" />
 									</c:when>
 									<c:otherwise>
-										<img src="${file.forPrintUrl}" alt="" class="w-12 h-12 rounded-full bg-gray-300" />
+										<img src="${file.forPrintUri}" alt="" class="w-12 h-12 rounded-full bg-gray-300" />
 									</c:otherwise>
 								</c:choose>
 							</div>

@@ -42,7 +42,7 @@
 							<c:forEach items='${articles}' var='article'>
 							<c:set var="thumbFileNo" value="${String.valueOf(1)}" />
 							<c:set var="thumbFile" value="${article.extra.file__common__attachment[thumbFileNo]}" />
-							<c:set var="thumbUrl" value="${thumbFile.getForPrintUrl()}" />
+							<c:set var="thumbUri" value="${thumbFile.getForPrintUri()}" />
 							<c:set var="hitCheck" value="true" />
 								<div class="flex border-b">
 									<div class="w-96 flex">
@@ -58,7 +58,7 @@
 										조회수 여기서 클릭시에만 오르도록 하는 방법은? 
 										-->
 										<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
-											<c:if test="${thumbUrl != null}">
+											<c:if test="${thumbUri != null}">
 												<i class="far fa-image text-gray-700" ></i>
 											</c:if>
 										</a>

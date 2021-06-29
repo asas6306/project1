@@ -9,7 +9,7 @@
 			<ul class="flex w-full md:w-4/5 justify-end">
 				<c:choose>
 					<c:when test="${loginedMember == null}">
-						<li><a href="../member/login?redirectUrl=${encodedAfterLoginUrl}" class="p-3 hover:text-gray-900"> <span>로그인</span>
+						<li><a href="../member/login?redirectUri=${encodedAfterLoginUri}" class="p-3 hover:text-gray-900"> <span>로그인</span>
 						</a></li>
 						<span>|</span>
 						<li><a href="../member/signup" class="p-3 hover:text-gray-900"> <span>회원가입</span>
@@ -23,7 +23,6 @@
 						</a></li>
 					</c:otherwise>
 				</c:choose>
-				
 			</ul>
 		</nav>
 	</div>
