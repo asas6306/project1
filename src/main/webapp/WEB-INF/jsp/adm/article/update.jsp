@@ -30,12 +30,14 @@ function ArticleUpdate__checkAndSubmit(form) {
 		form.title.focus();
 		return false;
 	}
+	
 	form.body.value = form.body.value.trim();
 	if ( form.body.value.length == 0 ) {
 		alert('내용을 입력해주세요.');
 		form.body.focus();
 		return false;
 	}
+	
 	var maxSizeMb = 50;
 	var maxSize = maxSizeMb * 1024 * 1024;
 	for ( let inputNo = 1; inputNo <= ArticleUpdate__fileInputMaxCount; inputNo++ ) {
@@ -50,6 +52,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 			}
 		}
 	}
+	
 	const startSubmitForm = function(data) {
 		if (data && data.body && data.body.genFileIdsStr) {
 			form.genFileIdsStr.value = data.body.genFileIdsStr;
@@ -107,6 +110,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 			success : onSuccess
 		});
 	}
+	
 	ArticleUpdate__submited = true;
 	startUploadFiles(startSubmitForm);
 }
