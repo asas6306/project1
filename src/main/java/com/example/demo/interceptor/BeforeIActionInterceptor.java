@@ -36,7 +36,7 @@ public class BeforeIActionInterceptor implements HandlerInterceptor {
 				requestUri += "?" + queryString;
 			encodedRequestUri = Util.getUriEncoded(requestUri);
 		} else {
-			if(queryString != null && queryString.length() > 0)
+			if(queryString != null && queryString.length() > 0 && !queryString.equals("redirectUri="))
 				encodedRequestUri = queryString.split("=")[1];
 		}
 		
