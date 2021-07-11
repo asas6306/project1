@@ -52,8 +52,8 @@ public class UsrMemberController extends _BaseController {
 			return Util.msgAndBack(doLoginRd.getMsg());
 
 		Member loginedMember = (Member) doLoginRd.getBody().get("loginedMember");
-		
-		if(loginedMember.getDelState() == 1) {
+
+		if (loginedMember.getDelState() == 1) {
 			return Util.msgAndBack("탈퇴한 회원입니다.");
 		} else if (!loginedMember.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
@@ -141,15 +141,15 @@ public class UsrMemberController extends _BaseController {
 
 		return new ResultData("S-1", "", "PW", PW);
 	}
-	
+
 	@GetMapping("/usr/member/getPhoneNoDup")
 	@ResponseBody
 	public ResultData getPhoneNoDup(String phoneNo) {
 		if (phoneNo == null)
 			return new ResultData("F-1", "연락처를 입력해주세요.");
-		
+
 		String[] splitPhoneNo = phoneNo.split("-");
-		
+
 		if (splitPhoneNo[0].length() != 3 && splitPhoneNo[1].length() != 4 && splitPhoneNo[2].length() != 4) {
 			return new ResultData("F-3", "올바른 전화번호 형식이 아닙니다.");
 		}
@@ -158,20 +158,20 @@ public class UsrMemberController extends _BaseController {
 
 		return new ResultData("S-1", "", "phoneNo", phoneNo);
 	}
-	
+
 	@GetMapping("/usr/member/getEmailDup")
 	@ResponseBody
 	public ResultData getEmailDup(String email) {
 		if (email == null)
 			return new ResultData("F-1", "이메일을 입력해주세요.");
-		
+
 		String[] splitEamil = email.split("@");
 		String[] splitWebsite = splitEamil[1].split(".");
-		
+
 		if (splitEamil[0].length() == 0 && splitWebsite[0].length() == 0 && splitWebsite[1].length() == 0) {
-			return new ResultData("F-2", "올바른 이메일 형식이 아닙니다.");			
+			return new ResultData("F-2", "올바른 이메일 형식이 아닙니다.");
 		}
-		
+
 		return new ResultData("S-1", "", "email", email);
 	}
 
@@ -214,7 +214,7 @@ public class UsrMemberController extends _BaseController {
 
 		int uid = Util.getAsInt(param.get("uid"), 0);
 		Member member = ms.getMember("uid", uid + "");
-		
+
 		member = ss.setSecureID(member);
 
 		req.setAttribute("member", member);
@@ -281,17 +281,33 @@ public class UsrMemberController extends _BaseController {
 
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}
-	
+
 	@RequestMapping("/usr/member/delete")
 	public String delete(HttpSession session, Integer uid) {
-		if(uid == null) {
-			Member loginedMember = (Member)session.getAttribute("loginedMember");
+		if (uid == null) {
+			Member loginedMember = (Member) session.getAttribute("loginedMember");
 			uid = loginedMember.getUid();
 		}
-		
+
 		session.removeAttribute("loginedMember");
 		ms.delete(uid);
-		
+
 		return "usr/member/login";
+	}
+
+	@RequestMapping("/usr/member/find")
+	public String find(HttpServletRequest req, String ID, String email) {
+
+		return "usr/member/find";
+	}
+	
+	@RequestMapping("/usr/member/doFind")
+	public String doFind(HttpServletRequest req, String ID, String email) {
+		List<Member> member = ms.getMembers("email", email);
+
+		if (member == null)
+			msgAndBack(req, "일치하는 회원을 찾을 수 없습니다.");
+
+		return "usr/member/find";
 	}
 }
