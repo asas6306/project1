@@ -89,4 +89,9 @@
 	<update id="delete">
 		update `member` set nickname = CONCAT(nickname ,'_d'), delState = 1, delDate = now() where uid = #{uid}
 	</update>
+	
+	<select id="getMemberForFindId" resultType="Member">
+		select * from member 
+		where name = #{name} and email = #{email}
+	</select>
 </mapper>

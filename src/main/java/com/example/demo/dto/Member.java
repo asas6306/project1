@@ -23,6 +23,7 @@ public class Member {
 	@JsonIgnore
 	private String authKey;
 	private String nickname;
+	private String name;
 	private String regDate;
 	private String email;
 	private String phoneNo;

@@ -97,7 +97,8 @@ public class MemberService {
 		
 		return md.getMembersCnt(authLevel, searchType, searchKeyword);
 	}
-
+	
+	// adm에서 사용한 메소드 : 관리자 권한별로 멤버 출력
 	public List<Member> getMembers(int authLevel, String searchType, String searchKeyword, int page, int pageCnt) {
 		
 		List<Member> members = md.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
@@ -125,5 +126,10 @@ public class MemberService {
 	public void delete(Integer uid) {
 		
 		md.delete(uid);
+	}
+
+	public Member getMemberForFindId(String name, String email) {
+		
+		return md.getMemberForFindId(name, email);
 	}
 }

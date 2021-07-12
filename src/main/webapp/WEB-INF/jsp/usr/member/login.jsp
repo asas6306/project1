@@ -50,7 +50,9 @@
 					<div class="flex justify-center text-gray-300 text-sm mt-2">
 						<a href="signup" class="hover:text-gray-500">회원가입</a>
 						<span class="mx-2">|</span>
-						<a href="find" class="hover:text-gray-500">회원찾기</a>
+						<a href="findID" class="hover:text-gray-500">아이디 찾기</a>
+						<span class="mx-2">|</span>
+						<a href="findPW" class="hover:text-gray-500">비밀번호 찾기</a>
 					</div>
 				</div>
 			</form>

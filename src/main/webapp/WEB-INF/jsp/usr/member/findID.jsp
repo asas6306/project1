@@ -9,7 +9,14 @@ function FindForm__checkAndSubmit(form) {
 	if(FindForm__checkAndSubmitDone){
 		return;
 	}
-
+	
+	if(form.name.value.length == 0) {
+		alert('이름을 입력해주세요.');
+		form.name.focus();
+		
+		return;
+	}
+	
 	if(form.email.value.length == 0) {
 		alert('이메일을 입력해주세요.');
 		form.email.focus();
@@ -26,8 +33,11 @@ FindForm__checkAndSubmitDone = true;
 	<div class="member-box container p-4">
 		<div class="border-2 border-blue-300 rounded-xl p-4">
 			<div class="text-center text-4xl font-bold text-bold">아이디 찾기</div>
-			<form action="doFind" method="post" onsubmit="FindForm__checkAndSubmit(this); return false;">
+			<form action="doFindID" method="post" onsubmit="FindForm__checkAndSubmit(this); return false;">
 				<div class="text-gray-900 text-xl">
+					<div class="my-2">
+						<input type="text" name="name" placeholder="이름을 입력해주세요." autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+					</div>
 					<div class="my-2">
 						<input type="text" name="email" placeholder="이메일을 입력해주세요." autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>

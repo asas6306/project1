@@ -295,19 +295,28 @@ public class UsrMemberController extends _BaseController {
 		return "usr/member/login";
 	}
 
-	@RequestMapping("/usr/member/find")
-	public String find(HttpServletRequest req, String ID, String email) {
+	@RequestMapping("/usr/member/findID")
+	public String findID() {
 
-		return "usr/member/find";
+		return "usr/member/findID";
 	}
 	
-	@RequestMapping("/usr/member/doFind")
-	public String doFind(HttpServletRequest req, String ID, String email) {
-		List<Member> member = ms.getMembers("email", email);
-
+	@RequestMapping("/usr/member/doFindID")
+	@ResponseBody
+	public String doFindID(String name, String email) {
+		Member member = ms.getMemberForFindId(name, email);
+		
 		if (member == null)
-			msgAndBack(req, "일치하는 회원을 찾을 수 없습니다.");
+			return Util.msgAndBack("일치하는 회원을 찾을 수 없습니다.");
+		
+		String msg = "회원님의 아이디는 " + member.getID() + " 입니다.";
+		String redirectUri = Util.ifEmpty(null, "findPW");
+		return Util.msgAndReplace(msg, redirectUri);
+	}
+	
+	@RequestMapping("/usr/member/findPW")
+	public String findPW() {
 
-		return "usr/member/find";
+		return "usr/member/findPW";
 	}
 }
