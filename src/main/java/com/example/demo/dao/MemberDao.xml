@@ -98,4 +98,8 @@
 		select * from member 
 		where name = #{name} and email = #{email}
 	</select>
+	
+	<update id="changeTempPassword">
+		update member set PW = #{tempPassword} where uid = #{uid}
+	</update>
 </mapper>

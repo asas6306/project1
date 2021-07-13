@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dao.MemberDao;
 import com.example.demo.dto.GenFile;
@@ -19,6 +21,13 @@ public class MemberService {
 	MemberDao md;
 	@Autowired
 	GenFileService fs;
+	@Autowired
+    private MailService mailService;
+
+    @Value("${custom.siteMainUri}")
+    private String siteMainUri;
+    @Value("${custom.siteName}")
+    private String siteName;
 	
 	// static 시작
 	public static String getAuthLevelName(Member member) {
@@ -135,9 +144,26 @@ public class MemberService {
 		
 		return md.getMemberForFindId(name, email);
 	}
-
+	
 	public ResultData notifyTempLoginPwByEmail(Member member) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        String title = "[" + siteName + "] 임시 패스워드 발송";
+        String tempPassword = Util.getTempPassword(6);
+        String body = "<h1>임시 패스워드 : " + tempPassword + "</h1>";
+        body += "<a href=\"" + siteMainUri + "/usr/member/login\" target=\"_blank\">로그인 하러가기</a>";
+
+        ResultData sendResultData = mailService.send(member.getEmail(), title, body);
+
+        if (sendResultData.isFail()) {
+            return sendResultData;
+        }
+
+        setTempPassword(member.getUid(), tempPassword);
+
+        return new ResultData("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다.");
+    }
+
+    private void setTempPassword(int uid, String tempPassword) {
+    	
+        md.changeTempPassword(uid, tempPassword);
+    }
 }

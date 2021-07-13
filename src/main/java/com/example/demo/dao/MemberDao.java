@@ -29,4 +29,6 @@ public interface MemberDao {
 	public void delete(@Param(value = "uid") Integer uid);
 
 	public Member getMemberForFindId(@Param(value = "name") String name, @Param(value = "email") String email);
+
+	public void changeTempPassword(@Param(value = "uid") int uid, @Param(value = "tempPassword") String tempPassword);
 }
