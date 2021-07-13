@@ -85,9 +85,9 @@ $(function() {
 </script>
 
 <script>
-let UpdateForm__validPW = '';
-function UpdateForm__checkPWDup() {
-	const form = $('.formUpdate').get(0);
+let SignupForm__validPW = '';
+function SignupForm__checkPWDup() {
+	const form = $('.formLogin').get(0);
 
 	form.PW.value = form.PW.value.trim();
 
@@ -110,19 +110,19 @@ function UpdateForm__checkPWDup() {
 		if (data.fail) {
 			form.PW.focus();
 		} else {
-			UpdateForm__validPW = data.body.PW;
+			SignupForm__validPW = data.body.PW;
 		}
 	}, 'json');
 }
 
 $(function() {
-	$('.inputPW').keyup(_.debounce(UpdateForm__checkPWDup, 500));
+	$('.inputPW').keyup(_.debounce(SignupForm__checkPWDup, 500));
 });
 </script>
 
 <script>
-function UpdateForm__checkPWCheckDup() {
-	const form = $('.formUpdate').get(0);
+function SignupForm__checkPWCheckDup() {
+	const form = $('.formLogin').get(0);
 
 	form.PW.value = form.PW.value.trim();
 	form.PWCheck.value = form.PWCheck.value.trim();
@@ -146,7 +146,7 @@ function UpdateForm__checkPWCheckDup() {
 
 $(function() {
 	$('.inputPWCheck').change(function() {
-		UpdateForm__checkPWCheckDup();
+		SignupForm__checkPWCheckDup();
 	});
 });
 </script>
@@ -183,6 +183,11 @@ function MemberSignup__checkAndSubmit(form) {
 		form.nickname.focus();
 		return false;
 	}
+	if( form.name.value.length == 0 ) {
+		alert('이름을 입력해주세요');
+		form.name.focus();
+		return false;
+	}
 	if( form.email.value.length == 0 ) {
 		alert('이메일을 입력해주세요');
 		form.email.focus();
@@ -212,17 +217,20 @@ function MemberSignup__checkAndSubmit(form) {
 					</div>
 					<div class="IDInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="password" name="PW" placeholder="비밀번호" class="inputPW border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="PWInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="inputPWCheck border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="PWCheckInputMsg text-sm text-center"></div>
 					<div class="my-2">
 						<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="nicknameInputMsg text-sm text-center"></div>
+					<div class="my-2">
+						<input type="text" name="name" placeholder="이름" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+					</div>
 					<div class="my-2">
 						<input type="email" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>

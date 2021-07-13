@@ -23,6 +23,8 @@ import com.example.demo.service.SimplerService;
 import com.example.demo.util.ResultData;
 import com.example.demo.util.Util;
 
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 @Controller
 public class UsrMemberController extends _BaseController {
 	@Autowired
@@ -73,14 +75,13 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/doSignup")
-	@ResponseBody
-	public String doSignup(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+	public String doSignup(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 
 		ResultData doSignupRd = ms.signup(param);
 
 		String redirectUri = Util.ifEmpty((String) param.get("redirectUri"), "login");
 
-		return Util.msgAndReplace(doSignupRd.getMsg(), redirectUri);
+		return msgAndReplace(req, doSignupRd.getMsg(), redirectUri);
 
 	}
 
@@ -129,7 +130,6 @@ public class UsrMemberController extends _BaseController {
 	public ResultData getPWDup(String PW) {
 		if (PW == null)
 			return new ResultData("F-1", "비밀번호를 입력해주세요.");
-
 		if (PW.length() < 5)
 			return new ResultData("F-6", "비밀번호를 8자 이상으로 입력하세요.");
 		if (PW.length() > 15)
@@ -137,7 +137,7 @@ public class UsrMemberController extends _BaseController {
 		if (Util.allNumberString(PW))
 			return new ResultData("F-3", "비밀번호는 숫자로만 구성될 수 없습니다.");
 		if (Util.isStandardLoginIdCheck(PW) == false)
-			return new ResultData("F-5", "비밀번호는 영문과 숫자의 조합으로 구성되어야 합니다.");
+			return new ResultData("F-5", "비밀번호 형식을 확인해주세요.");
 
 		return new ResultData("S-1", "", "PW", PW);
 	}
@@ -268,6 +268,7 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/doUpdate")
+	@RequestBody
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
 
 		param.remove("PWCheck");
@@ -318,5 +319,23 @@ public class UsrMemberController extends _BaseController {
 	public String findPW() {
 
 		return "usr/member/findPW";
+	}
+	
+	@RequestMapping("/usr/member/doFindPW")
+	@ResponseBody
+	public String doFindPW(String ID, String email) {
+		Member member = ms.getMember("ID", ID);
+		
+		if (member == null) {
+	        return Util.msgAndBack("일치하는 회원이 존재하지 않습니다.");
+	    }
+
+	    if (!member.getEmail().equals(email)) {
+	        return Util.msgAndBack("일치하는 회원이 존재하지 않습니다.");
+	    }
+
+	    ResultData notifyTempLoginPwByEmailRs = ms.notifyTempLoginPwByEmail(member);
+
+	    return Util.msgAndReplace(notifyTempLoginPwByEmailRs.getMsg(), "login");
 	}
 }

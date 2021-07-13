@@ -74,7 +74,10 @@ public class MemberService {
 		
 		Member member = md.getMember(type, itemValue);
 		
-		return getMemberImg(member);
+		if(member != null)
+			return getMemberImg(member);
+		
+		return member;
 	}
 
 	public boolean authCheck(Member loginedMember) {
@@ -131,5 +134,10 @@ public class MemberService {
 	public Member getMemberForFindId(String name, String email) {
 		
 		return md.getMemberForFindId(name, email);
+	}
+
+	public ResultData notifyTempLoginPwByEmail(Member member) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

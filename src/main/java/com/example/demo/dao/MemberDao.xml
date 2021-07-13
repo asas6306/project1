@@ -12,7 +12,8 @@
 	
 	<insert id="signup" useGeneratedKeys="true" keyProperty="uid">
 		insert into `member` set
-		ID = #{ID}, PW = #{PW}, nickname = #{nickname}, email = #{email}, phoneNo = #{phoneNo}
+		ID = #{ID}, PW = #{PW}, nickname = #{nickname}, 
+		name = #{name}, email = #{email}, phoneNo = #{phoneNo}
 	</insert>
 	
 	<select id="getMember" resultType="Member">
