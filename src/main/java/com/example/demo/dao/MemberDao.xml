@@ -30,6 +30,9 @@
 			<when test="type=='nickname'">
 				and nickname = #{itemValue}
 			</when>
+			<when test="type=='email'">
+				and email = #{itemValue}
+			</when>
 		</choose>
 	</select>
 	

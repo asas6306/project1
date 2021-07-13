@@ -40,9 +40,6 @@ function SignupForm__checkIDDup() {
 }
 
 $(function() {
-	$('.inputLoginId').change(function() {
-		SignupForm__checkIDDup();
-	});
 	$('.inputLoginId').keyup(_.debounce(SignupForm__checkIDDup, 500));
 });
 
@@ -77,10 +74,75 @@ function SignupForm__checkNicknameDup() {
 }
 
 $(function() {
-	$('.inputNickname').change(function() {
-		SignupForm__checkNicknameDup();
-	});
 	$('.inputNickname').keyup(_.debounce(SignupForm__checkNicknameDup, 500));
+});
+
+let SignupForm__validEmail = '';
+function SignupForm__checkEmailDup() {
+	const form = $('.formLogin').get(0);
+
+	form.email.value = form.email.value.trim();
+
+	if (form.email.value.length == 0) {
+		return;
+	}
+	
+	$.get('getEmailDup', {
+		email : form.email.value
+	}, function(data) {
+		let colorClass = 'text-green-500';
+
+		if (data.fail) {
+			colorClass = 'text-red-500';
+		}
+
+		$('.emailInputMsg').html(
+				"<span class='" + colorClass + "'>" + data.msg);
+
+		if (data.fail) {
+			form.email.focus();
+		} else {
+			SignupForm__validEmail = data.body.email;
+		}
+	}, 'json');
+}
+
+$(function() {
+	$('.inputEmail').keyup(_.debounce(SignupForm__checkEmailDup, 500));
+});
+
+let SignupForm__validPhoneNo = '';
+function SignupForm__checkPhoneNoDup() {
+	const form = $('.formLogin').get(0);
+
+	form.phoneNo.value = form.phoneNo.value.trim();
+
+	if (form.phoneNo.value.length == 0) {
+		return;
+	}
+	
+	$.get('getPhoneNoDup', {
+		phoneNo : form.phoneNo.value
+	}, function(data) {
+		let colorClass = 'text-green-500';
+
+		if (data.fail) {
+			colorClass = 'text-red-500';
+		}
+		
+		$('.phoneNoInputMsg').html(
+				"<span class='" + colorClass + "'>" + data.msg);
+
+		if (data.fail) {
+			form.phoneNo.focus();
+		} else {
+			SignupForm__validPhoneNo = data.body.phoneNo;
+		}
+	}, 'json');
+}
+
+$(function() {
+	$('.inputPhoneNo').keyup(_.debounce(SignupForm__checkPhoneNoDup, 500));
 });
 </script>
 
@@ -232,11 +294,13 @@ function MemberSignup__checkAndSubmit(form) {
 						<input type="text" name="name" placeholder="이름" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
-						<input type="email" name="email" placeholder="이메일" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="email" name="email" placeholder="이메일" autocomplete="off" class="inputEmail border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
+					<div class="emailInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="tel" name="phoneNo" placeholder="연락처" autocomplete="off" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="tel" name="phoneNo" placeholder="연락처" autocomplete="off" class="inputPhoneNo border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
+					<div class="phoneNoInputMsg text-sm text-center mb-2"></div>
 					<div class="flex">
 						<input type="submit" value="가입" class="h-12 w-full hover:bg-blue-300 border mr-1 rounded"/>
 						<input type="button" value="취소" onclick="history.back()" class="h-12 w-full hover:bg-red-300 ml-1 rounded"/>
