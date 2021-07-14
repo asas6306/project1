@@ -30,5 +30,5 @@ public interface MemberDao {
 
 	public Member getMemberForFindId(@Param(value = "name") String name, @Param(value = "email") String email);
 
-	public void changeTempPassword(@Param(value = "uid") int uid, @Param(value = "tempPassword") String tempPassword);
+	public void setTempPassword(@Param(value = "uid") int uid, @Param(value = "tempPassword") String tempPassword);
 }

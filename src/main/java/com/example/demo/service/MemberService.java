@@ -164,6 +164,6 @@ public class MemberService {
 
     private void setTempPassword(int uid, String tempPassword) {
     	
-        md.changeTempPassword(uid, tempPassword);
+        md.setTempPassword(uid, tempPassword);
     }
 }

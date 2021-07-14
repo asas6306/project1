@@ -4,9 +4,9 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
 <script>
-	const LoginForm__checkAndSubmitDone = false;
-	function LoginForm__checkAndSubmit(form) {
-		if(LoginForm__checkAndSubmitDone)
+	const FindPWForm__checkAndSubmitDone = false;
+	function FindPWForm__checkAndSubmit(form) {
+		if(FindPWForm__checkAndSubmitDone)
 			return;
 	}
 	
@@ -20,37 +20,37 @@
 		return;
 	}
 	
-	if(form.PW.value.length == 0) {
-		alert('비밀번호를 입력해주세요.');
-		form.PW.focus();
+	if(form.email.value.length == 0) {
+		alert('이메일을 입력해주세요.');
+		form.email.focus();
 		
 		return;
 	}
 	
 	form.submit();
-	LoginForm__checkAndSubmitDone = true;
+	FindPWForm__checkAndSubmitDone = true;
 </script>
 
 <section class="flex justify-center">
 	<div class="member-box container p-4">
 		<div class="border-2 border-blue-300 rounded-xl p-4">
-			<div class="text-center text-4xl font-bold text-bold">로그인</div>
-			<form action="doLogin" method="post" onsubmit="LoginForm__checkAndSubmit(this); return false;">
+			<div class="text-center text-4xl font-bold text-bold">비밀번호 찾기</div>
+			<form action="doFindPW" method="post" onsubmit="FindPWForm__checkAndSubmit(this); return false;">
 				<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
 				<div class="text-gray-900 text-xl">
 					<div class="mt-2">
 						<input type="text" name="ID" placeholder="아이디" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="my-2">
-						<input type="password" name="PW" placeholder="비밀번호" class="border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="email" name="email" placeholder="이메일" class="border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
-					<div>
-						<input type="submit" value="로그인" class="h-12 w-full hover:bg-blue-300"/>
+					<div class="flex justify-center">
+						<input type="submit" value="찾기" class="rounded p-1 px-2 bg-blue-300 hover:bg-blue-500"/>
+						<div class="p-1"></div>
+						<input type="button" value="취소" onclick="history.back()" class="rounded p-1 px-2 bg-red-300 hover:bg-red-500"/>
 					</div>
 					<div class="flex justify-center text-gray-300 text-sm mt-2">
 						<a href="signup" class="hover:text-gray-500">회원가입</a>
-						<span class="mx-2">|</span>
-						<a href="find" class="hover:text-gray-500">회원찾기</a>
 					</div>
 				</div>
 			</form>

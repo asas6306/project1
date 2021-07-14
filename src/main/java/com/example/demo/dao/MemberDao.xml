@@ -99,7 +99,7 @@
 		where name = #{name} and email = #{email}
 	</select>
 	
-	<update id="changeTempPassword">
+	<update id="setTempPassword">
 		update member set PW = #{tempPassword} where uid = #{uid}
 	</update>
 </mapper>

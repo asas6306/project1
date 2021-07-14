@@ -82,6 +82,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 				.addPathPatterns("/usr/member/signup").addPathPatterns("/usr/member/doSignup")
 				.addPathPatterns("/usr/member/login").addPathPatterns("/usr/member/doLogin")
 				.addPathPatterns("/usr/member/signup").addPathPatterns("/usr/member/doSignup");
+				.addPathPatterns("/usr/member/findID").addPathPatterns("/usr/member/doFindID");
+				.addPathPatterns("/usr/member/findPW").addPathPatterns("/usr/member/doFindPW");
 	}
 
 	@Override
