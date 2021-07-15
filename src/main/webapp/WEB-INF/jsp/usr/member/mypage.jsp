@@ -6,8 +6,7 @@
 <%@ page import="com.example.demo.util.Util"%>
 
 <script>
-function Delete__Articles__Confirm()
-{
+function Delete__Articles__Confirm() {
 	const result = confirm('정말로 삭제하시겠습니까?');
 	if(result){
 		onSuccess();
@@ -22,7 +21,7 @@ function Delete__Articles__Confirm()
 			<div class="flex justify-between">
 				<span class="flex items-center justify-center h-20 text-4xl font-bold px-1">마이페이지</span>
 				<div class="flex justify-center items-center">
-					<a href="update" class="p-1 h-7 rounded-full text-sm bg-blue-300 hover:bg-blue-500 flex-shrink-0">정보수정</a>
+					<a href="authentication?page=update" class="p-1 h-7 rounded-full text-sm bg-blue-300 hover:bg-blue-500 flex-shrink-0">정보수정</a>
 				</div>
 			</div>
 			<div class="flex border-t-4 border-blue-500 rounded p-2">

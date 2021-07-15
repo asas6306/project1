@@ -6,9 +6,8 @@
 <script>
 const FindIDForm__checkAndSubmitDone = false;
 function FindIDForm__checkAndSubmit(form) {
-	if(FindIDForm__checkAndSubmitDone){
+	if(FindIDForm__checkAndSubmitDone)
 		return;
-	}
 	
 	if(form.name.value.length == 0) {
 		alert('이름을 입력해주세요.');

@@ -16,18 +16,16 @@ function UpdateForm__checkNicknameDup() {
 
 	form.nickname.value = form.nickname.value.trim();
 
-	if (form.nickname.value.length == 0) {
+	if (form.nickname.value.length == 0)
 		return;
-	}
 
 	$.get('getNicknameDup', {
 		nickname : form.nickname.value
 	}, function(data) {
 		let colorClass = 'text-green-500';
 
-		if (data.fail) {
+		if (data.fail)
 			colorClass = 'text-red-500';
-		}
 
 		$('.nicknameInputMsg').html(
 				"<span class='" + colorClass + "'>" + data.msg);

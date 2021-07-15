@@ -342,4 +342,24 @@ public class UsrMemberController extends _BaseController {
 
 	    return Util.msgAndReplace(notifyTempLoginPwByEmailRs.getMsg(), "login");
 	}
+	
+	@RequestMapping("/usr/member/authentication")
+	public String authentication(HttpServletRequest req, String page) {
+		
+		req.setAttribute("page", page);
+		
+		return "usr/member/authentication";
+	}
+	
+	@RequestMapping("/usr/member/doAuthentication")
+	public String doAuthentication(HttpSession session, String PW, String page) {
+		Member loginedMember = (Member)session.getAttribute("loginedMember");
+		String orignalPW = loginedMember.getPW();
+		
+		if (!PW.equals(orignalPW)) {
+	        return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
+	    }
+		
+		return "usr/member/" + page;
+	}
 }

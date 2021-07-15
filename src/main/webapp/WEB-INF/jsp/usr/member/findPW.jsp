@@ -8,7 +8,6 @@
 	function FindPWForm__checkAndSubmit(form) {
 		if(FindPWForm__checkAndSubmitDone)
 			return;
-	}
 	
 	form.ID.value = form.ID.value.trim();
 	form.PW.value = form.PW.value.trim();
@@ -29,6 +28,7 @@
 	
 	form.submit();
 	FindPWForm__checkAndSubmitDone = true;
+}
 </script>
 
 <section class="flex justify-center">

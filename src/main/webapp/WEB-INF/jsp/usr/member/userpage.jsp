@@ -6,8 +6,7 @@
 <%@ page import="com.example.demo.util.Util"%>
 
 <script>
-function Delete__Articles__Confirm()
-{
+function Delete__Articles__Confirm() {
 	const result = confirm('정말로 삭제하시겠습니까?');
 	if(result){
 		onSuccess();
