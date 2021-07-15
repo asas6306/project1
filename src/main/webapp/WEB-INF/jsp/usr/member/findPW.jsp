@@ -10,8 +10,8 @@
 			return;
 	}
 	
-	form.ID.value = form.ID.value=trim();
-	form.PW.value = form.PW.value=trim();
+	form.ID.value = form.ID.value.trim();
+	form.PW.value = form.PW.value.trim();
 	
 	if(form.ID.value.length == 0) {
 		alert('아이디를 입력해주세요.');
