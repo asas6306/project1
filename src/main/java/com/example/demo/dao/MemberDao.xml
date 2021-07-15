@@ -37,7 +37,15 @@
 	</select>
 	
 	<update id="update">
-		update member set PW = #{PW}, nickname = #{nickname}, email = #{email}, phoneNo = #{phoneNo}
+		update member 
+		<set>
+		<if test="PW != null">
+			PW = #{PW}, 
+		</if>
+		nickname = #{nickname}, 
+		email = #{email}, 
+		phoneNo = #{phoneNo}
+		</set>
 		where uid = #{uid}
 	</update>
 	

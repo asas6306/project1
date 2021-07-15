@@ -211,7 +211,9 @@ function MemberUpdate__checkAndSubmit(form) {
 		});
 	}
 	
-	form.PW.value = sha256(form.PWInput.value);
+	if(form.PWInput.value.length != 0) {
+		form.PW.value = sha256(form.PWInput.value);
+	}
 	form.PWInput.value = '';
 	form.PWCheck.value = '';
 	

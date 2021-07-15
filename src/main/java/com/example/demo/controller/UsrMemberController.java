@@ -272,9 +272,9 @@ public class UsrMemberController extends _BaseController {
 	@RequestMapping("/usr/member/doUpdate")
 	@RequestBody
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
-
-		param.remove("PWCheck");
-
+		if(String.valueOf(param.get("PW")).length() == 0)
+			param.put("PW", null);
+		
 		ResultData doUpdateRd = ms.update(param);
 
 		Member loginedMember = ms.getMember("ID", String.valueOf(param.get("ID")));
