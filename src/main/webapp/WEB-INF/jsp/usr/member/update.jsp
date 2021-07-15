@@ -227,8 +227,6 @@ function MemberUpdate__checkAndSubmit(form) {
 		<span class="flex items-center justify-center h-20 text-4xl font-bold">마이페이지</span>
 		<form onsubmit="MemberUpdate__checkAndSubmit(this); return false;" action="doUpdate" method="post" enctype="multipart/form-data" class="formUpdate border-t-2 border-b-2">
 			<input type="hidden" name="genFileIdsStr" value="" /> 
-			<input type="hidden" name="uid" value="${loginedMember.uid}" />
-			<input type="hidden" name="ID" value="${loginedMember.ID}" />
 			<input type="hidden" name="PW" />
 			<div class="flex">
 				<div class="input-file-wrap">
