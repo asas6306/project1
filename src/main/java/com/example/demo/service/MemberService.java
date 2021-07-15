@@ -157,7 +157,7 @@ public class MemberService {
             return sendResultData;
         }
 
-        setTempPassword(member.getUid(), tempPassword);
+        setTempPassword(member.getUid(), Util.sha256(tempPassword));
 
         return new ResultData("S-1", "계정의 이메일주소로 임시 패스워드가 발송되었습니다.");
     }

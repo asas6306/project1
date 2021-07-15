@@ -47,22 +47,22 @@ public class UsrMemberController extends _BaseController {
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpSession session, String redirectUri, String ID, String PW) {
-
+		System.out.println("테스트 : " + PW);
 		ResultData doLoginRd = ms.login(ID);
 
 		if (doLoginRd.isFail())
 			return Util.msgAndBack(doLoginRd.getMsg());
 
-		Member loginedMember = (Member) doLoginRd.getBody().get("loginedMember");
-
-		if (loginedMember.getDelState() == 1) {
+		Member member = (Member) doLoginRd.getBody().get("loginedMember");
+		
+		if (member.getDelState() == 1) {
 			return Util.msgAndBack("탈퇴한 회원입니다.");
-		} else if (!loginedMember.getPW().equals(PW))
+		} else if (!member.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 
-		session.setAttribute("loginedMember", loginedMember);
+		session.setAttribute("loginedMember", member);
 
-		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
+		String msg = String.format("%s님 환영합니다.", member.getNickname());
 		redirectUri = Util.ifEmpty(redirectUri, "../home/main");
 
 		return Util.msgAndReplace(msg, redirectUri);
@@ -130,7 +130,7 @@ public class UsrMemberController extends _BaseController {
 	public ResultData getPWDup(String PW) {
 		if (PW == null)
 			return new ResultData("F-1", "비밀번호를 입력해주세요.");
-		if (PW.length() < 5)
+		if (PW.length() < 8)
 			return new ResultData("F-6", "비밀번호를 8자 이상으로 입력하세요.");
 		if (PW.length() > 15)
 			return new ResultData("F-6", "비밀번호를 15자 이하로 입력하세요.");

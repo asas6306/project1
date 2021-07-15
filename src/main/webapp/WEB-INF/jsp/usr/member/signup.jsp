@@ -4,6 +4,8 @@
 
 <!-- debounce 사용을 위한 스크립트 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<!-- sha256 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <script>
 const SignupForm__checkAndSubmitDone = false;
@@ -151,14 +153,14 @@ let SignupForm__validPW = '';
 function SignupForm__checkPWDup() {
 	const form = $('.formLogin').get(0);
 
-	form.PW.value = form.PW.value.trim();
+	form.PWInput.value = form.PWInput.value.trim();
 
-	if (form.PW.value.length == 0) {
+	if (form.PWInput.value.length == 0) {
 		return;
 	}
 
 	$.get('getPWDup', {
-		PW : form.PW.value
+		PW : form.PWInput.value
 	}, function(data) {
 		let colorClass = 'text-green-500';
 
@@ -170,9 +172,9 @@ function SignupForm__checkPWDup() {
 				"<span class='" + colorClass + "'>" + data.msg);
 
 		if (data.fail) {
-			form.PW.focus();
+			form.PWInput.focus();
 		} else {
-			SignupForm__validPW = data.body.PW;
+			SignupForm__validPW = data.body.PWInput;
 		}
 	}, 'json');
 }
@@ -186,10 +188,10 @@ $(function() {
 function SignupForm__checkPWCheckDup() {
 	const form = $('.formLogin').get(0);
 
-	form.PW.value = form.PW.value.trim();
+	form.PWInput.value = form.PWInput.value.trim();
 	form.PWCheck.value = form.PWCheck.value.trim();
 
-	if (form.PW.value.length == 0) {
+	if (form.PWInput.value.length == 0) {
 		return;
 	}
 	if (form.PWCheck.value.length == 0) {
@@ -197,7 +199,7 @@ function SignupForm__checkPWCheckDup() {
 	}
 	
 	let colorClass = 'text-red-500';
-	if ( form.PW.value != form.PWCheck.value ) {
+	if ( form.PWInput.value != form.PWCheck.value ) {
 		$('.PWCheckInputMsg').html(
 				"<span class='" + colorClass + "'>" + "비밀번호가 일치하지 않습니다");
 		form.PWCheck.focus();
@@ -225,9 +227,9 @@ function MemberSignup__checkAndSubmit(form) {
 		form.ID.focus();
 		return false;
 	}
-	if( form.PW.value.length == 0 ) {
+	if( form.PWInput.value.length == 0 ) {
 		alert('비밀번호를 입력해주세요');
-		form.PW.focus();
+		form.PWInput.focus();
 		return false;
 	}
 	if( form.PWCheck.value.length == 0 ) {
@@ -235,7 +237,7 @@ function MemberSignup__checkAndSubmit(form) {
 		form.PWCheck.focus();
 		return false;
 	}
-	if( form.PW.value != form.PWCheck.value ){
+	if( form.PWInput.value != form.PWCheck.value ){
 		alert('비밀번호가 일치하지 않습니다.');
 		form.PWCheck.focus();
 		return false;
@@ -261,6 +263,10 @@ function MemberSignup__checkAndSubmit(form) {
 		return false;
 	}
 	
+	form.PW.value = sha256(form.PWInput.value);
+	form.PWInput.value = '';
+	form.PWCheck.value = '';
+	
 	form.submit();
 	MemberSignup__submited = true;
 }
@@ -270,6 +276,7 @@ function MemberSignup__checkAndSubmit(form) {
 	<div class="member-box container p-4">
 		<div class="border-2 border-blue-300 rounded-xl p-5">
 			<form onsubmit="MemberSignup__checkAndSubmit(this); return false;" action="doSignup" method="post" class="formLogin" >
+				<input type="hidden" name="PW">
 				<div class="text-gray-900 text-xl">
 					<div class="flex justify-center">
 						<span class="text-4xl">회원가입</span>
@@ -279,7 +286,7 @@ function MemberSignup__checkAndSubmit(form) {
 					</div>
 					<div class="IDInputMsg text-sm text-center"></div>
 					<div class="my-2">
-						<input type="password" name="PW" placeholder="비밀번호" class="inputPW border-2 rounded w-full p-2 hover:border-blue-300" />
+						<input type="password" name="PWInput" placeholder="비밀번호" class="inputPW border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="PWInputMsg text-sm text-center"></div>
 					<div class="my-2">
