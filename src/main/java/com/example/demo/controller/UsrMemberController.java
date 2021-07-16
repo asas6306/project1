@@ -256,9 +256,17 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/update")
-	public String update(HttpServletRequest req) {
+	public String update(HttpSession session, HttpServletRequest req, String modifyPrivateAuthCode) {
+		
+		Member loginedMember = (Member)session.getAttribute("loginedMember");
+        ResultData checkValidModifyPrivateAuthCodeResultData = 
+        		ms.checkValidModifyPrivateAuthCode(loginedMember.getUid(), modifyPrivateAuthCode);
 
-		return "usr/member/update";
+        if ( checkValidModifyPrivateAuthCodeResultData.isFail() ) {
+            return msgAndBack(req, checkValidModifyPrivateAuthCodeResultData.getMsg());
+        }
+		
+		return "/usr/member/update";
 	}
 
 	@RequestMapping("/usr/member/userUpdate")

@@ -266,7 +266,7 @@ function MemberUpdate__checkAndSubmit(form) {
 					</div>
 				</div>
 			</div>
-			<div class="flex justify-center items-center w-24 w-full">
+			<div class="flex justify-center items-center w-24 w-full m-2">
 				<input type="submit" value="수정" class="bg-blue-300 w-12 p-1 border hover:bg-blue-500 rounded" />
 				<input type="button" value="취소" class="bg-red-300 w-12 p-1 mx-1 border hover:bg-red-500 rounded" onclick="history.back()" />
 			</div>

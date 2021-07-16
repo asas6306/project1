@@ -23,6 +23,8 @@ public class MemberService {
 	GenFileService fs;
 	@Autowired
     private MailService mailService;
+	@Autowired
+    private AttrService attrService;
 
     @Value("${custom.siteMainUri}")
     private String siteMainUri;
@@ -166,4 +168,11 @@ public class MemberService {
     	
         md.setTempPassword(uid, tempPassword);
     }
+
+	public ResultData checkValidModifyPrivateAuthCode(int uid, String modifyPrivateAuthCode) {
+		if (attrService.getValue("member__" + uid + "__extra__modifyPrivateAuthCode").equals(modifyPrivateAuthCode))
+			return new ResultData("S-1", "유효한 키 입니다.");
+
+        return new ResultData("F-1", "유효하지 않은 키 입니다.");
+	}
 }
