@@ -256,14 +256,14 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/update")
-	public String update(HttpSession session, HttpServletRequest req, String modifyPrivateAuthCode) {
+	public String update(HttpSession session, HttpServletRequest req, String checkPasswordAuthCode) {
 		
 		Member loginedMember = (Member)session.getAttribute("loginedMember");
-        ResultData checkValidModifyPrivateAuthCodeResultData = 
-        		ms.checkValidModifyPrivateAuthCode(loginedMember.getUid(), modifyPrivateAuthCode);
+        ResultData checkValidCheckPasswordAuthCodeResultData = 
+        		ms.checkValidCheckPasswordAuthCode(loginedMember.getUid(), checkPasswordAuthCode);
 
-        if ( checkValidModifyPrivateAuthCodeResultData.isFail() ) {
-            return msgAndBack(req, checkValidModifyPrivateAuthCodeResultData.getMsg());
+        if ( checkValidCheckPasswordAuthCodeResultData.isFail() ) {
+            return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
         }
 		
 		return "/usr/member/update";
@@ -282,6 +282,13 @@ public class UsrMemberController extends _BaseController {
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		Member loginedMember = (Member)session.getAttribute("loginedMember");
 		int uid = loginedMember.getUid();
+		
+		ResultData checkValidCheckPasswordAuthCodeResultData = 
+				ms.checkValidCheckPasswordAuthCode(uid, String.valueOf(param.get("checkPasswordAuthCode")));
+
+        if ( checkValidCheckPasswordAuthCodeResultData.isFail() ) {
+            return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
+        }
 		
 		if(String.valueOf(param.get("PW")).length() == 0)
 			param.put("PW", null);
@@ -352,15 +359,15 @@ public class UsrMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/member/authentication")
-	public String authentication(HttpServletRequest req, String page) {
-		
-		req.setAttribute("page", page);
+	public String authentication(HttpServletRequest req) {
 		
 		return "usr/member/authentication";
 	}
 	
 	@RequestMapping("/usr/member/doAuthentication")
-	public String doAuthentication(HttpSession session, String PW, String page) {
+	@ResponseBody
+	public String doAuthentication(HttpSession session, String PW, String redirectUri) {
+		
 		Member loginedMember = (Member)session.getAttribute("loginedMember");
 		String orignalPW = loginedMember.getPW();
 		
@@ -368,6 +375,10 @@ public class UsrMemberController extends _BaseController {
 	        return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 	    }
 		
-		return "usr/member/" + page;
+		String authCode = ms.genCheckPasswordAuthCode(loginedMember.getUid());
+		
+		redirectUri = Util.getNewUri(redirectUri, "checkPasswordAuthCode", authCode);
+		
+		return Util.msgAndReplace(null, redirectUri);
 	}
 }

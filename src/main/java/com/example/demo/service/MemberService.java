@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -169,10 +170,20 @@ public class MemberService {
         md.setTempPassword(uid, tempPassword);
     }
 
-	public ResultData checkValidModifyPrivateAuthCode(int uid, String modifyPrivateAuthCode) {
-		if (attrService.getValue("member__" + uid + "__extra__modifyPrivateAuthCode").equals(modifyPrivateAuthCode))
+	public ResultData checkValidCheckPasswordAuthCode(int uid, String checkPasswordAuthCode) {
+		if (attrService.getValue("member__" + uid + "__extra__checkPasswordAuthCode").equals(checkPasswordAuthCode))
 			return new ResultData("S-1", "유효한 키 입니다.");
 
         return new ResultData("F-1", "유효하지 않은 키 입니다.");
+	}
+
+	public String genCheckPasswordAuthCode(int uid) {
+		String attrName = "member__" + uid + "__extra__checkPasswordAuthCode";
+        String authCode = UUID.randomUUID().toString();
+        String expireDate = Util.getDateStrLater(60 * 60);
+
+        attrService.setValue(attrName, authCode, expireDate);
+
+        return authCode;
 	}
 }

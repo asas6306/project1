@@ -78,28 +78,29 @@ public class Util {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("<script>");
-		sb.append("alert('" + msg + "');");
+		if(msg != null)
+			sb.append("alert('" + msg + "');");
 		sb.append("location.replace('" + url + "');");
 		sb.append("</script>");
 
 		return sb.toString();
 	}
-	
+
 	public static boolean allNumberString(String str) {
-		for(int i = 0; i<str.length(); i++)
-			if(Character.isDigit(str.charAt(i)) == false)
+		for (int i = 0; i < str.length(); i++)
+			if (Character.isDigit(str.charAt(i)) == false)
 				return false;
-		
+
 		return true;
 	}
 
 	public static boolean startsWithNumber(String str) {
-		
+
 		return Character.isDigit(str.charAt(0));
 	}
 
 	public static boolean isStandardLoginIdCheck(String str) {
-		
+
 		// 조건 : 5자 이상 15자 이하 / 숫자시작 금지 / _, 알파벳, 숫자
 		return Pattern.matches("^[a-zA-Z]{1}[a-zA-Z0-9_]{4,14}$", str);
 	}
@@ -137,7 +138,7 @@ public class Util {
 
 		return data;
 	}
-	
+
 	// 인터셉트 관련 유틸메소드
 	public static Map<String, Object> getParamMap(HttpServletRequest request) {
 		Map<String, Object> param = new HashMap<>();
@@ -176,7 +177,7 @@ public class Util {
 	public static <T> T ifNull(T data, T defaultValue) {
 		return data != null ? data : defaultValue;
 	}
-	
+
 	public static <T> T reqAttr(HttpServletRequest req, String attrName, T defaultValue) {
 		return (T) ifNull(req.getAttribute(attrName), defaultValue);
 	}
@@ -253,74 +254,119 @@ public class Util {
 
 		return true;
 	}
-	
+
 	public static String numberFormat(int num) {
 		DecimalFormat df = new DecimalFormat("###,###,###");
 
 		return df.format(num);
 	}
-	
+
 	public static String dateFormat(String articleDate) {
 		LocalDateTime nowDate = LocalDateTime.now();
-		
+
 		String[] dateSplit1 = articleDate.split(" ");
 		String[] dateSplit2 = dateSplit1[0].split("-");
 		String[] dateSplit3 = dateSplit1[1].split(":");
-		
+
 		int year = Util.getAsInt(dateSplit2[0], 0);
 		int month = Util.getAsInt(dateSplit2[1], 0);
 		int day = Util.getAsInt(dateSplit2[2], 0);
-		
+
 		int hour = Util.getAsInt(dateSplit3[0], 0);
 		int minute = Util.getAsInt(dateSplit3[1], 0);
-		
+
 		String format = "";
-		if(nowDate.getYear() == year && nowDate.getMonthValue() == month && nowDate.getDayOfMonth() == day) {		
+		if (nowDate.getYear() == year && nowDate.getMonthValue() == month && nowDate.getDayOfMonth() == day) {
 			format = dateSplit3[0] + ":" + dateSplit3[1];
 		} else {
 			format = dateSplit2[0] + "." + dateSplit2[1] + "." + dateSplit2[2] + ".";
 		}
-		
+
 		return format;
 	}
-	
+
 	public static String setBoardName(String boardName) {
-		if(boardName.length() > 2)
+		if (boardName.length() > 2)
 			boardName = boardName.substring(0, 2);
 		return boardName;
 	}
-	
+
+	public static String getNewUrlRemoved(String uri, String paramName) {
+		String deleteStrStarts = paramName + "=";
+		int delStartPos = uri.indexOf(deleteStrStarts);
+		if (delStartPos != -1) {
+			int delEndPos = uri.indexOf("&", delStartPos);
+			if (delEndPos != -1) {
+				delEndPos++;
+				uri = uri.substring(0, delStartPos) + uri.substring(delEndPos, uri.length());
+			} else {
+				uri = uri.substring(0, delStartPos);
+			}
+		}
+		if (uri.charAt(uri.length() - 1) == '?') {
+			uri = uri.substring(0, uri.length() - 1);
+		}
+		if (uri.charAt(uri.length() - 1) == '&') {
+			uri = uri.substring(0, uri.length() - 1);
+		}
+		return uri;
+	}
+
+	public static String getNewUri(String uri, String paramName, String paramValue) {
+		uri = getNewUrlRemoved(uri, paramName);
+		if (uri.contains("?")) {
+			uri += "&" + paramName + "=" + paramValue;
+		} else {
+			uri += "?" + paramName + "=" + paramValue;
+		}
+		uri = uri.replace("?&", "?");
+		return uri;
+	}
+
+	public static String getNewUriAndEncoded(String uri, String paramName, String pramValue) {
+		return getUriEncoded(getNewUri(uri, paramName, pramValue));
+	}
+
 	public static String getTempPassword(int length) {
-        int index = 0;
-        char[] charArr = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+		int index = 0;
+		char[] charArr = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
+				'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
-        StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer();
 
-        for (int i = 0; i < length; i++) {
-            index = (int) (charArr.length * Math.random());
-            sb.append(charArr[index]);
-        }
+		for (int i = 0; i < length; i++) {
+			index = (int) (charArr.length * Math.random());
+			sb.append(charArr[index]);
+		}
 
-        return sb.toString();
-    }
+		return sb.toString();
+	}
 
-    public static String sha256(String base) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(base.getBytes("UTF-8"));
-            StringBuffer hexString = new StringBuffer();
+	public static String sha256(String base) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hash = digest.digest(base.getBytes("UTF-8"));
+			StringBuffer hexString = new StringBuffer();
 
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if (hex.length() == 1)
-                    hexString.append('0');
-                hexString.append(hex);
-            }
+			for (int i = 0; i < hash.length; i++) {
+				String hex = Integer.toHexString(0xff & hash[i]);
+				if (hex.length() == 1)
+					hexString.append('0');
+				hexString.append(hex);
+			}
 
-            return hexString.toString();
+			return hexString.toString();
 
-        } catch (Exception ex) {
-            return "";
-        }
+		} catch (Exception ex) {
+			return "";
+		}
+	}
+	
+    public static String getDateStrLater(int seconds) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String dateStr = format.format(System.currentTimeMillis() + seconds * 1000);
+
+        return dateStr;
     }
 }
