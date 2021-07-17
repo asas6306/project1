@@ -53,11 +53,17 @@
 						<input type="submit" value="로그인" class="h-12 w-full hover:bg-blue-300"/>
 					</div>
 					<div class="flex justify-center text-gray-300 text-sm mt-2">
-						<a href="signup" class="hover:text-gray-500">회원가입</a>
+						<a href="signup" class="hover:text-gray-500">
+							<span>회원가입</span>
+						</a>
 						<span class="mx-2">|</span>
-						<a href="findID" class="hover:text-gray-500">아이디 찾기</a>
+						<a href="findID" class="hover:text-gray-500">
+							<span>아이디 찾기</span>
+						</a>
 						<span class="mx-2">|</span>
-						<a href="findPW" class="hover:text-gray-500">비밀번호 찾기</a>
+						<a href="findPW" class="hover:text-gray-500">
+							<span>비밀번호 찾기</span>
+						</a>
 					</div>
 				</div>
 			</form>

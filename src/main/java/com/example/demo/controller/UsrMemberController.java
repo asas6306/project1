@@ -303,11 +303,19 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/delete")
-	public String delete(HttpSession session, Integer uid) {
+	@RequestBody
+	public String delete(HttpSession session, HttpServletRequest req, Integer uid, String checkPasswordAuthCode) {
 		if (uid == null) {
 			Member loginedMember = (Member) session.getAttribute("loginedMember");
 			uid = loginedMember.getUid();
 		}
+		
+		ResultData checkValidCheckPasswordAuthCodeResultData = 
+				ms.checkValidCheckPasswordAuthCode(uid, checkPasswordAuthCode);
+
+        if ( checkValidCheckPasswordAuthCodeResultData.isFail() ) {
+            return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
+        }
 
 		session.removeAttribute("loginedMember");
 		ms.delete(uid);

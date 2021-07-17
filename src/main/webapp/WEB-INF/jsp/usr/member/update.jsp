@@ -271,6 +271,11 @@ function MemberUpdate__checkAndSubmit(form) {
 				<input type="submit" value="수정" class="bg-blue-300 w-12 p-1 border hover:bg-blue-500 rounded" />
 				<input type="button" value="취소" class="bg-red-300 w-12 p-1 mx-1 border hover:bg-red-500 rounded" onclick="history.back()" />
 			</div>
+			<div class="flex justify-center text-gray-300 text-sm my-2">
+				<a href="../member/authentication?afterUri=${Util.getUriEncoded('../member/delete')}" class="hover:text-gray-500">
+					<span>회원탈퇴</span>
+				</a>
+			</div>
 		</form>
 	</div>
 </section>
