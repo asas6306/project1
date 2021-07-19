@@ -98,6 +98,12 @@ public class MemberService {
 
 	public ResultData update(Map<String, Object> param) {
 		
+		int uid = (int)param.get("uid");
+		
+		if (param.get("PW") != null) {
+            attrService.remove("member", uid, "extra", "useTempPassword");
+        }
+		
 		md.update(param);
 		
 		return new ResultData("S-1", "회원정보가 수정되었습니다.");
@@ -166,7 +172,7 @@ public class MemberService {
     }
 
     private void setTempPassword(int uid, String tempPassword) {
-    	
+    	attrService.setValue("member", uid, "extra", "useTempPassword", "1", null);
         md.setTempPassword(uid, tempPassword);
     }
 
@@ -185,5 +191,9 @@ public class MemberService {
         attrService.setValue(attrName, authCode, expireDate);
 
         return authCode;
+	}
+
+	public boolean isUsingTempPassword(int uid) {
+		return attrService.getValue("member", uid, "extra", "useTempPassword").equals("1");
 	}
 }

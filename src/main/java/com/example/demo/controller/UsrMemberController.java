@@ -61,9 +61,19 @@ public class UsrMemberController extends _BaseController {
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 
 		session.setAttribute("loginedMember", member);
+		
 
-		String msg = String.format("%s님 환영합니다.", member.getNickname());
-		redirectUri = Util.ifEmpty(redirectUri, "../home/main");
+        boolean isUsingTempPassword = ms.isUsingTempPassword(member.getUid());
+        
+        String msg = null;
+        if ( isUsingTempPassword ) {
+            msg = "임시 비밀번호를 변경해주세요.";
+            redirectUri = "/usr/member/mypage";
+        } else {
+        	msg = String.format("%s님 환영합니다.", member.getNickname());
+        	redirectUri = Util.ifEmpty(redirectUri, "../home/main");        	
+        }
+
 
 		return Util.msgAndReplace(msg, redirectUri);
 	}
