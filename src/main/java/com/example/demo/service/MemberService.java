@@ -27,10 +27,12 @@ public class MemberService {
 	@Autowired
     private AttrService attrService;
 
-    @Value("${custom.siteMainUri}")
-    private String siteMainUri;
-    @Value("${custom.siteName}")
-    private String siteName;
+	@Value("${custom.siteMainUri}")
+	private String siteMainUri;
+	@Value("${custom.siteName}")
+	private String siteName;
+	@Value("${custom.setNeedToChangePassword}")
+	private int setNeedToChangePassword;
 	
 	// static 시작
 	public static String getAuthLevelName(Member member) {
@@ -78,7 +80,7 @@ public class MemberService {
 		md.signup(param);
 		
 		int uid = Util.getAsInt(param.get("uid"), 0);
-		attrService.setValue("member", uid, "extra", "needToChangePassword", "0", Util.getDateStrLater(60*60*24*10));
+		this.setNeedToChangePassword(uid);
 		
 		return new ResultData("S-1", "회원가입이 완료되었습니다.", "uid", uid);
 	}
@@ -102,7 +104,7 @@ public class MemberService {
 		int uid = (int)param.get("uid");
 		
 		if (param.get("PW") != null) {
-			attrService.setValue("member", uid, "extra", "needToChangePassword", "0", Util.getDateStrLater(60*60*24*10));
+			this.setNeedToChangePassword(uid);
             attrService.remove("member", uid, "extra", "useTempPassword");
         }
 		
@@ -202,5 +204,14 @@ public class MemberService {
 	public boolean needToChangePassword(int uid) {
 		
 		return attrService.getValue("member", uid, "extra", "needToChangePassword").equals("0") == false;
+	}
+	
+	public void setNeedToChangePassword(int uid) {
+		int days = setNeedToChangePassword;
+		attrService.setValue("member", uid, "extra", "needToChangePassword", "0", Util.getDateStrLater((60*60*24) * days));
+	}
+	
+	public int getNeedToChangePassword() {
+		return setNeedToChangePassword;
 	}
 }

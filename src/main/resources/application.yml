@@ -37,6 +37,7 @@ mybatis:
 #    /xml resultTyp
 #    logback
 custom:
+  setNeedToChangePassword: 90;
 #Mail
   siteMainUri: http://localhost:8022/
   siteName: Garden

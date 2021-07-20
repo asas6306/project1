@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +72,7 @@ public class UsrMemberController extends _BaseController {
             msg = "임시 비밀번호를 변경해주세요.";
             redirectUri = "/usr/member/mypage";
         } else if(needToChangePassword) { 
-        	msg = "비밀번호를 변경한지 90일이 경과하였습니다. 비밀번호를 변경해주세요.";
+        	msg = "비밀번호를 변경한지 " + ms.getNeedToChangePassword() + "일이 경과하였습니다. 비밀번호를 변경해주세요.";
             redirectUri = "/usr/member/mypage";
 		} else {
         	msg = String.format("%s님 환영합니다.", member.getNickname());
