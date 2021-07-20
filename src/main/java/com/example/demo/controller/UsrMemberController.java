@@ -63,13 +63,17 @@ public class UsrMemberController extends _BaseController {
 		session.setAttribute("loginedMember", member);
 		
 
-        boolean isUsingTempPassword = ms.isUsingTempPassword(member.getUid());
-        
+		boolean isTempPassword = ms.isTempPassword(member.getUid());
+		boolean needToChangePassword = ms.needToChangePassword(member.getUid());
+		
         String msg = null;
-        if ( isUsingTempPassword ) {
+        if ( isTempPassword ) {
             msg = "임시 비밀번호를 변경해주세요.";
             redirectUri = "/usr/member/mypage";
-        } else {
+        } else if(needToChangePassword) { 
+        	msg = "비밀번호를 변경한지 90일이 경과하였습니다. 비밀번호를 변경해주세요.";
+            redirectUri = "/usr/member/mypage";
+		} else {
         	msg = String.format("%s님 환영합니다.", member.getNickname());
         	redirectUri = Util.ifEmpty(redirectUri, "../home/main");        	
         }

@@ -78,6 +78,7 @@ public class MemberService {
 		md.signup(param);
 		
 		int uid = Util.getAsInt(param.get("uid"), 0);
+		attrService.setValue("member", uid, "extra", "needToChangePassword", "0", Util.getDateStrLater(60*60*24*10));
 		
 		return new ResultData("S-1", "회원가입이 완료되었습니다.", "uid", uid);
 	}
@@ -101,6 +102,7 @@ public class MemberService {
 		int uid = (int)param.get("uid");
 		
 		if (param.get("PW") != null) {
+			attrService.setValue("member", uid, "extra", "needToChangePassword", "0", Util.getDateStrLater(60*60*24*10));
             attrService.remove("member", uid, "extra", "useTempPassword");
         }
 		
@@ -193,7 +195,12 @@ public class MemberService {
         return authCode;
 	}
 
-	public boolean isUsingTempPassword(int uid) {
+	public boolean isTempPassword(int uid) {
 		return attrService.getValue("member", uid, "extra", "useTempPassword").equals("1");
+	}
+
+	public boolean needToChangePassword(int uid) {
+		
+		return attrService.getValue("member", uid, "extra", "needToChangePassword").equals("0") == false;
 	}
 }
