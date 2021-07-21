@@ -140,31 +140,41 @@ public class Util {
 	}
 
 	// 인터셉트 관련 유틸메소드
-	public static Map<String, Object> getParamMap(HttpServletRequest request) {
-		Map<String, Object> param = new HashMap<>();
+	public static Map<String, String> getParamMap(HttpServletRequest request) {
+		Map<String, String> param = new HashMap<>();
 
 		Enumeration<String> parameterNames = request.getParameterNames();
 
 		while (parameterNames.hasMoreElements()) {
 			String paramName = parameterNames.nextElement();
-			Object paramValue = request.getParameter(paramName);
+			String paramValue = request.getParameter(paramName);
 
 			param.put(paramName, paramValue);
 		}
 
 		return param;
 	}
+	
+	public static String toJsonStr(Object obj) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(obj);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
-	public static String toJsonStr(Map<String, Object> param) {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.writeValueAsString(param);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
-		return "";
-	}
+        return "";
+    }
+	
+	public static <T> T fromJsonStr(String jsonStr, Class<T> cls) {
+        ObjectMapper om = new ObjectMapper();
+        try {
+            return (T) om.readValue(jsonStr, cls);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 	public static String getUriEncoded(String str) {
 		try {

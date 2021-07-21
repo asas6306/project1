@@ -48,7 +48,6 @@ public class UsrMemberController extends _BaseController {
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpSession session, String redirectUri, String ID, String PW) {
-		System.out.println("테스트 : " + PW);
 		ResultData doLoginRd = ms.login(ID);
 
 		if (doLoginRd.isFail())
@@ -61,8 +60,8 @@ public class UsrMemberController extends _BaseController {
 		} else if (!member.getPW().equals(PW))
 			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 
-		session.setAttribute("loginedMember", member);
-		
+		session.setAttribute("loginedMemberUid", member.getUid());
+		session.setAttribute("loginedMemberJsonStr", member.toJsonStr());
 
 		boolean isTempPassword = ms.isTempPassword(member.getUid());
 		boolean needToChangePassword = ms.needToChangePassword(member.getUid());
@@ -179,7 +178,6 @@ public class UsrMemberController extends _BaseController {
 	@GetMapping("/usr/member/getEmailDup")
 	@ResponseBody
 	public ResultData getEmailDup(String email) {
-		System.out.println("테스트!");
 		if (email == null) {
 			return new ResultData("F-1", "이메일을 입력해주세요.");
 		} else if(email.contains("@")) {
@@ -273,7 +271,9 @@ public class UsrMemberController extends _BaseController {
 	@RequestMapping("/usr/member/update")
 	public String update(HttpSession session, HttpServletRequest req, String checkPasswordAuthCode) {
 		
-		Member loginedMember = (Member)session.getAttribute("loginedMember");
+		int uid = (int)session.getAttribute("loginedMemberUid");
+		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
+		
         ResultData checkValidCheckPasswordAuthCodeResultData = 
         		ms.checkValidCheckPasswordAuthCode(loginedMember.getUid(), checkPasswordAuthCode);
 
@@ -295,8 +295,8 @@ public class UsrMemberController extends _BaseController {
 	@RequestMapping("/usr/member/doUpdate")
 	@RequestBody
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
-		Member loginedMember = (Member)session.getAttribute("loginedMember");
-		int uid = loginedMember.getUid();
+		int uid = (int)session.getAttribute("loginedMemberUid");
+		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
 		
 		ResultData checkValidCheckPasswordAuthCodeResultData = 
 				ms.checkValidCheckPasswordAuthCode(uid, String.valueOf(param.get("checkPasswordAuthCode")));
@@ -321,8 +321,7 @@ public class UsrMemberController extends _BaseController {
 	@RequestBody
 	public String delete(HttpSession session, HttpServletRequest req, Integer uid, String checkPasswordAuthCode) {
 		if (uid == null) {
-			Member loginedMember = (Member) session.getAttribute("loginedMember");
-			uid = loginedMember.getUid();
+			uid = (int)session.getAttribute("loginedMemberUid");
 		}
 		
 		ResultData checkValidCheckPasswordAuthCodeResultData = 
@@ -391,7 +390,8 @@ public class UsrMemberController extends _BaseController {
 	@ResponseBody
 	public String doAuthentication(HttpSession session, String PW, String redirectUri) {
 		
-		Member loginedMember = (Member)session.getAttribute("loginedMember");
+		int uid = (int)session.getAttribute("loginedMemberUid");
+		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
 		String orignalPW = loginedMember.getPW();
 		
 		if (!PW.equals(orignalPW)) {

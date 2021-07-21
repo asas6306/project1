@@ -3,8 +3,9 @@ package com.example.demo.dto;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.demo.service.MemberService;
+import com.example.demo.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Member {
 	private int uid;
 	private String ID;
@@ -38,6 +40,10 @@ public class Member {
 			extra = new HashMap<String, Object>();
 		
 		return extra;
+	}
+
+	public Object toJsonStr() {
+		return Util.toJsonStr(this);
 	}
 	
 //	public String getAuthLevelName() {
