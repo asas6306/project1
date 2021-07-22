@@ -1,14 +1,11 @@
 package com.example.demo.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Member;
+import com.example.demo.dto.Rq;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.AuthService;
 import com.example.demo.service.MemberService;
@@ -104,7 +102,6 @@ public class UsrMemberController extends _BaseController {
 	public ResultData getLoginIdDup(String ID) {
 		if (ID == null)
 			return new ResultData("F-1", "ID를 입력해주세요.");
-
 		if (ID.length() < 5)
 			return new ResultData("F-6", "아이디를 5자 이상으로 입력하세요.");
 		if (ID.length() > 15)
@@ -194,7 +191,8 @@ public class UsrMemberController extends _BaseController {
 	@ResponseBody
 	public String doLogout(HttpSession session) {
 
-		session.removeAttribute("loginedMember");
+		session.removeAttribute("loginedMemberUid");
+		session.removeAttribute("loginedMemberJsonStr");
 
 		String redirectUri = Util.ifEmpty(null, "login");
 
@@ -205,9 +203,9 @@ public class UsrMemberController extends _BaseController {
 	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
 
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-		int uid = loginedMember.getUid();
-
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		
 		req.setAttribute("call", call);
 
 		int itemsCnt = ss.getItemsCnt(req, call, uid);

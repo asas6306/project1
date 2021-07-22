@@ -31,13 +31,13 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		HttpSession session = req.getSession();
 		
 		Member loginedMember = null;
-		int loginedMemberId = 0;
+		int loginedMemberUid = 0;
 		
-		if (session.getAttribute("loginedMemberId") != null) {
-			loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		if (session.getAttribute("loginedMemberUid") != null) {
+			loginedMemberUid = (int) session.getAttribute("loginedMemberUid");
 		}
 		
-		if (loginedMemberId != 0) {
+		if (loginedMemberUid != 0) {
 			String loginedMemberJsonStr = (String) session.getAttribute("loginedMemberJsonStr");
 			
 			loginedMember = Util.fromJsonStr(loginedMemberJsonStr, Member.class);
