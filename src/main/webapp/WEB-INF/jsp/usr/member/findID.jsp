@@ -43,7 +43,7 @@ FindIDForm__checkAndSubmitDone = true;
 					<div class="flex justify-center">
 						<input type="submit" value="찾기" class="rounded p-1 px-2 bg-blue-300 hover:bg-blue-500"/>
 						<div class="p-1"></div>
-						<input type="button" value="취소" onclick="history.back()" class="rounded p-1 px-2 bg-red-300 hover:bg-red-500"/>
+						<input type="button" value="취소" onclick="location.href='login'" class="rounded p-1 px-2 bg-red-300 hover:bg-red-500"/>
 					</div>
 					<div class="flex justify-center text-gray-300 text-sm mt-2">
 						<a href="signup" class="hover:text-gray-500">비밀번호 찾기</a>

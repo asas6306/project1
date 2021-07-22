@@ -28,29 +28,26 @@ function Delete__Articles__Confirm() {
 			</div>
 			<div class="flex border-t-4 border-blue-500 rounded p-2">
 				<div class="p-2">
-					<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
+					<c:set var="file" value="${rq.loginedMember.extra.file__common__profile['0']}"></c:set>
 					<img alt="" src="${file.forPrintUri}" class="border w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gray-300">
 				</div>
 				<div class="p-2 text-xl">
 					<div class="sm:flex text-4xl">
 						<div>
-							<span>${loginedMember.ID}</span>
+							<span>${rq.loginedMember.ID}</span>
 						</div>
 						<div>
-							<span>(${loginedMember.nickname})</span>
+							<span>(${rq.loginedMember.nickname})</span>
 						</div>
 					</div>
 					<div>
-						<span>${loginedMember.authName}</span>
+						<span>${rq.loginedMember.authName}</span>
 					</div>
 					<div>
-						<span>${loginedMember.email}</span>
+						<span>${rq.loginedMember.email}</span>
 					</div>
 					<div>
-						<span>${loginedMember.phoneNo}</span>
-					</div>
-					<div>
-						<span>authKey : ${loginedMember.authKey}</span>
+						<span>${rq.loginedMember.phoneNo}</span>
 					</div>
 				</div>
 			</div>

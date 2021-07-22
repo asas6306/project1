@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <script>
-	const uid = parseInt("${loginedMember.uid}");
+	const uid = parseInt("${rq.loginedMember.uid}");
 </script>
 <script>
 let UpdateForm__validNickname = '';
@@ -231,16 +231,16 @@ function MemberUpdate__checkAndSubmit(form) {
 			<input type="hidden" name="PW" />
 			<div class="flex">
 				<div class="input-file-wrap">
-					<c:set var="file" value="${loginedMember.extra.file__common__profile['0']}"></c:set>
+					<c:set var="file" value="${rq.loginedMember.extra.file__common__profile['0']}"></c:set>
 					<img alt="" src="${file.forPrintUri}" class="w-40 h-40 rounded-full bg-gray-300">
-					<input type="file" name="file__member__${loginedMember.uid}__common__profile__0" class="w-20" />
+					<input type="file" name="file__member__${rq.loginedMember.uid}__common__profile__0" class="w-20" />
 					<input type="checkbox" onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')" 
-					name="deleteFile__member__${loginedMember.uid}__common__profile__0" value="Y" /> <span>삭제</span>
+					name="deleteFile__member__${rq.loginedMember.uid}__common__profile__0" value="Y" /> <span>삭제</span>
 				</div>
 				<div class="mx-4 my-2 w-96">
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">아이디 : </span>
-						<span>${loginedMember.ID}</span>
+						<span>${rq.loginedMember.ID}</span>
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호 : </span>
@@ -254,16 +254,16 @@ function MemberUpdate__checkAndSubmit(form) {
 					<div class="PWCheckInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">닉네임 : </span>
-						<input type="text" name="nickname" value="${loginedMember.nickname}" class="inputNickname border" />		
+						<input type="text" name="nickname" value="${rq.loginedMember.nickname}" class="inputNickname border" />		
 					</div>
 					<div class="nicknameInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">이메일 : </span>
-						<input type="email" name="email" value="${loginedMember.email}" class="border" />
+						<input type="email" name="email" value="${rq.loginedMember.email}" class="border" />
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">연락처 : </span>
-						<input type="text" name="phoneNo" value="${loginedMember.phoneNo}" class="border" />
+						<input type="text" name="phoneNo" value="${rq.loginedMember.phoneNo}" class="border" />
 					</div>
 				</div>
 			</div>
