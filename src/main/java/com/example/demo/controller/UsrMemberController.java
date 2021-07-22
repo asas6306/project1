@@ -122,7 +122,6 @@ public class UsrMemberController extends _BaseController {
 	public ResultData getNicknameDup(String nickname) {
 		if (nickname == null)
 			return new ResultData("F-1", "닉네임을 입력해주세요.");
-
 		if (nickname.length() < 5)
 			return new ResultData("F-6", "닉네임을 5자 이상으로 입력하세요.");
 		if (nickname.length() > 15)
@@ -158,14 +157,11 @@ public class UsrMemberController extends _BaseController {
 	public ResultData getPhoneNoDup(String phoneNo) {
 		if (phoneNo == null)
 			return new ResultData("F-1", "연락처를 입력해주세요.");
-		
 		String[] splitPhoneNo = phoneNo.split("-");
 		if(splitPhoneNo.length != 3)
 			return new ResultData("F-4", "전화번호 형식을 확인해주세요.");
-
-		if (splitPhoneNo[0].length() != 3 && splitPhoneNo[1].length() != 4 && splitPhoneNo[2].length() != 4) {
+		if (splitPhoneNo[0].length() != 3 && splitPhoneNo[1].length() != 4 && splitPhoneNo[2].length() != 4)
 			return new ResultData("F-3", "올바른 전화번호 형식이 아닙니다.");
-		}
 		if (Util.allNumberString(splitPhoneNo[0]) && Util.allNumberString(splitPhoneNo[1]) && Util.allNumberString(splitPhoneNo[2]))
 			return new ResultData("S-1", "", "phoneNo", phoneNo);
 
@@ -226,7 +222,7 @@ public class UsrMemberController extends _BaseController {
 			@RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
 
 		int uid = Util.getAsInt(param.get("uid"), 0);
-		Member member = ms.getMember("uid", uid + "");
+		Member member = ms.getMember("uid", String.valueOf(uid));
 
 		member = ss.setSecureID(member);
 
@@ -267,11 +263,11 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/update")
-	public String update(HttpSession session, HttpServletRequest req, String checkPasswordAuthCode) {
+	public String update(HttpServletRequest req, String checkPasswordAuthCode) {
 		
-		int uid = (int)session.getAttribute("loginedMemberUid");
-		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
-		
+		String loginedMemberJsonStr = (String)req.getAttribute("loginedMemberJsonStr");
+		Member loginedMember = Util.fromJsonStr(loginedMemberJsonStr, Member.class);
+
         ResultData checkValidCheckPasswordAuthCodeResultData = 
         		ms.checkValidCheckPasswordAuthCode(loginedMember.getUid(), checkPasswordAuthCode);
 
@@ -292,9 +288,10 @@ public class UsrMemberController extends _BaseController {
 
 	@RequestMapping("/usr/member/doUpdate")
 	@RequestBody
-	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
-		int uid = (int)session.getAttribute("loginedMemberUid");
-		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
+	public String doUpdate(HttpServletRequest req, @RequestParam Map<String, Object> param) {
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		Member loginedMember = rq.getLoginedMember();
 		
 		ResultData checkValidCheckPasswordAuthCodeResultData = 
 				ms.checkValidCheckPasswordAuthCode(uid, String.valueOf(param.get("checkPasswordAuthCode")));
@@ -309,9 +306,6 @@ public class UsrMemberController extends _BaseController {
 		param.put("ID", loginedMember.getID());
 		ResultData doUpdateRd = ms.update(param);
 		
-		loginedMember = ms.getMember("uid", String.valueOf(uid));
-		session.setAttribute("loginedMember", loginedMember);
-
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}
 
@@ -322,6 +316,9 @@ public class UsrMemberController extends _BaseController {
 			uid = (int)session.getAttribute("loginedMemberUid");
 		}
 		
+		if(ms.getMember("uid", String.valueOf(uid)) == null)
+			return msgAndBack(req, "존재하지 않는 회원입니다.");
+		
 		ResultData checkValidCheckPasswordAuthCodeResultData = 
 				ms.checkValidCheckPasswordAuthCode(uid, checkPasswordAuthCode);
 
@@ -329,7 +326,9 @@ public class UsrMemberController extends _BaseController {
             return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
         }
 
-		session.removeAttribute("loginedMember");
+		session.removeAttribute("loginedMemberUid");
+		session.removeAttribute("loginedMemberJsonStr");
+		
 		ms.delete(uid);
 
 		return "usr/member/login";
@@ -386,20 +385,20 @@ public class UsrMemberController extends _BaseController {
 	
 	@RequestMapping("/usr/member/doAuthentication")
 	@ResponseBody
-	public String doAuthentication(HttpSession session, String PW, String redirectUri) {
-		
-		int uid = (int)session.getAttribute("loginedMemberUid");
-		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
+	public String doAuthentication(HttpServletRequest req, String PW, String redirectUri) {
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		Member loginedMember = rq.getLoginedMember();
 		String orignalPW = loginedMember.getPW();
 		
 		if (!PW.equals(orignalPW)) {
 	        return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
 	    }
 		
-		String authCode = ms.genCheckPasswordAuthCode(loginedMember.getUid());
+		String authCode = ms.genCheckPasswordAuthCode(uid);
 		
 		redirectUri = Util.getNewUri(redirectUri, "checkPasswordAuthCode", authCode);
-		
+
 		return Util.msgAndReplace(null, redirectUri);
 	}
 }

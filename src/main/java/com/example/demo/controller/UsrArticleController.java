@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.demo.dto.Article;
 import com.example.demo.dto.Member;
 import com.example.demo.dto.Reply;
+import com.example.demo.dto.Rq;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.GenFileService;
 import com.example.demo.service.ReplyService;
@@ -75,14 +76,15 @@ public class UsrArticleController extends _BaseController {
 		req.setAttribute("articleType", articleType);
 		req.setAttribute("boards", ss.getAllBoardInfo(articleType));
 		
+		// Uri를 추적해서 boardCode와 articleType 등을 따로 코딩없이 꺼내 올 수 있을까?
+		
 		return "usr/article/add";
 	}
 	
 	@RequestMapping("/usr/article/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		
-		Member member = (Member)(req.getAttribute("loginedMember"));
-		int uid = member.getUid();
+		int uid = (int)req.getAttribute("uid");
 		param.put("uid", uid);
 		
 		ResultData doAddRd = as.add(param);
@@ -137,8 +139,8 @@ public class UsrArticleController extends _BaseController {
 	@RequestMapping("/usr/article/doAddReply")
 	public String doAddReply(HttpServletRequest req, int aid, String body) {
 		
-		Member member = (Member)(req.getAttribute("loginedMember"));
-		int uid = member.getUid();
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
 		
 		ResultData doAddReplyRd = rs.addArticleReply("article", uid, aid, body);
 		

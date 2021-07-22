@@ -8,8 +8,8 @@
 		<nav class="h-10 flex items-center justify-center text-gray-500 text-sm container">
 			<ul class="flex w-full md:w-4/5 justify-end">
 				<c:choose>
-					<c:when test="${loginedMember == null}">
-						<li><a href="../member/login?redirectUri=${encodedAfterLoginUri}" class="p-3 hover:text-gray-900"> <span>로그인</span>
+					<c:when test="${rq.isNotLogined()}">
+						<li><a href="${rq.loginPageUri}" class="p-3 hover:text-gray-900"> <span>로그인</span>
 						</a></li>
 						<span>|</span>
 						<li><a href="../member/signup" class="p-3 hover:text-gray-900"> <span>회원가입</span>
