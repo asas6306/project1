@@ -139,7 +139,7 @@ function Delete__Article__Confirm()
 								</div>
 								<div class="font-thin text-sm text-gray-700">
 									<span>${reply.regDate}</span>
-									<c:if test="${loginedMember.uid == article.uid}">
+									<c:if test="${rq.loginedMemberUid == reply.uid}">
 										<a href="" class="hover:text-blue-500 hover:underline">수정</a>
 										<a href="" class="hover:text-red-500 hover:underline">삭제</a>
 									</c:if>
@@ -150,12 +150,12 @@ function Delete__Article__Confirm()
 					<form action="doAddReply" method="post">
 						<input type="hidden" name="aid" value="${article.aid}" />
 						<c:choose>
-							<c:when test="${loginedMember == null}">
+							<c:when test="${rq.isNotLogined()}">
 								<span class="p-2 text-lg">댓글 작성기능은 로그인 후 이용하실 수 있습니다.</span>
 							</c:when>
 							<c:otherwise>
 								<div class="border rounded">
-									<span class="flex mx-2">${loginedMember.nickname}</span>
+									<span class="flex mx-2">${rq.loginedMember.nickname}</span>
 									<input type="text" name="body" placeholder="댓글을 남겨보세요." class="outline-none w-full mx-2" autocomplete="off" />
 									<div class="flex justify-end">
 										<input type="submit" value="등록" class="px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />

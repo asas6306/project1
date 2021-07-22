@@ -26,7 +26,7 @@
 					</c:choose>
 				</span>
 				<div class="flex justify-center items-center p-1">
-					<c:if test="${loginedMember != null}">
+					<c:if test="${rq.isLogined()}">
 						<a href="add?boardCode=${boardCode}" class="text-gray-900 p-1 px-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white">글쓰기</a>
 					</c:if>
 				</div>
