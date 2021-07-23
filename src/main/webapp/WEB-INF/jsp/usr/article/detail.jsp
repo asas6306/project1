@@ -141,14 +141,16 @@ function Delete__Article__Confirm()
 									<span>${reply.regDate}</span>
 									<c:if test="${rq.loginedMemberUid == reply.uid}">
 										<a href="" class="hover:text-blue-500 hover:underline">수정</a>
-										<a href="" class="hover:text-red-500 hover:underline">삭제</a>
+										<a href="../reply/doDelete?rid=${reply.rid}&redirectUri=${rq.currentUri}" class="hover:text-red-500 hover:underline">삭제</a>
 									</c:if>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-					<form action="../reply/doAddReply" method="post">
-						<input type="hidden" name="aid" value="${article.aid}" />
+					<form action="../reply/doAdd" method="post">
+						<input type="hidden" name="relTypeCode" value="article" />
+						<input type="hidden" name="relId" value="${article.aid}" />
+						<input type="hidden" name="redirectUri" value="${rq.currentUri}" />
 						<c:choose>
 							<c:when test="${rq.isNotLogined()}">
 								<span class="p-2 text-lg">댓글 작성기능은 로그인 후 이용하실 수 있습니다.</span>

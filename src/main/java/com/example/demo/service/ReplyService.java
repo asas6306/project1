@@ -57,7 +57,7 @@ public class ReplyService {
 		
 		rd.delete(rid);
 		
-		return new ResultData("S-1", "댓글이 삭제되었습니다.");
+		return new ResultData("S-1", "해당 댓글이 삭제되었습니다.");
 	}
 
 	public int getReplyCnt(String relTypeCode, int relId) {
