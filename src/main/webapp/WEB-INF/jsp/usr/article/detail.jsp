@@ -147,7 +147,7 @@ function Delete__Article__Confirm()
 							</div>
 						</div>
 					</c:forEach>
-					<form action="doAddReply" method="post">
+					<form action="../reply/doAddReply" method="post">
 						<input type="hidden" name="aid" value="${article.aid}" />
 						<c:choose>
 							<c:when test="${rq.isNotLogined()}">

@@ -84,8 +84,8 @@ public class UsrArticleController extends _BaseController {
 	@RequestMapping("/usr/article/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		
-		int uid = (int)req.getAttribute("uid");
-		param.put("uid", uid);
+		Rq rq = (Rq)req.getAttribute("rq");
+		param.put("uid", rq.getLoginedMemberUid());
 		
 		ResultData doAddRd = as.add(param);
 		
@@ -134,16 +134,5 @@ public class UsrArticleController extends _BaseController {
 		ResultData doDeleteRd = as.delete(aid);
 		
 		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
-	}
-	
-	@RequestMapping("/usr/article/doAddReply")
-	public String doAddReply(HttpServletRequest req, int aid, String body) {
-		
-		Rq rq = (Rq)req.getAttribute("rq");
-		int uid = rq.getLoginedMemberUid();
-		
-		ResultData doAddReplyRd = rs.addArticleReply("article", uid, aid, body);
-		
-		return msgAndReplace(req, doAddReplyRd.getMsg(), "detail?aid=" + aid);
 	}
 }
