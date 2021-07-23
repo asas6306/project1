@@ -119,4 +119,24 @@
 	<update id="hit">
 		update article set hit = hit + 1 where aid = #{aid}
 	</update>
+	
+	
+	<!-- resultMap으로 맞지 않는 이름 매핑 & Map에 데이터 담기 -->
+    <resultMap type="Article" id="article">
+        <id property="id" column="id"/>
+        <id property="regDate" column="regDate"/>
+        <id property="updateDate" column="updateDate"/>
+        <id property="delDate" column="delDate"/>
+        <id property="delStatus" column="delStatus"/>
+        <id property="title" column="title"/>
+        <id property="body" column="body"/>
+        <id property="memberId" column="memberId"/>
+        <id property="boardId" column="boardId"/>
+        <id property="extra__writerName" column="extra__writerName"/>
+
+        <association property="extra" javaType="map">
+            <id property="writerName" column="extra__writerName"/>
+            <id property="writerRealName" column="extra__writerRealName"/>
+        </association>
+    </resultMap>
 </mapper>
