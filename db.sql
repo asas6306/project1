@@ -44,7 +44,7 @@ regDate DATETIME DEFAULT NOW(),
 updateDate DATETIME DEFAULT NOW(),
 delState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 delDate DATETIME
-KEY rel (relTypeCode , relid)
+KEY rel (relTypeCode , relId)
 );
 #ALTER TABLE reply ADD KEY rel (relTypeCode , relid); 
 

@@ -152,7 +152,7 @@ function Delete__Article__Confirm()
 						<input type="hidden" name="relId" value="${article.aid}" />
 						<input type="hidden" name="redirectUri" value="${rq.currentUri}" />
 						<c:choose>
-							<c:when test="${rq.isNotLogined()}">
+							<c:when test="${rq.notLogined}">
 								<span class="p-2 text-lg">댓글 작성기능은 로그인 후 이용하실 수 있습니다.</span>
 							</c:when>
 							<c:otherwise>

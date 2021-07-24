@@ -1,6 +1,8 @@
 package com.example.demo.dto;
 
+import java.util.ArrayList;
 import java.util.Map;
+
 import com.example.demo.util.Util;
 
 import lombok.Getter;
@@ -38,9 +40,9 @@ public class Rq {
     public Member getLoginedMember() {
         return loginedMember;
     }
-
-    public String getEncodedCurrentUri() {
-        return Util.getUriEncoded(getCurrentUri());
+    
+    public String getEncodedCurrentUri(String uri) {
+        return Util.getUriEncoded(uri);
     }
 
     public String getCurrentUri() {
@@ -49,11 +51,16 @@ public class Rq {
 
     public String getLoginPageUri() {
         String afterLoginUri;
-
+        
+        System.out.println("currentUri : " + currentUri);
+        System.out.println("currentUrl : " + currentUrl);
+        
         if (isLoginPage()) {
             afterLoginUri = Util.getUriEncoded(paramMap.get("afterLoginUri"));
+        } else if(isNeedLogoutPage()){
+        	afterLoginUri = this.getEncodedCurrentUri("/usr/home/main");
         } else {
-            afterLoginUri = getEncodedCurrentUri();
+            afterLoginUri = getEncodedCurrentUri(getCurrentUri());
         }
 
         return "../member/login?afterLoginUri=" + afterLoginUri;
@@ -61,5 +68,14 @@ public class Rq {
 
     private boolean isLoginPage() {
         return currentUrl.equals("/usr/member/login");
+    }
+    
+    private boolean isNeedLogoutPage() {
+    	ArrayList<String> needLogoutPage = new ArrayList<String>(); 
+    	needLogoutPage.add("/usr/member/signup");
+    	needLogoutPage.add("/usr/member/findID");
+    	needLogoutPage.add("/usr/member/findPW");
+    	
+    	return needLogoutPage.contains(currentUrl);
     }
 }
