@@ -118,3 +118,17 @@ ALTER TABLE MEMBER ADD authKey CHAR(130) UNIQUE KEY DEFAULT UUID() AFTER PW;
 #authLevel 생성 및 1번 uid 관리자 권한(3:일반회원, 7:관리자)
 ALTER TABLE `member` ADD authLevel TINYINT(2) UNSIGNED DEFAULT 3 AFTER PW;
 UPDATE `member` SET authLevel = 7 WHERE uid = 1;
+
+# 임시로 만들어진 회원은, 비번변경할 필요가 없도록 설정
+INSERT INTO attr (
+	regDate,
+	updateDate,
+	relTypeCode,
+	relId,
+	typeCode,
+	type2Code,
+	`value`,
+	expireDate
+)
+SELECT NOW(), NOW(), 'member', uid, 'extra', 'needToChangePassword', 0, NULL
+FROM `member`;
