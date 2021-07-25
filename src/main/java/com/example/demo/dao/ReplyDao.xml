@@ -12,6 +12,11 @@
 		and reply.delState = 0
 	</select>
 	
+	<select id="getReply" resultType="Reply">
+		select * from reply  
+		where rid = #{rid}
+	</select>
+	
 	<insert id="addArticleReply">
 		insert into reply set relTypeCode = #{relTypeCode}, uid = #{uid}, relId = #{relId}, body = #{body}
 	</insert>

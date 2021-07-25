@@ -13,12 +13,19 @@ import com.example.demo.dto.GenFile;
 import com.example.demo.dto.Reply;
 import com.example.demo.util.ResultData;
 
+import net.bytebuddy.matcher.LatentMatcher.ForSelfDeclaredMethod;
+
 @Service
 public class ReplyService {
 	@Autowired
 	ReplyDao rd;
 	@Autowired
 	GenFileService fs;
+	
+	public Reply getReply(int rid) {
+		
+		return rd.getReply(rid);
+	}
 	
 	public List<Reply> getReplies(String relTypeCode, int relId) {
 		List<Reply> replies = rd.getReplies(relTypeCode, relId);

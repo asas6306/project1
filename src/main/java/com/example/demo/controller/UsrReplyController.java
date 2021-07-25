@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dto.Article;
+import com.example.demo.dto.Reply;
 import com.example.demo.dto.Rq;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.ReplyService;
@@ -44,6 +44,16 @@ public class UsrReplyController extends _BaseController {
 	
 	@RequestMapping("/usr/reply/doDelete")
 	public String doDelete(HttpServletRequest req, int rid, String redirectUri) {
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		
+		Reply reply = rs.getReply(rid);
+		
+		if(reply == null)
+			return msgAndBack(req, "존재하지 않는 댓글입니다.");
+		else if(reply.getUid() != uid)
+			return msgAndBack(req, "해당 권한이 없습니다.");
 		
 		ResultData doDeleteRd = rs.delete(rid);
 		
