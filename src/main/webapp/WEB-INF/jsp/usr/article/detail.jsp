@@ -6,6 +6,23 @@
 <c:set var="fileInputMaxCount" value="3" />
 
 <script>
+let ReplyWrite__submitFormDone = false;
+function ReplyWrite__submitForm(form) {
+	if ( ReplyWrite__submitFormDone ) {
+		return;
+	}
+	form.body.value = form.body.value.trim();
+	if ( form.body.value.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		form.body.focus();
+		return;
+	}
+	form.submit();
+	ReplyWrite__submitFormDone = true;
+}
+</script>
+
+<script>
 function Delete__Article__Confirm()
 {
 	const result = confirm('정말로 삭제하시겠습니까?');
@@ -16,6 +33,13 @@ function Delete__Article__Confirm()
 }
 </script>
 
+<script>
+function ReplyList__goToReply() {
+	const $target = $('.replies_list');
+	const targetOffset = $target.offset();
+	$(window).scrollTop(500);
+}
+</script>
   
 <section class="flex justify-center">
 	<div class="container lg:w-2/3 2xl:w-1/2">
@@ -47,9 +71,10 @@ function Delete__Article__Confirm()
 									<span class="text-lg font-bold">${article.nickname}</span>
 									<span class="text-gray-700 px-1">${article.authName}</span>
 								</div>
-								<div class="font-thin">
+								<div class="font-thin flex">
 									<span>${article.regDate}</span>
-									<span class="px-1">조회 ${article.hit}</span>
+									<span class="px-3">조회 ${article.hit}</span>
+									<span class="cursor-pointer" onclick="ReplyList__goToReply();">댓글 ${replies.size()}</span>
 								</div>
 							</div>
 						</div>
@@ -113,7 +138,7 @@ function Delete__Article__Confirm()
 			</div>
 			<div class="p-4">
 				<div class="w-full">
-					<div>
+					<div class="replies_list">
 						<span class="text-xl">댓글</span>
 					</div>
 					<c:set var="replyCnt" value="3"></c:set>
@@ -147,7 +172,7 @@ function Delete__Article__Confirm()
 							</div>
 						</div>
 					</c:forEach>
-					<form action="../reply/doAdd" method="post">
+					<form action="../reply/doAdd" method="post" onsubmit="ReplyWrite__submitForm(this); return false;">
 						<input type="hidden" name="relTypeCode" value="article" />
 						<input type="hidden" name="relId" value="${article.aid}" />
 						<input type="hidden" name="redirectUri" value="${rq.currentUri}" />

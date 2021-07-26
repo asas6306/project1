@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="/resource/adm/common.css" />
 <script src="/resource/common.js" defer></script>
 
-<%="<script>"%> const param = ${paramJson}; <%="</script>"%>
+<script>
+const param = ${rq.paramJsonStr};
+</script>
 </head>
 <body>
