@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Reply;
 import com.example.demo.dto.Rq;
@@ -59,4 +60,24 @@ public class UsrReplyController extends _BaseController {
 		
 		return msgAndReplace(req, doDeleteRd.getMsg(), redirectUri);
 	}
+	
+	@RequestMapping("/usr/reply/doDeleteAjax")
+    @ResponseBody
+    public ResultData doDeleteAjax(HttpServletRequest req, int rid, String redirectUri) {
+		Reply reply = rs.getReply(rid);
+		
+		if ( reply == null ) {
+			return new ResultData("F-1", "존재하지 않는 댓글입니다.");
+		}
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		
+		if ( reply.getUid() != rq.getLoginedMemberUid() ) {
+			return new ResultData("F-1", "권한이 없습니다.");
+		}
+		
+		ResultData deleteResultData = rs.delete(rid);
+		
+		return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", rid));
+    }
 }

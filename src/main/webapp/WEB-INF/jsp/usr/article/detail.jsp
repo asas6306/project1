@@ -29,7 +29,39 @@ function Delete__Article__Confirm()
 	
 	if(result){
 		location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}';
-	} 
+	}
+}
+</script>
+
+<script>
+function Delete__Reply__Confirm(btn)
+{
+	const result = confirm('정말로 삭제하시겠습니까?');
+	
+	if(result){
+		const $clicked = $(btn);
+		const $target = $clicked.closest('[data-id]');
+		const rid = $target.attr('data-id');
+		
+		$.post(
+			'../reply/doDeleteAjax',
+			{
+				rid: rid
+			},
+			function(data) {
+				if ( data.success ) {
+					$target.remove();
+				}
+				else {
+					if ( data.msg ) {
+						alert(data.msg);
+					}
+					$clicked.text('삭제실패');
+				}
+			},
+			'json'
+		);
+	}
 }
 </script>
 
@@ -143,7 +175,7 @@ function ReplyList__goToReply() {
 					</div>
 					<c:set var="replyCnt" value="3"></c:set>
 					<c:forEach items='${replies}' var='reply'>
-						<div class="flex border-b">
+						<div data-id="${reply.rid}" class="flex border-b">
 							<div class="p-2">
 								<c:set var="file" value="${reply.extra.file__common__profile['0']}"></c:set>
 								<c:choose>
@@ -166,7 +198,7 @@ function ReplyList__goToReply() {
 									<span>${reply.regDate}</span>
 									<c:if test="${rq.loginedMemberUid == reply.uid}">
 										<a href="" class="hover:text-blue-500 hover:underline">수정</a>
-										<a href="../reply/doDelete?rid=${reply.rid}&redirectUri=${rq.currentUri}" class="hover:text-red-500 hover:underline">삭제</a>
+										<a onclick="Delete__Reply__Confirm(this); return false;" class="hover:text-red-500 hover:underline cursor-pointer">삭제</a>
 									</c:if>
 								</div>
 							</div>
