@@ -116,7 +116,7 @@ $(function() {
 let SignupForm__validPhoneNo = '';
 function SignupForm__checkPhoneNoDup() {
 	const form = $('.formLogin').get(0);
-
+	
 	form.phoneNo.value = form.phoneNo.value.trim();
 
 	if (form.phoneNo.value.length == 0) {

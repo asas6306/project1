@@ -72,7 +72,20 @@ function ReplyList__goToReply() {
 	$(window).scrollTop(500);
 }
 </script>
-  
+
+<script>
+	function ReplyForm__changeSubmit() {
+		const form = $('.formAddReply').get(0);
+		
+		form.body.value = form.body.value.trim();
+		if(form.body.value.length > 0)
+	}
+	
+	$(function() {
+		$('.replyInput').keyup(ReplyForm__changeSubmit);
+	});
+</script>
+
 <section class="flex justify-center">
 	<div class="container lg:w-2/3 2xl:w-1/2">
 		<div class="text-4xl font-bold p-3">
@@ -187,24 +200,29 @@ function ReplyList__goToReply() {
 									</c:otherwise>
 								</c:choose>
 							</div>
-							<div class="p-2">
+							<div class="p-2 w-full">
 								<div>
 									<span class="text-lg">${reply.nickname}</span>
 								</div>
 								<div>
-									<span class="font-thin">${reply.body}</span>
+									<div>
+										<span class="font-thin">${reply.body}</span>
+									</div>
+									<div class="font-thin text-sm text-gray-700">
+										<span>${reply.regDate}</span>
+										<c:if test="${rq.loginedMemberUid == reply.uid}">
+											<a href="" class="hover:text-blue-500 hover:underline">수정</a>
+											<a onclick="Delete__Reply__Confirm(this); return false;" class="hover:text-red-500 hover:underline cursor-pointer">삭제</a>
+										</c:if>
+									</div>
 								</div>
-								<div class="font-thin text-sm text-gray-700">
-									<span>${reply.regDate}</span>
-									<c:if test="${rq.loginedMemberUid == reply.uid}">
-										<a href="" class="hover:text-blue-500 hover:underline">수정</a>
-										<a onclick="Delete__Reply__Confirm(this); return false;" class="hover:text-red-500 hover:underline cursor-pointer">삭제</a>
-									</c:if>
+								<div>
+									<textarea class="w-full border rounded outline-none"></textarea>
 								</div>
 							</div>
 						</div>
 					</c:forEach>
-					<form action="../reply/doAdd" method="post" onsubmit="ReplyWrite__submitForm(this); return false;">
+					<form action="../reply/doAdd" class="formAddReply" method="post" onsubmit="ReplyWrite__submitForm(this); return false;">
 						<input type="hidden" name="relTypeCode" value="article" />
 						<input type="hidden" name="relId" value="${article.aid}" />
 						<input type="hidden" name="redirectUri" value="${rq.currentUri}" />
@@ -215,14 +233,22 @@ function ReplyList__goToReply() {
 							<c:otherwise>
 								<div class="border rounded">
 									<span class="flex mx-2">${rq.loginedMember.nickname}</span>
-									<input type="text" name="body" placeholder="댓글을 남겨보세요." class="outline-none w-full mx-2" autocomplete="off" />
+									<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="replyInput w-full outline-none" placeholder="댓글을 남겨보세요."></textarea>
+									<script>
+										function resize(obj) {
+											  var textEle = $(obj);
+											  textEle[0].style.height = 'auto';
+											  var textEleHeight = textEle.prop('scrollHeight');
+											  textEle.css('height', textEleHeight);
+										}
+									</script>
 									<div class="flex justify-end">
-										<input type="submit" value="등록" class="px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />
-									</div><!-- 스크립트로 입력 받았을 시 색 변화주는것 강의에도 있었던듯 찾아보그래이 -->
+										<input type="submit" value="등록" class="replySubmit px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />
+									</div>
 								</div>
 							</c:otherwise>
 						</c:choose>
-					</form><!-- 깃헙 테스트 -->
+					</form>
 				</div>
 			</div>
 		</div>
