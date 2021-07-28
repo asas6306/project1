@@ -14,8 +14,10 @@ public class Rq {
     private Map<String, String> paramMap;
     @Getter
     private boolean needToChangePassword;
+    @Getter
+    private boolean isAjax;
 
-    public Rq(Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
+    public Rq(boolean isAjax, Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
         this.loginedMember = loginedMember;
         this.currentUrl = currentUri.split("\\?")[0];
         this.currentUri = currentUri;
