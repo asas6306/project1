@@ -86,6 +86,15 @@ function ReplyList__goToReply(btn) {
 	});
 </script>
 
+<script>
+function resize(obj) {
+	  var textEle = $(obj);
+	  textEle[0].style.height = 'auto';
+	  var textEleHeight = textEle.prop('scrollHeight');
+	  textEle.css('height', textEleHeight);
+}
+</script>
+
 <section class="flex justify-center">
 	<div class="container lg:w-2/3 2xl:w-1/2">
 		<div class="text-4xl font-bold p-3">
@@ -215,14 +224,21 @@ function ReplyList__goToReply(btn) {
 											<a onclick="Delete__Reply__Confirm(this); return false;" class="hover:text-red-500 hover:underline cursor-pointer">삭제</a>
 											<div class="replyUpdateForm hidden">
 												<form action="../reply/doUpdate" class="formUpdateReply w-full" method="post" onsubmit="ReplyUpdate__submitForm(this); return false;">
-													<textarea name="body" class="w-full border rounded outline-none"></textarea>
+													<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="w-full border rounded outline-none"></textarea>
+													<div class="flex justify-end gap-1">
+														<input type="submit" value="수정" class="bg-blue-300 hover:bg-blue-500 rounded py-1 px-2">
+														<input type="button" onclick="Reply__Update(this)" value="취소" class="bg-red-300 hover:bg-red-500 rounded py-1 px-2">
+													</div>
 												</form>
 											</div>
 											<script>
 											function Reply__Update(btn) {
 												const $clicked = $(btn);
 												const target = $clicked.closest('.rep').find('.replyUpdateForm');
-												target.css('display', 'flex');
+												if(btn.value == '취소')
+													target.css('display', 'none');
+												else
+													target.css('display', 'flex');
 											}
 											</script>
 										</c:if>
@@ -241,16 +257,8 @@ function ReplyList__goToReply(btn) {
 							</c:when>
 							<c:otherwise>
 								<div>
-									<span class="flex mx-2">${rq.loginedMember.nickname}</span>
+									<span class="flex px-2 border-b text-lg">${rq.loginedMember.nickname}</span>
 									<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="replyInput w-full outline-none" placeholder="댓글을 남겨보세요."></textarea>
-									<script>
-										function resize(obj) {
-											  var textEle = $(obj);
-											  textEle[0].style.height = 'auto';
-											  var textEleHeight = textEle.prop('scrollHeight');
-											  textEle.css('height', textEleHeight);
-										}
-									</script>
 									<div class="flex justify-end">
 										<input type="submit" value="등록" class="replySubmit px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />
 									</div>
