@@ -55,4 +55,10 @@
 		and relTypeCode = #{relTypeCode}
 		and relId = #{relId}
 	</update>
+	
+	<update id="update">
+		update reply 
+		set body = #{body}
+		where rid = #{rid}
+	</update>
 </mapper>

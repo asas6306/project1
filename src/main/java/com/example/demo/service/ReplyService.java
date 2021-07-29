@@ -77,5 +77,12 @@ public class ReplyService {
 		rd.deleteArticleTriger(relTypeCode, relId);
 	}
 
+	public ResultData update(int rid, String body) {
+		
+		rd.update(rid, body);
+		
+		return new ResultData("S-1", "댓글이 수정되었습니다.");
+	}
+
 
 }

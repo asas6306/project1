@@ -26,4 +26,6 @@ public interface ReplyDao {
 	public void deleteArticleTriger(@Param(value="relTypeCode") String relTypeCode, @Param(value="relId") int relId);
 
 	public Reply getReply(@Param(value="rid") int rid);
+
+	public void update(@Param(value="rid") int rid, @Param(value="body") String body);
 }

@@ -23,6 +23,23 @@ function ReplyWrite__submitForm(form) {
 </script>
 
 <script>
+let ReplyUpdate__submitFormDone = false;
+function ReplyUpdate__submitForm(form) {
+	if ( ReplyWrite__submitFormDone ) {
+		return;
+	}
+	form.body.value = form.body.value.trim();
+	if ( form.body.value.length == 0 ) {
+		alert('내용을 입력해주세요.');
+		form.body.focus();
+		return;
+	}
+	form.submit();
+	ReplyUpdate__submitFormDone = true;
+}
+</script>
+
+<script>
 function Delete__Article__Confirm()
 {
 	const result = confirm('정말로 삭제하시겠습니까?');
@@ -224,7 +241,8 @@ function resize(obj) {
 											<a onclick="Delete__Reply__Confirm(this); return false;" class="hover:text-red-500 hover:underline cursor-pointer">삭제</a>
 											<div class="replyUpdateForm hidden">
 												<form action="../reply/doUpdate" class="formUpdateReply w-full" method="post" onsubmit="ReplyUpdate__submitForm(this); return false;">
-													<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="w-full border rounded outline-none"></textarea>
+													<input type="hidden" name="rid" value="${reply.rid}" />
+													<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="w-full border rounded outline-none">${reply.body}</textarea>
 													<div class="flex justify-end gap-1">
 														<input type="submit" value="수정" class="bg-blue-300 hover:bg-blue-500 rounded py-1 px-2">
 														<input type="button" onclick="Reply__Update(this)" value="취소" class="bg-red-300 hover:bg-red-500 rounded py-1 px-2">

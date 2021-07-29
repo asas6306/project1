@@ -80,4 +80,24 @@ public class UsrReplyController extends _BaseController {
 		
 		return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", rid));
     }
+	
+	@RequestMapping("/usr/reply/doUpdate")
+	public String doUpdate(HttpServletRequest req, int rid, String body) {
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		
+		Reply reply = rs.getReply(rid);
+		
+		if(reply == null)
+			return msgAndBack(req, "존재하지 않는 댓글입니다.");
+		else if(reply.getUid() != uid)
+			return msgAndBack(req, "해당 권한이 없습니다.");
+		
+		ResultData doUpdateRd = rs.update(rid, body);
+		
+		int aid = reply.getRelId();
+		
+		return msgAndReplace(req, doUpdateRd.getMsg(), "../article/detail?aid=" + aid);
+	}
 }
