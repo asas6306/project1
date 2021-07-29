@@ -66,10 +66,10 @@ function Delete__Reply__Confirm(btn)
 </script>
 
 <script>
-function ReplyList__goToReply() {
-	const $target = $('.replies_list');
-	const targetOffset = $target.offset();
-	$(window).scrollTop(500);
+function ReplyList__goToReply(btn) {
+	const $target = $('.repliesList');
+	const targetOffset = $target.offset().top;
+	$(window).scrollTop(targetOffset);
 }
 </script>
 
@@ -119,7 +119,7 @@ function ReplyList__goToReply() {
 								<div class="font-thin flex">
 									<span>${article.regDate}</span>
 									<span class="px-3">조회 ${article.hit}</span>
-									<span class="cursor-pointer" onclick="ReplyList__goToReply();">댓글 ${replies.size()}</span>
+									<span class="cursor-pointer" onclick="ReplyList__goToReply(this);">댓글 ${replies.size()}</span>
 								</div>
 							</div>
 						</div>
@@ -183,7 +183,7 @@ function ReplyList__goToReply() {
 			</div>
 			<div class="p-4">
 				<div class="w-full">
-					<div class="replies_list">
+					<div class="repliesList">
 						<span class="text-xl">댓글</span>
 					</div>
 					<c:set var="replyCnt" value="3"></c:set>
@@ -208,16 +208,25 @@ function ReplyList__goToReply() {
 									<div>
 										<span class="font-thin">${reply.body}</span>
 									</div>
-									<div class="font-thin text-sm text-gray-700">
+									<div class="rep font-thin text-sm text-gray-700">
 										<span>${reply.regDate}</span>
 										<c:if test="${rq.loginedMemberUid == reply.uid}">
-											<a href="" class="hover:text-blue-500 hover:underline">수정</a>
+											<a onclick="Reply__Update(this)" class="hover:text-blue-500 hover:underline cursor-pointer">수정</a>
 											<a onclick="Delete__Reply__Confirm(this); return false;" class="hover:text-red-500 hover:underline cursor-pointer">삭제</a>
+											<div class="replyUpdateForm hidden">
+												<form action="../reply/doUpdate" class="formUpdateReply w-full" method="post" onsubmit="ReplyUpdate__submitForm(this); return false;">
+													<textarea name="body" class="w-full border rounded outline-none"></textarea>
+												</form>
+											</div>
+											<script>
+											function Reply__Update(btn) {
+												const $clicked = $(btn);
+												const target = $clicked.closest('.rep').find('.replyUpdateForm');
+												target.css('display', 'flex');
+											}
+											</script>
 										</c:if>
 									</div>
-								</div>
-								<div>
-									<textarea class="w-full border rounded outline-none"></textarea>
 								</div>
 							</div>
 						</div>
@@ -231,7 +240,7 @@ function ReplyList__goToReply() {
 								<span class="p-2 text-lg">댓글 작성기능은 로그인 후 이용하실 수 있습니다.</span>
 							</c:when>
 							<c:otherwise>
-								<div class="border rounded">
+								<div>
 									<span class="flex mx-2">${rq.loginedMember.nickname}</span>
 									<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="replyInput w-full outline-none" placeholder="댓글을 남겨보세요."></textarea>
 									<script>
