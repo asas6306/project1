@@ -313,12 +313,12 @@ public class Util {
 				uri = uri.substring(0, delStartPos);
 			}
 		}
-		if (uri.charAt(uri.length() - 1) == '?') {
+		
+		if (uri.charAt(uri.length() - 1) == '?')
 			uri = uri.substring(0, uri.length() - 1);
-		}
-		if (uri.charAt(uri.length() - 1) == '&') {
+		if (uri.charAt(uri.length() - 1) == '&')
 			uri = uri.substring(0, uri.length() - 1);
-		}
+		
 		return uri;
 	}
 

@@ -275,7 +275,7 @@ function MemberSignup__checkAndSubmit(form) {
 <section class="flex justify-center">
 	<div class="member-box container p-4">
 		<div class="border-2 border-blue-300 rounded-xl p-5">
-			<form onsubmit="MemberSignup__checkAndSubmit(this); return false;" action="doSignup" method="post" class="formLogin" >
+			<form enctype="multipart/form-data" onsubmit="MemberSignup__checkAndSubmit(this); return false;" action="doSignup" method="post" class="formLogin" >
 				<input type="hidden" name="PW">
 				<div class="text-gray-900 text-xl">
 					<div class="flex justify-center">
@@ -293,6 +293,12 @@ function MemberSignup__checkAndSubmit(form) {
 						<input type="password" name="PWCheck" placeholder="비밀번호 확인" class="inputPWCheck border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>
 					<div class="PWCheckInputMsg text-sm text-center"></div>
+					<div class="form-control text-sm">
+		                <label class="label">
+		                    프로필 이미지
+		                </label>
+		                <input type="file" name="file__member__0__common__profile__0" placeholder="프로필 이미지를 선택해주세요." />
+		            </div>
 					<div class="my-2">
 						<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full p-2 hover:border-blue-300" />
 					</div>

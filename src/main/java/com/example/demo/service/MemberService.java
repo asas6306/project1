@@ -80,6 +80,9 @@ public class MemberService {
 		md.signup(param);
 		
 		int uid = Util.getAsInt(param.get("uid"), 0);
+		
+		fs.workRelIds(param, uid);
+		
 		this.setNeedToChangePassword(uid);
 		
 		return new ResultData("S-1", "회원가입이 완료되었습니다.", "uid", uid);

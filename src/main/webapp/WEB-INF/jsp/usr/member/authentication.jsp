@@ -19,6 +19,7 @@
 	}
 	
 	form.PW.value = sha256(form.PWInput.value);
+	alert(sha256(form.PWInput.value));
 	form.PWInput.value = '';
 	
 	form.submit();
@@ -31,7 +32,7 @@
 		<div class="border-2 border-blue-300 rounded-xl p-4">
 			<div class="text-center text-4xl font-bold text-bold">사용자 인증</div>
 			<form action="doAuthentication" method="post" onsubmit="AuthenticationForm__checkAndSubmit(this); return false;">
-				<input type="hidden" name="redirectUri" value="${param.afterLoginUri}" />
+				<input type="hidden" name="redirectUri" value="${param.afterUri}" />
 				<input type="hidden" name="PW" />
 				<div class="text-gray-900 text-xl">
 					<div class="my-2">

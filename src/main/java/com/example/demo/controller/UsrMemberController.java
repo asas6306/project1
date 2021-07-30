@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
 import com.example.demo.dto.Member;
 import com.example.demo.dto.Rq;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.AuthService;
+import com.example.demo.service.GenFileService;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.ReplyService;
 import com.example.demo.service.SimplerService;
@@ -36,6 +39,8 @@ public class UsrMemberController extends _BaseController {
 	AuthService auths;
 	@Autowired
 	SimplerService ss;
+	@Autowired
+	GenFileService fs;
 
 	@RequestMapping("/usr/member/login")
 	public String login() {
@@ -87,12 +92,24 @@ public class UsrMemberController extends _BaseController {
 	}
 
 	@RequestMapping("/usr/member/doSignup")
-	public String doSignup(HttpServletRequest req, @RequestParam Map<String, Object> param) {
+	public String doSignup(HttpServletRequest req, @RequestParam Map<String, Object> param, MultipartRequest multipartRequest) {
 
 		ResultData doSignupRd = ms.signup(param);
 
-		String redirectUri = Util.ifEmpty((String) param.get("redirectUri"), "login");
+		int uid = (int)doSignupRd.getBody().get("uid");
 
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+
+        for (String fileInputName : fileMap.keySet()) {
+            MultipartFile multipartFile = fileMap.get(fileInputName);
+
+            if ( multipartFile.isEmpty() == false ) {
+                fs.save(multipartFile);
+            }
+        }
+		
+		String redirectUri = Util.ifEmpty((String) param.get("redirectUri"), "login");
+		
 		return msgAndReplace(req, doSignupRd.getMsg(), redirectUri);
 
 	}
@@ -265,11 +282,11 @@ public class UsrMemberController extends _BaseController {
 	@RequestMapping("/usr/member/update")
 	public String update(HttpServletRequest req, String checkPasswordAuthCode) {
 		
-		String loginedMemberJsonStr = (String)req.getAttribute("loginedMemberJsonStr");
-		Member loginedMember = Util.fromJsonStr(loginedMemberJsonStr, Member.class);
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
 
         ResultData checkValidCheckPasswordAuthCodeResultData = 
-        		ms.checkValidCheckPasswordAuthCode(loginedMember.getUid(), checkPasswordAuthCode);
+        		ms.checkValidCheckPasswordAuthCode(uid, checkPasswordAuthCode);
 
         if ( checkValidCheckPasswordAuthCodeResultData.isFail() ) {
             return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
@@ -388,8 +405,11 @@ public class UsrMemberController extends _BaseController {
 	public String doAuthentication(HttpServletRequest req, String PW, String redirectUri) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		int uid = rq.getLoginedMemberUid();
-		Member loginedMember = rq.getLoginedMember();
+		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
 		String orignalPW = loginedMember.getPW();
+		System.out.println("test");
+		System.out.println(rq.getLoginedMember());
+		System.out.println(PW);
 		
 		if (!PW.equals(orignalPW)) {
 	        return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
