@@ -104,7 +104,7 @@ public class UsrMemberController extends _BaseController {
             MultipartFile multipartFile = fileMap.get(fileInputName);
 
             if ( multipartFile.isEmpty() == false ) {
-                fs.save(multipartFile);
+                fs.save(multipartFile, uid);
             }
         }
 		

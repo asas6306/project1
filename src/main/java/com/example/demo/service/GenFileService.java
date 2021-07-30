@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,65 +42,92 @@ public class GenFileService {
 		return new ResultData("S-1", "성공하였습니다.", "fid", fid);
 	}
 
+	public ResultData save(MultipartFile multipartFile, String relTypeCode, int relId, String typeCode, String type2Code, int fileNo) {
+        String fileInputName = multipartFile.getName();
+        String[] fileInputNameBits = fileInputName.split("__");
+
+        if (fileInputNameBits[0].equals("file") == false) {
+            return new ResultData("F-1", "파라미터 명이 올바르지 않습니다.");
+        }
+
+        int fileSize = (int) multipartFile.getSize();
+
+        if (fileSize <= 0) {
+            return new ResultData("F-2", "파일이 업로드 되지 않았습니다.");
+        }
+
+        String originFileName = multipartFile.getOriginalFilename();
+        String fileExtTypeCode = Util.getFileExtTypeCodeFromFileName(multipartFile.getOriginalFilename());
+        String fileExtType2Code = Util.getFileExtType2CodeFromFileName(multipartFile.getOriginalFilename());
+        String fileExt = Util.getFileExtFromFileName(multipartFile.getOriginalFilename()).toLowerCase();
+
+        if (fileExt.equals("jpeg")) {
+            fileExt = "jpg";
+        } else if (fileExt.equals("htm")) {
+            fileExt = "html";
+        }
+
+        String fileDir = Util.getNowYearMonthDateStr();
+
+        if (relId > 0) {
+            GenFile oldGenFile = getGenFile(relTypeCode, relId, typeCode, type2Code, fileNo);
+
+            if (oldGenFile != null) {
+                deleteGenFile(oldGenFile);
+            }
+        }
+
+        ResultData saveMetaRd = saveMeta(relTypeCode, relId, typeCode, type2Code, fileNo, originFileName,
+                fileExtTypeCode, fileExtType2Code, fileExt, fileSize, fileDir);
+        int newGenFileId = (int) saveMetaRd.getBody().get("fid");
+
+        // 새 파일이 저장될 폴더(io파일) 객체 생성
+        String targetDirPath = genFileDirPath + "/" + relTypeCode + "/" + fileDir;
+        java.io.File targetDir = new java.io.File(targetDirPath);
+
+        // 새 파일이 저장될 폴더가 존재하지 않는다면 생성
+        if (targetDir.exists() == false) {
+            targetDir.mkdirs();
+        }
+
+        String targetFileName = newGenFileId + "." + fileExt;
+        String targetFilePath = targetDirPath + "/" + targetFileName;
+
+        // 파일 생성(업로드된 파일을 지정된 경로롤 옮김)
+        try {
+            multipartFile.transferTo(new File(targetFilePath));
+        } catch (IllegalStateException | IOException e) {
+            return new ResultData("F-3", "파일저장에 실패하였습니다.");
+        }
+
+        return new ResultData("S-1", "파일이 생성되었습니다.", "id", newGenFileId, "fileRealPath", targetFilePath, "fileName",
+                targetFileName, "fileInputName", fileInputName);
+    }
+	
 	public ResultData save(MultipartFile multipartFile) {
-		String fileInputName = multipartFile.getName();
-		String[] fileInputNameBits = fileInputName.split("__");
+        String fileInputName = multipartFile.getName();
+        String[] fileInputNameBits = fileInputName.split("__");
 
-		if (fileInputNameBits[0].equals("file") == false)
-			return new ResultData("F-1", "파라미터명이 올바르지 않습니다.");
+        String relTypeCode = fileInputNameBits[1];
+        int relId = Integer.parseInt(fileInputNameBits[2]);
+        String typeCode = fileInputNameBits[3];
+        String type2Code = fileInputNameBits[4];
+        int fileNo = Integer.parseInt(fileInputNameBits[5]);
 
-		int fileSize = (int) multipartFile.getSize();
+        return save(multipartFile, relTypeCode, relId, typeCode, type2Code, fileNo);
+    }
+	
+	public ResultData save(MultipartFile multipartFile, int relId) {
+        String fileInputName = multipartFile.getName();
+        String[] fileInputNameBits = fileInputName.split("__");
 
-		if (fileSize <= 0)
-			return new ResultData("F-2", "파일이 업로드 되지 않았습니다.");
+        String relTypeCode = fileInputNameBits[1];
+        String typeCode = fileInputNameBits[3];
+        String type2Code = fileInputNameBits[4];
+        int fileNo = Integer.parseInt(fileInputNameBits[5]);
 
-		String relTypeCode = fileInputNameBits[1];
-		int relId = Integer.parseInt(fileInputNameBits[2]);
-		String typeCode = fileInputNameBits[3];
-		String type2Code = fileInputNameBits[4];
-		int fileNo = Integer.parseInt(fileInputNameBits[5]);
-		String originFileName = multipartFile.getOriginalFilename();
-		String fileExtTypeCode = Util.getFileExtTypeCodeFromFileName(multipartFile.getOriginalFilename());
-		String fileExtType2Code = Util.getFileExtType2CodeFromFileName(multipartFile.getOriginalFilename());
-		String fileExt = Util.getFileExtFromFileName(multipartFile.getOriginalFilename()).toLowerCase();
-		String fileDir = Util.getNowYearMonthDateStr();
-
-		if (fileExt.equals("jpeg"))
-			fileExt = "jpg";
-		if (fileExt.equals("htm"))
-			fileExt = "html";
-		
-		GenFile oldGenFile = getGenFile(relTypeCode, relId, typeCode, type2Code, fileNo);
-		
-		if(oldGenFile != null) {
-			this.deleteGenFile(oldGenFile);
-		}
-		
-		ResultData saveMetaRd = saveMeta(relTypeCode, relId, typeCode, type2Code, fileNo, originFileName,
-				fileExtTypeCode, fileExtType2Code, fileExt, fileSize, fileDir);
-		int newGenFileId = (int) saveMetaRd.getBody().get("fid");
-
-		// 새 파일이 저장될 폴더(IO파일) 객체 생성
-		String targetDirPath = genFileDirPath + "/" + relTypeCode + "/" + fileDir;
-		java.io.File targetDir = new java.io.File(targetDirPath);
-
-		// 새 파일이 저장될 폴더가 존재하지 않는다면 생성
-		if (targetDir.exists() == false)
-			targetDir.mkdirs();
-
-		String targetFileName = newGenFileId + "." + fileExt;
-		String targetFilePath = targetDirPath + "/" + targetFileName;
-
-		// 파일 생성(업로드된 파일을 지정된 경로로 옮김)
-		try {
-			multipartFile.transferTo(new java.io.File(targetFilePath));
-		} catch (IllegalStateException | IOException e) {
-			return new ResultData("F-3", "파일저장에 실패하였습니다.");
-		}
-
-		return new ResultData("S-1", "파일이 생성되었습니다.", "fid", newGenFileId, "fileRealPath", targetFilePath, "fileName",
-				targetFileName);
-	}
+        return save(multipartFile, relTypeCode, relId, typeCode, type2Code, fileNo);
+    }
 
 	public List<GenFile> getGenFiles(String relTypeCode, int relId, String typeCode, String type2Code) {
 
@@ -204,7 +232,7 @@ public class GenFileService {
 	
 	public void workRelIds(Map<String, Object> param, int id) {
 		String genFileIdsStr = Util.ifEmpty((String) param.get("genFileIdsStr"), null);
-
+		
 		if (genFileIdsStr != null) {
 			List<Integer> genFileIds = Util.getListDividedBy(genFileIdsStr, ", ");
 			// 파일이 먼저 생성된 후에, 관련 데이터가 생성되는 경우에는, file의 relId가 일단 0으로 저장된다.
