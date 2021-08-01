@@ -51,7 +51,11 @@
 						</div>
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
 							<div class="flex">
+								<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
 								<span class="flex justify-center items-center text-sm">작성자 : </span>
+								<div>
+									<img src="${file.forPrintUri}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
+								</div>
 								<span>&nbsp${article.nickname}</span>
 							</div>
 							<div class="flex">
