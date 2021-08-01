@@ -35,4 +35,16 @@ public class Article {
 		
 		return extra;
 	}
+	
+	public String getWriterProfileImgUri() {
+        return "/common/genFile/file/member/" + uid + "/common/profile/0";
+    }
+
+    public String getWriterProfileFallbackImgUri() {
+        return "/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52";
+    }
+
+    public String getWriterProfileFallbackImgOnErrorHtmlAttr() {
+        return "this.src = '" + getWriterProfileFallbackImgUri() + "'";
+    }
 }

@@ -51,9 +51,8 @@
 						</div>
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
 							<div class="flex items-center">
-								<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
 								<div>
-									<img src="${file.forPrintUri}" onerror="this.src='/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52'" class="w-10 h-10 rounded-full bg-gray-300" />
+									<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-10 h-10 rounded-full bg-gray-300" />
 								</div>
 								<span>&nbsp${article.nickname}</span>
 							</div>

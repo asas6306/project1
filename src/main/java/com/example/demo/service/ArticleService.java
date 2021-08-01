@@ -37,16 +37,6 @@ public class ArticleService {
 				if (mapByFileNo != null)
 					article.getExtraNotNull().put("file__common__attachment", mapByFileNo);
 			}
-			// 프로필 이미지 가져오깅
-			for(Article article : articles) {
-				GenFile file = fs.getGenFile("member", article.getUid(), "common", "profile", 0);
-				Map<String, GenFile> filesMapForGetMember = new HashMap<>();
-				
-				if(file != null)
-					filesMapForGetMember.put(file.getFileNo() + "", file);
-				
-				article.getExtraNotNull().put("file__common__profile", filesMapForGetMember);
-			}
 			// 댓글 수 갖고오기
 			for(Article article : articles) {
 				article.getExtraNotNull().put("replyCnt", rs.getReplyCnt("article", article.getAid()));

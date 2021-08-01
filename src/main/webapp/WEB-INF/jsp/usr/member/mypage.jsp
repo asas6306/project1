@@ -28,8 +28,7 @@ function Delete__Articles__Confirm() {
 			</div>
 			<div class="flex border-t-4 border-blue-500 rounded p-2">
 				<div class="p-2">
-					<c:set var="file" value="${rq.loginedMember.extra.file__common__profile['0']}"></c:set>
-					<img alt="" src="${file.forPrintUri}" class="border w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gray-300">
+					<img src="${rq.loginedMember.profileImgUri}" onerror="${rq.loginedMember.profileFallbackImgOnErrorHtmlAttr}" class="border w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gray-300">
 				</div>
 				<div class="p-2 text-xl">
 					<div class="sm:flex text-4xl">

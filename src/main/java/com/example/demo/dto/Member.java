@@ -53,4 +53,16 @@ public class Member {
 //	public String getAuthLevelNameColor() {
 //		return MemberService.getAuthLevelNameColor(this);
 //	}
+	
+    public String getProfileImgUri() {
+        return "/common/genFile/file/member/" + uid + "/common/profile/0";
+    }
+
+    public String getProfileFallbackImgUri() {
+        return "/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52";
+    }
+
+    public String getProfileFallbackImgOnErrorHtmlAttr() {
+        return "this.src = '" + getProfileFallbackImgUri() + "'";
+    }
 }
