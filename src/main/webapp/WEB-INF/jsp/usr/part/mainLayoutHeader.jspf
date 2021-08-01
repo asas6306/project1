@@ -94,7 +94,7 @@
 				</ul>
 				<ul class="md:invisible md:w-0">
 					<li>
-						<a href="../article/list" class="p-2 lg:p-3"> 
+						<a class="p-2 lg:p-3"> 
 							<span class="text-4xl"><i class="far fa-caret-square-down"></i></span>
 						</a>
 						<div>
