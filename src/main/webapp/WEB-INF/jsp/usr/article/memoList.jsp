@@ -52,15 +52,7 @@
 								<div class="flex w-full items-center">
 									<div class="p-2">
 										<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
-										<c:choose>
-											<c:when test="${file == null}">
-												<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
-											</c:when>
-											<c:otherwise>
-												<img src="${file.forPrintUri}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
-											</c:otherwise>
-										</c:choose>
-										
+										<img src="${file.forPrintUri}" onerror="this.src='/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52'" class="w-10 h-10 rounded-full bg-gray-300" />
 									</div>
 									<div>
 										<a href="../member/userpage?uid=${article.uid}" class="text-center w-20">${article.nickname}</a>

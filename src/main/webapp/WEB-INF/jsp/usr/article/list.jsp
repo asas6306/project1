@@ -50,24 +50,23 @@
 							</div>
 						</div>
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
-							<div class="flex">
+							<div class="flex items-center">
 								<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
-								<span class="flex justify-center items-center text-sm">작성자 : </span>
 								<div>
-									<img src="${file.forPrintUri}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
+									<img src="${file.forPrintUri}" onerror="this.src='/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52'" class="w-10 h-10 rounded-full bg-gray-300" />
 								</div>
 								<span>&nbsp${article.nickname}</span>
 							</div>
-							<div class="flex">
-								<span class="flex justify-center items-center text-sm">작성일 : </span>
-								<span>&nbsp${Util.dateFormat(article.regDate)}</span>
+							<div class="flex items-center">
+								<span class="text-sm">작성일 : </span>
+								<span class="">&nbsp${Util.dateFormat(article.regDate)}</span>
 							</div>
-							<div class="flex">
-								<span class="flex justify-center items-center text-sm">수정일 : </span>
+							<div class="flex items-center">
+								<span class="text-sm">수정일 : </span>
 								<span>&nbsp${Util.dateFormat(article.updateDate)}</span>
 							</div>
-							<div class="flex">
-								<span class="flex justify-center items-center text-sm">조회수 : </span>
+							<div class="flex items-center">
+								<span class="text-sm">조회수 : </span>
 								<span>&nbsp${Util.numberFormat(article.hit)}</span>
 							</div>
 						</div>
