@@ -231,12 +231,11 @@ function MemberUpdate__checkAndSubmit(form) {
 			<input type="hidden" name="PW" />
 			<div class="flex">
 				<div class="input-file-wrap">
-					<c:set var="file" value="${rq.loginedMember.extra.file__common__profile['0']}"></c:set>
-					<img alt="" src="${file.forPrintUri}" class="w-40 h-40 rounded-full bg-gray-300">
+					<img src="${rq.loginedMember.profileImgUri}" class="w-40 h-40 rounded-full bg-gray-300">
 					<input type="file" accept="image/gif, image/jpeg, image/png" name="file__member__${rq.loginedMember.uid}__common__profile__0" class="w-20" />
-					<input type="checkbox" onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')" 
+					<input type="checkbox" onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')"
 					name="deleteFile__member__${rq.loginedMember.uid}__common__profile__0" value="Y" /> <span>삭제</span>
-				</div>
+				</div> <!-- 이미지 변경 시 혹은 제거 시 바로 이미지에 반영시키는 방법 -->
 				<div class="mx-4 my-2 w-96">
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">아이디 : </span>

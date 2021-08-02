@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 
+<%@ page import="com.example.demo.util.Util"%>
+
 <c:set var="fileInputMaxCount" value="3" />
 <script>
 	ArticleUpdate__fileInputMaxCount = parseInt("${fileInputMaxCount}");
@@ -153,7 +155,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 										<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 											<div>
 												<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
-													<img class="max-w-sm" src="${file.forPrintUri}" />
+													<img class="max-w-sm max-h-60" src="${file.forPrintUri}" />
 												</a>
 											</div>
 											<div>

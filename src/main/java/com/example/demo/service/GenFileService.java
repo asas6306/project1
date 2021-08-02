@@ -158,8 +158,9 @@ public class GenFileService {
 			}
 		}
 		
+		// 삭제시작
 		int deleteCount = 0;
-
+		
 		for (String inputName : param.keySet()) {
 			String[] inputNameBits = inputName.split("__");
 
@@ -180,9 +181,6 @@ public class GenFileService {
 		}
 		
 		String genFileIdsStr = Joiner.on(", ").join(genFileIds);
-		
-		// 삭제시작
-		
 		
 		return new ResultData("S-1", "파일을 업로드하였습니다.", "filesResultData", filesResultData, "genFileIdsStr",
 				genFileIdsStr, "deleteCount", deleteCount);

@@ -266,7 +266,7 @@ public class Util {
 	}
 
 	public static String numberFormat(int num) {
-		DecimalFormat df = new DecimalFormat("###,###,###");
+		DecimalFormat df = new DecimalFormat("#,###");
 
 		return df.format(num);
 	}
