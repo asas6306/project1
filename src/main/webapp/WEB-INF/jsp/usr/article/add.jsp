@@ -36,6 +36,7 @@ function ArticleAdd__checkAndSubmit(form) {
 		return false;
 	}
 	
+	
 	var maxSizeMb = 50;
 	var maxSize = maxSizeMb * 1024 * 1024;
 	for ( let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++ ) {
@@ -49,6 +50,7 @@ function ArticleAdd__checkAndSubmit(form) {
 			}
 		}
 	}
+	
 	const startSubmitForm = function(data) {
 		if (data && data.body && data.body.genFileIdsStr) {
 			form.genFileIdsStr.value = data.body.genFileIdsStr;
@@ -61,6 +63,7 @@ function ArticleAdd__checkAndSubmit(form) {
 		
 		form.submit();
 	};
+	
 	const startUploadFiles = function(onSuccess) {
 		var needToUpload = false;
 		for ( let inputNo = 1; inputNo <= ArticleAdd__fileInputMaxCount; inputNo++ ) {
@@ -137,7 +140,7 @@ function ArticleAdd__checkAndSubmit(form) {
 				<div class="">
 				<c:forEach begin="1" end="${fileInputMaxCount}" var="inputNo">
 					<div>
-						<input class="form-row-input w-full" type="file"
+						<input class="form-row-input w-full" type="file" accept="image/gif, image/jpeg, image/png"
 								name="file__article__0__common__attachment__${inputNo}" />
 					</div>
 				</c:forEach>

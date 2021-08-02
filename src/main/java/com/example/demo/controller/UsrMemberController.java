@@ -305,7 +305,7 @@ public class UsrMemberController extends _BaseController {
 
 	@RequestMapping("/usr/member/doUpdate")
 	@RequestBody
-	public String doUpdate(HttpServletRequest req, @RequestParam Map<String, Object> param) {
+	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		Rq rq = (Rq)req.getAttribute("rq");
 		int uid = rq.getLoginedMemberUid();
 		Member loginedMember = rq.getLoginedMember();
@@ -322,6 +322,9 @@ public class UsrMemberController extends _BaseController {
 		param.put("uid", uid);
 		param.put("ID", loginedMember.getID());
 		ResultData doUpdateRd = ms.update(param);
+		
+		Member changedMember = ms.getMember("uid", String.valueOf(uid)); 
+		session.setAttribute("loginedMemberJsonStr", changedMember.toJsonStr());
 		
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}

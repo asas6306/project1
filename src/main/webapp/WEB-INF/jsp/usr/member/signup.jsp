@@ -297,7 +297,7 @@ function MemberSignup__checkAndSubmit(form) {
 		                <label class="label">
 		                    프로필 이미지
 		                </label>
-		                <input type="file" name="file__member__0__common__profile__0" placeholder="프로필 이미지를 선택해주세요." />
+		                <input type="file" accept="image/gif, image/jpeg, image/png" name="file__member__0__common__profile__0" placeholder="프로필 이미지를 선택해주세요." />
 		            </div>
 					<div class="my-2">
 						<input type="text" name="nickname" placeholder="닉네임" autocomplete="off" class="inputNickname border-2 rounded w-full p-2 hover:border-blue-300" />

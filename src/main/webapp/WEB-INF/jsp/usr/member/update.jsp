@@ -233,7 +233,7 @@ function MemberUpdate__checkAndSubmit(form) {
 				<div class="input-file-wrap">
 					<c:set var="file" value="${rq.loginedMember.extra.file__common__profile['0']}"></c:set>
 					<img alt="" src="${file.forPrintUri}" class="w-40 h-40 rounded-full bg-gray-300">
-					<input type="file" name="file__member__${rq.loginedMember.uid}__common__profile__0" class="w-20" />
+					<input type="file" accept="image/gif, image/jpeg, image/png" name="file__member__${rq.loginedMember.uid}__common__profile__0" class="w-20" />
 					<input type="checkbox" onclick="$(this).closest('.input-file-wrap').find(' > input[type=file]').val('')" 
 					name="deleteFile__member__${rq.loginedMember.uid}__common__profile__0" value="Y" /> <span>삭제</span>
 				</div>

@@ -100,7 +100,7 @@ public class GenFileService {
             return new ResultData("F-3", "파일저장에 실패하였습니다.");
         }
 
-        return new ResultData("S-1", "파일이 생성되었습니다.", "id", newGenFileId, "fileRealPath", targetFilePath, "fileName",
+        return new ResultData("S-1", "파일이 생성되었습니다.", "fid", newGenFileId, "fileRealPath", targetFilePath, "fileName",
                 targetFileName, "fileInputName", fileInputName);
     }
 	

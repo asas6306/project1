@@ -19,7 +19,6 @@
 	}
 	
 	form.PW.value = sha256(form.PWInput.value);
-	alert(sha256(form.PWInput.value));
 	form.PWInput.value = '';
 	
 	form.submit();

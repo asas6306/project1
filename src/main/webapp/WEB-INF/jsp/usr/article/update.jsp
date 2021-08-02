@@ -106,6 +106,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 			success : onSuccess
 		});
 	}
+	
 	ArticleUpdate__submited = true;
 	startUploadFiles(startSubmitForm);
 }
@@ -169,7 +170,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 												</label>
 											</div>
 										</c:if>
-										<input class="form-row-input w-full" type="file"
+										<input class="form-row-input w-full" type="file" accept="image/gif, image/jpeg, image/png"
 											name="file__article__${article.aid}__common__attachment__${inputNo}" />
 									</div>
 								</c:forEach>
