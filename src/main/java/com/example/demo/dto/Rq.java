@@ -16,6 +16,8 @@ public class Rq {
     private boolean needToChangePassword;
     @Getter
     private boolean isAjax;
+    @Getter
+    private boolean isAdmin;
 
     public Rq(boolean isAjax, Member loginedMember, String currentUri, Map<String, String> paramMap, boolean needToChangePassword) {
         this.loginedMember = loginedMember;
