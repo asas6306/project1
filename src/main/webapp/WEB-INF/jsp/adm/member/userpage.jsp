@@ -26,12 +26,17 @@ function Delete__Articles__Confirm() {
 					<img src="${member.profileImgUri}" onerror="${member.profileFallbackImgOnErrorHtmlAttr}" class="border w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-gray-300">
 				</div>
 				<div class="p-2 text-xl w-full">
-					<div class="sm:flex text-4xl">
-						<div>
-							<span>${member.ID}</span>
+					<div class="flex justify-between text-4xl">
+						<div class="sm:flex">
+							<div>
+								<span>${member.ID}</span>
+							</div>
+							<div>
+								<span>(${member.nickname})</span>
+							</div>
 						</div>
-						<div>
-							<span>(${member.nickname})</span>
+						<div class="flex items-center">
+							<a href="userUpdate?uid=${member.uid}" class="bg-blue-300 hover:bg-blue-500 rounded-full p-1 text-sm">회원수정</a>
 						</div>
 					</div>
 					<div>
