@@ -1,76 +1,153 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="header.jspf"%>
 
 <header class="top-bar bg-white">
 	<div class="flex justify-center hover:shadow-md border-b">
-		<nav class="first-top h-10 flex items-center justify-end text-gray-500 text-sm w-full">
-			<ul class="flex">
-				<div class="ml-8"></div>
-				<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
-				</a></li>
-				<span>|</span>
-				<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
-				</a></li>
-				<div class="mr-8"></div>
+		<nav class="h-10 flex items-center justify-center text-gray-500 text-sm container">
+			<ul class="flex w-full md:w-4/5 justify-end">
+				<c:choose>
+					<c:when test="${rq.notLogined}">
+						<li><a href="${rq.loginPageUri}" class="p-3 hover:text-gray-900"> <span>로그인</span>
+						</a></li>
+						<span>|</span>
+						<li><a href="../member/signup" class="p-3 hover:text-gray-900"> <span>회원가입</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
+						</a></li>
+						<span>|</span>
+						<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</nav>
 	</div>
 	<div class="flex justify-center h-16 border-b hover:shadow-md mb-3">
-		<nav class="menu-box-1 first-top flex items-center w-full">
-			<div class="flex w-0 md:w-28 h-full"></div>
-			<div class="flex justify-center w-full md:w-80 flex-shrink-0">
-				<a href="/adm/home/main">
-					<span>
-						<i class="logo-bar fas fa-seedling text-4xl">GARDEN<span class="text-lg font-bold">ADMIN</span></i>
-					</span>
-				</a>
+		<nav class="flex justify-center container">
+			<div class="menu-box-1 flex justify-center items-center h-full w-full md:w-4/5">
+				<div class="flex w-0 2xl:w-28 h-full"></div><!-- 공백 -->
+				<div class="flex px-4 md:px-0 2xl:justify-center md:w-80 w-full">
+					<a href="/usr/home/main">
+						<span>
+							<i class="logo-bar fas fa-seedling text-4xl">GARDEN</i>
+							<span>Admin</span>
+						</span>
+					</a>
+				</div>
+				<ul class="flex items-center justify-end w-0 invisible md:visible md:w-full text-xl">
+					<li>
+						<a href="../home/main" class="p-2 lg:p-3"> 
+							<span>메인</span>
+						</a>
+					</li>
+					<li>
+						<a href="../member/list" class="p-2 lg:p-3"> 
+							<span>회원관리</span>
+						</a>
+					</li>
+					<li>
+						<a href="../article/list" class="p-2 lg:p-3"> 
+							<span>게시판관리</span>
+						</a>
+						<div>
+							<ul>
+								<li>
+									<a href="../article/list"> 
+										<span>전체게시물</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=1"> 
+										<span>공지사항</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=2"> 
+										<span>자유게시판</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../article/list?articleType=memo" class="p-2 lg:p-3"> 
+							<span>메모장관리</span>
+						</a>
+						<div>
+							<ul>
+								<li>
+									<a href="../article/list?articleType=memo"> 
+										<span>전체메모</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=1&articleType=memo"> 
+										<span>웹</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=2&articleType=memo"> 
+										<span>정보처리기사</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<ul class="md:invisible md:w-0">
+					<li>
+						<a class="p-2 lg:p-3"> 
+							<span class="text-4xl"><i class="far fa-caret-square-down"></i></span>
+						</a>
+						<div>
+							<ul>
+								<li>
+									<span>게시판</span>
+								</li>
+								<li>
+									<a href="../article/list"> 
+										<span>전체게시물</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=1"> 
+										<span>공지사항</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=2"> 
+										<span>자유게시판</span>
+									</a>
+								</li>
+							</ul>
+							<ul>
+								<li>
+									<span>메모장</span>
+								</li>
+								<li>
+									<a href="../article/list?articleType=memo"> 
+										<span>전체메모</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=1&articleType=memo"> 
+										<span>웹</span>
+									</a>
+								</li>
+								<li>
+									<a href="../article/list?boardCode=2&articleType=memo"> 
+										<span>정보처리기사</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
 			</div>
-			<ul class="flex items-center justify-end invisible md:visible w-full text-xl">
-				<div class="ml-8"></div>
-				<li>
-					<a href="../home/main" class="p-2 lg:p-3"> 
-						<span>메인</span>
-					</a>
-				</li>
-				<li>
-					<a href="../member/list" class="p-2 lg:p-3"> 
-						<span>회원 관리</span>
-					</a>
-				</li>
-				<li>
-					<a href="../article/list" class="p-2 lg:p-3"> 
-						<span>게시판 관리</span>
-					</a>
-					<div>
-						<ul>
-							<li>
-								<a href="../article/list"> 
-									<span>전체게시물</span>
-								</a>
-							</li>
-							<li>
-								<a href="../article/list?boardCode=1"> 
-									<span>공지사항</span>
-								</a>
-							</li>
-							<li>
-								<a href="../article/list?boardCode=2"> 
-									<span>자유게시판</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-				<li>
-					<a href="../article/list?articleType=memo" class="p-2 lg:p-3"> 
-						<span>메모장</span>
-					</a>
-				</li>
-				<div class="lg:mr-8"></div>
-			</ul>
-			<div class="md:invisible"></div>
 		</nav>
 	</div>
 </header>

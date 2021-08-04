@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 페이지</title>
+<title>Garden's Webe</title>
 
 <!-- 모바일에서 사이트가 PC에서의 픽셀크기 기준으로 작동하게 하기(반응형 하려면 필요) -->
 <meta name="viewport"
@@ -17,9 +17,15 @@
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+<!-- vue -->
+<script src="https://unpkg.com/vue@next"></script>
+	
 <link rel="stylesheet" href="/resource/common.css" />
 <link rel="stylesheet" href="/resource/adm/common.css" />
+<script src="/resource/common.js" defer></script>
 
-<%="<script>"%> const param = ${paramJson}; <%="</script>"%>
+<script>
+const param = ${rq.paramJsonStr};
+</script>
 </head>
 <body>

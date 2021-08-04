@@ -128,7 +128,7 @@ public class MemberService {
 	public List<Member> getMembers(int authLevel, String searchType, String searchKeyword, int page, int pageCnt) {
 		
 		List<Member> members = md.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
-		
+		System.out.println("서비스 : " + page);
 		// 프로필 이미지 가져오깅
 		for(Member member : members) {
 			member = getMemberImg(member);

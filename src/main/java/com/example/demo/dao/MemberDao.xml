@@ -20,6 +20,7 @@
 		select * from `member`
 		left join auth on `member`.authLevel = auth.authLevel
 		where 1
+		and delState = 0
 		<choose>
 			<when test="type=='uid'">
 				and uid = #{itemValue}

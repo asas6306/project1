@@ -38,6 +38,10 @@ public class Rq {
     public boolean isNotLogined() {
         return isLogined() == false;
     }
+    
+    public boolean isAdmin() {
+        return loginedMember.getAuthLevel() == 7;
+    }
 
     public int getLoginedMemberUid() {
         if (isNotLogined()) return 0;

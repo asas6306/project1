@@ -16,6 +16,11 @@
 						</a></li>
 					</c:when>
 					<c:otherwise>
+						<c:if test="${rq.admin}">
+							<li><a href="../../adm/home/main" class="p-3 hover:text-gray-900"> <span>관리자페이지</span>
+						</a></li>
+						<span>|</span>
+						</c:if>
 						<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
 						</a></li>
 						<span>|</span>

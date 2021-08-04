@@ -300,11 +300,12 @@ public class AdmMemberController extends _BaseController {
 		if (membersCnt != 0) {
 			// 페이징
 			int pageCnt = 10;
-			page = ss.page(req, page, page, membersCnt);
+			page = ss.page(req, page, pageCnt, membersCnt);
 
 			// 최종 게시물 불러오기
 			List<Member> members = ms.getMembers(authLevel, searchType, searchKeyword, page, pageCnt);
-
+			System.out.println("test");
+			System.out.println("컨트롤러 : " + page);
 			req.setAttribute("members", members);
 			req.setAttribute("auths", auths.getAuths());
 		} else {

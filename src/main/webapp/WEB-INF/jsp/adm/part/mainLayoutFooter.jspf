@@ -2,55 +2,56 @@
     pageEncoding="UTF-8"%>
 <footer class="text-gray-300 bg-gray-900 border-t mt-8">
 	<div class="flex justify-center h-36 border-b">
-		<nav class="last-bottom flex items-center w-full">
-			<div class="flex justify-center w-full md:w-40 flex-shrink-0">
-				<a href="/adm/home/main">
-					<i class="logo-bar fas fa-seedling text-5xl text-white"></i>
-				</a>
+		<nav class="flex justify-center items-center w-full">
+			<div class="flex justify-center items-center">
+				<div class="flex justify-center w-40">
+					<a href="/usr/home/main">
+						<i class="logo-bar fas fa-seedling text-5xl text-white"></i>
+					</a>
+				</div>
+				<ul class="w-full hidden sm:inline md:pl-4">
+					<div class="flex">
+						<li>
+							<a href="#" class=""> 
+								<span>회원 관리</span>
+							</a>
+						</li>
+						<li>
+							<a href="../article/list" class=""> 
+								<span>게시판 관리</span>
+							</a>
+						</li>
+						<li>
+							<a href="../article/list?articleType=memo" class=""> 
+								<span>메모장</span>
+							</a>
+						</li>
+					</div>
+					<div class="flex">
+						<li>
+							<a href="#" class=""> 
+								<span>회원 관리</span>
+							</a>
+						</li>
+						<li>
+							<a href="../article/list" class=""> 
+								<span>게시판 관리</span>
+							</a>
+						</li>
+						<li>
+							<a href="../article/list?articleType=memo" class=""> 
+								<span>메모장</span>
+							</a>
+						</li>
+					</div>
+					<div class="flex">
+						<span>고객센터 : 010-0000-0000, asasas@asas.com</span>
+					</div>
+					<div class="flex">
+						<span class="text-xs">COPYRIGHT ⓒ GARDENPARK COMPANY. ALL RIGHTS RESERVED.</span>
+					</div>
+				</ul>
 			</div>
-			<ul class="w-full invisible md:visible">
-				<div class="flex">
-					<li>
-						<a href="#" class=""> 
-							<span>회원 관리</span>
-						</a>
-					</li>
-					<li>
-						<a href="../article/list" class=""> 
-							<span>게시판 관리</span>
-						</a>
-					</li>
-					<li>
-						<a href="../article/list?articleType=memo" class=""> 
-							<span>메모장</span>
-						</a>
-					</li>
-				</div>
-				<div class="flex">
-					<li>
-						<a href="#" class=""> 
-							<span>회원 관리</span>
-						</a>
-					</li>
-					<li>
-						<a href="../article/list" class=""> 
-							<span>게시판 관리</span>
-						</a>
-					</li>
-					<li>
-						<a href="../article/list?articleType=memo" class=""> 
-							<span>메모장</span>
-						</a>
-					</li>
-				</div>
-				<div class="flex">
-					<span>고객센터 : 010-0000-0000, asasas@asas.com</span>
-				</div>
-				<div class="flex">
-					<span class="text-xs">COPYRIGHT ⓒ GARDENPARK COMPANY. ALL RIGHTS RESERVED.</span>
-				</div>
-			</ul>
-			<div class="w-72 bg-gray-300 invisible md:visible">희희</div>
 		</nav>
 	</div>
 </footer>
