@@ -7,22 +7,14 @@
 	<div class="flex justify-center hover:shadow-md border-b">
 		<nav class="h-10 flex items-center justify-center text-gray-500 text-sm container">
 			<ul class="flex w-full md:w-4/5 justify-end">
-				<c:choose>
-					<c:when test="${rq.notLogined}">
-						<li><a href="${rq.loginPageUri}" class="p-3 hover:text-gray-900"> <span>로그인</span>
-						</a></li>
-						<span>|</span>
-						<li><a href="../member/signup" class="p-3 hover:text-gray-900"> <span>회원가입</span>
-						</a></li>
-					</c:when>
-					<c:otherwise>
-						<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
-						</a></li>
-						<span>|</span>
-						<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
-						</a></li>
-					</c:otherwise>
-				</c:choose>
+				<li><a href="/usr/home/main" class="p-3 hover:text-gray-900"> <span>사이트</span>
+				</a></li>
+				<span>|</span>
+				<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
+				</a></li>
+				<span>|</span>
+				<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
+				</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -30,13 +22,13 @@
 		<nav class="flex justify-center container">
 			<div class="menu-box-1 flex justify-center items-center h-full w-full md:w-4/5">
 				<div class="flex w-0 2xl:w-28 h-full"></div><!-- 공백 -->
-				<div class="flex px-4 md:px-0 2xl:justify-center md:w-80 w-full">
+				<div class="flex items-end px-4 md:px-0 2xl:justify-center md:w-80 w-full">
 					<a href="/usr/home/main">
 						<span>
 							<i class="logo-bar fas fa-seedling text-4xl">GARDEN</i>
-							<span>Admin</span>
 						</span>
 					</a>
+					<a href="/adm/home/main">Admin</a>
 				</div>
 				<ul class="flex items-center justify-end w-0 invisible md:visible md:w-full text-xl">
 					<li>
