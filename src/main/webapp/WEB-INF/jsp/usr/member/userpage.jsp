@@ -19,7 +19,7 @@ function Delete__Articles__Confirm() {
 	<div class="mypage-width">
 		<div>
 			<div class="flex">
-				<span class="flex items-center justify-center h-20 text-4xl font-bold px-1">마이페이지</span>
+				<span class="flex items-center justify-center h-20 text-4xl font-bold px-1">유저페이지</span>
 			</div>
 			<div class="flex border-t-4 border-blue-500 rounded p-2">
 				<div class="p-2 flex-shrink-0">

@@ -15,7 +15,7 @@
 				<span class="w-20">권한</span>
 				<span class="w-48">연락처</span>
 				<span class="w-24 mr-2">가입일</span>
-				<div class="w-24 bg-gray-100 border-l-2 border-gray-500">게시판</div>
+				<div class="w-32 bg-gray-100 border-l-2 border-gray-500">게시판</div>
 			</div>
 		</div>
 		<div class="flex justify-center border-b-2 border-gray-500">
@@ -28,11 +28,11 @@
 					</c:when>
 					<c:otherwise>
 						<c:forEach items='${members}' var='member'>
-						<c:set var="thumbFile" value="${member.extra.file__common__profile['0']}" />
-						<c:set var="memberAuthLevel" value="${String.valueOf(member.authLevel)}" />
+							
+							<c:set var="memberAuthLevel" value="${String.valueOf(member.authLevel)}" />
 							<div class="flex items-center border-b h-20">
 								<span class="text-center w-16 text-xl">${member.uid}</span>
-								<img src="${thumbFile.forPrintUri}" alt="" class="h-16 w-16 mr-4 border rounded-full" />
+								<img src="${member.profileImgUri}" onerror="${member.profileFallbackImgOnErrorHtmlAttr}" class="h-16 w-16 mr-4 border rounded-full" />
 								<a href="userpage?uid=${member.uid}" class="text-lg w-32">
 									<span>${member.ID}</span>
 									<div>(${member.nickname})</div>

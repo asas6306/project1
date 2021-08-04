@@ -47,16 +47,7 @@
 								</div>
 								<div class="flex w-full items-center">
 									<div class="mx-2">
-										<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
-										<c:choose>
-											<c:when test="${file == null}">
-												<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
-											</c:when>
-											<c:otherwise>
-												<img src="${file.forPrintUri}" alt="" class="w-10 h-10 rounded-full bg-gray-300" />
-											</c:otherwise>
-										</c:choose>
-										
+										<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-10 h-10 rounded-full bg-gray-300" />
 									</div>
 									<div>
 										<a href="../member/userpage?uid=${article.uid}" class="text-center w-20">${article.nickname}</a>
@@ -88,13 +79,13 @@
 			</div>
 			<nav class="w-32 border-l-2 border-gray-500 flex-shrink-0">
 				<ul>
-					<a href="/usr/article/list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="list?articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>메모장(${allArticlesCnt})</span>
 					</a>
-					<a href="/usr/article/list?boardCode=1&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="list?boardCode=1&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>웹</span>
 					</a>
-					<a href="/usr/article/list?boardCode=2&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
+					<a href="list?boardCode=2&articleType=memo" class="flex justify-center items-center text-gray-700 h-8 hover:text-black">
 						<span>정보처리기사</span>
 					</a>
 					<div class="pb-1"></div>
