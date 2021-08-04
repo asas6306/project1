@@ -38,45 +38,51 @@ function Delete__Articles__Confirm() {
 					<div>
 						<span>${member.authName}</span>
 					</div>
-					<div class="border border-blue-500 w-min p-2 hidden sm:block">
+					<div class="w-min p-2 hidden sm:block">
 						<div class="flex text-xl">
 							<div class="flex grid-cols-3">
-								<div class="text-center border-b border-blue-300 w-32">게시물</div>
-								<div class="text-center border-b border-blue-300 w-32">메모</div>
-								<div class="text-center border-b border-blue-300 w-32">댓글</div>
+								<div class="text-center border-b border-blue-300 w-32">
+									<a href="userpage?uid=${param.uid}&call=article">게시물</a>
+								</div>
+								<div class="text-center border-b border-blue-300 w-32">
+									<a href="userpage?uid=${param.uid}&call=memo">메모</a>
+								</div>
+								<div class="text-center border-b border-blue-300 w-32">
+									<a href="userpage?uid=${param.uid}&call=reply">댓글</a>
+								</div>
 							</div>
 						</div>
 						<div class="flex text-xl">
 							<div class="flex grid-cols-3">
 								<div class="text-center w-32">
-									<a href="mypage?call=article">${Util.numberFormat(articleCnt)}</a>
+									<a href="userpage?uid=${param.uid}&call=article">${Util.numberFormat(articleCnt)}</a>
 								</div>
 								<div class="text-center w-32">
-									<a href="mypage?call=memo">${Util.numberFormat(memoCnt)}</a>
+									<a href="userpage?uid=${param.uid}&call=memo">${Util.numberFormat(memoCnt)}</a>
 								</div>
 								<div class="text-center w-32">
-									<a href="mypage?call=reply">${Util.numberFormat(replyCnt)}</a>
+									<a href="userpage?uid=${param.uid}&call=reply">${Util.numberFormat(replyCnt)}</a>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="border border-blue-500 sm:hidden p-2 w-36">
+					<div class="sm:hidden p-2 w-36">
 						<div class="flex">
 							<span class="w-16 text-right">게시물 : </span>
 							<span>
-								<a href="mypage?call=reply">&nbsp${Util.numberFormat(replyCnt)}</a>
+								<a href="userpage?uid=${param.uid}&call=article">&nbsp${Util.numberFormat(articleCnt)}</a>
 							</span>
 						</div>
 						<div class="flex">
 							<span class="w-16 text-right">메모 : </span>
 							<span>
-								<a href="mypage?call=reply">&nbsp${Util.numberFormat(replyCnt)}</a>
+								<a href="userpage?uid=${param.uid}&call=memo">&nbsp${Util.numberFormat(memoCnt)}</a>
 							</span>
 						</div>
 						<div class="flex">
 							<span class="w-16 text-right">댓글 : </span>
 							<span>
-								<a href="mypage?call=reply">&nbsp${Util.numberFormat(replyCnt)}</a>
+								<a href="userpage?uid=${param.uid}&call=reply">&nbsp${Util.numberFormat(replyCnt)}</a>
 							</span>
 						</div>
 					</div>

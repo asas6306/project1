@@ -10,10 +10,10 @@
 				<li><a href="/usr/home/main" class="p-3 hover:text-gray-900"> <span>사이트</span>
 				</a></li>
 				<span>|</span>
-				<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
+				<li><a href="/usr/member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
 				</a></li>
 				<span>|</span>
-				<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
+				<li><a href="/usr/member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
 				</a></li>
 			</ul>
 		</nav>
