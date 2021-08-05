@@ -69,7 +69,7 @@
 											<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 												<div class="flex">
 													<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
-														<img class="w-60" src="${file.forPrintUri}" />
+														<img class="h-40 w-40 sm:h-48 sm:w-48 lg:h-60 lg:w-60 object-cover" src="${file.forPrintUri}" />
 													</a>
 												</div>
 											</c:if>

@@ -52,7 +52,7 @@
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
 							<div class="flex items-center">
 								<div>
-									<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-10 h-10 rounded-full bg-gray-300" />
+									<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-10 h-10 rounded-full" />
 								</div>
 								<span>&nbsp${article.nickname}</span>
 							</div>
@@ -78,7 +78,7 @@
 										<c:if test="${file != null && file.fileExtTypeCode == 'img'}">
 											<div>
 												<a href="${file.forPrintUri}" target="_blank" title="자세히 보기">
-													<img class="w-60 rounded-lg" src="${file.forPrintUri}" />
+													<img class="h-40 w-40 sm:h-48 sm:w-48 lg:h-60 lg:w-60 rounded-lg object-cover" src="${file.forPrintUri}" />
 												</a>
 											</div>
 										</c:if>
