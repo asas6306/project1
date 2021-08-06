@@ -218,8 +218,6 @@ public class UsrMemberController extends _BaseController {
 
 		Rq rq = (Rq)req.getAttribute("rq");
 		int uid = rq.getLoginedMemberUid();
-		
-		req.setAttribute("call", call);
 
 		int itemsCnt = ss.getItemsCnt(req, call, uid);
 

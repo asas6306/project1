@@ -93,58 +93,65 @@ function Delete__Articles__Confirm() {
 			</div>
 		</div>
 		<div class="border-t-2 border-blue-500">
-			<form action="myPageDoDelete" class="p-1">
-				<div class="border-b-4 border-blue-500 rounded">
-					<c:forEach var="item" items="${items}">
-						<div class="flex items-center border-b">
-							<div class="">
+			<form action="mypageDoDelete" class="p-1">
+			<input type="hidden" name="call" value="${param.call}" />
+				<div class="flex border-b-4 border-blue-500 rounded">
+					<div>
+						<c:forEach begin="1" end="${items.size()}" var="num">
+							<div class="flex items-center h-7">
 								<c:choose>
-									<c:when test="${call == 'reply'}">
-										<input type="checkbox" name="delete__${num}" class="flex justify-center items-center" value="${item.rid}"/>
+									<c:when test="${param.call == 'reply'}">
+										<input type="checkbox" name="delete__${num}" class="flex justify-center items-center h-6" value="${items.get(num-1).rid}"/>
 									</c:when>
 									<c:otherwise>
-										<input type="checkbox" name="delete__${num}" class="flex justify-center items-center" value="${item.aid}"/>
-									</c:otherwise> 
-								</c:choose>
-							</div>
-							<div class="w-full text-lg font-thin px-2">
-								<c:choose>
-									<c:when test="${call == 'reply'}">
-										<div class="w-full sm:flex sm:justify-between">
-											<div>
-												<span class="text-base">${Util.numberFormat(item.rid)}</span>
-												<span class="text-xl">${item.body}</span>
-											</div>
-											<div class="grid grid-cols-2 sm:flex sm:justify-center sm:items-center text-sm sm:text-center">
-												<div class="sm:w-16">
-													<span class="sm:hidden">등록일 : </span>
-													<span>${Util.dateFormat(item.regDate)}</span>
-												</div>
-											</div>
-										</div>
-									</c:when>
-									<c:otherwise>
-										<div class="w-full sm:flex sm:justify-between">
-											<div>
-												<span class="text-base">${Util.setBoardName(item.boardName)}</span>
-												<span class="text-xl">${item.title}</span>
-											</div>
-											<div class="grid grid-cols-2 sm:flex sm:justify-center sm:items-center text-sm sm:text-center">
-												<div class="sm:w-16">
-													<span class="sm:hidden">등록일 : </span>
-													<span>${Util.dateFormat(item.regDate)}</span>
-												</div>
-												<div class="sm:w-8">
-													<span class="sm:hidden">조회수 : </span>
-													<span>${Util.numberFormat(item.hit)}</span>
-												</div>
-											</div>
-										</div>
+										<input type="checkbox" name="delete__${num}" class="flex justify-center items-center h-6" value="${items.get(num-1).aid}"/>
 									</c:otherwise>
 								</c:choose>
 							</div>
-						</div>
-					</c:forEach>
+						</c:forEach>
+					</div>
+					<div class="w-full">
+						<c:forEach var="item" items="${items}">
+							<div class="flex items-center border-b h-7">
+								<div class="w-full text-lg font-thin px-2">
+									<c:choose>
+										<c:when test="${param.call == 'reply'}">
+											<div class="w-full sm:flex sm:justify-between">
+												<div>
+													<span class="text-base">${Util.numberFormat(item.rid)}</span>
+													<span class="text-xl">${item.body}</span>
+												</div>
+												<div class="grid grid-cols-2 sm:flex sm:justify-center sm:items-center text-sm sm:text-center">
+													<div class="sm:w-16">
+														<span class="sm:hidden">등록일 : </span>
+														<span>${Util.dateFormat(item.regDate)}</span>
+													</div>
+												</div>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="w-full sm:flex sm:justify-between">
+												<div>
+													<span class="text-base">${Util.setBoardName(item.boardName)}</span>
+													<span class="text-xl">${item.title}</span>
+												</div>
+												<div class="grid grid-cols-2 sm:flex sm:justify-center sm:items-center text-sm sm:text-center">
+													<div class="sm:w-16">
+														<span class="sm:hidden">등록일 : </span>
+														<span>${Util.dateFormat(item.regDate)}</span>
+													</div>
+													<div class="sm:w-8">
+														<span class="sm:hidden">조회수 : </span>
+														<span>${Util.numberFormat(item.hit)}</span>
+													</div>
+												</div>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
 				</div>
 				<div class="flex">
 					<div class="w-12 sm:inline sm:w-24"> <!-- 공백용 -->
