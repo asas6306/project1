@@ -134,31 +134,9 @@ public class AdmMemberController extends _BaseController {
 		session.removeAttribute("loginedMemberUid");
 		session.removeAttribute("loginedMemberJsonStr");
 
-		String redirectUri = Util.ifEmpty(null, "login");
+		String redirectUri = Util.ifEmpty(null, "/usr/member/login");
 
 		return Util.msgAndReplace("로그아웃 되었습니다.", redirectUri);
-	}
-
-	@RequestMapping("/adm/member/mypage")
-	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
-		
-		Rq rq = (Rq)req.getAttribute("rq");
-		int uid = rq.getLoginedMemberUid();
-
-		req.setAttribute("call", call);
-
-		int itemsCnt = ss.getItemsCnt(req, call, uid);
-
-		int pageCnt = 20;
-		if (itemsCnt != 0) {
-			// 페이징
-			page = ss.page(req, page, pageCnt, itemsCnt);
-		}
-
-		ss.setItems(req, call, page, pageCnt, uid);
-
-		return "adm/member/mypage";
 	}
 
 	@RequestMapping("/adm/member/userpage")
@@ -182,32 +160,6 @@ public class AdmMemberController extends _BaseController {
 		ss.setItems(req, call, page, pageCnt, uid);
 
 		return "adm/member/userpage";
-	}
-
-	@RequestMapping("/adm/member/mypageDoDelete")
-	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
-
-		String call = String.valueOf(param.get("call"));
-
-		for (int i = 1; i <= 20; i++) {
-			if (param.get("delete__" + i) != null) {
-				int itemId = Util.getAsInt(param.get("delete__" + i), 0);
-
-				if (call.equals("reply")) {
-					rs.delete(itemId);
-				} else {
-					as.delete(itemId);
-				}
-			}
-		}
-
-		return msgAndReplace(req, "삭제되었습니다.", "mypage?call=" + call);
-	}
-
-	@RequestMapping("/adm/member/update")
-	public String update(HttpServletRequest req) {
-
-		return "adm/member/update";
 	}
 
 	@RequestMapping("/adm/member/userUpdate")

@@ -15,6 +15,28 @@ function Delete__Articles__Confirm() {
 }
 </script>
 
+<script>
+function del__checkAll(btn) {
+	if(btn.checked) {
+		for(let i = 1; i <= 20; i++) {
+			if(document.getElementsByName("delete__" + i)[0].getAttribute('type') == 'checkbox'){
+	            document.getElementsByName("delete__" + i)[0].checked = true;
+	        }
+		}
+	} else {
+		for(let i = 1; i <= 20; i++) { 
+			if(document.getElementsByName("delete__" + i)[0].getAttribute('type') == 'checkbox'){
+	            document.getElementsByName("delete__" + i)[0].checked = false;
+	        }
+			//더 나은 방법은 ?
+			//$(btn).closest('.mypage-width').find(' > input[name=delete__0]').removeAttr("checked");
+			//$find(':input[name=delete__0]').removeAttr("checked");
+			//.attr("checked", "checked")
+		}
+	}
+}
+</script>
+
 <section class="base-higth flex justify-center">
 	<div class="mypage-width">
 		<div>
@@ -73,13 +95,18 @@ function Delete__Articles__Confirm() {
 				</div>
 			</div>
 		</div>
-		<div class="flex justify-between px-2">
-			<div>
-				<c:choose>
-					<c:when test="${call == 'article'}"><span class="text-2xl">게시물</span></c:when>
-					<c:when test="${call == 'memo'}"><span class="text-2xl">메모</span></c:when>
-					<c:when test="${call == 'reply'}"><span class="text-2xl">댓글</span></c:when>
-				</c:choose>
+		<div class="flex justify-between pr-2">
+			<div class="flex items-center">
+				<div class="px-1">
+					<input type="checkbox" name="del__checkAll" value="Y" onchange="del__checkAll(this)" />
+				</div>
+				<div>
+					<c:choose>
+						<c:when test="${param.call == 'article'}"><span class="text-2xl">게시물</span></c:when>
+						<c:when test="${param.call == 'memo'}"><span class="text-2xl">메모</span></c:when>
+						<c:when test="${param.call == 'reply'}"><span class="text-2xl">댓글</span></c:when>
+					</c:choose>
+				</div>
 			</div>
 			<div class="flex justify-center items-end text-sm font-thin text-center invisible sm:visible px-1">
 				<div class="hidden sm:inline sm:visible sm:w-16 text-thin">
