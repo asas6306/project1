@@ -41,7 +41,7 @@ public class NeedLoginInterceptor implements HandlerInterceptor {
 				response.getWriter().append("<script>");
 				response.getWriter().append("alert('" + resultMsg + "');");
 				response.getWriter().append("location.replace('/usr/member/login?redirectUri="
-						+ Util.reqAttr(req, "encodedAfterLoginUri", "") + "');");
+						+ Util.getUriEncoded(rq.getCurrentUri()) + "');");
 				response.getWriter().append("</script>");
 				// 리턴 false;를 이후에 실행될 인터셉터와 액션이 실행되지 않음
 			} else {

@@ -64,9 +64,6 @@ public class Rq {
     public String getLoginPageUri() {
         String afterLoginUri;
         
-        System.out.println("currentUri : " + currentUri);
-        System.out.println("currentUrl : " + currentUrl);
-        
         if (isLoginPage()) {
             afterLoginUri = Util.getUriEncoded(paramMap.get("afterLoginUri"));
         } else if(isNeedLogoutPage()){

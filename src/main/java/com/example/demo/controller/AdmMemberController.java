@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Member;
+import com.example.demo.dto.Rq;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.AuthService;
 import com.example.demo.service.MemberService;
@@ -35,54 +35,6 @@ public class AdmMemberController extends _BaseController {
 	AuthService auths;
 	@Autowired
 	SimplerService ss;
-
-	@RequestMapping("/adm/member/login")
-	public String login() {
-
-		return "adm/member/login";
-	}
-
-	@RequestMapping("/adm/member/doLogin")
-	@ResponseBody
-	public String doLogin(HttpSession session, String redirectUri, String ID, String PW) {
-
-		ResultData doLoginRd = ms.login(ID);
-
-		if (doLoginRd.isFail())
-			return Util.msgAndBack(doLoginRd.getMsg());
-
-		Member loginedMember = (Member) doLoginRd.getBody().get("loginedMember");
-		
-		if(loginedMember.getDelState() == 1) {
-			return Util.msgAndBack("탈퇴한 회원입니다.");
-		} else if (!loginedMember.getPW().equals(PW))
-			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
-
-		session.setAttribute("loginedMember", loginedMember);
-
-		String msg = String.format("%s님 환영합니다.", loginedMember.getNickname());
-		redirectUri = Util.ifEmpty(redirectUri, "../home/main");
-
-		return Util.msgAndReplace(msg, redirectUri);
-	}
-
-	@RequestMapping("/adm/member/signup")
-	public String signup() {
-
-		return "adm/member/signup";
-	}
-
-	@RequestMapping("/adm/member/doSignup")
-	@ResponseBody
-	public String doSignup(@RequestParam Map<String, Object> param, HttpServletRequest req) {
-
-		ResultData doSignupRd = ms.signup(param);
-
-		String redirectUri = Util.ifEmpty((String) param.get("redirectUri"), "login");
-
-		return Util.msgAndReplace(doSignupRd.getMsg(), redirectUri);
-
-	}
 
 	@GetMapping("/adm/member/getLoginIdDup")
 	@ResponseBody
@@ -179,7 +131,8 @@ public class AdmMemberController extends _BaseController {
 	@ResponseBody
 	public String doLogout(HttpSession session) {
 
-		session.removeAttribute("loginedMember");
+		session.removeAttribute("loginedMemberUid");
+		session.removeAttribute("loginedMemberJsonStr");
 
 		String redirectUri = Util.ifEmpty(null, "login");
 
@@ -189,9 +142,9 @@ public class AdmMemberController extends _BaseController {
 	@RequestMapping("/adm/member/mypage")
 	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
-
-		Member loginedMember = (Member) req.getAttribute("loginedMember");
-		int uid = loginedMember.getUid();
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
 
 		req.setAttribute("call", call);
 
@@ -267,17 +220,27 @@ public class AdmMemberController extends _BaseController {
 
 	@RequestMapping("/adm/member/doUpdate")
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
-
-		param.remove("PWCheck");
-
+		
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		int updateUid = Util.getAsInt(param.get("uid"), 0);
+		
 		ResultData doUpdateRd = ms.update(param);
-
 		Member loginedMember = ms.getMember("ID", String.valueOf(param.get("ID")));
-
-		session.removeAttribute("loginedMember");
-		session.setAttribute("loginedMember", loginedMember);
-
-		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
+		
+		String redirectUri = "";
+		if(uid == Util.getAsInt(param.get("uid"), 0)) {
+			session.removeAttribute("loginedMemberUid");
+			session.removeAttribute("loginedMemberJsonStr");
+			session.setAttribute("loginedMemberUid", loginedMember.getUid());
+			session.setAttribute("loginedMember", loginedMember.toJsonStr());
+			
+			redirectUri = "mypage";
+		} else {
+			redirectUri = "userpage?uid=" + updateUid;
+		}
+		
+		return msgAndReplace(req, doUpdateRd.getMsg(), redirectUri);
 	}
 
 	@RequestMapping("/adm/member/list")
@@ -320,7 +283,8 @@ public class AdmMemberController extends _BaseController {
 			uid = loginedMember.getUid();
 		}
 		
-		session.removeAttribute("loginedMember");
+		session.removeAttribute("loginedMemberUid");
+		session.removeAttribute("loginedMemberJsonStr");
 		ms.delete(uid);
 		
 		return "adm/member/login";

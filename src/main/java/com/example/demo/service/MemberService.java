@@ -102,7 +102,9 @@ public class MemberService {
 
 	public ResultData update(Map<String, Object> param) {
 		
-		int uid = (int)param.get("uid");
+		System.out.println("test!");
+		System.out.println(Util.getAsInt(param.get("uid"), 0));
+		int uid = Util.getAsInt(param.get("uid"), 0);
 		
 		if (param.get("PW") != null) {
 			this.setNeedToChangePassword(uid);

@@ -82,8 +82,10 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 		}
 		
 		if (loginedMemberUid != 0) {
-			String loginedMemberJsonStr = (String) session.getAttribute("loginedMemberJsonStr");
-			
+			String loginedMemberJsonStr = "";
+			if(session.getAttribute("loginedMemberJsonStr") != null)
+				loginedMemberJsonStr = (String) session.getAttribute("loginedMemberJsonStr");
+
 			loginedMember = Util.fromJsonStr(loginedMemberJsonStr, Member.class);
 		}
 		

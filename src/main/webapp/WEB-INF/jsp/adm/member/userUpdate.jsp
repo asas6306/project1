@@ -5,6 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+<!-- sha256 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
 
 <script>
 	const uid = parseInt("${member.uid}");
@@ -122,11 +124,11 @@ function MemberUpdate__checkAndSubmit(form) {
 		return;
 	}
 	
-	form.PW.value = form.PW.value.trim();
+	form.PWInput.value = form.PWInput.value.trim();
 	form.PWCheck.value = form.PWCheck.value.trim();
-	if ( form.PW.value != form.PWCheck.value) {
+	if ( form.PWInput.value != form.PWCheck.value) {
 		alert('비밀번호가 일치하지 않습니다.');
-		form.PW.focus();
+		form.PWInput.focus();
 		return false;
 	}
 	
@@ -208,6 +210,11 @@ function MemberUpdate__checkAndSubmit(form) {
 			success : onSuccess
 		});
 	}
+	
+	form.PW.value = sha256(form.PWInput.value);
+	form.PWInput.value = '';
+	form.PWCheck.value = '';
+	
 	MemberUpdate__submited = true;
 	startUploadFiles(startSubmitForm);
 }
@@ -220,6 +227,7 @@ function MemberUpdate__checkAndSubmit(form) {
 			<input type="hidden" name="genFileIdsStr" value="" /> 
 			<input type="hidden" name="uid" value="${member.uid}" />
 			<input type="hidden" name="ID" value="${member.ID}" />
+			<input type="hidden" name="PW">
 			<div class="flex">
 				<div class="input-file-wrap">
 					<c:set var="file" value="${member.extra.file__common__profile['0']}"></c:set>
@@ -231,16 +239,16 @@ function MemberUpdate__checkAndSubmit(form) {
 				<div class="mx-4 my-2 w-96">
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">아이디 : </span>
-						<input type="text" name="ID" value="${member.ID}" class="border" />
+						<span>${member.ID}</span>
 					</div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호 : </span>
-						<input type="password" name="PW" value="${member.PW}" class="inputPW border" />
+						<input type="password" name="PWInput" value="" class="inputPW border" />
 					</div>
 					<div class="PWInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
 						<span class="w-32 text-right mr-2">비밀번호확인 : </span>
-						<input type="password" name="PWCheck" value="${member.PW}" class="inputPWCheck border" />
+						<input type="password" name="PWCheck" value="" class="inputPWCheck border" />
 					</div>
 					<div class="PWCheckInputMsg text-sm text-center"></div>
 					<div class="flex text-xl">
