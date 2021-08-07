@@ -91,16 +91,18 @@ function ReplyList__goToReply(btn) {
 </script>
 
 <script>
-	function ReplyForm__changeSubmit() {
-		const form = $('.formAddReply').get(0);
-		
-		form.body.value = form.body.value.trim();
-		if(form.body.value.length > 0)
-	}
+function ReplyForm__changeSubmit() {
+	const form = $('.formAddReply').get(0);
 	
-	$(function() {
-		$('.replyInput').keyup(ReplyForm__changeSubmit);
-	});
+	form.body.value = form.body.value.trim();
+	if(form.body.value.length > 0) {
+		// 입력버튼 활성화 등등
+	}
+}
+		
+$(function() {
+	$('.replyInput').keyup(ReplyForm__changeSubmit);
+});
 </script>
 
 <script>
@@ -173,9 +175,9 @@ function resize(obj) {
 					<div class="flex justify-between items-center font-thin">
 						<div class="flex">
 							<div class="p-2">
-								<a href="#" class="text-red-500 text-lg">
+								<a href="doLike?aid=${article.aid}&isLike=${isLike}" class="text-red-500 text-lg">
 									<c:choose>
-										<c:when test="false"><!-- 좋아요 눌렀다면 빨간하트 출력되게 -->
+										<c:when test="${isLike}">
 											<i class="fas fa-heart"></i>
 										</c:when>
 										<c:otherwise>
@@ -183,10 +185,20 @@ function resize(obj) {
 										</c:otherwise>
 									</c:choose>
 								</a>
-								<a href=""><!-- 좋아요 리스트 출력 -->
+								<a onclick="Article__Like(btn)"><!-- 좋아요 리스트 출력 -->
 									<span>좋아요</span>
-									<span>${article.like}</span>
+									<span>${likes.size()}</span>
 								</a>
+								<script>
+								function Article__Like(btn) {
+									const $clicked = $(btn);
+									const target = $clicked.closest('.rep').find('.replyUpdateForm');
+									if(btn.value == '취소')
+										target.css('display', 'none');
+									else
+										target.css('display', 'flex');
+								}
+								</script>
 							</div>
 							<div class="p-2">
 								<a class="text-lg">

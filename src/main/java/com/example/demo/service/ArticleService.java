@@ -72,6 +72,7 @@ public class ArticleService {
 
 	public Article getArticle(int aid) {
 		Article article = ad.getArticle(aid);
+		
 		this.Xss(article);
 		return article;
 	}

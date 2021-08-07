@@ -40,7 +40,7 @@
 		<div class="border-2 border-blue-300 rounded-xl p-4">
 			<div class="text-center text-4xl font-bold text-bold">로그인</div>
 			<form action="doLogin" method="post" onsubmit="LoginForm__checkAndSubmit(this); return false;">
-				<input type="hidden" name="redirectUri" value="${param.redirectUri}" />
+				<input type="hidden" name="redirectUri" value="${param.afterLoginUri}" />
 				<input type="hidden" name="PW">
 				<div class="text-gray-900 text-xl">
 					<div class="mt-2">

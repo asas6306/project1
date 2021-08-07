@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.dto.Article;
-import com.example.demo.dto.Member;
+import com.example.demo.dto.Like;
 import com.example.demo.dto.Reply;
 import com.example.demo.dto.Rq;
+import com.example.demo.service.ArticleLikeService;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.GenFileService;
 import com.example.demo.service.ReplyService;
@@ -33,6 +34,8 @@ public class UsrArticleController extends _BaseController {
 	ReplyService rs;
 	@Autowired
 	SimplerService ss;
+	@Autowired
+	ArticleLikeService als;
 	
 	@RequestMapping("/usr/article/list")
 	public String list(HttpServletRequest req, @RequestParam(defaultValue = "titleAndBody") String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String articleType) {
@@ -95,13 +98,22 @@ public class UsrArticleController extends _BaseController {
 	@RequestMapping("/usr/article/detail")
 	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
 		
-		if(hit)
-			as.hit(aid);
+		Rq rq = (Rq)req.getAttribute("rq");
+		
+		
+		if(hit)	as.hit(aid);
 	
 		Article article = as.getArticle(aid);
-		
 		article = as.getArticleWriterImg(article);
 		req.setAttribute("article", as.getArticleImg(article));
+		
+		List<Like> likes = als.getLikes(aid);
+		boolean isLike = false;
+		for(Like like : likes)
+			if(like.getUid() == rq.getLoginedMemberUid())
+				isLike = true;
+		req.setAttribute("likes", likes);
+		req.setAttribute("isLike", isLike);
 		
 		List<Reply> replies = rs.getReplies("article", aid);
 		req.setAttribute("replies", replies);
@@ -134,5 +146,14 @@ public class UsrArticleController extends _BaseController {
 		ResultData doDeleteRd = as.delete(aid);
 		
 		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
+	}
+	
+	@RequestMapping("/usr/article/doLike")
+	public String doLike(HttpServletRequest req, int aid, boolean isLike) {
+		Rq rq = (Rq)req.getAttribute("rq");
+		
+		ResultData doLikeRd = als.doLike(aid, rq.getLoginedMemberUid(), isLike);
+		
+		return msgAndReplace(req, doLikeRd.getMsg(), "detail?aid=" + aid);
 	}
 }
