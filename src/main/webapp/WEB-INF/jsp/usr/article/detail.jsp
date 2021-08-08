@@ -167,48 +167,49 @@ function resize(obj) {
 					<div class="likeAct font-thin">
 						<div class="flex justify-between items-center">
 							<div class="flex">
-							<div class="p-2">
-								<a href="doLike?aid=${article.aid}&isLike=${isLike}" class="text-red-500 text-lg">
-									<c:choose>
-										<c:when test="${isLike}">
-											<i class="fas fa-heart"></i>
-										</c:when>
-										<c:otherwise>
-											<i class="far fa-heart"></i>
-										</c:otherwise>
-									</c:choose>
-								</a>
-								<input type="button" class="bg-white font-thin cursor-pointer" value="좋아요 ${likes.size()}" onclick="Article__Like(this)" >
+								<div class="p-2">
+									<a href="doLike?aid=${article.aid}&isLike=${isLike}" class="text-red-500 text-lg">
+										<c:choose>
+											<c:when test="${isLike}">
+												<i class="fas fa-heart"></i>
+											</c:when>
+											<c:otherwise>
+												<i class="far fa-heart"></i>
+											</c:otherwise>
+										</c:choose>
+									</a>
+									<input type="button" class="bg-white font-thin cursor-pointer" value="좋아요 ${likes.size()}" onclick="Article__Like(this)" >
+								</div>
+								<div class="p-2">
+									<a class="text-lg">
+										<i class="far fa-comment-dots"></i>
+									</a>
+									<span>댓글</span>
+									<span>${replies.size()}</span>
+								</div>
 							</div>
-							<div class="p-2">
-								<a class="text-lg">
-									<i class="far fa-comment-dots"></i>
+							<div>
+								<a onclick="alert('공유기능은 아직 미구현');" class="p-2"><!-- 클립보드에 uri복사해주깅 -->
+									<i class="fas fa-share-square text-lg"></i>
+									<span>공유</span>
 								</a>
-								<span>댓글</span>
-								<span>${replies.size()}</span>
+								<span> | </span>
+								<a onclick="alert('신고기능은 아직 미구현');" class="p-2">신고</a>
 							</div>
 						</div>
-						<div>
-							<a href="" class="p-2">
-								<i class="fas fa-share-square text-lg"></i>
-								<span>공유</span>
-							</a>
-							<span> | </span>
-							<a href="" class="p-2">신고</a>
-						</div>
-						</div>
-						<div class="likeListForm hidden flex">
+						<div class="likeListForm hidden flex overflow-x-scroll border">	
 							<c:forEach var="like" items="${likes}">
-								<div class="mx-1">
+								<div class="m-1 border">
 									<div class="flex justify-center">
-										<img src="${like.likerProfileImgUri}" onerror="${like.likerProfileFallbackImgOnErrorHtmlAttr}" class="w-12 h-12 rounded-full bg-gray-500" />
+										<img src="${like.likerProfileImgUri}" onerror="${like.likerProfileFallbackImgOnErrorHtmlAttr}" class="w-14 h-14 rounded-full bg-gray-500" />
 									</div>
-									<div class="flex justify-center">
-										<span>${like.nickname}</span>
+									<div class="flex justify-center w-14 text-sm">
+										<span class="">${like.nickname}</span>
 									</div>
 								</div>
 							</c:forEach>
 						</div>
+						<!-- 닉네임이 NULL 인 경우 탈퇴한 회원으로 표시하는 로직을 만들어야 해여 -->
 						<script>
 						function Article__Like(btn) {
 							const $clicked = $(btn);
