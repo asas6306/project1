@@ -128,15 +128,7 @@ function resize(obj) {
 					</div>
 					<div class="flex border-b py-2">
 						<div>
-							<c:set var="file" value="${article.extra.file__common__profile['0']}"></c:set>
-							<c:choose>
-								<c:when test="${file == null}">
-									<img src="/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52" alt="" class="w-16 h-16 rounded-full bg-gray-300" />
-								</c:when>
-								<c:otherwise>
-									<img src="${file.forPrintUri}" alt="" class="w-16 h-16 rounded-full bg-gray-300" />
-								</c:otherwise>
-							</c:choose>
+							<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-16 h-16 rounded-full bg-gray-300" />
 						</div>
 						<div class="flex justify-center items-center px-2">
 							<div>
@@ -172,8 +164,9 @@ function resize(obj) {
 							</div>
 						</c:forEach>
 					</div>
-					<div class="flex justify-between items-center font-thin">
-						<div class="flex">
+					<div class="likeAct font-thin">
+						<div class="flex justify-between items-center">
+							<div class="flex">
 							<div class="p-2">
 								<a href="doLike?aid=${article.aid}&isLike=${isLike}" class="text-red-500 text-lg">
 									<c:choose>
@@ -185,20 +178,7 @@ function resize(obj) {
 										</c:otherwise>
 									</c:choose>
 								</a>
-								<a onclick="Article__Like(btn)"><!-- 좋아요 리스트 출력 -->
-									<span>좋아요</span>
-									<span>${likes.size()}</span>
-								</a>
-								<script>
-								function Article__Like(btn) {
-									const $clicked = $(btn);
-									const target = $clicked.closest('.rep').find('.replyUpdateForm');
-									if(btn.value == '취소')
-										target.css('display', 'none');
-									else
-										target.css('display', 'flex');
-								}
-								</script>
+								<input type="button" class="bg-white font-thin cursor-pointer" value="좋아요 ${likes.size()}" onclick="Article__Like(this)" >
 							</div>
 							<div class="p-2">
 								<a class="text-lg">
@@ -216,6 +196,32 @@ function resize(obj) {
 							<span> | </span>
 							<a href="" class="p-2">신고</a>
 						</div>
+						</div>
+						<div class="likeListForm hidden flex">
+							<c:forEach var="like" items="${likes}">
+								<div class="mx-1">
+									<div class="flex justify-center">
+										<img src="${like.likerProfileImgUri}" onerror="${like.likerProfileFallbackImgOnErrorHtmlAttr}" class="w-12 h-12 rounded-full bg-gray-500" />
+									</div>
+									<div class="flex justify-center">
+										<span>${like.nickname}</span>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+						<script>
+						function Article__Like(btn) {
+							const $clicked = $(btn);
+							const target = $clicked.closest('.likeAct').find('.likeListForm');
+							if(btn.name == 'true') {
+								btn.name = false;
+								target.css('display', 'none');
+							} else {
+								btn.name = true;
+								target.css('display', 'flex');
+							}
+						}
+						</script>
 					</div>
 				</div>
 			</div>

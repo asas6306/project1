@@ -12,4 +12,16 @@ public class Like {
 	int uid;
 	
 	String nickname;
+	
+	public String getLikerProfileImgUri() {
+        return "/common/genFile/file/member/" + uid + "/common/profile/0";
+    }
+
+    public String getLikerProfileFallbackImgUri() {
+        return "/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52";
+    }
+
+    public String getLikerProfileFallbackImgOnErrorHtmlAttr() {
+        return "this.src = '" + getLikerProfileFallbackImgUri() + "'";
+    }
 }
