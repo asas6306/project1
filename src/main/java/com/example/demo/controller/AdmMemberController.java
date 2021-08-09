@@ -229,16 +229,14 @@ public class AdmMemberController extends _BaseController {
 	}
 	
 	@RequestMapping("/adm/member/delete")
+	@ResponseBody
 	public String delete(HttpSession session, Integer uid) {
-		if(uid == null) {
-			Member loginedMember = (Member)session.getAttribute("loginedMember");
-			uid = loginedMember.getUid();
-		}
 		
-		session.removeAttribute("loginedMemberUid");
-		session.removeAttribute("loginedMemberJsonStr");
+		if(uid == null)
+			return Util.msgAndBack("회원번호가 존재하지 않습니다.");
+		
 		ms.delete(uid);
 		
-		return "adm/member/login";
+		return Util.msgAndReplace("해당 회원이 삭제되었습니다.", "list");
 	}
 }

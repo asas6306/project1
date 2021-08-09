@@ -37,6 +37,7 @@ function Delete__Articles__Confirm() {
 						</div>
 						<div class="flex items-center">
 							<a href="userUpdate?uid=${member.uid}" class="bg-blue-300 hover:bg-blue-500 rounded-full p-1 text-sm">회원수정</a>
+							<a href="delete?uid=${member.uid}" class="bg-red-300 hover:bg-red-500 rounded-full p-1 ml-2 text-sm" onclick="return confirm('정말로 삭제하시겠습니까?');">회원삭제</a>
 						</div>
 					</div>
 					<div>

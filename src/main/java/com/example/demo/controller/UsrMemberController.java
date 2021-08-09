@@ -81,7 +81,7 @@ public class UsrMemberController extends _BaseController {
         	redirectUri = Util.ifEmpty(redirectUri, "../home/main");        	
         }
 
-
+        System.out.println(redirectUri);
 		return Util.msgAndReplace(msg, redirectUri);
 	}
 
