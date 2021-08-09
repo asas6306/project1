@@ -12,7 +12,7 @@
 					<img src="/gen/home/banner/banner__1.jpg" />
 				</div>
 			</div>
-			<div class="flex mx-2 py-2">
+			<div class="border-b-2 border-blue-300 flex mx-2 py-2">
 				<div class="w-full">
 					<div class="flex">
 						<a class="w-full border-b-2 border-blue-300 px-2 py-1 text-xl">
