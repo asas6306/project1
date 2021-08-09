@@ -59,7 +59,7 @@ public class Member {
     }
 
     public String getProfileFallbackImgUri() {
-        return "/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52";
+        return "/gen/member/basic/non_profile.png";
     }
 
     public String getProfileFallbackImgOnErrorHtmlAttr() {

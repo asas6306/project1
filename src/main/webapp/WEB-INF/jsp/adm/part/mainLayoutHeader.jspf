@@ -7,14 +7,19 @@
 	<div class="flex justify-center hover:shadow-md border-b">
 		<nav class="h-10 flex items-center justify-center text-gray-500 text-sm container">
 			<ul class="flex w-full md:w-4/5 justify-end">
-				<li><a href="/usr/home/main" class="p-3 hover:text-gray-900"> <span>사이트</span>
-				</a></li>
+				<li>
+					<a href="/usr/home/main" class="p-3 hover:text-gray-900">
+						<i class="fas fa-home"></i>
+						<span>사이트</span>
+					</a>
+				</li>
 				<span>|</span>
-				<li><a href="/usr/member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
-				</a></li>
-				<span>|</span>
-				<li><a href="/usr/member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
-				</a></li>
+				<li>
+					<a href="/usr/member/doLogout" class="p-3 hover:text-gray-900">
+						<i class="fas fa-sign-out-alt"></i>
+						<span>로그아웃</span>
+					</a>
+				</li>
 			</ul>
 		</nav>
 	</div>
@@ -33,16 +38,19 @@
 				<ul class="flex items-center justify-end w-0 invisible md:visible md:w-full text-xl">
 					<li>
 						<a href="../home/main" class="p-2 lg:p-3"> 
+							<i class="fas fa-house-user"></i>
 							<span>메인</span>
 						</a>
 					</li>
 					<li>
 						<a href="../member/list" class="p-2 lg:p-3"> 
+							<i class="fas fa-user-cog"></i>
 							<span>회원관리</span>
 						</a>
 					</li>
 					<li>
 						<a href="../article/list" class="p-2 lg:p-3"> 
+							<i class="far fa-list-alt"></i>
 							<span>게시판관리</span>
 						</a>
 						<div>
@@ -66,7 +74,8 @@
 						</div>
 					</li>
 					<li>
-						<a href="../article/list?articleType=memo" class="p-2 lg:p-3"> 
+						<a href="../article/list?articleType=memo" class="p-2 lg:p-3">
+							<i class="fas fa-list-ul"></i>
 							<span>메모장관리</span>
 						</a>
 						<div>

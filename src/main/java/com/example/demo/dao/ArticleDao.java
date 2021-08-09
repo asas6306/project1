@@ -30,4 +30,6 @@ public interface ArticleDao {
 	public int getArticlesCntForMypage(@Param(value="articleType") String articleType, @Param(value="uid") int uid);
 
 	public List<Article> getArticlesForMypage(@Param(value="articleType") String articleType, @Param(value="uid") int uid);
+
+	public List<Article> getArticlesForMain(@Param(value="articleType") String articleType);
 }

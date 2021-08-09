@@ -44,6 +44,7 @@ function del__checkAll(btn) {
 				<span class="flex items-center justify-center h-20 text-4xl font-bold px-1">마이페이지</span>
 				<div class="flex justify-center items-center">
 					<a href="../member/authentication?afterUri=${Util.getUriEncoded('../member/update')}" class="p-1 h-7 rounded-full text-sm bg-blue-300 hover:bg-blue-500 flex-shrink-0">
+						<i class="fas fa-user-edit"></i>
 						<span>정보수정</span>
 					</a>
 				</div>
@@ -102,9 +103,9 @@ function del__checkAll(btn) {
 				</div>
 				<div>
 					<c:choose>
-						<c:when test="${param.call == 'article'}"><span class="text-2xl">게시물</span></c:when>
 						<c:when test="${param.call == 'memo'}"><span class="text-2xl">메모</span></c:when>
 						<c:when test="${param.call == 'reply'}"><span class="text-2xl">댓글</span></c:when>
+						<c:otherwise><span class="text-2xl">게시물</span></c:otherwise>
 					</c:choose>
 				</div>
 			</div>

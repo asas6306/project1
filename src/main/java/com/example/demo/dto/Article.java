@@ -36,6 +36,22 @@ public class Article {
 		return extra;
 	}
 	
+	public String getTitle() {
+		return this.Xss(title);
+	}
+	
+	public String getBody() {
+		return this.Xss(body);
+	}
+	
+	public String Xss(String str) {
+		str = str.replace("<", "&lt");
+		str = str.replace(">", "&gt");
+		str = str.replace("\r\n", "<br>");
+		
+		return str;
+	}
+	
 	public String getWriterProfileImgUri() {
         return "/common/genFile/file/member/" + uid + "/common/profile/0";
     }

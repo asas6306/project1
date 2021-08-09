@@ -17,15 +17,27 @@
 					</c:when>
 					<c:otherwise>
 						<c:if test="${rq.admin}">
-							<li><a href="/adm/home/main" class="p-3 hover:text-gray-900"> <span>관리자페이지</span>
-						</a></li>
+							<li>
+								<a href="/adm/home/main" class="p-3 hover:text-gray-900">
+									<i class="fas fa-house-user"></i>
+									<span>관리자페이지</span>
+								</a>
+							</li>
 						<span>|</span>
 						</c:if>
-						<li><a href="../member/mypage" class="p-3 hover:text-gray-900"> <span>마이페이지</span>
-						</a></li>
+						<li>
+							<a href="../member/mypage" class="p-3 hover:text-gray-900">
+								<i class="fas fa-user"></i>
+								<span>마이페이지</span>
+							</a>
+						</li>
 						<span>|</span>
-						<li><a href="../member/doLogout" class="p-3 hover:text-gray-900"> <span>로그아웃</span>
-						</a></li>
+						<li>
+							<a href="../member/doLogout" class="p-3 hover:text-gray-900">
+								<i class="fas fa-sign-out-alt"></i>
+								<span>로그아웃</span>
+							</a>
+						</li>
 					</c:otherwise>
 				</c:choose>
 			</ul>
@@ -44,12 +56,14 @@
 				</div>
 				<ul class="flex items-center justify-end w-0 invisible md:visible md:w-full text-xl">
 					<li>
-						<a href="../home/main" class="p-2 lg:p-3"> 
+						<a href="../home/main" class="p-2 lg:p-3">
+							<i class="fas fa-home"></i>
 							<span>메인</span>
 						</a>
 					</li>
 					<li>
-						<a href="../article/list" class="p-2 lg:p-3"> 
+						<a href="../article/list" class="p-2 lg:p-3">
+							<i class="far fa-list-alt"></i>
 							<span>게시판</span>
 						</a>
 						<div>
@@ -73,7 +87,8 @@
 						</div>
 					</li>
 					<li>
-						<a href="../article/list?articleType=memo" class="p-2 lg:p-3"> 
+						<a href="../article/list?articleType=memo" class="p-2 lg:p-3">
+							<i class="fas fa-list-ul"></i>
 							<span>메모장</span>
 						</a>
 						<div>

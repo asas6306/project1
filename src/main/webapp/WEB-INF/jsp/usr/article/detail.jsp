@@ -294,8 +294,13 @@ function resize(obj) {
 								<div>
 									<span class="flex px-2 border-b text-lg">${rq.loginedMember.nickname}</span>
 									<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="replyInput w-full outline-none" placeholder="댓글을 남겨보세요."></textarea>
-									<div class="flex justify-end">
-										<input type="submit" value="등록" class="replySubmit px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />
+									<div class="flex justify-between">
+										<div>
+											<i class="far fa-images"></i>
+										</div>
+										<div>
+											<input type="submit" value="등록" class="replySubmit px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />
+										</div>
 									</div>
 								</div>
 							</c:otherwise>

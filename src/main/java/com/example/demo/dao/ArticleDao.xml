@@ -51,6 +51,21 @@
 		and article.uid = #{uid}
 	</select>
 	
+	<select id="getArticlesForMain" resultType="Article">
+		select article.*, `member`.nickname, `board`.boardName from article 
+		left join `member` on 
+		article.uid = `member`.uid
+		left join board on
+		article.boardCode = board.boardCode AND article.articleType = board.boardType
+		where 1
+		and blindStatus = 0
+		and article.delStatus = 0
+		and articleType = #{articleType}
+		order by aid desc
+		limit 10
+	</select>
+	
+	
 	<select id="getArticle" resultType="Article">
 		select article.*, `member`.nickname, `board`.boardName, auth.authName from article 
 		left join `member` on 
@@ -119,7 +134,6 @@
 	<update id="hit">
 		update article set hit = hit + 1 where aid = #{aid}
 	</update>
-	
 	
 	<!-- resultMap으로 맞지 않는 이름 매핑 & Map에 데이터 담기 -->
     <resultMap type="Article" id="article">

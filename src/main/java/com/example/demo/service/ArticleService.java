@@ -41,10 +41,6 @@ public class ArticleService {
 			for(Article article : articles) {
 				article.getExtraNotNull().put("replyCnt", rs.getReplyCnt("article", article.getAid()));
 			}
-			// XSS
-			for(Article article : articles) {
-				this.Xss(article);
-			}
 		}
 
 		return articles;
@@ -73,7 +69,6 @@ public class ArticleService {
 	public Article getArticle(int aid) {
 		Article article = ad.getArticle(aid);
 		
-		this.Xss(article);
 		return article;
 	}
 
@@ -131,17 +126,10 @@ public class ArticleService {
 		return article;
 	}
 
-	public void Xss(Article article) {
-		// XSS Gard
-		String title = article.getTitle();
-		title = title.replace("<", "&lt");
-		title = title.replace(">", "&gt");
-		article.setTitle(title);
+	public List<Article> getArticlesForMain(String articleType) {
 		
-		String body = article.getBody();
-		body = body.replace("<", "&lt");
-		body = body.replace(">", "&gt");
-		// 줄바꿈 적용 후 리턴
-		article.setBody(body.replace("\r\n", "<br>"));	
+		return ad.getArticlesForMain(articleType);
 	}
+
+	
 }
