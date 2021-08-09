@@ -117,8 +117,10 @@ function resize(obj) {
 <section class="flex justify-center">
 	<div class="container lg:w-2/3 2xl:w-1/2">
 		<div class="text-4xl font-bold p-3">
-			<input type="button" value="<" onclick="history.back()" class="bg-white cursor-pointer"/>
-			<a href="list?boardCode=${boardCode}">${article.boardName}</a>
+			<a href="list?articleType=${article.articleType}&boardCode=${param.boardCode}">
+				<i class="fas fa-chevron-left"></i>
+			</a>
+			<a href="list?articleType=${article.articleType}&boardCode=${article.boardCode}">${article.boardName}</a>
 		</div>
 		<div class="border-b-4 border-t-4 rounded border-blue-700">
 			<div class="flex p-4 border-b">

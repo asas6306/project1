@@ -27,7 +27,7 @@
 				</span>
 				<div class="flex justify-center items-center p-1">
 					<c:if test="${rq.logined}">
-						<a href="add?boardCode=${boardCode}" class="text-gray-900 p-1 px-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white">글쓰기</a>
+						<a href="add?articleType=memo&boardCode=${boardCode}" class="text-gray-900 p-1 px-2 rounded bg-blue-300 hover:bg-blue-500 hover:text-white">글쓰기</a>
 					</c:if>
 				</div>
 			</div>
@@ -47,7 +47,7 @@
 									<a href="/usr/article/list?boardCode=${article.boardCode}" class="">${article.boardName} ></a>
 								</div>
 								<div class="text-3xl">
-									<a href="detail?aid=${article.aid}&boardCode=${article.boardCode}&articleType=memo&hit=true" class="px-2">${article.title}</a>
+									<a href="detail?aid=${article.aid}&boardCode=${param.boardCode}&hit=true" class="px-2">${article.title}</a>
 								</div>
 								<div class="flex w-full items-center">
 									<div class="p-2">

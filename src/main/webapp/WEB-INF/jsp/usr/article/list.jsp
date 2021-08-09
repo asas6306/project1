@@ -46,7 +46,7 @@
 								
 							</div>
 							<div class="flex justify-center items-center">
-								<a href="detail?aid=${article.aid}" class="text-lg font-bold hover:text-blue-700">${article.title}</a>
+								<a href="detail?aid=${article.aid}&boardCode=${param.boardCode}" class="text-lg font-bold hover:text-blue-700">${article.title}</a>
 							</div>
 						</div>
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
