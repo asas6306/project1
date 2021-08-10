@@ -18,7 +18,7 @@ public class Like {
     }
 
     public String getLikerProfileFallbackImgUri() {
-        return "/gen/member/non_profile.png?updateDate=2021-05-14 21:30:52";
+        return "/gen/member/basic/non_profile.png?updateDate=2021-05-14 21:30:52";
     }
 
     public String getLikerProfileFallbackImgOnErrorHtmlAttr() {

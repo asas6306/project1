@@ -11,6 +11,6 @@ import com.example.demo.dto.Board;
 
 @Mapper
 public interface BoardDao {
-
 	public List<Board> getAllBoardInfo(@Param(value="boardType") String boardType);
+	public List<Board> getBoardCnt(@Param(value="boardType") String boardType);
 }

@@ -297,8 +297,10 @@ function resize(obj) {
 									<span class="flex px-2 border-b text-lg">${rq.loginedMember.nickname}</span>
 									<textarea onkeydown="resize(this)" onkeyup="resize(this)" name="body" class="replyInput w-full outline-none" placeholder="댓글을 남겨보세요."></textarea>
 									<div class="flex justify-between">
-										<div>
-											<i class="far fa-images"></i>
+										<div><!-- 댓글 이미지 첨부 -->
+											<span onclick="alert('파일첨부 모양을 바꿀 수 없을까 ?')" class="cursor-pointer text-lg">
+												<i class="far fa-images"></i>
+											</span>
 										</div>
 										<div>
 											<input type="submit" value="등록" class="replySubmit px-1 rounded bg-white hover:bg-blue-300 mr-2 mb-2" />

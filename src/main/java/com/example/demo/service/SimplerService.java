@@ -114,5 +114,9 @@ public class SimplerService {
 		return bd.getAllBoardInfo(boardType);
 	}
 	
+public List<Board> getBoardCnt(String boardType) {
+		
+		return bd.getBoardCnt(boardType);
+	}
 	
 }

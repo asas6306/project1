@@ -12,7 +12,7 @@
 					<img src="/gen/home/banner/banner__1.jpg" />
 				</div>
 			</div>
-			<div class="border-b-2 border-blue-300 flex mx-2 py-2">
+			<div class="grid grid-cols-2 gap-4 mx-2 py-2">
 				<div class="w-full">
 					<div class="flex">
 						<a class="w-full border-b-2 border-blue-300 px-2 py-1 text-xl">
@@ -20,7 +20,7 @@
 							<span>게시판</span>
 						</a>
 					</div>
-					<div class="text-lg font-thin pt-1">
+					<div class="text-lg font-thin py-1 border-b-2 border-blue-300">
 						<c:forEach var="article" items="${articles}">
 							<div class="flex">
 								<a href="../article/list?boardCode=${article.boardCode}" class="text-center w-12">${Util.setBoardName(article.boardName)}</a>
@@ -36,7 +36,7 @@
 							<span>메모장</span>
 						</a>
 					</div>
-					<div class="text-lg font-thin pt-1">
+					<div class="text-lg font-thin py-1 border-b-2 border-blue-300">
 						<c:forEach var="article" items="${articlesOfMemo}">
 							<div class="flex">
 								<a href="../article/list?articleType=memo&boardCode=${article.boardCode}" class="text-center w-12">${Util.setBoardName(article.boardName)}</a>

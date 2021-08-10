@@ -13,5 +13,6 @@ public class Board {
 	int bid;
 	int boardCode;
 	String boardName;
-
+	String boardType;
+	int articlesCnt;
 }
