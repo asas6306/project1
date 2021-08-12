@@ -135,6 +135,16 @@
 		update article set hit = hit + 1 where aid = #{aid}
 	</update>
 	
+	<select id="getPopulars" resultType="Article">
+		SELECT COUNT(*) AS cnt, article.*, boardName FROM reply, article, board
+		WHERE relId = aid 
+		and article.boardCode = board.boardCode 
+		AND relTypeCode = #{relTypeCode}
+		GROUP BY relId
+		ORDER BY cnt DESC
+		LIMIT 5;
+	</select>
+	
 	<!-- resultMap으로 맞지 않는 이름 매핑 & Map에 데이터 담기 -->
     <resultMap type="Article" id="article">
         <id property="id" column="id"/>

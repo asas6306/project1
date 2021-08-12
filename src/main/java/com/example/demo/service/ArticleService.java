@@ -131,5 +131,10 @@ public class ArticleService {
 		return ad.getArticlesForMain(articleType);
 	}
 
+	public List<Article> getPopulars(String relTypeCode) {
+		
+		return ad.getPopulars(relTypeCode);
+	}
+
 	
 }
