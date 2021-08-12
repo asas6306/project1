@@ -7,7 +7,7 @@
 <c:set var="fileInputMaxCount" value="3" />
 
 <section class="flex justify-center">
-	<div class="max-w-5xl">
+	<div class="max-w-5xl w-full">
 		<div>
 			<div class="flex justify-between">
 				<span class="flex text-4xl font-bold p-3">
