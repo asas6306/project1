@@ -191,10 +191,22 @@ function resize(obj) {
 								</div>
 							</div>
 							<div>
-								<a onclick="alert('공유기능은 아직 미구현');" class="p-2"><!-- 클립보드에 uri복사해주깅 -->
+								<input id="copyUri" style="height:0px; border: none">
+								<a onclick="copy__Uri(this.href); return false;" class="p-2 cursor-pointer"><!-- 클립보드에 uri복사해주깅 -->
 									<i class="fas fa-share-square text-lg"></i>
 									<span>공유</span>
 								</a>
+								<script>
+								function copy__Uri(uri) {
+									var copyUri = document.getElementById("copyUri");
+									copyUri.value = window.document.location.href;  // 현재 URL 을 세팅해 줍니다.
+									copyUri.select();  // 해당 값이 선택되도록 select() 합니다
+									document.execCommand("copy"); // 클립보드에 복사합니다.
+									
+									copyUri.blur(); // 선택된 것을 다시 선택안된것으로 바꿈니다.
+									alert("URL이 클립보드에 복사되었습니다");
+								}
+								</script>
 								<span> | </span>
 								<a onclick="alert('신고기능은 아직 미구현');" class="p-2">신고</a>
 							</div>
