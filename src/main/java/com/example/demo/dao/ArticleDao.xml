@@ -11,8 +11,8 @@
 		left join board on
 		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
-		and blindStatus = 0
-		and article.delStatus = 0
+		and blindstate = 0
+		and article.delState = 0
 		<if test="boardCode != 0">
 			and article.boardCode = #{boardCode}
 		</if>
@@ -45,8 +45,8 @@
 		left join board on
 		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
-		and blindStatus = 0
-		and article.delStatus = 0
+		and blindstate = 0
+		and article.delState = 0
 		and articleType = #{articleType}
 		and article.uid = #{uid}
 	</select>
@@ -58,8 +58,8 @@
 		left join board on
 		article.boardCode = board.boardCode AND article.articleType = board.boardType
 		where 1
-		and blindStatus = 0
-		and article.delStatus = 0
+		and blindstate = 0
+		and article.delState = 0
 		and articleType = #{articleType}
 		order by aid desc
 		limit 10
@@ -82,8 +82,8 @@
 		left join `member` on 
 		article.uid = `member`.uid
 		where 1
-		and blindStatus = 0
-		and article.delStatus = 0
+		and blindstate = 0
+		and article.delState = 0
 		<if test="boardCode != 0">
 			and boardCode = #{boardCode}
 		</if>
@@ -107,16 +107,16 @@
 	<select id="getAllArticlesCnt" resultType="int">
 		select count(*) from article 
 		where articleType = #{articleType}
-		and blindStatus = 0
-		and article.delStatus = 0
+		and blindstate = 0
+		and article.delState = 0
 	</select>
 	
 	<select id="getArticlesCntForMypage" resultType="int">
 		select count(*) from article 
 		where articleType = #{articleType} 
 		and uid = #{uid}
-		and blindStatus = 0
-		and article.delStatus = 0
+		and blindstate = 0
+		and article.delState = 0
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
@@ -128,7 +128,7 @@
 	</update>
 	
 	<update id="delete">
-		update article set delStatus = 1, delDate = now() where aid = #{aid};
+		update article set delState = 1, delDate = now() where aid = #{aid};
 	</update>
 	
 	<update id="hit">
@@ -145,13 +145,19 @@
 		LIMIT 5;
 	</select>
 	
+	<select id="getLike" resultType="int">
+		SELECT COUNT(*) AS `like` FROM article, `like`, `member`
+		WHERE article.aid = `like`.aid AND `like`.uid = `member`.uid AND `member`.nickname IS NOT NULL
+		AND article.aid = #{aid};
+	</select>
+	
 	<!-- resultMap으로 맞지 않는 이름 매핑 & Map에 데이터 담기 -->
     <resultMap type="Article" id="article">
         <id property="id" column="id"/>
         <id property="regDate" column="regDate"/>
         <id property="updateDate" column="updateDate"/>
         <id property="delDate" column="delDate"/>
-        <id property="delStatus" column="delStatus"/>
+        <id property="delState" column="delState"/>
         <id property="title" column="title"/>
         <id property="body" column="body"/>
         <id property="memberId" column="memberId"/>

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.transform.impl.AddDelegateTransformer;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ArticleDao;
@@ -40,6 +41,10 @@ public class ArticleService {
 			// 댓글 수 갖고오기
 			for(Article article : articles) {
 				article.getExtraNotNull().put("replyCnt", rs.getReplyCnt("article", article.getAid()));
+			}
+			// 좋아요 수 갖고오기
+			for(Article article : articles) {
+				article.setLike(ad.getLike(article.getAid()));
 			}
 		}
 

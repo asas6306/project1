@@ -8,6 +8,7 @@
 	select `like`.*, `member`.nickname from `like`
 	left join `member` on `like`.uid = `member`.uid
 	where aid = #{aid}
+	and delState = 0
 </select>
 
 <insert id="doLike">

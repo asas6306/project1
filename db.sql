@@ -9,6 +9,10 @@ title CHAR(50) NOT NULL,
 `body` TEXT NOT NULL,
 regDate DATETIME DEFAULT NOW(),
 updateDate DATETIME DEFAULT NOW(),
+blindState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+blindDate DATETIME,
+delState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+delDate DATETIME,
 hit INT(10) UNSIGNED NOT NULL DEFAULT 0,
 `like` INT(10) UNSIGNED NOT NULL DEFAULT 0,
 boardCode INT(5) UNSIGNED NOT NULL,
@@ -28,6 +32,13 @@ updateDate DATETIME DEFAULT NOW(),
 delState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 delDate DATETIME
 );
+/* member테이블에 authKey칼럼 추가 및 초기화 */
+/* UUID()는 날짜기반 난수 생성이기 때문에 유추가 가능함 */
+ALTER TABLE MEMBER ADD authKey CHAR(130) UNIQUE KEY DEFAULT UUID() AFTER PW;
+
+#authLevel 생성 및 1번 uid 관리자 권한(3:일반회원, 7:관리자)
+ALTER TABLE `member` ADD authLevel TINYINT(2) UNSIGNED DEFAULT 3 AFTER PW;
+UPDATE `member` SET authLevel = 7 WHERE uid = 1;
 
 CREATE TABLE `like`(
 aid INT(10) UNSIGNED NOT NULL,
@@ -60,7 +71,7 @@ CREATE TABLE `genFile` (
 `regDate` DATETIME DEFAULT NOW(), # 작성날짜
 `updateDate` DATETIME DEFAULT NOW(), # 갱신날짜
 `delDate` DATETIME DEFAULT NULL, # 삭제날짜
-`delStatus` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0, # 상태(0:미삭제, 1:삭제)
+`delState` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0, # 상태(0:미삭제, 1:삭제)
 `relTypeCode` CHAR(50) NOT NULL, # 관련 데이터 타입(article, member, etc...)
 `relId` INT(10) UNSIGNED NOT NULL, # 관련 데이터 번호
 `originFileName` VARCHAR(100) NOT NULL, # 업로드 당시 파일명
@@ -110,14 +121,6 @@ INSERT INTO board SET boardCode=2, boardName='자유게시판';
 select concat('제목_', floor(rand()*1000)+1), CONCAT('내용_', FLOOR(RAND()*1000)+1), 1, 0 from article;
 
 select count(*) from article; */
-
-/* member테이블에 authKey칼럼 추가 및 초기화 */
-/* UUID()는 날짜기반 난수 생성이기 때문에 유추가 가능함 */
-ALTER TABLE MEMBER ADD authKey CHAR(130) UNIQUE KEY DEFAULT UUID() AFTER PW;
-
-#authLevel 생성 및 1번 uid 관리자 권한(3:일반회원, 7:관리자)
-ALTER TABLE `member` ADD authLevel TINYINT(2) UNSIGNED DEFAULT 3 AFTER PW;
-UPDATE `member` SET authLevel = 7 WHERE uid = 1;
 
 # 임시로 만들어진 회원은, 비번변경할 필요가 없도록 설정
 INSERT INTO attr (

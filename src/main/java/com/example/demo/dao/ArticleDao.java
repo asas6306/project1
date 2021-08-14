@@ -34,4 +34,6 @@ public interface ArticleDao {
 	public List<Article> getArticlesForMain(@Param(value="articleType") String articleType);
 
 	public List<Article> getPopulars(@Param(value="relTypeCode") String relTypeCode);
+
+	public int getLike(@Param(value="aid") int aid);
 }

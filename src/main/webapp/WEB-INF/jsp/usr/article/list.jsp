@@ -57,16 +57,16 @@
 								<span>&nbsp${article.nickname}</span>
 							</div>
 							<div class="flex items-center">
+								<span class="text-sm">조회수 : </span>
+								<span>&nbsp${Util.numberFormat(article.hit)}</span>
+							</div>
+							<div class="flex items-center">
 								<span class="text-sm">작성일 : </span>
 								<span class="">&nbsp${Util.dateFormat(article.regDate)}</span>
 							</div>
 							<div class="flex items-center">
 								<span class="text-sm">수정일 : </span>
 								<span>&nbsp${Util.dateFormat(article.updateDate)}</span>
-							</div>
-							<div class="flex items-center">
-								<span class="text-sm">조회수 : </span>
-								<span>&nbsp${Util.numberFormat(article.hit)}</span>
 							</div>
 						</div>
 						<div>
@@ -95,7 +95,7 @@
 								<span>&nbsp${Util.numberFormat(article.extra.replyCnt)}</span>
 							</div>
 							<div class="flex">
-								<span class="flex justify-center items-center text-sm">추천수 : </span>
+								<span class="flex justify-center items-center text-sm">좋아요수 : </span>
 								<span>&nbsp${Util.numberFormat(article.like)}</span>
 							</div>
 						</div>

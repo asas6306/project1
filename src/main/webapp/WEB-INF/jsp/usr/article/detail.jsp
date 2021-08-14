@@ -226,9 +226,6 @@ function resize(obj) {
 								</div>
 							</c:forEach>
 						</div>
-						<!-- 닉네임이 NULL 인 경우 탈퇴한 회원으로 표시하는 로직을 만들어야 해여 -->
-						<!-- SQL상에서 IF NULL ? IS NULL ? 을 이용해서 default값을 설정하도록 -->
-						<!-- 위는 안전장치이고 실제론 회원탈퇴를 진행한 경우 데이터를 삭제해야겠지요 -->
 						<script>
 						function Article__Like(btn) {
 							const $clicked = $(btn);
