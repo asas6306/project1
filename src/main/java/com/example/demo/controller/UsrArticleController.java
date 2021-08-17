@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
 import com.example.demo.dto.Like;
@@ -20,6 +21,7 @@ import com.example.demo.service.GenFileService;
 import com.example.demo.service.ReplyService;
 import com.example.demo.service.SimplerService;
 import com.example.demo.util.ResultData;
+import com.example.demo.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -96,13 +98,19 @@ public class UsrArticleController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String detail(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "false") boolean hit) {
+	@ResponseBody
+	public String detail(Integer aid) {
+		
+		as.hit(aid);
+		
+		return Util.msgAndReplace(null, "showDetail?aid=" + aid);
+	}
+	
+	@RequestMapping("/usr/article/showDetail")
+	public String showDetail(HttpServletRequest req, Integer aid) {
 		
 		Rq rq = (Rq)req.getAttribute("rq");
-		
-		
-		if(hit)	as.hit(aid);
-	
+
 		Article article = as.getArticle(aid);
 		article = as.getArticleWriterImg(article);
 		req.setAttribute("article", as.getArticleImg(article));
