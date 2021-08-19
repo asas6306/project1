@@ -17,31 +17,31 @@
 				</div>
 				<div class="grid grid-cols-2 gap-4 mx-2 py-2 border-2 border-blue-300 text-center">
 					<div class="px-2 w-full">
-						<div class="flex justify-center">
+						<a href="../article/list" class="flex justify-center">
 							<span class="w-24">게시판</span>
 							<span class="px-2">:</span>
 							<span class="w-24">${allArticleCnt}</span>
-						</div>
+						</a>
 						<c:forEach var="board" items="${articleCnt}">
-							<div class="flex justify-center">
+							<a href="../article/list?boardCode=${board.boardCode}" class="flex justify-center">
 								<span class="w-24">${board.boardName}</span>
 								<span class="px-2">:</span>
 								<span class="w-24">${board.articlesCnt}</span>
-							</div>
+							</a>
 						</c:forEach>
 					</div>
 					<div class="px-2 w-full">
-						<div class="flex justify-center">
+						<a href="../article/list?articleType=memo" class="flex justify-center">
 							<span class="w-24">메모</span>
 							<span class="px-2">:</span>
 							<span class="w-24">${allMemoCnt}</span>
-						</div>
+						</a>
 						<c:forEach var="board" items="${memoCnt}">
-							<div class="flex justify-center">
+							<a href="../article/list?articleType=memo&boardCode=${board.boardCode}" class="flex justify-center">
 								<span class="w-24">${board.boardName}</span>
 								<span class="px-2">:</span>
 								<span class="w-24">${board.articlesCnt}</span>
-							</div>
+							</a>
 						</c:forEach>
 					</div>
 				</div>

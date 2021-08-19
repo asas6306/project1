@@ -37,7 +37,7 @@
 									<span>${member.ID}</span>
 									<div>(${member.nickname})</div>
 								</a>
-								<span class="w-20">${member.authName}</span>
+								<span class="w-20 text-center">${member.authName}</span>
 								<div class="w-48 text-center ">
 									<span>${member.email}</span>
 									<div>${member.phoneNo}</div>

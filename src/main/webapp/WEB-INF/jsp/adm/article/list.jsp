@@ -57,9 +57,12 @@
 										<!-- 
 										조회수 여기서 클릭시에만 오르도록 하는 방법은? 
 										-->
-										<a href="detail?aid=${article.aid}&hit=${hitCheck}" onclick="" class="ml-2 hover:underline">${article.title}
+										<a href="detail?aid=${article.aid}" onclick="" class="ml-2 hover:underline">${article.title}
 											<c:if test="${thumbUri != null}">
 												<i class="far fa-image text-gray-700" ></i>
+											</c:if>
+											<c:if test="${article.extra.replyCnt != 0}">
+												(${Util.numberFormat(article.extra.replyCnt)})
 											</c:if>
 										</a>
 									</div>
