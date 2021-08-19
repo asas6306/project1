@@ -12,7 +12,7 @@
 	<select id="getBoardCnt" resultType="Board">
 		SELECT board.*, COUNT(*) AS articlesCnt FROM board
 		LEFT JOIN article ON board.boardCode = article.boardCode AND article.articleType = board.boardType
-		WHERE article.delStatus = 0 AND board.boardType = #{boardType}
+		WHERE article.delState = 0 AND board.boardType = #{boardType}
 		GROUP BY bid;
 	</select>
 	
