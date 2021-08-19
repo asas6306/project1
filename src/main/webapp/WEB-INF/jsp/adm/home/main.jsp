@@ -51,11 +51,16 @@
 					<span class="text-2xl p-2">인기 게시물</span>
 				</div>
 				<div class="mx-2 py-2 border-2 border-blue-300">
-					<div class="mx-4 my-1">
+					<div class="mx-4 my-1 border-t">
 						<c:forEach var="article" items="${populars}">
-							<div>
-								<a class="mx-2" href="/usr/article/list?boardCode=${article.boardCode}">${Util.setBoardName(article.boardName)}</a>
-								<a href="/usr/article/detail?aid=${article.aid}">${article.title}</a>
+							<div class="flex justify-between px-4 border-b">
+								<div>
+									<a class="mr-1" href="/usr/article/list?boardCode=${article.boardCode}">${Util.setBoardName(article.boardName)}</a>
+									<a href="/usr/article/detail?aid=${article.aid}">${article.title}</a>
+								</div>
+								<div>
+									<span>${Util.dateFormat(article.regDate)}</span>
+								</div>
 							</div>
 						</c:forEach>
 					</div>
