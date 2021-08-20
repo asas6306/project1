@@ -32,7 +32,7 @@
 			</div>
 			<div class="border-b-4 border-t-4 rounded border-blue-700">
 				<c:forEach var="article" items="${articles}">
-					<div class="border-b-2 border-blue-500 py-3">
+					<div class="usr-article border-b-2 border-blue-500 py-3">
 						<div class="flex border-b">
 							<div class="flex justify-center items-center w-12">
 								<c:choose>
@@ -43,7 +43,6 @@
 										<span class="text-sm">${article.aid}</span>
 									</c:otherwise>
 								</c:choose>
-								
 							</div>
 							<div class="flex justify-center items-center">
 								<a href="detail?aid=${article.aid}&boardCode=${param.boardCode}" class="text-lg font-bold hover:text-blue-700">${article.title}</a>
@@ -51,10 +50,28 @@
 						</div>
 						<div class="grid grid-cols-2 lg:grid-cols-4 px-4 font-thin">
 							<div class="flex items-center">
-								<div>
-									<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-10 h-10 rounded-full" />
-								</div>
-								<span>&nbsp${article.nickname}</span>
+								<ul>
+									<li>
+										<a href="../member/userpage?uid=${article.uid}" class="flex items-center">
+											<img src="${article.writerProfileImgUri}" onerror="${article.writerProfileFallbackImgOnErrorHtmlAttr}" class="w-10 h-10 rounded-full" />
+											<span class="text-lg">&nbsp${article.nickname}</span>
+										</a>
+										<div>
+											<ul>
+												<li>
+													<a href="../member/userpage?uid=${article.uid}"> 
+														<span>유저페이지</span>
+													</a>
+												</li>
+												<li>
+													<a href=""> 
+														<span>쪽지보내기</span>
+													</a>
+												</li>
+											</ul>
+										</div>
+									</li>
+								</ul>
 							</div>
 							<div class="flex items-center">
 								<span class="text-sm">조회수 : </span>
