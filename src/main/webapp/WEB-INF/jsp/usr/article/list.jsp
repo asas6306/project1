@@ -64,9 +64,14 @@
 													</a>
 												</li>
 												<li>
-													<a href=""> 
+													<a onclick="open__note(${article.uid});" class="cursor-pointer"> 
 														<span>쪽지보내기</span>
 													</a>
+													<script>
+													function open__note(uid) {
+														window.open("../note/send?uid=" + uid, "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
+													}
+													</script>
 												</li>
 											</ul>
 										</div>

@@ -80,7 +80,10 @@ public class Util {
 		sb.append("<script>");
 		if(msg != null)
 			sb.append("alert('" + msg + "');");
-		sb.append("location.replace('" + url + "');");
+		if(url.equals("close"))
+			sb.append("window.close();");
+		else
+			sb.append("location.replace('" + url + "');");
 		sb.append("</script>");
 
 		return sb.toString();
