@@ -86,6 +86,16 @@ CREATE TABLE `genFile` (
 KEY `relId` (`relId`, `relTypeCode`, `typeCode`, `type2Code`, `fileNo`)
 );
 
+CREATE TABLE note (
+nid INT(10) UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+sUid INT(10) UNSIGNED NOT NULL,
+rUid INT(10) UNSIGNED NOT NULL,
+`body` TEXT NOT NULL,
+regDate DATETIME DEFAULT NOW(),
+sDelState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
+rDelState TINYINT(1) UNSIGNED NOT NULL DEFAULT 0
+);
+
 # 부가정보테이블
 # 댓글 테이블 추가
 CREATE TABLE attr (

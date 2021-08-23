@@ -35,6 +35,7 @@ function NoteSend__checkAndSubmit(form) {
 		</div>
 		<div>
 			<form onsubmit="NoteSend__checkAndSubmit(this); return false;" action="doSend" method="post">
+				<input type="hidden" name="uid" value="${member.uid}">
 				<div class="border-b">
 					<textarea name="body" rows="7" placeholder="내용을 입력해주세요." class="w-full h-60 p-2 outline-none"></textarea>
 				</div>
