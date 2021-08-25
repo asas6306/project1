@@ -8,4 +8,34 @@
 		insert into note 
 		set sUid = #{sUid}, rUid = #{rUid}, body = #{body}
 	</insert>
+	
+	<select id="getNotes" resultType="Note">
+		select * from note, member
+		where 1
+		and rUid = uid
+		and sUid = uid
+		<choose>
+			<when test="noteType == 'send'">
+				and sUid = #{uid}
+			</when>
+			<otherwise>
+				and rUid = #{uid}
+			</otherwise>
+		</choose>
+		order by nid desc
+		limit #{page}, #{pageCnt}
+	</select>
+	
+	<select id="getNotesCnt" resultType="int">
+		select count(*) from note
+		where 1
+		<choose>
+			<when test="noteType == 'send'">
+				and sUid = #{uid}
+			</when>
+			<otherwise>
+				and rUid = #{uid}
+			</otherwise>
+		</choose>
+	</select>
 </mapper>
