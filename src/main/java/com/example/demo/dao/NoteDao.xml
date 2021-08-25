@@ -12,14 +12,12 @@
 	<select id="getNotes" resultType="Note">
 		select * from note, member
 		where 1
-		and rUid = uid
-		and sUid = uid
 		<choose>
 			<when test="noteType == 'send'">
-				and sUid = #{uid}
+				and rUid = uid and sUid = #{uid}
 			</when>
 			<otherwise>
-				and rUid = #{uid}
+				and sUid = uid and rUid = #{uid}
 			</otherwise>
 		</choose>
 		order by nid desc
