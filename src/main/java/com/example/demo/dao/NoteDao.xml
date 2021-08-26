@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.dao.NoteDao">
+	<select id="getNote" resultType="Note">
+		select * from note where nid = #{nid}
+	</select>
+
 	<insert id="send">
 		insert into note 
 		set sUid = #{sUid}, rUid = #{rUid}, body = #{body}
@@ -14,10 +18,14 @@
 		where 1
 		<choose>
 			<when test="noteType == 'send'">
-				and rUid = uid and sUid = #{uid}
+				and rUid = uid 
+				and sUid = #{uid}
+				and sDelState = 0
 			</when>
 			<otherwise>
-				and sUid = uid and rUid = #{uid}
+				and sUid = uid 
+				and rUid = #{uid}
+				and rDelState = 0
 			</otherwise>
 		</choose>
 		order by nid desc
@@ -30,10 +38,27 @@
 		<choose>
 			<when test="noteType == 'send'">
 				and sUid = #{uid}
+				and sDelState = 0
 			</when>
 			<otherwise>
 				and rUid = #{uid}
+				and rDelState = 0
 			</otherwise>
 		</choose>
 	</select>
+	
+	<update id="delete">
+		update note 
+		<set>
+			<choose>
+				<when test="noteType = 'send'">
+					sDelState = 1
+				</when>
+				<otherwise>
+					rDelState = 1
+				</otherwise>
+			</choose>
+		</set>
+		where nid = #{nid}
+	</update>
 </mapper>

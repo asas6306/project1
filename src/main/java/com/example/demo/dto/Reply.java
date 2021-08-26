@@ -28,4 +28,16 @@ public class Reply {
 		
 		return extra;
 	}
+	
+	public String getBody() {
+		return this.transContent(body);
+	}
+	
+	public String transContent(String str) {
+		str = str.replace("<", "&lt");
+		str = str.replace(">", "&gt");
+		str = str.replace("\r\n", "<br>");
+		
+		return str;
+	}
 }

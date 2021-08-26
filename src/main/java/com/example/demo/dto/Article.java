@@ -37,14 +37,14 @@ public class Article {
 	}
 	
 	public String getTitle() {
-		return this.Xss(title);
+		return this.transContent(title);
 	}
 	
 	public String getBody() {
-		return this.Xss(body);
+		return this.transContent(body);
 	}
 	
-	public String Xss(String str) {
+	public String transContent(String str) {
 		str = str.replace("<", "&lt");
 		str = str.replace(">", "&gt");
 		str = str.replace("\r\n", "<br>");

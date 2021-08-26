@@ -7,11 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.NoteDao;
 import com.example.demo.dto.Article;
+import com.example.demo.dto.Note;
 
 @Service
 public class NoteService {
 	@Autowired
 	NoteDao nd;
+
+	public Note getNote(int nid) {
+		
+		return nd.getNote(nid);
+	}
 	
 	public void send(int sUid, int rUid, String body) {
 		
@@ -27,5 +33,11 @@ public class NoteService {
 		
 		return nd.getNotes(page, pageCnt, noteType, uid);
 	}
+
+	public void delete(int nid, String noteType) {
+		
+		nd.delete(nid, noteType);
+	}
+
 	
 }

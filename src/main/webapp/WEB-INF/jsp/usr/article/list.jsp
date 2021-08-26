@@ -125,38 +125,38 @@
 				</c:forEach>
 			</div>
 			<div class="flex">
-			<div class="flex justify-center text-lg flex-grow text-gray-700">
-				<a href="/usr/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">처음</a>
-				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">이전</a>
-				<c:forEach items='${printPageIndexs}' var='printPageIndex'>
-					<c:choose>
-						<c:when test="${printPageIndex == page}">
-							<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 text-black font-extrabold">${printPageIndex}</a>
-						</c:when>
-						<c:otherwise>
-							<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">${printPageIndex}</a>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">다음</a>
-				<a href="/usr/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">끝</a>
+				<div class="flex justify-center text-lg flex-grow text-gray-700">
+					<a href="/usr/article/list?boardCode=${boardCode}&page=1&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">처음</a>
+					<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexDown}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">이전</a>
+					<c:forEach items='${printPageIndexs}' var='printPageIndex'>
+						<c:choose>
+							<c:when test="${printPageIndex == page}">
+								<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 text-black font-extrabold">${printPageIndex}</a>
+							</c:when>
+							<c:otherwise>
+								<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndex}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">${printPageIndex}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<a href="/usr/article/list?boardCode=${boardCode}&page=${printPageIndexUp}&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">다음</a>
+					<a href="/usr/article/list?boardCode=${boardCode}&page=1000000&searchType=${searchType}&searchKeyword=${searchKeyword}" class="p-2 hover:text-black hover:text-blue-500">끝</a>
+				</div>
 			</div>
-		</div>
-		<div class="search-box-article">
-			<form action="list" method="get" class="flex justify-center">
-				<input type="hidden" name="boardCode" value="${boardCode}">
-				<select name="searchType" class="border text-gray-700">
-					<option value="titleAndBody">제목+내용</option>
-					<option value="title">제목</option>
-					<option value="nickname">작성자</option>
-				</select>
-				<script>
-					$('.search-box-article form [name="searchType"]').val('${searchType}')
-				</script>
-				<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
-				<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
-			</form>
-		</div>
+			<div class="search-box-article">
+				<form action="list" method="get" class="flex justify-center">
+					<input type="hidden" name="boardCode" value="${boardCode}">
+					<select name="searchType" class="border text-gray-700">
+						<option value="titleAndBody">제목+내용</option>
+						<option value="title">제목</option>
+						<option value="nickname">작성자</option>
+					</select>
+					<script>
+						$('.search-box-article form [name="searchType"]').val('${searchType}')
+					</script>
+					<input type="text" name="searchKeyword" class="border w-60 border-gray-300"/>
+					<input type="submit" value="검색" class="w-16 bg-blue-300 hover:bg-blue-500"/>
+				</form>
+			</div>
 		</div>
 	</div>
 </section>

@@ -19,4 +19,15 @@ public class Note {
 	int rDelState;
 	
 	String nickname;
+	
+	public String getBody() {
+		return this.transContent(body);
+	}
+	
+	public String transContent(String str) {
+		str = str.replace("<", "&lt");
+		str = str.replace(">", "&gt");
+		
+		return str;
+	}
 }
