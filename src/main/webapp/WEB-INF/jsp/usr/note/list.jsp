@@ -32,7 +32,7 @@
 				<c:if test="${param.noteType != null}">
 					<input type="hidden" name="noteType" value="${param.noteType}" />
 				</c:if>
-				<div class="flex justify-between">
+				<div class="flex justify-between px-1">
 					<div>
 						<input type="checkbox" onchange="del__checkAll(this)" />
 						<span>전체선택</span>
@@ -47,11 +47,11 @@
 							
 						}
 					</script>
-					<div>
-						<input type="submit" value="삭제" />
+					<div class="flex items-center">
+						<input type="submit" value="삭제" class="px-1 rounded bg-red-300 hover:bg-red-500" />
 					</div>
 				</div>
-				<div class="border-b-4 border-t-4 rounded border-blue-700">
+				<div class="border-b-4 border-t-4 rounded border-blue-700 px-1">
 					<c:forEach var="note" items="${notes}">
 						<div class="border-b">
 							<div class="grid lg:grid-cols-3 grid-cols-2">
