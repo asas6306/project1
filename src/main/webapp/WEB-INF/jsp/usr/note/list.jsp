@@ -45,6 +45,12 @@ function del__checkAll(btn) {
 			</div>
 			<form action="noteDelete">
 				<input type="hidden" name="noteType" value="${param.noteType}" />
+				<c:if test="${param.page != null}">
+					<input type="hidden" name="page" value="${param.page}" />
+				</c:if>
+				<c:if test="${param.noteType != null}">
+					<input type="hidden" name="noteType" value="${param.noteType}" />
+				</c:if>
 				<div class="flex justify-between">
 					<div>
 						<input type="checkbox" name="del__checkAll" value="Y" onchange="del__checkAll(this)" />
@@ -83,20 +89,20 @@ function del__checkAll(btn) {
 			</form>
 			<div class="flex">
 				<div class="flex justify-center text-lg flex-grow text-gray-700">
-					<a href="list?page=1" class="p-2 hover:text-black hover:text-blue-500">처음</a>
-					<a href="list?page=${printPageIndexDown}" class="p-2 hover:text-black hover:text-blue-500">이전</a>
+					<a href="list?noteType=${param.noteType}&page=1" class="p-2 hover:text-black hover:text-blue-500">처음</a>
+					<a href="list?noteType=${param.noteType}&page=${printPageIndexDown}" class="p-2 hover:text-black hover:text-blue-500">이전</a>
 					<c:forEach items='${printPageIndexs}' var='printPageIndex'>
 						<c:choose>
 							<c:when test="${printPageIndex == page}">
-								<a href="list?page=${printPageIndex}" class="p-2 text-black font-extrabold">${printPageIndex}</a>
+								<a href="list?noteType=${param.noteType}&page=${printPageIndex}" class="p-2 text-black font-extrabold">${printPageIndex}</a>
 							</c:when>
 							<c:otherwise>
-								<a href="list?page=${printPageIndex}" class="p-2 hover:text-black hover:text-blue-500">${printPageIndex}</a>
+								<a href="list?noteType=${param.noteType}&page=${printPageIndex}" class="p-2 hover:text-black hover:text-blue-500">${printPageIndex}</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<a href="list?page=${printPageIndexUp}" class="p-2 hover:text-black hover:text-blue-500">다음</a>
-					<a href="list?page=1000000" class="p-2 hover:text-black hover:text-blue-500">끝</a>
+					<a href="list?noteType=${param.noteType}&page=${printPageIndexUp}" class="p-2 hover:text-black hover:text-blue-500">다음</a>
+					<a href="list?noteType=${param.noteType}&page=1000000" class="p-2 hover:text-black hover:text-blue-500">끝</a>
 				</div>
 			</div>
 		</div>

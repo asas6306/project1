@@ -79,6 +79,7 @@ public class NoteController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/note/noteDelete")
+	@ResponseBody
 	public String noteDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
 		Rq rq = (Rq)req.getAttribute("rq");
@@ -103,6 +104,7 @@ public class NoteController extends _BaseController {
 				ns.delete(nid, String.valueOf(param.get("noteType")));
 		}
 		
-		return "usr/note/list";
+		String uri = "list?noteType=" + param.get("noteType") + "&page=" + param.get("page");
+		return Util.msgAndReplace(null, uri);
 	}
 }
