@@ -4,7 +4,24 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.util.Util"%>
 
-<c:set var="fileInputMaxCount" value="3" />
+<script>
+function del__checkAll(btn) {
+	alert('hihi');
+	//if(btn.checked) {
+	//	for(let i = 1; i <= 20; i++) {
+	//		if(document.getElementsByName("delete__" + i)[0].getAttribute('type') == 'checkbox'){
+	 //           document.getElementsByName("delete__" + i)[0].checked = true;
+	  //      }
+	//	}
+	//} else {
+	//	for(let i = 1; i <= 20; i++) { 
+	//		if(document.getElementsByName("delete__" + i)[0].getAttribute('type') == 'checkbox'){
+	 //           document.getElementsByName("delete__" + i)[0].checked = false;
+	  //      }
+	//	}
+	//}
+}
+</script>
 
 <section class="flex justify-center">
 	<div class="max-w-5xl w-full">
@@ -42,7 +59,7 @@
 						<div class="border-b">
 							<div class="grid lg:grid-cols-3 grid-cols-2">
 								<div>
-									<input type="checkbox" name="delete__${note.nid}" value="Y" />
+									<input id="delBox" type="checkbox" name="delete__${note.nid}" value="Y" />
 									<c:choose>
 										<c:when test="${param.noteType == 'send'}">
 											<span>받는사람 : </span>

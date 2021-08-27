@@ -35,7 +35,7 @@ public class NoteService {
 	}
 
 	public void delete(int nid, String noteType) {
-		
+		System.out.println("test!" + noteType);
 		nd.delete(nid, noteType);
 	}
 

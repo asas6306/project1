@@ -51,7 +51,7 @@
 		update note 
 		<set>
 			<choose>
-				<when test="noteType = 'send'">
+				<when test="noteType == 'send'">
 					sDelState = 1
 				</when>
 				<otherwise>

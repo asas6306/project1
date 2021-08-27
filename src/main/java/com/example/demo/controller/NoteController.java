@@ -82,19 +82,13 @@ public class NoteController extends _BaseController {
 	public String noteDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
 		Rq rq = (Rq)req.getAttribute("rq");
-		int uid = rq.getLoginedMemberUid();
 		
 		String strParam = param.toString();
-		System.out.println(strParam);
 		strParam = strParam.replace("{", "").replace("}", "").replace("=Y", "");
 		
 		String[] strs = strParam.split(", ");
 		
 		List<String> listNid = new ArrayList<>();
-		
-		System.out.println("test!");
-		
-		System.out.println(strs);
 		
 		for(String str : strs) {
 			if(str.contains("delete")) {
@@ -108,8 +102,6 @@ public class NoteController extends _BaseController {
 			if(ns.getNote(nid) != null)
 				ns.delete(nid, String.valueOf(param.get("noteType")));
 		}
-		
-		System.out.println(param.get("noteType"));
 		
 		return "usr/note/list";
 	}
