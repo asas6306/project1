@@ -4,25 +4,6 @@
 <%@ include file="../part/mainLayoutHeader.jspf"%>
 <%@ page import="com.example.demo.util.Util"%>
 
-<script>
-function del__checkAll(btn) {
-	alert('hihi');
-	//if(btn.checked) {
-	//	for(let i = 1; i <= 20; i++) {
-	//		if(document.getElementsByName("delete__" + i)[0].getAttribute('type') == 'checkbox'){
-	 //           document.getElementsByName("delete__" + i)[0].checked = true;
-	  //      }
-	//	}
-	//} else {
-	//	for(let i = 1; i <= 20; i++) { 
-	//		if(document.getElementsByName("delete__" + i)[0].getAttribute('type') == 'checkbox'){
-	 //           document.getElementsByName("delete__" + i)[0].checked = false;
-	  //      }
-	//	}
-	//}
-}
-</script>
-
 <section class="flex justify-center">
 	<div class="max-w-5xl w-full">
 		<div>
@@ -43,7 +24,7 @@ function del__checkAll(btn) {
 					</c:choose>
 				</div>
 			</div>
-			<form action="noteDelete">
+			<form action="noteDelete" class="noteDelete__form">
 				<input type="hidden" name="noteType" value="${param.noteType}" />
 				<c:if test="${param.page != null}">
 					<input type="hidden" name="page" value="${param.page}" />
@@ -53,9 +34,19 @@ function del__checkAll(btn) {
 				</c:if>
 				<div class="flex justify-between">
 					<div>
-						<input type="checkbox" name="del__checkAll" value="Y" onchange="del__checkAll(this)" />
+						<input type="checkbox" onchange="del__checkAll(this)" />
 						<span>전체선택</span>
 					</div>
+					<script>
+						function del__checkAll(btn){
+							if(btn.checked) {
+								$("input[type=checkbox][id=delBox]").prop("checked", true);								
+							} else {
+								$("input[type=checkbox][id=delBox]").prop("checked", false);
+							}
+							
+						}
+					</script>
 					<div>
 						<input type="submit" value="삭제" />
 					</div>
