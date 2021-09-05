@@ -17,6 +17,7 @@ public class Note {
 	String regDate;
 	int sDelState;
 	int rDelState;
+	boolean read;
 	
 	String nickname;
 	

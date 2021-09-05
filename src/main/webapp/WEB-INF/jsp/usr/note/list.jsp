@@ -38,14 +38,13 @@
 						<span>전체선택</span>
 					</div>
 					<script>
-						function del__checkAll(btn){
-							if(btn.checked) {
-								$("input[type=checkbox][id=delBox]").prop("checked", true);								
-							} else {
-								$("input[type=checkbox][id=delBox]").prop("checked", false);
-							}
-							
+					function del__checkAll(btn){
+						if(btn.checked) {
+							$("input[type=checkbox][id=delBox]").prop("checked", true);								
+						} else {
+							$("input[type=checkbox][id=delBox]").prop("checked", false);
 						}
+					}
 					</script>
 					<div class="flex items-center">
 						<input type="submit" value="삭제" class="px-1 rounded bg-red-300 hover:bg-red-500" />
@@ -72,7 +71,14 @@
 								</div>
 							</div>
 							<div>
-								<span class="px-4">${note.body}</span>
+								<c:choose>
+									<c:when test="${note.read}">
+										<span class="px-4">${note.body}</span>
+									</c:when>
+									<c:otherwise>
+										<span class="px-4 font-bold">${note.body}</span>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 					</c:forEach>
