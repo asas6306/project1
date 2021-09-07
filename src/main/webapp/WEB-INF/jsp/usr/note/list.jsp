@@ -73,10 +73,10 @@
 							<div>
 								<c:choose>
 									<c:when test="${note.read}">
-										<span class="px-4">${note.body}</span>
+										<span class="px-4" onclick="location.reload();">${note.body}</span>
 									</c:when>
 									<c:otherwise>
-										<span class="px-4 font-bold">${note.body}</span>
+										<span class="px-4 font-bold" onclick="location.reload();">${note.body}</span>
 									</c:otherwise>
 								</c:choose>
 							</div>

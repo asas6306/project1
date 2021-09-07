@@ -39,5 +39,10 @@ public class NoteService {
 		nd.delete(nid, noteType);
 	}
 
+	public int getNewNoteCnt(int uid) {
+		
+		return nd.getNewNoteCnt(uid);
+	}
+
 	
 }

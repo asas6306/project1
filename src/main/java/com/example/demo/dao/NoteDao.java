@@ -20,4 +20,6 @@ public interface NoteDao {
 	public Note getNote(@Param(value="nid") int nid);
 
 	public void delete(@Param(value="nid") int nid, @Param(value="noteType") String noteType);
+
+	public int getNewNoteCnt(@Param(value="uid") int uid);
 }

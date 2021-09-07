@@ -61,4 +61,10 @@
 		</set>
 		where nid = #{nid}
 	</update>
+	
+	<select id="getNewNoteCnt" resultType="int">
+		select count(*) from note
+		where rUid = #{uid}
+		and `read` = false
+	</select>
 </mapper>

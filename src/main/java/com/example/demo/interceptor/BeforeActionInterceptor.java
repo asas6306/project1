@@ -13,6 +13,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.example.demo.dto.Member;
 import com.example.demo.dto.Rq;
 import com.example.demo.service.MemberService;
+import com.example.demo.service.NoteService;
 import com.example.demo.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class BeforeActionInterceptor implements HandlerInterceptor {
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private NoteService noteService;
 	
 	private boolean isAjax(HttpServletRequest req) {
         String[] pathBits = req.getRequestURI().split("/");
@@ -106,6 +109,15 @@ public class BeforeActionInterceptor implements HandlerInterceptor {
 			}
 			
 			needToChangePassword = (boolean) session.getAttribute("needToChangePassword");
+		}
+		
+		// Note 알림표시용
+		int newNoteCnt = 0;
+		if(loginedMemberUid != 0) {
+			newNoteCnt = noteService.getNewNoteCnt(loginedMemberUid);
+			
+			if(newNoteCnt != 0)
+				req.setAttribute("newNoteCnt", newNoteCnt);
 		}
 		
 		req.setAttribute("rq", new Rq(isAjax(req), loginedMember, currentUrl, paramMap, needToChangePassword));
