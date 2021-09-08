@@ -76,9 +76,15 @@
 										<span class="px-4" onclick="location.reload();">${note.body}</span>
 									</c:when>
 									<c:otherwise>
-										<span class="px-4 font-bold" onclick="location.reload();">${note.body}</span>
+										<span class="px-4 font-bold" onclick="open__note(${note.nid});">${note.body}</span>
 									</c:otherwise>
 								</c:choose>
+								<script>
+								function open__note(nid) {
+									window.open("detail?nid=" + nid, "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
+									location.reload();
+								}
+								</script>
 							</div>
 						</div>
 					</c:forEach>

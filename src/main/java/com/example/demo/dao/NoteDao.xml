@@ -5,7 +5,9 @@
 
 <mapper namespace="com.example.demo.dao.NoteDao">
 	<select id="getNote" resultType="Note">
-		select * from note where nid = #{nid}
+		select * from note, member 
+		where note.rUid = member.uid
+		and nid = #{nid}
 	</select>
 
 	<insert id="send">

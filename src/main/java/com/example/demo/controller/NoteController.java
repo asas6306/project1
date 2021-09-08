@@ -20,6 +20,7 @@ import com.example.demo.service.NoteService;
 import com.example.demo.service.SimplerService;
 import com.example.demo.util.Util;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -106,5 +107,16 @@ public class NoteController extends _BaseController {
 		
 		String uri = "list?noteType=" + param.get("noteType") + "&page=" + param.get("page");
 		return Util.msgAndReplace(null, uri);
+	}
+	
+	@RequestMapping("/usr/note/detail")
+	public String detail(HttpServletRequest req, Integer nid) {
+
+		if(nid == null)
+			return msgAndBack(req, "쪽지번호를 입력해주세요.");
+		
+		req.setAttribute("note", ns.getNote(nid));
+		
+		return "usr/note/detail";
 	}
 }
