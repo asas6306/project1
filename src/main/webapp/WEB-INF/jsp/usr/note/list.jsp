@@ -81,7 +81,7 @@
 								</c:choose>
 								<script>
 								function open__note(nid) {
-									window.open("detail?nid=" + nid, "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
+									window.open("detail?nid=" + nid + "&type=receive", "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
 									location.reload();
 								}
 								</script>

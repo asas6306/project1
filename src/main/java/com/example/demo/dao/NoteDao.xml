@@ -69,4 +69,12 @@
 		where rUid = #{uid}
 		and `read` = false
 	</select>
+	
+	<update id="doRead">
+		update note
+		<set> 
+			`read` = true
+		</set> 
+		where nid = #{nid}
+	</update>
 </mapper>

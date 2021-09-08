@@ -110,12 +110,14 @@ public class NoteController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/note/detail")
-	public String detail(HttpServletRequest req, Integer nid) {
+	public String detail(HttpServletRequest req, Integer nid, String type) {
 
 		if(nid == null)
 			return msgAndBack(req, "쪽지번호를 입력해주세요.");
 		
 		req.setAttribute("note", ns.getNote(nid));
+		if(type.equals("recive"))
+			ns.doRead(nid);
 		
 		return "usr/note/detail";
 	}

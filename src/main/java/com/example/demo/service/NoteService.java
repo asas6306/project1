@@ -44,5 +44,10 @@ public class NoteService {
 		return nd.getNewNoteCnt(uid);
 	}
 
+	public void doRead(int nid) {
+		
+		nd.doRead(nid);
+	}
+
 	
 }
