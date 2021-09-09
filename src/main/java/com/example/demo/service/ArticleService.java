@@ -124,8 +124,8 @@ public class ArticleService {
 	public Article getArticleWriterImg(Article article) {
 		GenFile file = fs.getGenFile("member", article.getUid(), "common", "profile", 0);
 		Map<String, GenFile> filesMap = new HashMap<>();
-		filesMap.put(file.getFileNo() + "", file);
 		if(file != null)
+			filesMap.put(file.getFileNo() + "", file);
 			article.getExtraNotNull().put("file__common__profile", filesMap);
 		
 		return article;
