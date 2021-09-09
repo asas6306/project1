@@ -105,7 +105,10 @@ public class NoteController extends _BaseController {
 				ns.delete(nid, String.valueOf(param.get("noteType")));
 		}
 		
-		String uri = "list?noteType=" + param.get("noteType") + "&page=" + param.get("page");
+		int page = 1;
+		if(param.get("page") != null)
+			page = Integer.parseInt(param.get("page").toString());
+		String uri = "list?noteType=" + param.get("noteType") + "&page=" + page;
 		return Util.msgAndReplace(null, uri);
 	}
 	
@@ -116,7 +119,7 @@ public class NoteController extends _BaseController {
 			return msgAndBack(req, "쪽지번호를 입력해주세요.");
 		
 		req.setAttribute("note", ns.getNote(nid));
-		if(type.equals("recive"))
+		if(type.equals("receive"))
 			ns.doRead(nid);
 		
 		return "usr/note/detail";

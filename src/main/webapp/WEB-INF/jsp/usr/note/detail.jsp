@@ -34,12 +34,11 @@ function NoteSend__checkAndSubmit(form) {
 			<span>${note.nickname}</span>
 		</div>
 		<div>
-			<input type="hidden" name="uid" value="${member.uid}">
-			<div class="flex border-b">
-				<span class="py-1 px-2 h-60">${note.body}</span>
+			<div class="border-b max-w-md h-60 py-1 px-2">
+				<span>${note.body}</span>
 			</div>
 			<div class="flex justify-center p-2 gap-2 border-b">
-				<input type="submit" value="답장" class="px-2 py-1 rounded bg-blue-300 hover:bg-blue-500" />
+				<input type="button" value="답장" class="px-2 py-1 rounded bg-blue-300 hover:bg-blue-500" />
 				<input type="button" value="취소" onclick="window.close()" class="px-2 py-1 rounded bg-red-300 hover:bg-red-500" />
 			</div>
 		</div>

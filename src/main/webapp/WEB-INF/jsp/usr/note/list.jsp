@@ -73,10 +73,10 @@
 							<div>
 								<c:choose>
 									<c:when test="${note.read}">
-										<span class="px-4" onclick="location.reload();">${note.body}</span>
+										<div class="px-4 line-clamp-1" onclick="open__note(${note.nid});">${note.body}</div>
 									</c:when>
 									<c:otherwise>
-										<span class="px-4 font-bold" onclick="open__note(${note.nid});">${note.body}</span>
+										<div class="px-4 line-clamp-1 font-bold" onclick="open__note(${note.nid});">${note.body}</div>
 									</c:otherwise>
 								</c:choose>
 								<script>
@@ -85,6 +85,7 @@
 									location.reload();
 								}
 								</script>
+								<!-- line-clamp-3 -->
 							</div>
 						</div>
 					</c:forEach>
