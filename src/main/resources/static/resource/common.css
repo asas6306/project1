@@ -145,3 +145,10 @@ box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #
   font-weight: 700;
 }
 /* 탑바 - 메뉴 박스 - 2차 메뉴 끝 */
+
+.note-body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}

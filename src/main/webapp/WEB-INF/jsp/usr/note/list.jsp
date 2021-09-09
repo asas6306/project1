@@ -73,10 +73,10 @@
 							<div>
 								<c:choose>
 									<c:when test="${note.read}">
-										<div class="px-4 line-clamp-1" onclick="open__note(${note.nid});">${note.body}</div>
+										<div class="note-body px-4" onclick="open__note(${note.nid});" style="-webkit-line-clamp: 1;">${note.body}</div>
 									</c:when>
 									<c:otherwise>
-										<div class="px-4 line-clamp-1 font-bold" onclick="open__note(${note.nid});">${note.body}</div>
+										<div class="note-body px-4 font-bold" onclick="open__note(${note.nid});">${note.body}</div>
 									</c:otherwise>
 								</c:choose>
 								<script>

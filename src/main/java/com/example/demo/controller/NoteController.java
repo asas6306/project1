@@ -105,9 +105,9 @@ public class NoteController extends _BaseController {
 				ns.delete(nid, String.valueOf(param.get("noteType")));
 		}
 		
-		int page = 1;
+		Object page = 1;
 		if(param.get("page") != null)
-			page = Integer.parseInt(param.get("page").toString());
+			page = param.get("page");
 		String uri = "list?noteType=" + param.get("noteType") + "&page=" + page;
 		return Util.msgAndReplace(null, uri);
 	}
