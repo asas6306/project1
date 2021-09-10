@@ -49,14 +49,7 @@ public class UsrReplyController extends _BaseController {
 		Rq rq = (Rq)req.getAttribute("rq");
 		int uid = rq.getLoginedMemberUid();
 		
-		Reply reply = rs.getReply(rid);
-		
-		if(reply == null)
-			return msgAndBack(req, "존재하지 않는 댓글입니다.");
-		else if(reply.getUid() != uid)
-			return msgAndBack(req, "해당 권한이 없습니다.");
-		
-		ResultData doDeleteRd = rs.delete(rid);
+		ResultData doDeleteRd = rs.delete(rid, uid);
 		
 		return msgAndReplace(req, doDeleteRd.getMsg(), redirectUri);
 	}
@@ -71,14 +64,14 @@ public class UsrReplyController extends _BaseController {
 		}
 		
 		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
 		
-		if ( reply.getUid() != rq.getLoginedMemberUid() ) {
-			return new ResultData("F-1", "권한이 없습니다.");
-		}
+		ResultData deleteResultData = rs.delete(rid, uid);
 		
-		ResultData deleteResultData = rs.delete(rid);
-		
-		return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", rid));
+		if(deleteResultData.getMsg().startsWith("S"))
+			return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", rid));
+		else
+			return new ResultData("F-1", "해당 댓글을 삭제 할 수 없습니다.");
     }
 	
 	@RequestMapping("/usr/reply/doUpdate")

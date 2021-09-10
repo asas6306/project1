@@ -155,7 +155,6 @@ public class UsrArticleController extends _BaseController {
 			return msgAndBack(req, "삭제 할 게시물을 선택해주세요.");
 		}
 		
-
 		Rq rq = (Rq)req.getAttribute("rq");
 		int uid = rq.getLoginedMemberUid();
 		

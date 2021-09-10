@@ -96,13 +96,15 @@ public class ArticleService {
 		
 		Article article = ad.getArticle(aid);
 		
+		if(article == null)
+			return new ResultData("F-1", "해당 게시물이 존재하지 않습니다.");
 		if(article.getUid() == uid) {
 			ad.delete(aid);
 			rs.deleteArticleTriger("article", aid);
 			
 			return new ResultData("S-1", "게시물이 삭제되었습니다.");			
 		} else {
-			return new ResultData("F-1", "게시물이 삭제할 수 없습니다.");
+			return new ResultData("F-2", "해당 게시물을 삭제할 수 없습니다.");
 		}
 	}
 

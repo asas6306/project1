@@ -60,11 +60,18 @@ public class ReplyService {
 		return rd.getRepliesForMypage(page, pageCnt, uid);
 	}
 
-	public ResultData delete(int rid) {
+	public ResultData delete(int rid, int uid) {
 		
-		rd.delete(rid);
+		Reply reply = rd.getReply(rid);
 		
-		return new ResultData("S-1", "해당 댓글이 삭제되었습니다.");
+		if(reply == null)
+			return new ResultData("F-1", "해당 댓글이 존재하지 않습니다.");
+		if(reply.getUid() == uid) {
+			rd.delete(rid);
+			return new ResultData("S-1", "댓글이 삭제되었습니다.");			
+		} else {
+			return new ResultData("F-2", "해당 댓글을 삭제할 수 없습니다.");
+		}
 	}
 
 	public int getReplyCnt(String relTypeCode, int relId) {
