@@ -51,7 +51,10 @@ public class UsrReplyController extends _BaseController {
 		
 		ResultData doDeleteRd = rs.delete(rid, uid);
 		
-		return msgAndReplace(req, doDeleteRd.getMsg(), redirectUri);
+		if(doDeleteRd.getMsg().startsWith("S"))
+			return msgAndReplace(req, doDeleteRd.getMsg(), redirectUri);
+		else
+			return msgAndBack(req, doDeleteRd.getMsg());
 	}
 	
 	@RequestMapping("/usr/reply/doDeleteAjax")
