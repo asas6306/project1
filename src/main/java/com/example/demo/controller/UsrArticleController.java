@@ -149,11 +149,22 @@ public class UsrArticleController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/article/delete")
-	public String delete(HttpServletRequest req, int aid, int boardCode) {
+	public String delete(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "0") int boardCode) {
 		
-		ResultData doDeleteRd = as.delete(aid);
+		if(aid == null) {
+			return msgAndBack(req, "삭제 할 게시물을 선택해주세요.");
+		}
 		
-		return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
+
+		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
+		
+		ResultData doDeleteRd = as.delete(aid, uid);
+		
+		if(doDeleteRd.getMsg().startsWith("S"))
+			return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
+		else
+			return msgAndBack(req, doDeleteRd.getMsg());
 	}
 	
 	@RequestMapping("/usr/article/doLike")

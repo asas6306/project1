@@ -91,6 +91,20 @@ public class ArticleService {
 		
 		return new ResultData("S-1", "게시물이 삭제되었습니다.");
 	}
+	
+	public ResultData delete(int aid, int uid) {
+		
+		Article article = ad.getArticle(aid);
+		
+		if(article.getUid() == uid) {
+			ad.delete(aid);
+			rs.deleteArticleTriger("article", aid);
+			
+			return new ResultData("S-1", "게시물이 삭제되었습니다.");			
+		} else {
+			return new ResultData("F-1", "게시물이 삭제할 수 없습니다.");
+		}
+	}
 
 	public int hit(int aid) {
 		

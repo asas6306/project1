@@ -45,6 +45,8 @@ function Delete__Article__Confirm()
 	const result = confirm('정말로 삭제하시겠습니까?');
 	
 	if(result){
+		alert(${rq.loginedMemberUid});
+		if(${rq.loginedMemberUid == article.uid})
 		location.href='delete?aid=${article.aid}&boardCode=${article.boardCode}';
 	}
 }
