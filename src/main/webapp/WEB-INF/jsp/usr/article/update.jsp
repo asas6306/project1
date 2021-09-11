@@ -141,7 +141,7 @@ function ArticleUpdate__checkAndSubmit(form) {
 							<input type="text" name="title" value="${article.title}" placeholder="제목을 입력해주세요." autofocus="autofocus" autocomplete="off" class="w-full p-3 text-4xl" autocomplete="off" />
 						</div>
 						<div class="flex border rounded">
-							<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40 text-2xl font-thin p-3">${article.body}</textarea>
+							<textarea name="body" placeholder="내용을 입력해주세요." class="w-full h-40 text-2xl font-thin p-3">${article.bodyForUpdate}</textarea>
 						</div>
 						<div class="flex border rounded">
 							<div class="flex justify-center items-center w-24">

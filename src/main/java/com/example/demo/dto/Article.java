@@ -44,6 +44,10 @@ public class Article {
 		return this.transContent(body);
 	}
 	
+	public String getBodyForUpdate() {
+		return body;
+	}
+	
 	public String transContent(String str) {
 		str = str.replace("<", "&lt");
 		str = str.replace(">", "&gt");
