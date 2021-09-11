@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.Article;
 import com.example.demo.dto.Member;
+import com.example.demo.dto.Note;
 import com.example.demo.dto.Rq;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.NoteService;
 import com.example.demo.service.SimplerService;
 import com.example.demo.util.Util;
 
-import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -113,15 +113,32 @@ public class NoteController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/note/detail")
-	public String detail(HttpServletRequest req, Integer nid, String type) {
+	public String detail(HttpServletRequest req, Integer nid, String noteType) {
 
 		if(nid == null)
 			return msgAndBack(req, "쪽지번호를 입력해주세요.");
 		
 		req.setAttribute("note", ns.getNote(nid));
-		if(type.equals("receive"))
+		if(noteType.equals("receive"))
 			ns.doRead(nid);
 		
 		return "usr/note/detail";
+	}
+	
+	@RequestMapping("/usr/note/noteCancel")
+	@ResponseBody
+	public String noteCancel(HttpServletRequest req, Integer nid) {
+		if(nid == null)
+			return msgAndBack(req, "쪽지번호를 입력해주세요.");
+		
+		Note note = ns.getNote(nid);
+		if(note == null)
+			return msgAndBack(req, "존재하지 않는 쪽지입니다.");
+		if(note.isRead())
+			return msgAndBack(req, "쪽지를 취소 할 수 없습니다.");
+		
+		ns.noteCancel(nid);
+		
+		return Util.msgAndReplace("전송이 취소되었습니다.", "close");
 	}
 }

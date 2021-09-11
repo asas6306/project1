@@ -112,16 +112,6 @@ function Delete__Articles__Confirm() {
 			<div class="border-b-4 border-blue-500 rounded">
 				<c:forEach var="item" items="${items}">
 					<div class="flex items-center border-b">
-						<div class="">
-							<c:choose>
-								<c:when test="${call == 'reply'}">
-									<input type="checkbox" name="delete__${num}" class="flex justify-center items-center" value="${item.rid}"/>
-								</c:when>
-								<c:otherwise>
-									<input type="checkbox" name="delete__${num}" class="flex justify-center items-center" value="${item.aid}"/>
-								</c:otherwise> 
-							</c:choose>
-						</div>
 						<div class="w-full text-lg font-thin px-2">
 							<c:choose>
 								<c:when test="${call == 'reply'}">

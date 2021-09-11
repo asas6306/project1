@@ -49,5 +49,10 @@ public class NoteService {
 		nd.doRead(nid);
 	}
 
+	public void noteCancel(int nid) {
+		
+		nd.noteCancel(nid);
+	}
+
 	
 }

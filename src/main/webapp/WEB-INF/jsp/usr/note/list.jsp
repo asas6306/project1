@@ -14,7 +14,7 @@
 				<div class="flex items-end p-2 gap-3">
 					<c:choose>
 						<c:when test="${param.noteType == 'send'}">
-							<a href="list?noteType=resive&page=${page}" class="text-gray-500">받은 쪽지함</a>
+							<a href="list?noteType=receive&page=${page}" class="text-gray-500">받은 쪽지함</a>
 							<span class="font-bold border-b-2 border-blue-500">보낸 쪽지함</span>
 						</c:when>
 						<c:otherwise>
@@ -72,20 +72,31 @@
 							</div>
 							<div>
 								<c:choose>
-									<c:when test="${note.read}">
-										<div class="note-body px-4" onclick="open__note(${note.nid});" style="-webkit-line-clamp: 1;">${note.body}</div>
+									<c:when test="${param.noteType == 'send'}">
+										<c:set var="detailAction" value="open__note__send(${note.nid});" />
 									</c:when>
 									<c:otherwise>
-										<div class="note-body px-4 font-bold" onclick="open__note(${note.nid});">${note.body}</div>
+										<c:set var="detailAction" value="open__note__receive(${note.nid});" />
+									</c:otherwise>
+								</c:choose>
+								<c:choose>
+									<c:when test="${note.read}">
+										<div class="note-body px-4" onclick="${detailAction}">${note.body}</div>
+									</c:when>
+									<c:otherwise>
+										<div class="note-body px-4 font-bold" onclick="${detailAction}">${note.body}</div>
 									</c:otherwise>
 								</c:choose>
 								<script>
-								function open__note(nid) {
-									window.open("detail?nid=" + nid + "&type=receive", "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
+								function open__note__send(nid) {
+									window.open("detail?nid=" + nid + "&noteType=send", "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
+									location.reload();
+								}
+								function open__note__receive(nid) {
+									window.open("detail?nid=" + nid + "&noteType=receive", "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
 									location.reload();
 								}
 								</script>
-								<!-- line-clamp-3 -->
 							</div>
 						</div>
 					</c:forEach>

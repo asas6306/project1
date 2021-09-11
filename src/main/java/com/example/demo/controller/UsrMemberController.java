@@ -259,7 +259,9 @@ public class UsrMemberController extends _BaseController {
 
 	@RequestMapping("/usr/member/mypageDoDelete")
 	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
-
+		
+		Rq rq = (Rq) req.getAttribute("rq");
+		
 		String call = String.valueOf(param.get("call"));
 
 		for (int i = 1; i <= 20; i++) {
@@ -267,7 +269,7 @@ public class UsrMemberController extends _BaseController {
 				int itemId = Util.getAsInt(param.get("delete__" + i), 0);
 
 				if (call.equals("reply")) {
-					rs.delete(itemId);
+					rs.delete(itemId, rq.getLoginedMemberUid());
 				} else {
 					as.delete(itemId);
 				}

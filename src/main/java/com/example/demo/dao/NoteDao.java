@@ -24,4 +24,6 @@ public interface NoteDao {
 	public int getNewNoteCnt(@Param(value="uid") int uid);
 
 	public void doRead(@Param(value="nid") int nid);
+
+	public void noteCancel(@Param(value="nid") int nid);
 }

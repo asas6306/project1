@@ -38,8 +38,18 @@ function NoteSend__checkAndSubmit(form) {
 				<span>${note.body}</span>
 			</div>
 			<div class="flex justify-center p-2 gap-2 border-b">
-				<input type="button" value="답장" class="px-2 py-1 rounded bg-blue-300 hover:bg-blue-500" />
-				<input type="button" value="취소" onclick="window.close()" class="px-2 py-1 rounded bg-red-300 hover:bg-red-500" />
+				<c:choose>
+					<c:when test="${param.noteType == 'send'}">
+						<c:if test="${!note.read}">
+							<input type="button" value="전송취소" onclick="location.href='noteCancel?nid=${note.nid}'" class="px-2 py-1 rounded bg-blue-300 hover:bg-blue-500" />
+						</c:if>
+						<input type="button" value="닫기" onclick="window.close()" class="px-2 py-1 rounded bg-red-300 hover:bg-red-500" />
+					</c:when>
+					<c:otherwise>
+						<input type="button" value="답장" onclick="location.href='send?uid=${note.SUid}'" class="px-2 py-1 rounded bg-blue-300 hover:bg-blue-500" />
+						<input type="button" value="닫기" onclick="window.close()" class="px-2 py-1 rounded bg-red-300 hover:bg-red-500" />
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>

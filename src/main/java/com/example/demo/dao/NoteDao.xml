@@ -77,4 +77,8 @@
 		</set> 
 		where nid = #{nid}
 	</update>
+	
+	<delete id="noteCancel">
+		delete from note where nid = #{nid}
+	</delete>
 </mapper>
