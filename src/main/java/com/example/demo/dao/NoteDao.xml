@@ -68,6 +68,7 @@
 		select count(*) from note
 		where rUid = #{uid}
 		and `read` = false
+		and rDelState = 0
 	</select>
 	
 	<update id="doRead">
