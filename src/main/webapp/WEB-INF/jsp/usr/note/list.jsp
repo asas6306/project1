@@ -72,29 +72,26 @@
 							</div>
 							<div>
 								<c:choose>
-									<c:when test="${param.noteType == 'send'}">
-										<c:set var="detailAction" value="open__note__send(${note.nid});" />
-									</c:when>
-									<c:otherwise>
-										<c:set var="detailAction" value="open__note__receive(${note.nid});" />
-									</c:otherwise>
-								</c:choose>
-								<c:choose>
 									<c:when test="${note.read}">
-										<div class="note-body px-4" onclick="${detailAction}">${note.body}</div>
+										<div class="note-body px-4"  onclick="open__note(${note.nid}, '${param.noteType}');">${note.body}</div>
 									</c:when>
 									<c:otherwise>
-										<div class="note-body px-4 font-bold" onclick="${detailAction}">${note.body}</div>
+										<c:choose>
+											<c:when test="${param.noteType == 'send'}">
+												<div class="note-body px-4 font-bold"  onclick="open__note(${note.nid}, '${param.noteType}');">${note.body}</div>
+											</c:when>
+											<c:otherwise>
+												<div class="note-body px-4 font-bold"  onclick="open__note(${note.nid}, '${param.noteType}'); note__fontWeight(this);">${note.body}</div>
+											</c:otherwise>
+										</c:choose>
 									</c:otherwise>
 								</c:choose>
 								<script>
-								function open__note__send(nid) {
-									window.open("detail?nid=" + nid + "&noteType=send", "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
-									location.reload();
+								function open__note(nid, noteType) {
+									window.open("detail?nid=" + nid + "&noteType=" + noteType, "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
 								}
-								function open__note__receive(nid) {
-									window.open("detail?nid=" + nid + "&noteType=receive", "", "width=400 height=375 left=500 top=100, location=no, resizable=no");
-									location.reload();
+								function note__fontWeight(btn) {
+									$(btn).css('font-weight', '500');
 								}
 								</script>
 							</div>

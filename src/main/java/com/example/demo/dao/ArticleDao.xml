@@ -120,7 +120,8 @@
 	</select>
 	
 	<insert id="add" useGeneratedKeys="true" keyProperty="aid">
-		insert into article set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}, articleType = #{articleType}
+		insert into article 
+		set title = #{title}, body = #{body}, uid = #{uid}, boardCode = #{boardCode}, articleType = #{articleType}
 	</insert>
 	
 	<update id="update">

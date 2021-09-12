@@ -51,7 +51,7 @@ public class UsrReplyController extends _BaseController {
 		
 		ResultData doDeleteRd = rs.delete(rid, uid);
 		
-		if(doDeleteRd.getMsg().startsWith("S"))
+		if(doDeleteRd.getResultCode().startsWith("S"))
 			return msgAndReplace(req, doDeleteRd.getMsg(), redirectUri);
 		else
 			return msgAndBack(req, doDeleteRd.getMsg());
@@ -71,7 +71,7 @@ public class UsrReplyController extends _BaseController {
 		
 		ResultData deleteResultData = rs.delete(rid, uid);
 		
-		if(deleteResultData.getMsg().startsWith("S"))
+		if(deleteResultData.getResultCode().startsWith("S"))
 			return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", rid));
 		else
 			return new ResultData("F-1", "해당 댓글을 삭제 할 수 없습니다.");

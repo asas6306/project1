@@ -79,15 +79,12 @@ public class SimplerService {
 		int replyCnt = rs.getRepliesCntForMypage(uid);
 		req.setAttribute("replyCnt", replyCnt);
 		
-		if(call.equals("article")) {
-			return articleCnt;
-		} else if(call.equals("memo")) {
+		if(call.equals("memo")) {
 			return memoCnt;
 		} else if(call.equals("reply")) {
 			return replyCnt;
-		}
-		
-		return 612;
+		} else
+			return articleCnt;
 	}
 
 	public Member setSecureID(Member member) {

@@ -410,9 +410,6 @@ public class UsrMemberController extends _BaseController {
 		int uid = rq.getLoginedMemberUid();
 		Member loginedMember = ms.getMember("uid", String.valueOf(uid));
 		String orignalPW = loginedMember.getPW();
-		System.out.println("test");
-		System.out.println(rq.getLoginedMember());
-		System.out.println(PW);
 		
 		if (!PW.equals(orignalPW)) {
 	        return Util.msgAndBack("비밀번호가 일치하지 않습니다.");

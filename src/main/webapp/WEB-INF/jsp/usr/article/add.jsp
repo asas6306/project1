@@ -100,13 +100,21 @@ function ArticleAdd__checkAndSubmit(form) {
 		<div class="flex items-center justify-center h-20 text-4xl font-bold">글쓰기</div>
 		<form onsubmit="ArticleAdd__checkAndSubmit(this); return false;" action="doAdd" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="genFileIdsStr" value="" />
-			<input type="hidden" name="articleType" value="${articleType}" />
+			<c:choose>
+				<c:when test="${param.articleType == 'memo'}">
+					<input type="hidden" name="articleType" value="memo" />
+				</c:when>
+				<c:otherwise>
+					<input type="hidden" name="articleType" value="article" />
+				</c:otherwise>
+			</c:choose>
+			
 			<div class="">
 				<div class="add-board w-full">
 					<select name="boardCode" class="select-board p-2 font-thin text-lg outline-none border border-blue-500">
 						<option value="0" class="font-thin">=== 게시판선택 ===</option>
 						<c:choose>
-							<c:when test="${articleType == 'memo'}">
+							<c:when test="${param.articleType == 'memo'}">
 								<c:forEach var="board" items="${boards}">
 									<option value="${board.boardCode}" class="font-thin">${board.boardName}</option>
 								</c:forEach>

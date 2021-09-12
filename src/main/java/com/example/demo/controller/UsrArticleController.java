@@ -76,12 +76,8 @@ public class UsrArticleController extends _BaseController {
 	}
 	
 	@RequestMapping("/usr/article/add")
-	public String add(HttpServletRequest req, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "article") String articleType) {
-		req.setAttribute("boardCode", boardCode);
-		req.setAttribute("articleType", articleType);
+	public String add(HttpServletRequest req, @RequestParam(defaultValue = "article") String articleType) {
 		req.setAttribute("boards", ss.getAllBoardInfo(articleType));
-		
-		// Uri를 추적해서 boardCode와 articleType 등을 따로 코딩없이 꺼내 올 수 있을까?
 		
 		return "usr/article/add";
 	}
