@@ -9,5 +9,6 @@ public class test {
 		System.out.println("8 - 4 = " + (a - b));
 		System.out.println("8 * 4 = " + (a * b));
 		System.out.println("8 / 4 = " + (a / b));
+		// 테스트
 	}
 }
