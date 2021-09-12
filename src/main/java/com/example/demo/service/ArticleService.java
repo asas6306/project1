@@ -98,6 +98,9 @@ public class ArticleService {
 		
 		if(article == null)
 			return new ResultData("F-1", "해당 게시물이 존재하지 않습니다.");
+		else if(article.getDelState() == 1)
+			return new ResultData("F-3", "이미 삭제된 게시물입니다.");
+		
 		if(article.getUid() == uid) {
 			ad.delete(aid);
 			rs.deleteArticleTriger("article", aid);

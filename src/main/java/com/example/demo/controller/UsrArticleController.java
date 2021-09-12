@@ -112,6 +112,10 @@ public class UsrArticleController extends _BaseController {
 		Rq rq = (Rq)req.getAttribute("rq");
 
 		Article article = as.getArticle(aid);
+		
+		if(article.getDelState() == 1)
+			return msgAndBack(req, "삭제된 게시물입니다.");
+		
 		article = as.getArticleWriterImg(article);
 		req.setAttribute("article", as.getArticleImg(article));
 		
@@ -160,10 +164,11 @@ public class UsrArticleController extends _BaseController {
 		
 		ResultData doDeleteRd = as.delete(aid, uid);
 		
-		if(doDeleteRd.getMsg().startsWith("S"))
+		if(doDeleteRd.getResultCode().startsWith("S")) {
 			return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
-		else
+		}else {
 			return msgAndBack(req, doDeleteRd.getMsg());
+		}
 	}
 	
 	@RequestMapping("/usr/article/doLike")

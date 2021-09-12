@@ -21,6 +21,7 @@ public class Article {
 	private int like;
 	private int boardCode;
 	private String articleType;
+	private int delState;
 	
 	private String authName;
 	private String nickname;
