@@ -78,6 +78,7 @@ public class UsrArticleController extends _BaseController {
 	// 게시물 작성페이지 이동
 	@RequestMapping("/usr/article/add")
 	public String add(HttpServletRequest req, @RequestParam(defaultValue = "article") String articleType) {
+		// 게시판 리스트 가져오기
 		req.setAttribute("boards", ss.getAllBoardInfo(articleType));
 		
 		return "usr/article/add";
@@ -92,7 +93,7 @@ public class UsrArticleController extends _BaseController {
 		
 		ResultData doAddRd = as.add(param);
 		
-		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
+		return msgAndReplace(req, doAddRd.getMsg(), "detail?aid=" + doAddRd.getBody().get("aid"));
 	}
 	
 	// 게시물 자세히보기 전처리 페이지
@@ -121,9 +122,12 @@ public class UsrArticleController extends _BaseController {
 
 		Article article = as.getArticle(aid);
 		
+		// 작성자 프로필 이미지
 		article = as.getArticleWriterImg(article);
+		
 		req.setAttribute("article", as.getArticleImg(article));
 		
+		// 좋아요
 		List<Like> likes = als.getLikes(aid);
 		boolean isLike = false;
 		
@@ -134,6 +138,7 @@ public class UsrArticleController extends _BaseController {
 		req.setAttribute("likes", likes);
 		req.setAttribute("isLike", isLike);
 		
+		// 댓글정보
 		List<Reply> replies = rs.getReplies("article", aid);
 		req.setAttribute("replies", replies);
 		

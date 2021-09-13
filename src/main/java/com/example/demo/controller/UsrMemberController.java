@@ -347,7 +347,9 @@ public class UsrMemberController extends _BaseController {
         if ( checkValidCheckPasswordAuthCodeResultData.isFail() ) {
             return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
         }
-
+        
+        fs.deleteGenFiles("member", uid);
+        
 		session.removeAttribute("loginedMemberUid");
 		session.removeAttribute("loginedMemberJsonStr");
 		

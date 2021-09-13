@@ -66,8 +66,14 @@ public class GenFileService {
         } else if (fileExt.equals("htm")) {
             fileExt = "html";
         }
-
-        String fileDir = Util.getNowYearMonthDateStr();
+        
+        String fileDir = null;
+        if(relTypeCode.equals("member"))
+        	fileDir = "user_profile_img";
+        else
+        	fileDir = Util.getNowYearMonthDateStr();
+        if(fileDir == null)
+        	return new ResultData("F-3", "파일이 업로드 되지 않았습니다.");
 
         if (relId > 0) {
             GenFile oldGenFile = getGenFile(relTypeCode, relId, typeCode, type2Code, fileNo);
@@ -97,7 +103,7 @@ public class GenFileService {
         try {
             multipartFile.transferTo(new File(targetFilePath));
         } catch (IllegalStateException | IOException e) {
-            return new ResultData("F-3", "파일저장에 실패하였습니다.");
+            return new ResultData("F-4", "파일저장에 실패하였습니다.");
         }
 
         return new ResultData("S-1", "파일이 생성되었습니다.", "fid", newGenFileId, "fileRealPath", targetFilePath, "fileName",
