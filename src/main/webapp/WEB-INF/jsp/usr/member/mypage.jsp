@@ -139,6 +139,12 @@ function del__checkAll(btn) {
 						</c:forEach>
 					</div>
 					<div class="w-full">
+						<c:if test="${items.size() == 0}">
+							<div class="flex justify-center">
+								<span class="text-2xl font-bold p-8">게시물이 존재하지 않습니당 ㅎㅎ!</span>
+							</div>
+						</c:if>
+						
 						<c:forEach var="item" items="${items}">
 							<div class="flex items-center border-b h-7">
 								<div class="w-full text-lg font-thin px-2">
