@@ -23,6 +23,7 @@ public class UsrReplyController extends _BaseController {
 	@Autowired
 	ReplyService rs;
 	
+	// 댓글 작성 동작
 	@RequestMapping("/usr/reply/doAdd")
 	public String doAdd(HttpServletRequest req, String relTypeCode, int relId, String body, String redirectUri) {
 		
@@ -43,6 +44,7 @@ public class UsrReplyController extends _BaseController {
 		return msgAndReplace(req, doAddReplyRd.getMsg(), redirectUri);
 	}
 	
+	// 댓글 삭제 동작
 	@RequestMapping("/usr/reply/doDelete")
 	public String doDelete(HttpServletRequest req, int rid, String redirectUri) {
 		
@@ -51,30 +53,26 @@ public class UsrReplyController extends _BaseController {
 		
 		ResultData doDeleteRd = rs.delete(rid, uid);
 		
-		if(doDeleteRd.getResultCode().startsWith("S"))
+		if(doDeleteRd.isSuccess())
 			return msgAndReplace(req, doDeleteRd.getMsg(), redirectUri);
 		else
 			return msgAndBack(req, doDeleteRd.getMsg());
 	}
 	
+	// 댓글 삭제 AJAX
 	@RequestMapping("/usr/reply/doDeleteAjax")
     @ResponseBody
     public ResultData doDeleteAjax(HttpServletRequest req, int rid, String redirectUri) {
-		Reply reply = rs.getReply(rid);
-		
-		if ( reply == null ) {
-			return new ResultData("F-1", "존재하지 않는 댓글입니다.");
-		}
-		
+
 		Rq rq = (Rq)req.getAttribute("rq");
 		int uid = rq.getLoginedMemberUid();
 		
 		ResultData deleteResultData = rs.delete(rid, uid);
 		
-		if(deleteResultData.getResultCode().startsWith("S"))
-			return new ResultData("S-1", String.format("%d번 댓글이 삭제되었습니다.", rid));
+		if(deleteResultData.isSuccess())
+			return new ResultData(deleteResultData.getResultCode(), deleteResultData.getMsg());
 		else
-			return new ResultData("F-1", "해당 댓글을 삭제 할 수 없습니다.");
+			return new ResultData(deleteResultData.getResultCode(), deleteResultData.getMsg());
     }
 	
 	@RequestMapping("/usr/reply/doUpdate")
