@@ -84,11 +84,18 @@ public class ReplyService {
 		rd.deleteArticleTriger(relTypeCode, relId);
 	}
 
-	public ResultData update(int rid, String body) {
+	public ResultData update(int uid, int rid, String body) {
 		
-		rd.update(rid, body);
+		Reply reply = rd.getReply(rid);
 		
-		return new ResultData("S-1", "댓글이 수정되었습니다.");
+		if(reply == null)
+			return new ResultData("F-1", "존재하지 않는 댓글입니다.");
+		else if(reply.getUid() != uid)
+			return new ResultData("F-2", "해당 권한이 없습니다.");
+		else {
+			rd.update(rid, body);
+			return new ResultData("S-1", "댓글이 수정되었습니다.", "reply", reply);			
+		}
 	}
 
 
