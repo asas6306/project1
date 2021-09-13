@@ -355,7 +355,7 @@ public class UsrMemberController extends _BaseController {
 		
 		ms.delete(uid);
 
-		return "usr/member/login";
+		return msgAndReplace(req, "회원탈퇴가 완료되었습니다.", "login");
 	}
 
 	// 아이디 찾기 페이지로 이동
