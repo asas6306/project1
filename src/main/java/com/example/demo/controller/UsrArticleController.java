@@ -100,6 +100,11 @@ public class UsrArticleController extends _BaseController {
 	@ResponseBody
 	public String detail(HttpServletRequest req, Integer aid) {
 		
+		Article article = as.getArticle(aid);
+		
+		if(article.getDelState() == 1)
+			return Util.msgAndBack("삭제된 게시물입니다.");
+		
 		Rq rq = (Rq) req.getAttribute("rq");
 		if(rq.getLoginedMemberUid() != 0)
 			if(rq.getLoginedMemberUid() != as.getArticle(aid).getUid())
@@ -116,17 +121,16 @@ public class UsrArticleController extends _BaseController {
 
 		Article article = as.getArticle(aid);
 		
-		if(article.getDelState() == 1)
-			return msgAndBack(req, "삭제된 게시물입니다.");
-		
 		article = as.getArticleWriterImg(article);
 		req.setAttribute("article", as.getArticleImg(article));
 		
 		List<Like> likes = als.getLikes(aid);
 		boolean isLike = false;
+		
 		for(Like like : likes)
 			if(like.getUid() == rq.getLoginedMemberUid())
 				isLike = true;
+		
 		req.setAttribute("likes", likes);
 		req.setAttribute("isLike", isLike);
 		
