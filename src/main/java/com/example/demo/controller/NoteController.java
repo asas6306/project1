@@ -19,6 +19,7 @@ import com.example.demo.dto.Rq;
 import com.example.demo.service.MemberService;
 import com.example.demo.service.NoteService;
 import com.example.demo.service.SimplerService;
+import com.example.demo.util.ResultData;
 import com.example.demo.util.Util;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,28 +34,33 @@ public class NoteController extends _BaseController {
 	@Autowired
 	SimplerService ss;
 	
+	// 쪽지 전송 페이지로 이동
 	@RequestMapping("/usr/note/send")
 	public String send(HttpServletRequest req, Integer uid) {
 		
+		// 쪽지 받는 자의 정보 추출용
 		Member member = ms.getMember("uid", String.valueOf(uid));
-		req.setAttribute("member", member);
+		req.setAttribute("targetMember", member);
 		
 		return "usr/note/send";
 	}
 	
+	// 쪽지 전송 동작
 	@RequestMapping("/usr/note/doSend")
 	@ResponseBody
 	public String doSend(HttpServletRequest req, Integer uid, String body) {
+		
 		if(uid == null)
-			return Util.msgAndBack("쪽지를 전송할 수 없습니다.");
+			return Util.msgAndBack("쪽지를 전송 할 수 없습니다.");
 		
 		Rq rq = (Rq)req.getAttribute("rq");
 		
-		ns.send(rq.getLoginedMemberUid(), uid.intValue(), body);
+		ns.send(rq.getLoginedMemberUid(), uid, body);
 		
 		return Util.msgAndReplace("쪽지가 전송되었습니다.", "close");
 	}
 	
+	// 쪽지 리스트 페이지
 	@RequestMapping("/usr/note/list")
 	public String list(HttpServletRequest req, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "resive") String noteType) {
 		
@@ -79,11 +85,13 @@ public class NoteController extends _BaseController {
 		return "usr/note/list";
 	}
 	
+	// 쪽지 삭제 동작
 	@RequestMapping("/usr/note/noteDelete")
 	@ResponseBody
 	public String noteDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
 		Rq rq = (Rq)req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
 		
 		String strParam = param.toString();
 		strParam = strParam.replace("{", "").replace("}", "").replace("=Y", "");
@@ -102,7 +110,7 @@ public class NoteController extends _BaseController {
 		for(String nidStr : listNid) {
 			int nid = Integer.parseInt(nidStr);
 			if(ns.getNote(nid) != null)
-				ns.delete(nid, String.valueOf(param.get("noteType")));
+				ns.delete(nid, String.valueOf(param.get("noteType")), uid);
 		}
 		
 		Object page = 1;
@@ -112,6 +120,7 @@ public class NoteController extends _BaseController {
 		return Util.msgAndReplace(null, uri);
 	}
 	
+	// 쪽지 자세히보기
 	@RequestMapping("/usr/note/detail")
 	public String detail(HttpServletRequest req, Integer nid, String noteType) {
 
@@ -125,6 +134,7 @@ public class NoteController extends _BaseController {
 		return "usr/note/detail";
 	}
 	
+	// 쪽지 전송 취소
 	@RequestMapping("/usr/note/noteCancel")
 	@ResponseBody
 	public String noteCancel(HttpServletRequest req, Integer nid) {

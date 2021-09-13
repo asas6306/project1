@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.NoteDao;
 import com.example.demo.dto.Article;
 import com.example.demo.dto.Note;
+import com.example.demo.util.ResultData;
 
 @Service
 public class NoteService {
@@ -34,8 +35,19 @@ public class NoteService {
 		return nd.getNotes(page, pageCnt, noteType, uid);
 	}
 
-	public void delete(int nid, String noteType) {
-		System.out.println("test!" + noteType);
+	public void delete(int nid, String noteType, int uid) {
+		
+		Note note = nd.getNote(nid);
+		int noteUid = 0;
+		
+		if(noteType.equals("send"))
+			noteUid = note.getSUid();
+		else if(noteType.equals("receive"))
+			noteUid = note.getRUid();
+		
+		if(noteUid != uid)
+			return;
+		
 		nd.delete(nid, noteType);
 	}
 

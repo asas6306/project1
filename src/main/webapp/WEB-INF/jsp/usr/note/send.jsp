@@ -31,11 +31,11 @@ function NoteSend__checkAndSubmit(form) {
 		<div class="flex items-center p-2 border-b">
 			<span>받는사람</span>
 			<span class="px-1">:</span>
-			<span class="font-thin">${member.nickname}</span>
+			<span class="font-thin">${targetMember.nickname}</span>
 		</div>
 		<div>
 			<form onsubmit="NoteSend__checkAndSubmit(this); return false;" action="doSend" method="post">
-				<input type="hidden" name="uid" value="${member.uid}">
+				<input type="hidden" name="uid" value="${targetMember.uid}">
 				<div class="border-b">
 					<textarea name="body" rows="7" placeholder="내용을 입력해주세요." class="w-full h-60 p-2 outline-none"></textarea>
 				</div>
