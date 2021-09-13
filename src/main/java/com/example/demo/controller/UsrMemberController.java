@@ -41,31 +41,31 @@ public class UsrMemberController extends _BaseController {
 	SimplerService ss;
 	@Autowired
 	GenFileService fs;
-
+	
+	// 로그인 페이지로 이동
 	@RequestMapping("/usr/member/login")
 	public String login() {
 
 		return "usr/member/login";
 	}
-
+	
+	// 로그인 동작
 	@RequestMapping("/usr/member/doLogin")
 	@ResponseBody
 	public String doLogin(HttpSession session, String redirectUri, String ID, String PW) {
-		ResultData doLoginRd = ms.login(ID);
+		
+		ResultData doLoginRd = ms.login(ID, PW);
 
 		if (doLoginRd.isFail())
 			return Util.msgAndBack(doLoginRd.getMsg());
 
+		// BeforeActionInterceptor를 위한 세션
 		Member member = (Member) doLoginRd.getBody().get("loginedMember");
 		
-		if (member.getDelState() == 1) {
-			return Util.msgAndBack("탈퇴한 회원입니다.");
-		} else if (!member.getPW().equals(PW))
-			return Util.msgAndBack("비밀번호가 일치하지 않습니다.");
-
 		session.setAttribute("loginedMemberUid", member.getUid());
 		session.setAttribute("loginedMemberJsonStr", member.toJsonStr());
-
+		
+		// 임시 비밀번호 관련 로직
 		boolean isTempPassword = ms.isTempPassword(member.getUid());
 		boolean needToChangePassword = ms.needToChangePassword(member.getUid());
 		
@@ -81,16 +81,17 @@ public class UsrMemberController extends _BaseController {
         	redirectUri = Util.ifEmpty(redirectUri, "../home/main");        	
         }
 
-        System.out.println(redirectUri);
 		return Util.msgAndReplace(msg, redirectUri);
 	}
-
+	
+	// 회원가입 페이지로 이동
 	@RequestMapping("/usr/member/signup")
 	public String signup() {
 
 		return "usr/member/signup";
 	}
 
+	// 회원가입 동작
 	@RequestMapping("/usr/member/doSignup")
 	public String doSignup(HttpServletRequest req, @RequestParam Map<String, Object> param, MultipartRequest multipartRequest) {
 
@@ -113,7 +114,8 @@ public class UsrMemberController extends _BaseController {
 		return msgAndReplace(req, doSignupRd.getMsg(), redirectUri);
 
 	}
-
+	
+	// 아이디 체크
 	@GetMapping("/usr/member/getLoginIdDup")
 	@ResponseBody
 	public ResultData getLoginIdDup(String ID) {
@@ -133,7 +135,8 @@ public class UsrMemberController extends _BaseController {
 
 		return new ResultData("S-1", String.format("%s(은)는 사용 가능한 아이디입니다.", ID), "ID", ID);
 	}
-
+	
+	// 닉네임 체크
 	@GetMapping("/usr/member/getNicknameDup")
 	@ResponseBody
 	public ResultData getNicknameDup(String nickname) {
@@ -152,6 +155,7 @@ public class UsrMemberController extends _BaseController {
 		return new ResultData("S-1", String.format("%s(은)는 사용 가능한 닉네임입니다.", nickname), "nickname", nickname);
 	}
 
+	// 비밀번호 체크
 	@GetMapping("/usr/member/getPWDup")
 	@ResponseBody
 	public ResultData getPWDup(String PW) {

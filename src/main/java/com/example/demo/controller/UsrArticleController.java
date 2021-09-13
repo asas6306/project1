@@ -83,7 +83,7 @@ public class UsrArticleController extends _BaseController {
 		return "usr/article/add";
 	}
 	
-	// 게시물 작성
+	// 게시물 작성 동작
 	@RequestMapping("/usr/article/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		
@@ -95,7 +95,7 @@ public class UsrArticleController extends _BaseController {
 		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
 	}
 	
-	// 게시물 자세히보기 전 페이지(조회수를 위한)
+	// 게시물 자세히보기 전처리 페이지
 	@RequestMapping("/usr/article/detail")
 	@ResponseBody
 	public String detail(HttpServletRequest req, Integer aid) {
@@ -140,6 +140,7 @@ public class UsrArticleController extends _BaseController {
 		return "usr/article/detail";
 	}
 	
+	// 게시물 수정 페이지로 이동
 	@RequestMapping("/usr/article/update")
 	public String update(HttpServletRequest req, int aid) {
 		
@@ -151,6 +152,7 @@ public class UsrArticleController extends _BaseController {
 		return "usr/article/update";
 	}
 	
+	// 게시물 수정 동작
 	@RequestMapping("/usr/article/doUpdate")
 	public String doUpdate(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 
@@ -159,6 +161,7 @@ public class UsrArticleController extends _BaseController {
 		return msgAndReplace(req, doUpdateRd.getMsg(), "detail?aid=" + param.get("aid"));
 	}
 	
+	// 게시물 삭제 동작
 	@RequestMapping("/usr/article/delete")
 	public String delete(HttpServletRequest req, Integer aid, @RequestParam(defaultValue = "0") int boardCode) {
 		
@@ -171,13 +174,14 @@ public class UsrArticleController extends _BaseController {
 		
 		ResultData doDeleteRd = as.delete(aid, uid);
 		
-		if(doDeleteRd.getResultCode().startsWith("S")) {
+		if(doDeleteRd.isSuccess()) {
 			return msgAndReplace(req, doDeleteRd.getMsg(), "list?boardCode=" + boardCode);
 		}else {
 			return msgAndBack(req, doDeleteRd.getMsg());
 		}
 	}
 	
+	// 게시물 좋아요 동작
 	@RequestMapping("/usr/article/doLike")
 	public String doLike(HttpServletRequest req, int aid, boolean isLike) {
 		Rq rq = (Rq)req.getAttribute("rq");
