@@ -62,20 +62,19 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/**").excludePathPatterns("/")
 				.excludePathPatterns("/swagger-ui/**").excludePathPatterns("/swagger-resources/**")
 				.excludePathPatterns("/v2/api-docs").excludePathPatterns("/webjars/**")
+				.excludePathPatterns("/common/**").excludePathPatterns("/error")
 				.excludePathPatterns("/usr/home/*")
+				// 게시물
 				.excludePathPatterns("/usr/article/list").excludePathPatterns("/usr/article/detail")
 				.excludePathPatterns("/usr/article/showDetail")
+				// 회원
 				.excludePathPatterns("/usr/member/signup").excludePathPatterns("/usr/member/doSignup")
 				.excludePathPatterns("/usr/member/login").excludePathPatterns("/usr/member/doLogin")
 				.excludePathPatterns("/usr/member/findID").excludePathPatterns("/usr/member/doFindID")
 				.excludePathPatterns("/usr/member/findPW").excludePathPatterns("/usr/member/doFindPW")
 				.excludePathPatterns("/usr/member/getLoginIdDup").excludePathPatterns("/usr/member/getNicknameDup")
 				.excludePathPatterns("/usr/member/getPWDup").excludePathPatterns("/usr/member/getPhoneNoDup")
-				.excludePathPatterns("/usr/member/getEmailDup").excludePathPatterns("/usr/member/getNicknameDup")
-				.excludePathPatterns("/usr/member/getPWDup").excludePathPatterns("/usr/member/getPhoneNoDup")
-				.excludePathPatterns("/usr/member/authKey").excludePathPatterns("/usr/member/find")
-				.excludePathPatterns("/usr/reply/list")
-				.excludePathPatterns("/usr/reply/delete").excludePathPatterns("/common/**").excludePathPatterns("/error");
+				.excludePathPatterns("/usr/member/getEmailDup").excludePathPatterns("/usr/member/authKey");
 
 		// 로그인 상태에서 접속할 수 없는 URI 전부 기술(로그아웃 상태에서 접속할 수 잇는 URI)
 		registry.addInterceptor(needToLogoutInterceptor)

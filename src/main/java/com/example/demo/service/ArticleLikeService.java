@@ -14,6 +14,7 @@ public class ArticleLikeService {
 	@Autowired
 	ArticleLikeDao ald;
 
+	
 	public List<Like> getLikes(int aid) {
 		
 		return ald.getLikes(aid);
