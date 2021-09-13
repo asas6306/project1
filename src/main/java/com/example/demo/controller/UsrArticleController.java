@@ -39,6 +39,7 @@ public class UsrArticleController extends _BaseController {
 	@Autowired
 	ArticleLikeService als;
 	
+	// 게시물 리스트
 	@RequestMapping("/usr/article/list")
 	public String list(HttpServletRequest req, @RequestParam(defaultValue = "titleAndBody") String searchType, String searchKeyword, @RequestParam(defaultValue = "0") int boardCode, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "article") String articleType) {
 		
@@ -55,7 +56,6 @@ public class UsrArticleController extends _BaseController {
 		int articlesCnt = as.getArticlesCnt(searchType, searchKeyword, boardCode, articleType);
 		
 		if(articlesCnt != 0) {
-			
 			// 페이징
 			int pageCnt = 20;
 			page = ss.page(req, page, pageCnt, articlesCnt);
@@ -75,6 +75,7 @@ public class UsrArticleController extends _BaseController {
 		return "usr/article/list";
 	}
 	
+	// 게시물 작성페이지 이동
 	@RequestMapping("/usr/article/add")
 	public String add(HttpServletRequest req, @RequestParam(defaultValue = "article") String articleType) {
 		req.setAttribute("boards", ss.getAllBoardInfo(articleType));
@@ -82,6 +83,7 @@ public class UsrArticleController extends _BaseController {
 		return "usr/article/add";
 	}
 	
+	// 게시물 작성
 	@RequestMapping("/usr/article/doAdd")
 	public String doAdd(@RequestParam Map<String, Object> param, HttpServletRequest req) {
 		
@@ -93,15 +95,20 @@ public class UsrArticleController extends _BaseController {
 		return msgAndReplace(req, "게시물이 작성되었습니다.", "detail?aid=" + doAddRd.getBody().get("aid"));
 	}
 	
+	// 게시물 자세히보기 전 페이지(조회수를 위한)
 	@RequestMapping("/usr/article/detail")
 	@ResponseBody
-	public String detail(Integer aid) {
+	public String detail(HttpServletRequest req, Integer aid) {
 		
-		as.hit(aid);
+		Rq rq = (Rq) req.getAttribute("rq");
+		if(rq.getLoginedMemberUid() != 0)
+			if(rq.getLoginedMemberUid() != as.getArticle(aid).getUid())
+				as.hit(aid);
 		
 		return Util.msgAndReplace(null, "showDetail?aid=" + aid);
 	}
 	
+	// 게시물 자세히 보기
 	@RequestMapping("/usr/article/showDetail")
 	public String showDetail(HttpServletRequest req, Integer aid) {
 		

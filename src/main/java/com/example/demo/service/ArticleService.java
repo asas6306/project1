@@ -38,12 +38,9 @@ public class ArticleService {
 				if (mapByFileNo != null)
 					article.getExtraNotNull().put("file__common__attachment", mapByFileNo);
 			}
-			// 댓글 수 갖고오기
+			// 좋아요 및 댓글 수 갖고오기
 			for(Article article : articles) {
 				article.getExtraNotNull().put("replyCnt", rs.getReplyCnt("article", article.getAid()));
-			}
-			// 좋아요 수 갖고오기
-			for(Article article : articles) {
 				article.setLike(ad.getLike(article.getAid()));
 			}
 		}
