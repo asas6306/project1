@@ -172,7 +172,8 @@ public class UsrMemberController extends _BaseController {
 
 		return new ResultData("S-1", "", "PW", PW);
 	}
-
+	
+	// 연락처 체크
 	@GetMapping("/usr/member/getPhoneNoDup")
 	@ResponseBody
 	public ResultData getPhoneNoDup(String phoneNo) {
@@ -188,7 +189,8 @@ public class UsrMemberController extends _BaseController {
 
 		return new ResultData("F-2", "올바른 전화번호 형식이 아닙니다.");
 	}
-
+	
+	// 이메일 체크
 	@GetMapping("/usr/member/getEmailDup")
 	@ResponseBody
 	public ResultData getEmailDup(String email) {
@@ -203,7 +205,8 @@ public class UsrMemberController extends _BaseController {
 			return new ResultData("F-4", "이메일 형식을 확인해주세요.");
 		}
 	}
-
+	
+	// 로그아웃 동작
 	@RequestMapping("/usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(HttpSession session) {
@@ -216,6 +219,7 @@ public class UsrMemberController extends _BaseController {
 		return Util.msgAndReplace("로그아웃 되었습니다.", redirectUri);
 	}
 
+	// 마이페이지 이동
 	@RequestMapping("/usr/member/mypage")
 	public String mypage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
@@ -236,6 +240,7 @@ public class UsrMemberController extends _BaseController {
 		return "usr/member/mypage";
 	}
 
+	// 유저페이지 이동
 	@RequestMapping("/usr/member/userpage")
 	public String userpage(HttpServletRequest req, @RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "article") String call, @RequestParam Map<String, Object> param) {
@@ -261,6 +266,7 @@ public class UsrMemberController extends _BaseController {
 		return "usr/member/userpage";
 	}
 
+	// 마이페이지 삭제 동작
 	@RequestMapping("/usr/member/mypageDoDelete")
 	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
@@ -283,6 +289,7 @@ public class UsrMemberController extends _BaseController {
 		return msgAndReplace(req, "삭제되었습니다.", "mypage?call=" + call);
 	}
 
+	// 정보수정 페이지 이동
 	@RequestMapping("/usr/member/update")
 	public String update(HttpServletRequest req, String checkPasswordAuthCode) {
 		
@@ -298,15 +305,8 @@ public class UsrMemberController extends _BaseController {
 		
 		return "/usr/member/update";
 	}
-
-	@RequestMapping("/usr/member/userUpdate")
-	public String userUpdate(HttpServletRequest req, int uid) {
-
-		req.setAttribute("member", ms.getMember("uid", String.valueOf(uid)));
-
-		return "usr/member/userUpdate";
-	}
-
+	
+	// 정보수정 동작
 	@RequestMapping("/usr/member/doUpdate")
 	@RequestBody
 	public String doUpdate(HttpSession session, HttpServletRequest req, @RequestParam Map<String, Object> param) {
@@ -333,15 +333,13 @@ public class UsrMemberController extends _BaseController {
 		return msgAndReplace(req, doUpdateRd.getMsg(), "mypage");
 	}
 
+	// 회원탈퇴
 	@RequestMapping("/usr/member/delete")
 	@RequestBody
-	public String delete(HttpSession session, HttpServletRequest req, Integer uid, String checkPasswordAuthCode) {
-		if (uid == null) {
-			uid = (int)session.getAttribute("loginedMemberUid");
-		}
+	public String delete(HttpSession session, HttpServletRequest req, String checkPasswordAuthCode) {
 		
-		if(ms.getMember("uid", String.valueOf(uid)) == null)
-			return msgAndBack(req, "존재하지 않는 회원입니다.");
+		Rq rq = (Rq) req.getAttribute("rq");
+		int uid = rq.getLoginedMemberUid();
 		
 		ResultData checkValidCheckPasswordAuthCodeResultData = 
 				ms.checkValidCheckPasswordAuthCode(uid, checkPasswordAuthCode);

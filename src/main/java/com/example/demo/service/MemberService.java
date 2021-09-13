@@ -64,8 +64,8 @@ public class MemberService {
 		
 		if(loginedMember == null)
 			return new ResultData("F-1", "존재하지 않는 회원입니다.");
-		else if(loginedMember.getDelState() == 1) {
-			return new ResultData("F-2", "탈퇴한 회원입니다."); 
+		else if(loginedMember.getDelState() == 1) 
+			return new ResultData("F-2", "탈퇴한 회원입니다.");
 		else if (!loginedMember.getPW().equals(PW))
 			return new ResultData("F-3", "비밀번호가 일치하지 않습니다.."); 
 		
