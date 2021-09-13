@@ -266,7 +266,7 @@ public class UsrMemberController extends _BaseController {
 		return "usr/member/userpage";
 	}
 
-	// 마이페이지 삭제 동작
+	// 마이페이지 게시물 삭제 동작
 	@RequestMapping("/usr/member/mypageDoDelete")
 	public String mypageDoDelete(HttpServletRequest req, @RequestParam Map<String, Object> param) {
 		
@@ -356,12 +356,14 @@ public class UsrMemberController extends _BaseController {
 		return "usr/member/login";
 	}
 
+	// 아이디 찾기 페이지로 이동
 	@RequestMapping("/usr/member/findID")
 	public String findID() {
 
 		return "usr/member/findID";
 	}
 	
+	// 아이디 찾기 동작
 	@RequestMapping("/usr/member/doFindID")
 	@ResponseBody
 	public String doFindID(String name, String email) {
@@ -375,12 +377,14 @@ public class UsrMemberController extends _BaseController {
 		return Util.msgAndReplace(msg, redirectUri);
 	}
 	
+	// 비밀번호 찾기 페이지로 이동
 	@RequestMapping("/usr/member/findPW")
 	public String findPW() {
 
 		return "usr/member/findPW";
 	}
 	
+	// 비밀번호 찾기 동작
 	@RequestMapping("/usr/member/doFindPW")
 	@ResponseBody
 	public String doFindPW(String ID, String email) {
@@ -399,12 +403,14 @@ public class UsrMemberController extends _BaseController {
 	    return Util.msgAndReplace(notifyTempLoginPwByEmailRs.getMsg(), "login");
 	}
 	
+	// 인증페이지로 이동
 	@RequestMapping("/usr/member/authentication")
 	public String authentication(HttpServletRequest req) {
 		
 		return "usr/member/authentication";
 	}
 	
+	// 인증페이지 동작
 	@RequestMapping("/usr/member/doAuthentication")
 	@ResponseBody
 	public String doAuthentication(HttpServletRequest req, String PW, String redirectUri) {
