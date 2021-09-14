@@ -93,7 +93,8 @@ public class UsrMemberController extends _BaseController {
 
 	// 회원가입 동작
 	@RequestMapping("/usr/member/doSignup")
-	public String doSignup(HttpServletRequest req, @RequestParam Map<String, Object> param, MultipartRequest multipartRequest) {
+	public String doSignup(HttpServletRequest req, @RequestParam Map<String, Object> param, 
+			MultipartRequest multipartRequest) {
 
 		ResultData doSignupRd = ms.signup(param);
 
@@ -111,8 +112,10 @@ public class UsrMemberController extends _BaseController {
 		
 		String redirectUri = Util.ifEmpty((String) param.get("redirectUri"), "login");
 		
-		return msgAndReplace(req, doSignupRd.getMsg(), redirectUri);
-
+		if(doSignupRd.isSuccess())
+			return msgAndReplace(req, doSignupRd.getMsg(), redirectUri);
+		else
+			return msgAndBack(req, doSignupRd.getMsg());
 	}
 	
 	// 아이디 체크
