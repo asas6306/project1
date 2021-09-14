@@ -107,8 +107,6 @@ public class MemberService {
 
 	public ResultData update(Map<String, Object> param) {
 		
-		System.out.println("test!");
-		System.out.println(Util.getAsInt(param.get("uid"), 0));
 		int uid = Util.getAsInt(param.get("uid"), 0);
 		
 		if (param.get("PW") != null) {
@@ -156,7 +154,7 @@ public class MemberService {
 		return member;
 	}
 
-	public void delete(Integer uid) {
+	public void delete(int uid) {
 		
 		md.delete(uid);
 	}

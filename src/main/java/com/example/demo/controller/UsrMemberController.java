@@ -232,11 +232,10 @@ public class UsrMemberController extends _BaseController {
 
 		int itemsCnt = ss.getItemsCnt(req, call, uid);
 
+		// 페이징
 		int pageCnt = 20;
-		if (itemsCnt != 0) {
-			// 페이징
+		if (itemsCnt != 0)
 			page = ss.page(req, page, pageCnt, itemsCnt);
-		}
 
 		ss.setItems(req, call, page, pageCnt, uid);
 
@@ -260,9 +259,8 @@ public class UsrMemberController extends _BaseController {
 		int itemsCnt = ss.getItemsCnt(req, call, uid);
 		// 페이징
 		int pageCnt = 20;
-		if (itemsCnt != 0) {
+		if (itemsCnt != 0)
 			page = ss.page(req, page, pageCnt, itemsCnt);
-		}
 
 		ss.setItems(req, call, page, pageCnt, uid);
 
@@ -351,11 +349,10 @@ public class UsrMemberController extends _BaseController {
             return msgAndBack(req, checkValidCheckPasswordAuthCodeResultData.getMsg());
         }
         
-        fs.deleteGenFiles("member", uid);
-        
 		session.removeAttribute("loginedMemberUid");
 		session.removeAttribute("loginedMemberJsonStr");
 		
+		fs.deleteGenFiles("member", uid);
 		ms.delete(uid);
 
 		return msgAndReplace(req, "회원탈퇴가 완료되었습니다.", "login");

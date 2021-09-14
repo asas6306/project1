@@ -52,11 +52,11 @@ public class UsrArticleController extends _BaseController {
 		req.setAttribute("searchType", searchType);
 		req.setAttribute("searchKeyword", searchKeyword);
 		
-		// 해당 게시물 수
+		// 페이징을 위한 게시물 수
 		int articlesCnt = as.getArticlesCnt(searchType, searchKeyword, boardCode, articleType);
 		
+		// 페이징
 		if(articlesCnt != 0) {
-			// 페이징
 			int pageCnt = 20;
 			page = ss.page(req, page, pageCnt, articlesCnt);
 			
