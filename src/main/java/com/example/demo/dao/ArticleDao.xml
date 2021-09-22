@@ -65,7 +65,6 @@
 		limit 10
 	</select>
 	
-	
 	<select id="getArticle" resultType="Article">
 		select article.*, `member`.nickname, `board`.boardName, auth.authName from article 
 		left join `member` on 

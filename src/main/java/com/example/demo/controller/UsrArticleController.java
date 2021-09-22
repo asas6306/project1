@@ -60,7 +60,8 @@ public class UsrArticleController extends _BaseController {
 			int pageCnt = 20;
 			page = ss.page(req, page, pageCnt, articlesCnt);
 			
-			List<Article> articles = as.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, 0);
+			List<Article> articles = as.getArticles(searchType, searchKeyword, 
+					boardCode, page, pageCnt, articleType, 0);
 			
 			req.setAttribute("articles", articles);
 			req.setAttribute("boards", ss.getAllBoardInfo(articleType));

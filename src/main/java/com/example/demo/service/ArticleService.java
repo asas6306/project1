@@ -24,13 +24,18 @@ public class ArticleService {
 	@Autowired
 	ReplyService rs;
 	
-	public List<Article> getArticles(String searchType, String searchKeyword, int boardCode, int page, int pageCnt, String articleType, int uid) {
+	public List<Article> getArticles(String searchType, String searchKeyword, 
+			int boardCode, int page, int pageCnt, String articleType, int uid) {
 
-		List<Article> articles = ad.getArticles(searchType, searchKeyword, boardCode, page, pageCnt, articleType, uid);
+		List<Article> articles = ad.getArticles(searchType, searchKeyword, 
+				boardCode, page, pageCnt, articleType, uid);
+		
 		// 게시물 이미지 가져오기
-		List<Integer> aids = articles.stream().map(article -> article.getAid()).collect(Collectors.toList());
+		List<Integer> aids = articles.stream().map(article -> article.getAid())
+				.collect(Collectors.toList());
 		if(!aids.isEmpty()) {
-			Map<Integer, Map<String, GenFile>> filesMap = fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common", "attachment");
+			Map<Integer, Map<String, GenFile>> filesMap = 
+					fs.getFilesMapKeyRelIdAndFileNo("article", aids, "common", "attachment");
 			
 			for(Article article : articles) {
 				Map<String, GenFile> mapByFileNo = filesMap.get(article.getAid());
@@ -38,6 +43,7 @@ public class ArticleService {
 				if (mapByFileNo != null)
 					article.getExtraNotNull().put("file__common__attachment", mapByFileNo);
 			}
+			
 			// 좋아요 및 댓글 수 갖고오기
 			for(Article article : articles) {
 				article.getExtraNotNull().put("replyCnt", rs.getReplyCnt("article", article.getAid()));

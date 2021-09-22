@@ -31,4 +31,10 @@ public class UsrHomeController {
 		
 		return "/usr/home/main";
 	}
+	
+	@RequestMapping("/usr/home/test")
+	public String test(HttpServletRequest req) {
+		
+		return "/usr/home/test";
+	}
 }
